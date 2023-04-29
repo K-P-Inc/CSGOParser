@@ -122,5 +122,5 @@ def parse_stickers_prices(contents):
 
 if __name__ == '__main__':
     load_dotenv()
-    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'stickers', 'skins.json'), 'r') as f:
+    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'stickers', 'skins.json'), 'r', encoding='utf-8') as f:
         parse_stickers_prices(json.loads(f.read()))
