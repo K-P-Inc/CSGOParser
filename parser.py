@@ -1,4 +1,4 @@
-from re import A
+import undetected_chromedriver as uc
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -7,85 +7,102 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 import time
 import datetime
+import os
 import threading
 import traceback
 import pg8000
+import logging
+import sys
+from re import A
+from dotenv import load_dotenv
 
-
-def run_action(quality, type_con):
-    options = webdriver.ChromeOptions()
-
-    options.add_argument('--disable-extensions')
-    options.add_argument("--start-maximized")
-    options.add_argument("--disable-gpu")
-    options.add_argument('--disable-blink-features=AutomationControlled')
-    options.add_experimental_option('excludeSwitches', ['enable-automation'])
-    options.add_experimental_option('useAutomationExtension', False)
-
-    driver = webdriver.Chrome(options=options)
-
-    driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
-        'source': '''
-        delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array
-        delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise
-        delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol
-        '''
-    })
-
-    print(f'[{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] <Thread {quality}> :: Getting connection to database')
-    conn = pg8000.connect(
-        host="localhost",
-        port=54320,
-        database="postgres",
-        user="postgres",
-        password="my_password"
-    )
-    for_replace_front, for_replace_back  = 'background-image: url("https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/', '.png");'
-    cur = conn.cursor()
-    cur.execute('''
-        SELECT name, price, uuid
-        FROM weapon_prices
-        WHERE is_stattrak = %s and quality = %s
-        ORDER BY name
-    ''', (type_con != 'Normal', quality,))
-    weapons = cur.fetchall()
-    weapon_types = ['AWP', 'AK-47', 'GALIL-AR', 'M4A4', 'M4A1-S', 'FAMAS', 'SSG-08', 'SG-553']
-    weapons = [(weapon[0].split(' | ')[0], weapon[0].split(' | ')[1], weapon[1], weapon[2]) for weapon in weapons if weapon[0].split(' | ')[0] in weapon_types]
+def run_action(weapon_type_id):
     try:
-        for weapon_type, weapon_name, actually_price, weapon_uuid in weapons:
-            link = f'https://market.csgo.com/ru/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&quality={quality}&priceMax=1000000&categories=any_stickers&categories={type_con}'
+        database = os.environ.get("POSTGRES_DB")
+        user = os.environ.get("POSTGRES_USER")
+        password = os.environ.get("POSTGRES_PASSWORD")
+        conn = pg8000.connect(
+            host="localhost",
+            port=8080,
+            database=database,
+            user=user,
+            password=password
+        )
+
+        options = uc.ChromeOptions()
+        options.add_argument('--disable-extensions')
+        options.add_argument("--start-maximized")
+        options.add_argument("--disable-gpu")
+        options.add_argument('--headless')
+        options.add_argument("--enable-javascript")
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--disable-blink-features=AutomationControlled')
+
+        driver = uc.Chrome(use_subprocess=True, options=options)
+
+        logging.info(f'Getting connection to database')
+
+        for_replace_front, for_replace_back = 'background-image: url("https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/', '.png");'
+        cur = conn.cursor()
+        cur.execute('''
+            SELECT name, price, quality, is_stattrak, id
+            FROM weapons_prices
+            WHERE price <= 30 and price >= 3
+            ORDER BY name
+        ''')
+        weapons = cur.fetchall()
+
+        cur.execute(f"SELECT price, name, key FROM stickers")
+        stickers = cur.fetchall()
+        stickers_dict = {}
+        for sticker in stickers:
+            key = sticker[2]
+            stickers_dict[key] = sticker
+
+        weapons_prices = {}
+        for weapon in weapons:
+            if weapon_type_id in weapon[0]:
+                key = f'{"StatTrak™ " if weapon[3] == True else ""}{weapon[0]} ({weapon[2]})'
+                weapons_prices[key] = weapon[1]
+
+        weapons = set([(weapon[0].split(' | ')[0], weapon[0].split(' | ')[1], weapon[2], weapon[4]) for weapon in weapons if weapon[0].split(' | ')[0] == weapon_type_id])
+        for weapon_type, weapon_name, weapon_quality, weapon_uuid in weapons:
+            link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers&quality={weapon_quality}'
+            logging.info(f'Working on {weapon_type} | {weapon_name} ({weapon_quality})')
             driver.get(link)
             actions = ActionChains(driver)
             driver.implicitly_wait(20)
+            elements_index = None
             skins_data = []
-            while True:
-                try:
-                    driver.implicitly_wait(3)
-                    driver.find_element(By.XPATH, "//*[text() = 'Ничего не найдено']")
-                    break
-                except NoSuchElementException:
-                    pass
+            try:
                 driver.implicitly_wait(3)
-                item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/ru/Rifle')]")
+                driver.find_element(By.XPATH, "//*[text() = 'Nothing found']")
+                break
+            except NoSuchElementException:
+                pass
+            item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
+
+            logging.info(f'Parsing on {weapon_type} | {weapon_name} ({weapon_quality}) - {len(item_url)}')
+            while len(item_url) != 0 and elements_index != item_url[-1]:
+                elements_index = item_url[-1]
+                logging.info(f'Found more items {weapon_type} | {weapon_name} ({weapon_quality}) - {len(item_url)}')
+
                 for i in item_url:
+                    if len(i.text.splitlines()) <= 2:
+                        continue
+
+                    key_price = max(i.text.splitlines(), key=len)
+
+                    if key_price not in weapons_prices:
+                        continue
+
+                    actually_price = weapons_prices[key_price]
                     sticker_data = i.find_elements(By.XPATH, './/*[starts-with(@class, "stickers")]//*[starts-with(@class, "sticker ")]')
                     sticker_selenium = [b.find_element(By.XPATH, './/*[starts-with(@class, "sticker-img")]').get_attribute('style') for b in sticker_data[0:(len(sticker_data)//2)]]
                     stickers_keys = [sticker.replace(for_replace_front, '').replace(for_replace_back, '').split('.')[0] for sticker in sticker_selenium]
-                    stickers_dict = {}
-                    cur = conn.cursor()
-                    placeholders = ', '.join(['%s'] * len(stickers_keys))
 
                     if len(stickers_keys) == 0:
                         continue
-
-                    cur.execute(f"SELECT price, name, key FROM stickers WHERE key IN ({placeholders})", tuple(stickers_keys))
-                    stickers = cur.fetchall()
-                    if len(stickers) == 0:
-                        continue
-
-                    for sticker in stickers:
-                        key = sticker[2]
-                        stickers_dict[key] = sticker
 
                     all_stickers = [stickers_dict[key] for key in stickers_keys if key in stickers_dict]
 
@@ -102,9 +119,10 @@ def run_action(quality, type_con):
 
                     num_stickers = len(sticker_count)
                     sticker_patern = 'other'
+
                     if num_stickers == 1 and max(sticker_count.values()) == 4:
                         sticker_patern = 'full-set'
-                        sticker_overprice = stickers[0][0] * 0.5
+                        sticker_overprice = all_stickers[0][0] * 0.5
                     elif num_stickers == 2 and max(sticker_count.values()) == 3:
                         sticker_patern = '3-equal'
                         equal_sticker_key = max(sticker_count, key=sticker_count.get)
@@ -130,8 +148,9 @@ def run_action(quality, type_con):
                     sticker_sum = sum([sticker[0] for sticker in all_stickers])
                     stickers_names_string = ', '.join([sticker[1] for sticker in all_stickers])
 
-                    if ((((sticker_overprice + actually_price) - (float(i.text.split()[1]))) *100)/(float(i.text.split()[1]))) > 0:
+                    if ((((sticker_overprice + actually_price) - (float(i.text.split()[1]))) *100)/(float(i.text.split()[1]))) > 10:
                         if i.get_attribute('href') not in skins_data and sticker_sum > 10:
+                            before = time.perf_counter()
                             cur = conn.cursor()
                             query = '''
                                 INSERT INTO skins(
@@ -154,42 +173,53 @@ def run_action(quality, type_con):
                             ))
                             conn.commit()
                             skins_data.append(i.get_attribute('href'))
-                            print(f"\n{i.get_attribute('href')}\n{' '.join(i.text.split()[4:])}: {float(i.text.split()[1]):.2f} $")
-                            print(f"{stickers_names_string}")
-                            print(f"Sum of stickers: {sticker_sum:.2f} $ ")
-                            print(f"Процент потенциальной выручки - {((((sticker_overprice + actually_price) - (float(i.text.split()[1]))) *100)/(float(i.text.split()[1]))):.2f} %")
+                            logging.info(
+                                f"{i.get_attribute('href')}\n{key_price}: {float(i.text.split()[1]):.2f} $\n"
+                                f'Steam item price: {actually_price}\n'
+                                f'Stickers overprice: {sticker_overprice}\n'
+                                f'{stickers_names_string}\n'
+                                f'Sum of stickers: {sticker_sum:.2f} $\n'
+                                f"Процент потенциальной выручки - {((((sticker_overprice + actually_price) - (float(i.text.split()[1]))) *100)/(float(i.text.split()[1]))):.2f} %"
+                            )
 
-                if len(item_url) == 0:
-                    break
+                actions.move_to_element(item_url[-1]).perform()
+                time.sleep(2)
+                item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
 
-                element = item_url[-1]
-                actions.move_to_element(element).perform()
-                if driver.find_elements(By.XPATH, "//a[contains(@href, '/ru/Rifle')]")[-1] == element:
-                    break
+            logging.info(f'Parsed {weapon_type} | {weapon_name} ({weapon_quality})')
         try:
             conn.close()
         except pg8000.Error as e:
             pass
-            time.sleep(15)
     except Exception as ex:
         traceback.print_exc()
-        print(f'Error - {ex}')
+        run_action(weapon_type_id)
     finally:
+        try:
+            conn.close()
+        except pg8000.Error as e:
+            pass
         driver.close()
         driver.quit()
 
-rarity = ['Well-Worn', 'Field-Tested', 'Battle-Scarred', 'Minimal Wear', 'Factory New']
-threads = []
-for i in rarity:
-    for quality in ['Normal', 'StatTrak™']:
-        thread = threading.Thread(target=run_action, args=(i,quality,))
-        threads.append(thread)
 
-# Start the threads
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.DEBUG)
+handler.setFormatter(logging.Formatter('[%(asctime)s] [%(levelname)-7s] %(threadName)-22s :: %(message)s'))
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
+
+weapon_types = ['AWP', 'M4A4', 'M4A1-S', 'AK-47', 'DESERT-EAGLES', 'USP-S', 'GLOCK-18', 'P250']
+load_dotenv()
+threads = []
+for i in weapon_types:
+    thread = threading.Thread(target=run_action, name=f'<Thread {i}>', args=(i,))
+    threads.append(thread)
+
 for thread in threads:
     thread.start()
-    time.sleep(4)
+    time.sleep(1)
 
-# Wait for all threads to finish
 for thread in threads:
     thread.join()
