@@ -31,8 +31,6 @@ CREATE TABLE IF NOT EXISTS weapons_prices (
   price_week_high FLOAT,
   price_month_low FLOAT,
   price_month_high FLOAT,
-  price_year_low FLOAT,
-  price_year_high FLOAT,
   price_all_time_low FLOAT,
   price_all_time_high FLOAT,
   parsing_time TIMESTAMP DEFAULT NOW(),

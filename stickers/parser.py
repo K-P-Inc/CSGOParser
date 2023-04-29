@@ -3,6 +3,7 @@ import threading
 import gc
 import os
 import re
+from tkinter import N
 import traceback
 import pg8000
 import time
@@ -90,16 +91,16 @@ def run_action_id(indexes, contents):
         except pg8000.Error as e:
             pass
         traceback.print_exc()
-        if driver:
-            driver.close()
+        driver.close()
+        driver.quit()
         run_action_id(indexes, contents)
     finally:
         try:
             conn.close()
         except pg8000.Error as e:
             pass
-        if driver:
-            driver.close()
+        driver.close()
+        driver.quit()
 
 def parse_stickers_prices(contents):
     indexes = [range(1 + index * 16, (index + 1) * 16) for index in range(8)]

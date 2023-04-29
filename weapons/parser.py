@@ -110,7 +110,7 @@ def run_action_id(skins):
                 pass
     except Exception as e:
         print(e)
-        if driver:
+        if driver is not None:
             driver.close()
         run_action_id(skins)
     finally:
@@ -119,11 +119,13 @@ def run_action_id(skins):
 
 def parse_skins_prices():
     skins = [
-        ['ak-47', 'famas', 'galil-ar', 'm4a1-s'],
+        ['ak-47', 'famas'],
+        ['galil-ar', 'm4a1-s'],
         ['m4a4', 'sg-553', 'awp'],
         ['g3sg1', 'scar-20', 'ssg-08'],
         ['cz75-auto', 'desert-eagle', 'dual-berettas', 'five-seven'],
-        ['glock-18', 'p2000', 'p250', 'r8-revolver', 'tec-9', 'usp-s'],
+        ['glock-18', 'p2000', 'p250'],
+        ['r8-revolver', 'tec-9', 'usp-s'],
         ['mac-10', 'mp5-sd', 'mp7', 'mp9'],
         ['p90', 'pp-bizon', 'ump-45', 'aug'],
         ['mag-7', 'nova', 'sawed-off', 'xm1014', 'm249', 'negev']
