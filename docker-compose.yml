@@ -15,21 +15,24 @@ services:
     networks:
       - parser_network
 
-  metabase:
-    image: metabase/metabase
+  grafana:
+    image: grafana/grafana
     restart: always
-    environment:
-      MB_DB_TYPE: ${MB_DB_TYPE}
-      MB_DB_DBNAME: ${MB_DB_DBNAME}
-      MB_DB_PORT: ${MB_DB_PORT}
-      MB_DB_USER: ${MB_DB_USER}
-      MB_DB_PASS: ${MB_DB_PASS}
-      MB_JETTY_MAX_THREAD_POOL_SIZE: 10
-      MB_JVM_MAX_HEAP_SIZE: 512m
     ports:
       - "3000:3000"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - GF_AUTH_DISABLE_INITIAL_SETUP=true
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/home.json
+    volumes:
+      - ./grafana/dashboards/home.json:/etc/grafana/provisioning/dashboards/home.json
+      - ./grafana/datasources/:/etc/grafana/provisioning/datasources/
     networks:
       - parser_network
+    depends_on:
+      - db
 
   items:
     build: 
