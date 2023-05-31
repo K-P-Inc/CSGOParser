@@ -16,7 +16,7 @@ import sys
 from re import A
 from dotenv import load_dotenv
 
-def run_action(weapon_type_id):
+def run_action(weapon_type_id, index=0):
     try:
         database = os.environ.get("POSTGRES_DB")
         user = os.environ.get("POSTGRES_USER")
@@ -66,7 +66,7 @@ def run_action(weapon_type_id):
                 weapons_prices[key] = weapon[1]
 
         weapons = set([(weapon[0].split(' | ')[0], weapon[0].split(' | ')[1], weapon[2], weapon[4]) for weapon in weapons if weapon[0].split(' | ')[0] == weapon_type_id])
-        for weapon_type, weapon_name, weapon_quality, weapon_uuid in weapons:
+        for weapon_type, weapon_name, weapon_quality, weapon_uuid in weapons[index:]:
             link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers&quality={weapon_quality}'
             logging.info(f'Working on {weapon_type} | {weapon_name} ({weapon_quality})')
             driver.get(link)
@@ -187,13 +187,14 @@ def run_action(weapon_type_id):
                 item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
 
             logging.info(f'Parsed {weapon_type} | {weapon_name} ({weapon_quality})')
+            index += 1
         try:
             conn.close()
         except pg8000.Error as e:
             pass
     except Exception as ex:
         traceback.print_exc()
-        run_action(weapon_type_id)
+        run_action(weapon_type_id, index)
     finally:
         try:
             conn.close()
