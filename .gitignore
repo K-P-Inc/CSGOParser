@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
-chromedriver.exe
 market_csgo_parser_logs/*
 .hydra/*
->>>>>>> rework_better
+venv/*

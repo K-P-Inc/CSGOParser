@@ -28,7 +28,7 @@ class Driver:
         options.add_argument('--disable-blink-features=AutomationControlled')
 
         logging.info(f'Starting undetected chromedriver')
-        self.driver = uc.Chrome(use_subprocess=True, version_main=110, veroptions=options)
+        self.driver = uc.Chrome(use_subprocess=True, version_main=114, veroptions=options)
 
     def __del__(self):
         self.driver.quit()
