@@ -240,10 +240,13 @@ def run_action(weapon_config, parsed_items=0):
                                 f'Profit: {future_profit_percentages:.2f} %\n\n'
                             )
 
-                actions.move_to_element(driver.find_element(By.XPATH, "//a[contains(@href, '/en/')][last()]")).perform()
-                time.sleep(2)
-                item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
-                logging.info(f'Found {len(item_url)} weapons {weapon_type} | {weapon_name} ({weapon_quality})')
+                try:
+                    actions.move_to_element(driver.find_element(By.XPATH, "//a[contains(@href, '/en/')][last()]")).perform()
+                    time.sleep(2)
+                    item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
+                    logging.info(f'Found {len(item_url)} weapons {weapon_type} | {weapon_name} ({weapon_quality})')
+                except:
+                    continue
 
             logging.info(f'Parsed weapon {weapon_type} | {weapon_name} ({weapon_quality})')
             parsed_items += 1
