@@ -4,42 +4,42 @@ logging_level: INFO
 weapons:
   - type: 'AWP'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
   - type: 'M4A4'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
   - type: 'M4A1-S'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
   - type: 'AK-47'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
   - type: 'Desert Eagle'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
   - type: 'USP-S'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
   - type: 'Glock-18'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
   - type: 'P250'
     min_steam_item_price: 0
-    max_steam_item_price: 30
+    max_steam_item_price: 50
     profit_threshold: 30
 
 hydra:

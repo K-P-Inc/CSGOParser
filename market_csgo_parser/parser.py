@@ -2,6 +2,7 @@ import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import WebDriverException, NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 
 import time
@@ -18,6 +19,7 @@ threadLocal = threading.local()
 
 class Driver:
     def __init__(self):
+        self.driver = None
         options = uc.ChromeOptions()
         options.add_argument('--disable-extensions')
         options.add_argument("--start-maximized")
@@ -31,8 +33,9 @@ class Driver:
         self.driver = uc.Chrome(use_subprocess=True, options=options)
 
     def __del__(self):
-        self.driver.quit()
-        logging.info(f'Сlosed undetected chromedriver')
+        if self.driver:
+            self.driver.quit()
+            logging.info(f'Сlosed undetected chromedriver')
 
     @classmethod
     def create_driver(cls):
@@ -114,6 +117,7 @@ def run_action(weapon_config, parsed_items=0):
             link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers&quality={weapon_quality}'
             logging.info(f'Trying to find on {weapon_type} | {weapon_name} ({weapon_quality})')
             driver.get(link)
+            time.sleep(3)
             driver.implicitly_wait(20)
             elements_index = None
             skins_data = []
@@ -132,8 +136,12 @@ def run_action(weapon_config, parsed_items=0):
             logging.info(f'Parsing weapon {weapon_type} | {weapon_name} ({weapon_quality}), found {len(item_url)} items')
             while len(item_url) != 0 and elements_index != item_url[-1]:
                 elements_index = item_url[-1]
-                for i in item_url:
-                    if i.is_displayed() and len(i.text.splitlines()) <= 2:
+                for index, i in enumerate(item_url):
+                    try:
+                        if i.is_displayed() and len(i.text.splitlines()) <= 2:
+                            continue
+                    except:
+                        i = driver.find_element(By.XPATH, f"//a[contains(@href, '/en/')][{2 + index}]")
                         continue
 
                     key_price = max(i.text.splitlines(), key=len)
@@ -192,7 +200,7 @@ def run_action(weapon_config, parsed_items=0):
 
                     sticker_sum = sum([sticker[0] for sticker in matched_stickers])
                     stickers_names_string = ', '.join([sticker[1] for sticker in matched_stickers])
-                    market_csgo_item_price = float(i.text.split()[1])
+                    market_csgo_item_price = float(i.text.split()[1][1:])
                     market_csgo_item_link = i.get_attribute('href')
                     future_profit_percentages = (sticker_overprice + actually_price - market_csgo_item_price) / market_csgo_item_price * 100
 
@@ -232,7 +240,7 @@ def run_action(weapon_config, parsed_items=0):
                                 f'Profit: {future_profit_percentages:.2f} %\n\n'
                             )
 
-                actions.move_to_element(item_url[-1]).perform()
+                actions.move_to_element(driver.find_element(By.XPATH, "//a[contains(@href, '/en/')][last()]")).perform()
                 time.sleep(2)
                 item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
                 logging.info(f'Found {len(item_url)} weapons {weapon_type} | {weapon_name} ({weapon_quality})')
@@ -245,6 +253,7 @@ def run_action(weapon_config, parsed_items=0):
             pass
     except KeyboardInterrupt:
         logging.info('Closing parsing process (KeyboardInterrupt)')
+        return
     except pg8000.Error or WebDriverException as e:
         logging.error(e)
         run_action(weapon_config, parsed_items)
@@ -260,7 +269,7 @@ def main(cfg: DictConfig):
 
     for thread in threads:
         thread.start()
-        time.sleep(1)
+        time.sleep(2)
 
     for thread in threads:
         thread.join()
