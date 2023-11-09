@@ -101,7 +101,7 @@ def run_action(weapon_config, parsed_items=0):
                     weapons_prices[key] = weapon[1]
 
             weapons = sorted(list(set([
-                (weapon[0].split(' | ')[0], weapon[0].split(' | ')[1], weapon[2], weapon[4]) 
+                (weapon[0].split(' | ')[0], weapon[0].split(' | ')[1], weapon[3], weapon[2], weapon[4])
                 for weapon in weapons
                 if weapon[0].split(' | ')[0] == weapon_config.type
             ])))
@@ -115,16 +115,15 @@ def run_action(weapon_config, parsed_items=0):
             logging.info(f'Fetched {len(weapons)} skins from database')
             time.sleep(1)
 
-        for weapon_type, weapon_name, weapon_quality, weapon_uuid in weapons:
-            link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers&quality={weapon_quality}'
-            logging.info(f'Trying to find on {weapon_type} | {weapon_name} ({weapon_quality})')
+        for weapon_type, weapon_name, weapon_is_stattrak, weapon_quality, weapon_uuid in weapons:
+            link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%2r0%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers{"&categories=StatTrak™" if weapon_is_stattrak == True else "&categories=Normal"}&quality={weapon_quality}'
+            display_name = f'{"StatTrak™ " if weapon_is_stattrak == True else ""}{weapon_type} | {weapon_name} ({weapon_quality})'
             driver.get(link)
-            time.sleep(3)
             driver.implicitly_wait(20)
             elements_index = None
             skins_data = []
             try:
-                driver.implicitly_wait(3)
+                driver.implicitly_wait(10)
                 driver.find_element(By.XPATH, "//*[text() = 'Nothing found']")
                 break
             except NoSuchElementException:
@@ -132,12 +131,12 @@ def run_action(weapon_config, parsed_items=0):
             item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
 
             if len(item_url) == 0:
-                logging.info(f'No weapons found {weapon_type} | {weapon_name} ({weapon_quality})')
+                logging.info(f'No weapons found {display_name}')
                 continue
 
-            logging.info(f'Parsing weapon {weapon_type} | {weapon_name} ({weapon_quality})')
+            logging.info(f'Parsing weapon {display_name}')
             while len(item_url) != 0 and elements_index != item_url[-1]:
-                logging.info(f'Found {len(item_url)} weapons {weapon_type} | {weapon_name} ({weapon_quality})')
+                logging.info(f'Found {len(item_url)} weapons {display_name}')
                 elements_index = item_url[-1]
                 for index, i in enumerate(item_url):
                     try:
@@ -254,7 +253,7 @@ def run_action(weapon_config, parsed_items=0):
                 except:
                     continue
 
-            logging.info(f'Parsed weapon {weapon_type} | {weapon_name} ({weapon_quality})')
+            logging.info(f'Parsed weapon {display_name}')
             parsed_items += 1
         try:
             conn.close()

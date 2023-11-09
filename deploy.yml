@@ -5,15 +5,11 @@
   gather_facts: true
 
   vars:
-    arm_arch: true
     weapon_types:
       - AWP
       - AK-47
       - M4A4
       - M4A1-S
-      - Desert Eagle
-      - P250
-      - USP-S
 
   tasks:
     - name: Set arm_arch based on architecture
@@ -24,6 +20,6 @@
         src: docker-compose.yml.j2
         dest: ./docker-compose.yml
     - name: Run docker-compose
-      command: docker-compose up -d --build
+      command: docker-compose up -d --build --force-recreate
       args:
         chdir: .
