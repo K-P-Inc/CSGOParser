@@ -116,18 +116,20 @@ def run_action(weapon_config, parsed_items=0):
             time.sleep(1)
 
         for weapon_type, weapon_name, weapon_is_stattrak, weapon_quality, weapon_uuid in weapons:
-            link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%2r0%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers{"&categories=StatTrak™" if weapon_is_stattrak == True else "&categories=Normal"}&quality={weapon_quality}'
+            link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers{"&categories=StatTrak™" if weapon_is_stattrak == True else "&categories=Normal"}&quality={weapon_quality}'
             display_name = f'{"StatTrak™ " if weapon_is_stattrak == True else ""}{weapon_type} | {weapon_name} ({weapon_quality})'
             driver.get(link)
             driver.implicitly_wait(20)
             elements_index = None
             skins_data = []
             try:
-                driver.implicitly_wait(3)
+                driver.implicitly_wait(5)
                 driver.find_element(By.XPATH, "//*[text() = 'Nothing found']")
                 break
             except NoSuchElementException:
                 pass
+
+            driver.implicitly_wait(10)
             item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
 
             if len(item_url) == 0:
