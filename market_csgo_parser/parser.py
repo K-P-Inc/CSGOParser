@@ -123,7 +123,7 @@ def run_action(weapon_config, parsed_items=0):
             elements_index = None
             skins_data = []
             try:
-                driver.implicitly_wait(10)
+                driver.implicitly_wait(3)
                 driver.find_element(By.XPATH, "//*[text() = 'Nothing found']")
                 break
             except NoSuchElementException:
