@@ -1,10 +1,3 @@
-import undetected_chromedriver as uc
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.common.exceptions import WebDriverException, NoSuchElementException
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.common.action_chains import ActionChains
-
 import time
 import os
 import threading
@@ -14,39 +7,42 @@ import hydra
 from omegaconf import DictConfig
 from re import A
 from dotenv import load_dotenv
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import WebDriverException, NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver import ChromeOptions, Remote
 
 threadLocal = threading.local()
 
 class Driver:
     def __init__(self):
         self.driver = None
-        options = uc.ChromeOptions()
-        options.add_argument('--disable-extensions')
-        options.add_argument("--start-maximized")
-        options.add_argument("--disable-gpu")
-        options.add_argument('--headless')
-        options.add_argument("--enable-javascript")
+
+        options = ChromeOptions()
+        options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--disable-blink-features=AutomationControlled')
+        options.add_argument("--enable-javascript")
+
+        # Set Chrome to automatically download files to the specified directory and disable the pdfjs viewer
+        options.add_experimental_option(
+            "prefs",
+                {
+                    "download.default_directory": "/home/seluser/Downloads",  # Set download directory.
+                    "download.prompt_for_download": False,  # Automatically download files without prompting.
+                    "download.directory_upgrade": True,  # Use the specified download directory.
+                    "plugins.always_open_pdf_externally": True,  # Automatically open PDFs.
+                    "pdfjs.disabled": True  # Disable the internal PDF viewer.
+                },
+        )
 
         logging.info(f'Starting undetected chromedriver')
-        self.driver = uc.Chrome(use_subprocess=True, options=options)
+        self.driver = Remote(options=options, command_executor="http://seleniarm-hub:4444/wd/hub")
+
 
     def __del__(self):
         if self.driver:
             self.driver.quit()
             logging.info(f'Сlosed undetected chromedriver')
-
-    @classmethod
-    def create_driver(cls):
-        the_driver = getattr(threadLocal, 'the_driver', None)
-        if the_driver is None:
-            logging.info('Creating new driver')
-            the_driver = cls()
-            threadLocal.the_driver = the_driver
-        driver = the_driver.driver
-        the_driver = None
-        return driver
 
 
 def repo_path():
@@ -59,15 +55,15 @@ def run_action(weapon_config, parsed_items=0):
         user = os.environ.get("POSTGRES_USER")
         password = os.environ.get("POSTGRES_PASSWORD")
         conn = pg8000.connect(
-            host="localhost",
-            port=8080,
+            host="db",
             database=database,
             user=user,
             password=password
         )
         logging.info(f'Connected to database')
 
-        driver = Driver.create_driver()
+        driver_class = Driver()
+        driver = driver_class.driver
         actions = ActionChains(driver)
 
         logging.info(f'Undetected chromedriver started')
@@ -76,42 +72,48 @@ def run_action(weapon_config, parsed_items=0):
 
         cur = conn.cursor()
 
-        logging.info('Getting stickers from database for keys')
-        cur.execute('SELECT price, name, key FROM stickers')
-        stickers = cur.fetchall()
         stickers_dict = {}
-        for sticker in stickers:
-            key = sticker[2]
-            stickers_dict[key] = sticker
-        logging.info(f'Fetched {len(stickers_dict)} stickers')
+        while len(stickers_dict) == 0:
+            logging.info('Getting stickers from database for keys')
+            cur.execute('SELECT price, name, key FROM stickers')
+            stickers = cur.fetchall()
+            for sticker in stickers:
+                key = sticker[2]
+                stickers_dict[key] = sticker
+            logging.info(f'Fetched {len(stickers_dict)} stickers')
+            time.sleep(1)
 
-        logging.info('Getting skins from database')
-        cur.execute('''
-            SELECT name, price, quality, is_stattrak, id
-            FROM weapons_prices
-            WHERE price >= %s and price <= %s
-            ORDER BY name
-        ''', (weapon_config.min_steam_item_price, weapon_config.max_steam_item_price,))
-        weapons = cur.fetchall()
-        weapons_prices = {}
-        for weapon in weapons:
-            if weapon_config.type in weapon[0]:
-                key = f'{"StatTrak™ " if weapon[3] == True else ""}{weapon[0]} ({weapon[2]})'
-                weapons_prices[key] = weapon[1]
+        weapons = []
+        while len(weapons) == 0:
+            logging.info('Getting skins from database')
+            cur.execute('''
+                SELECT name, price, quality, is_stattrak, id
+                FROM weapons_prices
+                WHERE price >= %s and price <= %s
+                ORDER BY name
+            ''', (weapon_config.min_steam_item_price, weapon_config.max_steam_item_price,))
 
-        weapons = sorted(list(set([
-            (weapon[0].split(' | ')[0], weapon[0].split(' | ')[1], weapon[2], weapon[4]) 
-            for weapon in weapons
-            if weapon[0].split(' | ')[0] == weapon_config.type
-        ])))
+            weapons = cur.fetchall()
+            weapons_prices = {}
+            for weapon in weapons:
+                if weapon_config.type in weapon[0]:
+                    key = f'{"StatTrak™ " if weapon[3] == True else ""}{weapon[0]} ({weapon[2]})'
+                    weapons_prices[key] = weapon[1]
 
-        if len(weapons) != parsed_items:
-            weapon = weapon[parsed_items:]
-        else:
-            logging.info(f'All items parsed, reseting parsed items counter')
-            parsed_items = 0
+            weapons = sorted(list(set([
+                (weapon[0].split(' | ')[0], weapon[0].split(' | ')[1], weapon[2], weapon[4]) 
+                for weapon in weapons
+                if weapon[0].split(' | ')[0] == weapon_config.type
+            ])))
 
-        logging.info(f'Fetched {len(weapons)} skins from database')
+            if len(weapons) != parsed_items:
+                weapon = weapon[parsed_items:]
+            else:
+                logging.info(f'All items parsed, reseting parsed items counter')
+                parsed_items = 0
+
+            logging.info(f'Fetched {len(weapons)} skins from database')
+            time.sleep(1)
 
         for weapon_type, weapon_name, weapon_quality, weapon_uuid in weapons:
             link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers&quality={weapon_quality}'
@@ -133,16 +135,21 @@ def run_action(weapon_config, parsed_items=0):
                 logging.info(f'No weapons found {weapon_type} | {weapon_name} ({weapon_quality})')
                 continue
 
-            logging.info(f'Parsing weapon {weapon_type} | {weapon_name} ({weapon_quality}), found {len(item_url)} items')
+            logging.info(f'Parsing weapon {weapon_type} | {weapon_name} ({weapon_quality})')
             while len(item_url) != 0 and elements_index != item_url[-1]:
+                logging.info(f'Found {len(item_url)} weapons {weapon_type} | {weapon_name} ({weapon_quality})')
                 elements_index = item_url[-1]
                 for index, i in enumerate(item_url):
                     try:
                         if i.is_displayed() and len(i.text.splitlines()) <= 2:
                             continue
-                    except:
-                        i = driver.find_element(By.XPATH, f"//a[contains(@href, '/en/')][{2 + index}]")
-                        continue
+                    except WebDriverException:
+                        try:
+                            i = driver.find_element(By.XPATH, f"//a[contains(@href, '/en/')][{2 + index}]")
+                            if index == len(item_url) - 1:
+                                elements_index = i
+                        except NoSuchElementException:
+                            continue
 
                     key_price = max(i.text.splitlines(), key=len)
 
@@ -243,8 +250,7 @@ def run_action(weapon_config, parsed_items=0):
                 try:
                     actions.move_to_element(driver.find_element(By.XPATH, "//a[contains(@href, '/en/')][last()]")).perform()
                     time.sleep(2)
-                    item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
-                    logging.info(f'Found {len(item_url)} weapons {weapon_type} | {weapon_name} ({weapon_quality})')
+                    item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[len(item_url) + 2:]
                 except:
                     continue
 
@@ -263,19 +269,19 @@ def run_action(weapon_config, parsed_items=0):
     finally:
         logging.info('End parsing process')
 
-@hydra.main(config_path=f'{repo_path()}/conf', config_name='market_csgo_parser')
+@hydra.main(config_path=f'/app/conf', config_name='market_csgo_parser')
 def main(cfg: DictConfig):
-    threads = []
-    for weapon in cfg.weapons:
-        thread = threading.Thread(target=run_action, name=f'<Thread {weapon.type}>', args=(weapon,))
-        threads.append(thread)
+    while True:
+        weapon_type = os.environ.get("WEAPON_TYPE")
+        weapon = next((w for w in cfg.weapons if w.type == weapon_type), None)
 
-    for thread in threads:
-        thread.start()
-        time.sleep(2)
+        if weapon is not None:
+            run_action(weapon)
+        else:
+            print("Weapon not found.")
 
-    for thread in threads:
-        thread.join()
+        time.sleep(1)
+
 
 
 if __name__ == "__main__":

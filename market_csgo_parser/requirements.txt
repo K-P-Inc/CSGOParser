@@ -1,0 +1,8 @@
+hydra-core
+selenium==4.10.0
+undetected-chromedriver
+selenium_stealth
+2captcha-python
+omegaconf
+python-dotenv
+pg8000
