@@ -2,6 +2,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS stickers (
     id uuid DEFAULT uuid_generate_v4 (),
+    classid TEXT,
     name TEXT,
     key TEXT,
     price FLOAT,

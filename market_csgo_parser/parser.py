@@ -4,6 +4,7 @@ import threading
 import pg8000
 import logging
 import hydra
+from urllib.parse import quote
 from omegaconf import DictConfig
 from re import A
 from dotenv import load_dotenv
@@ -12,7 +13,7 @@ from selenium.common.exceptions import WebDriverException, NoSuchElementExceptio
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver import ChromeOptions, Remote
 
-threadLocal = threading.local()
+parsed_items = 0
 
 class Driver:
     def __init__(self):
@@ -48,7 +49,7 @@ class Driver:
 def repo_path():
     return os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-def run_action(weapon_config, parsed_items=0):
+def run_action(weapon_config):
     try:
         logging.info(f'Getting connection to database')
         database = os.environ.get("POSTGRES_DB")
@@ -61,6 +62,8 @@ def run_action(weapon_config, parsed_items=0):
             password=password
         )
         logging.info(f'Connected to database')
+
+        global parsed_items
 
         driver_class = Driver()
         driver = driver_class.driver
@@ -85,7 +88,7 @@ def run_action(weapon_config, parsed_items=0):
 
         weapons = []
         while len(weapons) == 0:
-            logging.info('Getting skins from database')
+            logging.info(f'Getting skins from database, already parsed {parsed_items}')
             cur.execute('''
                 SELECT name, price, quality, is_stattrak, id
                 FROM weapons_prices
@@ -107,7 +110,7 @@ def run_action(weapon_config, parsed_items=0):
             ])))
 
             if len(weapons) != parsed_items:
-                weapon = weapon[parsed_items:]
+                weapons = weapons[parsed_items:]
             else:
                 logging.info(f'All items parsed, reseting parsed items counter')
                 parsed_items = 0
@@ -116,25 +119,22 @@ def run_action(weapon_config, parsed_items=0):
             time.sleep(1)
 
         for weapon_type, weapon_name, weapon_is_stattrak, weapon_quality, weapon_uuid in weapons:
-            link = f'https://market.csgo.com/en/?sort=price&order=asc&search={weapon_type}%20%7C%20{weapon_name}%20&priceMax=1000000&categories=any_stickers{"&categories=StatTrak™" if weapon_is_stattrak == True else "&categories=Normal"}&quality={weapon_quality}'
+            link = f'https://market.csgo.com/en/?sort=price&order=asc&search={quote(weapon_type)}%20%7C%20{quote(weapon_name)}%20&priceMax=1000000&categories=any_stickers{"&categories=StatTrak™" if weapon_is_stattrak == True else "&categories=Normal"}&quality={quote(weapon_quality)}'
             display_name = f'{"StatTrak™ " if weapon_is_stattrak == True else ""}{weapon_type} | {weapon_name} ({weapon_quality})'
+            logging.info(f'Trying to find {display_name}')
             driver.get(link)
-            driver.implicitly_wait(20)
+            time.sleep(8)
             elements_index = None
             skins_data = []
-            try:
-                driver.implicitly_wait(5)
-                driver.find_element(By.XPATH, "//*[text() = 'Nothing found']")
-                break
-            except NoSuchElementException:
-                pass
 
             driver.implicitly_wait(10)
             item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[2:]
 
             if len(item_url) == 0:
-                logging.info(f'No weapons found {display_name}')
+                logging.info(f'No weapons found for {display_name}')
                 continue
+
+            driver.implicitly_wait(5)
 
             logging.info(f'Parsing weapon {display_name}')
             while len(item_url) != 0 and elements_index != item_url[-1]:
@@ -146,21 +146,29 @@ def run_action(weapon_config, parsed_items=0):
                             continue
                     except WebDriverException:
                         try:
-                            i = driver.find_element(By.XPATH, f"//a[contains(@href, '/en/')][{2 + index}]")
                             if index == len(item_url) - 1:
+                                i = driver.find_element(By.XPATH, f"//a[contains(@href, '/en/')][{2 + index}]")
                                 elements_index = i
+                            else:
+                                continue
                         except NoSuchElementException:
                             continue
 
-                    key_price = max(i.text.splitlines(), key=len)
-
-                    if key_price not in weapons_prices:
+                    try:
+                        key_price = max(i.text.splitlines(), key=len)
+                        if key_price not in weapons_prices:
+                            continue
+                        market_csgo_item_price = float(i.text.split()[1][1:])
+                        market_csgo_item_link = i.get_attribute('href')
+                        sticker_data = i.find_elements(By.XPATH, './/*[starts-with(@class, "stickers")]//*[starts-with(@class, "sticker ")]//*[starts-with(@class, "sticker-img")]')
+                        stickers_keys = [
+                            sticker.get_attribute('style').replace(for_replace_front, '').replace(for_replace_back, '').split('.')[0]
+                            for sticker in sticker_data[0:(len(sticker_data)//2)]
+                        ]
+                    except:
                         continue
 
                     actually_price = weapons_prices[key_price]
-                    sticker_data = i.find_elements(By.XPATH, './/*[starts-with(@class, "stickers")]//*[starts-with(@class, "sticker ")]')
-                    sticker_selenium = [b.find_element(By.XPATH, './/*[starts-with(@class, "sticker-img")]').get_attribute('style') for b in sticker_data[0:(len(sticker_data)//2)]]
-                    stickers_keys = [sticker.replace(for_replace_front, '').replace(for_replace_back, '').split('.')[0] for sticker in sticker_selenium]
 
                     if len(stickers_keys) == 0:
                         continue
@@ -208,50 +216,48 @@ def run_action(weapon_config, parsed_items=0):
 
                     sticker_sum = sum([sticker[0] for sticker in matched_stickers])
                     stickers_names_string = ', '.join([sticker[1] for sticker in matched_stickers])
-                    market_csgo_item_price = float(i.text.split()[1][1:])
-                    market_csgo_item_link = i.get_attribute('href')
                     future_profit_percentages = (sticker_overprice + actually_price - market_csgo_item_price) / market_csgo_item_price * 100
 
-                    if future_profit_percentages > 10:
-                        if market_csgo_item_link not in skins_data and sticker_sum > weapon_config.profit_threshold:
-                            cur = conn.cursor()
-                            query = '''
-                                INSERT INTO skins(
-                                    link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers
-                                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                                ON CONFLICT (link) DO UPDATE SET
-                                stickers_price = EXCLUDED.stickers_price,
-                                price = EXCLUDED.price,
-                                profit = EXCLUDED.profit,
-                                skin_id = EXCLUDED.skin_id,
-                                stickers_patern = EXCLUDED.stickers_patern,
-                                amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
-                                amount_of_stickers = EXCLUDED.amount_of_stickers
-                            '''
-                            cur.execute(query, (
-                                market_csgo_item_link,
-                                sticker_sum, market_csgo_item_price,
-                                future_profit_percentages,
-                                weapon_uuid, sticker_patern, num_stickers, len(matched_stickers)
-                            ))
-                            conn.commit()
-                            cur.close()
-                            skins_data.append(market_csgo_item_link)
-                            logging.info(
-                                f'Found new item:\n\n'
-                                f'Link: {market_csgo_item_link}\n'
-                                f'Name - price: {key_price} - {market_csgo_item_price:.2f} $\n'
-                                f'Steam item price: {actually_price} $\n'
-                                f'Found stickers: {stickers_names_string}\n'
-                                f'Total stickers price: {sticker_sum:.2f} $, parsed stickers: {len(matched_stickers)}/{len(stickers_keys)}, stickers pattern: {sticker_patern}\n'
-                                f'Stickers overprice: {sticker_overprice} $\n'
-                                f'Profit: {future_profit_percentages:.2f} %\n\n'
-                            )
+                    if market_csgo_item_link not in skins_data and future_profit_percentages > weapon_config.profit_threshold and sticker_sum > weapon_config.sticker_sum:
+                        cur = conn.cursor()
+                        query = '''
+                            INSERT INTO skins(
+                                link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers
+                            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                            ON CONFLICT (link) DO UPDATE SET
+                            stickers_price = EXCLUDED.stickers_price,
+                            price = EXCLUDED.price,
+                            profit = EXCLUDED.profit,
+                            skin_id = EXCLUDED.skin_id,
+                            stickers_patern = EXCLUDED.stickers_patern,
+                            amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
+                            amount_of_stickers = EXCLUDED.amount_of_stickers
+                        '''
+                        cur.execute(query, (
+                            market_csgo_item_link,
+                            sticker_sum, market_csgo_item_price,
+                            future_profit_percentages,
+                            weapon_uuid, sticker_patern, num_stickers, len(matched_stickers)
+                        ))
+                        conn.commit()
+                        cur.close()
+                        skins_data.append(market_csgo_item_link)
+                        logging.info(
+                            f'Found new item:\n\n'
+                            f'Link: {market_csgo_item_link}\n'
+                            f'Name - price: {key_price} - {market_csgo_item_price:.2f} $\n'
+                            f'Steam item price: {actually_price} $\n'
+                            f'Found stickers: {stickers_names_string}\n'
+                            f'Total stickers price: {sticker_sum:.2f} $, parsed stickers: {len(matched_stickers)}/{len(stickers_keys)}, stickers pattern: {sticker_patern}\n'
+                            f'Stickers overprice: {sticker_overprice} $\n'
+                            f'Profit: {future_profit_percentages:.2f} %\n\n'
+                        )
 
                 try:
-                    actions.move_to_element(driver.find_element(By.XPATH, "//a[contains(@href, '/en/')][last()]")).perform()
-                    time.sleep(2)
-                    item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[len(item_url) + 2:]
+                    if len(item_url) == 83:
+                        actions.move_to_element(driver.find_element(By.XPATH, "//a[contains(@href, '/en/')][last()]")).perform()
+                        time.sleep(4)
+                        item_url = driver.find_elements(By.XPATH, "//a[contains(@href, '/en/')]")[len(item_url) + 2:]
                 except:
                     continue
 
@@ -264,9 +270,10 @@ def run_action(weapon_config, parsed_items=0):
     except KeyboardInterrupt:
         logging.info('Closing parsing process (KeyboardInterrupt)')
         return
-    except pg8000.Error or WebDriverException as e:
-        logging.error(e)
-        run_action(weapon_config, parsed_items)
+    except Exception as e:
+        logging.error(f'Got exception: {e}')
+        run_action(weapon_config)
+        parsed_items += 1
     finally:
         logging.info('End parsing process')
 

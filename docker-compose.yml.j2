@@ -6,6 +6,7 @@ x-db-credentials: &db_credentials
   POSTGRES_DB: ${POSTGRES_DB}
 
 x-market_csgo_parser_service: &market_csgo_parser_service
+  image: market_csgo_parser_service
   build:
     context: .
     dockerfile: ./market_csgo_parser/Dockerfile
@@ -42,7 +43,7 @@ services:
     image: grafana/grafana
     restart: always
     ports:
-      - "3000:3000"
+      - "1234:3000"
     environment:
       <<: *db_credentials
       GF_AUTH_DISABLE_INITIAL_SETUP: true
