@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS weapons_prices (
   price_all_time_low FLOAT,
   price_all_time_high FLOAT,
   parsing_time TIMESTAMP DEFAULT NOW(),
+  icon_url TEXT,
   PRIMARY KEY (id)
 );
 

@@ -1,0 +1,18 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #262626; /* Цвет фона темной темы */
+    color: #fff; /* Цвет текста */
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+}

@@ -1,0 +1,35 @@
+/* sidebar.css */
+  
+.menu-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #4caf50;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: #45a049;
+}
+
+.menu-item.active {
+  background-color: #0fd516;
+}
+
+.sidebar {
+  min-width: min-content;
+  padding: 12px;
+  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  display: flex;
+}
+
+.logout-btn {
+  border-radius: 4px;
+  margin-top: 20px;
+  background-color: #f00;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}

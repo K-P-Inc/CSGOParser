@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #262626; /* Цвет фона темной темы */
+    color: #fff; /* Цвет текста */
+    margin: 0;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container {
+    margin-top: 10%; 
+    margin-left: 35%;
+    max-height: 225px;
+    background-color: #363636; /* Цвет фона контейнера */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #555; /* Цвет границы инпута */
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #333; /* Цвет фона инпута */
+    color: #fff; /* Цвет текста инпута */
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

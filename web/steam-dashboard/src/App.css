@@ -1,0 +1,10 @@
+/* App.css */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+} 
