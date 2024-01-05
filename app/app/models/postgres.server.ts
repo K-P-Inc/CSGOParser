@@ -1,7 +1,7 @@
 import pg from 'pg';
 const { Client } = pg;
 
-export class RDSClient {
+class RDSClient {
   private client?: pg.Client;
   private inited: boolean = false;
 
@@ -9,11 +9,11 @@ export class RDSClient {
 
   async setup() {
     this.client = new Client({
-        host: "192.168.1.5",
+        host: "db",
         user: "postgres",
         database: "postgres",
         password: "superbotparser",
-        port: 8080
+        port: 5432
     });
     await this.client.connect();
     // and never end client??
@@ -62,3 +62,5 @@ export class RDSClient {
   }
 
 }
+
+export const rdsClient = new RDSClient();

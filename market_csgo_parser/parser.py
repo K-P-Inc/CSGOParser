@@ -78,7 +78,7 @@ def run_action(weapon_config):
         stickers_dict = {}
         while len(stickers_dict) == 0:
             logging.info('Getting stickers from database for keys')
-            cur.execute('SELECT price, name, key FROM stickers')
+            cur.execute('SELECT price, name, key, id FROM stickers')
             stickers = cur.fetchall()
             for sticker in stickers:
                 key = sticker[2]
@@ -222,8 +222,8 @@ def run_action(weapon_config):
                         cur = conn.cursor()
                         query = '''
                             INSERT INTO skins(
-                                link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers
-                            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                                link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers, stickers
+                            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                             ON CONFLICT (link) DO UPDATE SET
                             stickers_price = EXCLUDED.stickers_price,
                             price = EXCLUDED.price,
@@ -231,13 +231,15 @@ def run_action(weapon_config):
                             skin_id = EXCLUDED.skin_id,
                             stickers_patern = EXCLUDED.stickers_patern,
                             amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
-                            amount_of_stickers = EXCLUDED.amount_of_stickers
+                            amount_of_stickers = EXCLUDED.amount_of_stickers,
+                            stickers = EXCLUDED.stickers
                         '''
                         cur.execute(query, (
                             market_csgo_item_link,
                             sticker_sum, market_csgo_item_price,
                             future_profit_percentages,
-                            weapon_uuid, sticker_patern, num_stickers, len(matched_stickers)
+                            weapon_uuid, sticker_patern, num_stickers, len(matched_stickers),
+                            [sticker[3] for sticker in matched_stickers]
                         ))
                         conn.commit()
                         cur.close()

@@ -68,6 +68,22 @@ services:
     networks:
       - parser_network
 
+  dashboard:
+    container_name: web-dashboard
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    environment:
+      <<: *db_credentials
+    depends_on:
+      - db
+    ports:
+      - "5555:3000"
+    networks:
+      - parser_network
+    volumes:
+      - ./app/app/:/app/app/
+
   seleniarm-chrome-node:
     deploy:
       replicas: {{ weapon_types | length }}

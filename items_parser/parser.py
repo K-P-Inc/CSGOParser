@@ -71,8 +71,8 @@ if __name__ == '__main__':
             elif "sticker" in item and "price" in item:
                 cur = conn.cursor()
                 query = '''
-                    INSERT INTO stickers(classid, name, key, price, type, rare, collection)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO stickers(classid, name, key, price, type, rare, collection, icon_url)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (name) 
                     DO UPDATE SET price = EXCLUDED.price, classid = EXCLUDED.classid
                 '''
@@ -95,7 +95,8 @@ if __name__ == '__main__':
                         name,
                         key_sticker,
                         price,
-                        "", item["rarity"], ""
+                        "", item["rarity"], "",
+                        item["icon_url"]
                     ))
 
                     conn.commit()

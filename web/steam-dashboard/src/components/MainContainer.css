@@ -1,8 +1,0 @@
-.main-container {
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: auto;
-    display: flex;
-    flex-wrap: wrap;
-}

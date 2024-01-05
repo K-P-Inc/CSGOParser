@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS stickers (
     rare TEXT,
     type TEXT,
     collection TEXT,
+    icon_url TEXT,
     PRIMARY KEY (id)
 );
 
@@ -58,6 +59,7 @@ CREATE TABLE IF NOT EXISTS skins (
   stickers_patern weapon_stickers_patern,
   amount_of_stickers_distinct INTEGER,
   amount_of_stickers INTEGER,
+  stickers uuid[],
   FOREIGN KEY (skin_id) REFERENCES weapons_prices (id)
 );
 

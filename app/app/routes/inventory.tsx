@@ -1,12 +1,28 @@
-import { useLoaderData } from "@remix-run/react";
-import { RDSClient } from "~/models/postgres.server";
-import PriceFilter from './filter';
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { Form, json, useActionData, useLoaderData, useSubmit } from "@remix-run/react";
+import ItemCard from "~/components/shared/ItemCard";
+import { rdsClient } from "~/models/postgres.server";
+import { SkinItem } from "~/types";
 
-export async function loader() {
-  const postgresClient = new RDSClient();
-  let items = await postgresClient.query(
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select"
+import { Switch } from "~/components/ui/switch";
+import { Label } from "~/components/ui/label";
+import { Input } from "~/components/ui/input";
+import { Button } from "~/components/ui/button";
+import { useRef } from "react";
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const items = await rdsClient.query(
     `
-        SELECT
+      SELECT distinct on (skins.id)
         weapons_prices.name,
         weapons_prices.is_stattrak,
         weapons_prices.quality,
@@ -15,93 +31,122 @@ export async function loader() {
         weapons_prices.icon_url,
         skins.stickers_price,
         skins.profit,
-        skins.link
-        FROM skins
-        INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+        skins.link,
+        skins.stickers,
+        array_to_json(array_agg(row_to_json(t)) over ( partition by skins.id )) as stickers_array
+      FROM skins
+      INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+      LEFT JOIN stickers t on t.id = any (skins.stickers)
     `
   );
 
-  return items
+  const url = new URL(request.url);
+  const is_stattrak = url.searchParams.get("is_stattrak");
+  const weapon_type = url.searchParams.get("weapon_type");
+  const sort_by = url.searchParams.get("sort_by");
+
+  const filtered_items: SkinItem[] | null = items
     ? items.map((row) => ({
         name: `${row["is_stattrak"] ? "StatTrak™ " : ""}${row["name"]}`,
+        type: `${row["name"].split(" ")[0]}`,
+        is_stattrak: row["is_stattrak"],
         quality: `${row["quality"]}`,
-        market_price: `${row["market_price"]}$`,
-        steam_price: `${row["steam_price"]}$`,
+        market_price: row["market_price"],
+        steam_price: row["steam_price"],
         image: `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
         stickers_price: `${row["stickers_price"]}`,
-        profit: `${row["profit"]}`,
+        profit: row["profit"],
         link: `${row["link"]}`,
-      }))
-    : null;
+        stickers_instances: row["stickers_array"],
+        stickers_icons: row["stickers"].map((stc: string) => {
+          const stc_instance = row["stickers_array"].find((ins: any) => ins["id"] === stc)
+          return `https://community.akamai.steamstatic.com/economy/image/${stc_instance["icon_url"]}`
+      })
+    }))
+      .filter((skin: SkinItem) => is_stattrak === "on" ? skin.is_stattrak === true : true)
+      .filter((skin: SkinItem) => weapon_type ? skin.name.toLowerCase().includes(weapon_type.toLowerCase()) : true)
+      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "profit_high_to_low" ? b.profit - a.profit : 0 })
+      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "profit_low_to_high" ? a.profit - b.profit : 0 })
+      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "price_high_to_low" ? b.market_price - a.market_price : 0 })
+      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "price_low_to_high" ? a.market_price - b.market_price : 0 })
+    : null
+
+
+  return json({
+    items: filtered_items,
+    is_stattrak: is_stattrak !== null,
+    weapon_type: weapon_type,
+    sort_by: sort_by,
+  });
 }
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>();
+  const submit = useSubmit();
+  const { items, is_stattrak, weapon_type, sort_by } = useLoaderData<typeof loader>();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const inventoryItemStyle = {
-    width: "200px", // Increase the maximum width
-    height: "420px",
-    backgroundColor: "#363636",
-    color: "#fff",
-    padding: "10px",
-    margin: "10px",
-    borderRadius: "4px",
-    textAlign: "center" as const,
-    // flex: "0 1 calc(25% - 20px)",
-    boxSizing: "border-box" as const,
-    border: "1px solid #4caf50",
-    marginRight: "10px",
-    marginLeft: "10px",
-  };
+  const handleSubmit = ({ sort_by, weapon_type, is_stattrak } : { sort_by?: string, weapon_type?: string, is_stattrak?: boolean }) => {
+    const formData = new FormData(formRef.current ?? undefined)
 
-  const imgStyle = {
-    maxWidth: "100%",
-    height: "auto",
-    borderRadius: "4px",
-    marginBottom: "5px",
-  };
+    console.log(is_stattrak)
+    if (sort_by) {
+      formData.set("sort_by", sort_by)
+    }
+    if (weapon_type) {
+      formData.set("weapon_type", weapon_type)
+    }
+    if (is_stattrak == true) {
+      formData.set("is_stattrak", "on")
+    } else if (is_stattrak == false) {
+      formData.delete("is_stattrak")
+    }
 
-  const pStyle = {
-    marginBlockStart: "1em",
-    marginBlockEnd: "1em",
-    marginInlineStart: "0px",
-    marginInlineEnd: "0px",
-    fontSize: "14px",
-    lineHeight: "16px"
-  };
-
-  const buttonStyle = {
-    padding: "5px 10px",
-    backgroundColor: "#4caf50",
-    color: "#fff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  };
-
-  const openLink = (link: string) => {
-    window.open(link, "_blank");
-  };
+    submit(formData, { replace: true });
+  }
 
   return (
-    <>
-      {data?.map((item: any, index: number) => (
-        <div key={index} style={inventoryItemStyle}>
-          <img style={imgStyle} src={item.image} alt={item.name} />
-          <p style={{ ...pStyle, height: "48px" }}>{item.name}</p>
-          <p style={pStyle}>{item.quality}</p>
-          <p style={pStyle}>{parseFloat(item.market_price).toFixed(2)}$</p>
-          <p style={pStyle}>Steam Price: {parseFloat(item.steam_price).toFixed(2)}$</p>
-          <p style={pStyle}>Profit: {parseFloat(item.profit).toFixed(2)}%</p>
-          <p style={pStyle}>Stickers Price: {parseFloat(item.stickers_price).toFixed(2)}$</p>
-          <button
-            style={buttonStyle}
-            onClick={() => openLink(item.link)}
-          >
-            Inspect
-          </button>
+    <div className="flex flex-1">
+      <div className="home-container">
+        <div className="home-posts">
+          <h2 className="h3-bold md:h2-bold text-left w-full">Inventory items</h2>
+            <Form ref={formRef} method="get" className="flex flex-1 w-full items-center gap-x-5">
+              <Select name="sort_by" value={sort_by ?? undefined} onValueChange={(value: string) => handleSubmit({ sort_by: value })}>
+                <SelectTrigger className="max-w-[180px]">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Types</SelectLabel>
+                    <SelectItem value="profit_high_to_low">Profit: High to Low</SelectItem>
+                    <SelectItem value="profit_low_to_high">Profit: Low to High</SelectItem>
+                    <SelectItem value="price_high_to_low">Price: High to Low</SelectItem>
+                    <SelectItem value="price_low_to_high">Price: Low to High</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <Select name="weapon_type" value={weapon_type?.toUpperCase() ?? undefined} onValueChange={(value: string) => handleSubmit({ weapon_type: value })}>
+                <SelectTrigger className="max-w-[180px]">
+                  <SelectValue placeholder="Weapon type"/>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Types</SelectLabel>
+                    {["AWP", "AK-47", "M4A1-S", "M4A4"].map((item: string) => <SelectItem value={item}>{item}</SelectItem>)}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <div className="flex items-center space-x-2">
+                <Switch name="is_stattrak" checked={is_stattrak} onCheckedChange={(checked: boolean) => handleSubmit({ is_stattrak: checked })}/>
+                <Label htmlFor="terms" className="min-w-[100px] base-small">Is StatTrak</Label>
+              </div>
+            </Form>
+          <div className="gap-5 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gridAutoRows: "auto" }}>
+            {items?.map((item: SkinItem) => (
+              <ItemCard item={item} />
+            ))}
+          </div>
         </div>
-      ))}
-    </>
-  );
+      </div>
+    </div>
+  )
 }
