@@ -28,7 +28,7 @@ const WeaponCategory = ({ title, weapons }) => {
 
 const WatchList = () => {
   const weaponCategories = [
-    { title: 'Pistols', weapons: ['CZ75-Auto', 'Desert Eagle', 'Dual Berettas', 'Five-Seven', 'Glock-18', 'P2000', 'AK-47', 'P250', 'R8 Revolver', 'Tec-9', 'USP-S'] },
+    { title: 'Pistols', weapons: ['CZ75-Auto', 'Desert Eagle', 'Dual Berettas', 'Five-Seven', 'Glock-18', 'P2000', 'P250', 'R8 Revolver', 'Tec-9', 'USP-S'] },
     { title: 'Assault Rifles', weapons: ['AK-47', 'AUG', 'FAMAS', 'Galil AR', 'M4A1-S', 'M4A4', 'SG 553'] },
     { title: 'SMGs', weapons: ['MAC-10', 'MP5-SD', 'MP7', 'MP9', 'P90', 'PP-Bizon', 'UMP-45'] },
     { title: 'Sniper Rifles', weapons: ['AWP', 'G3SG1', 'SCAR-20', 'SSG 08'] },
