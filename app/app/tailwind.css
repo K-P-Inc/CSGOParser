@@ -249,6 +249,7 @@
   .item-card_title {
     @apply text-[12px] font-normal;
     display: -webkit-box;
+    text-align: start;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-height: 14px;
