@@ -11,6 +11,9 @@ import {
 import { useState } from "react";
 import Layout from "./components/layout";
 import stylesheet from "~/tailwind.css";
+import { Navigate } from "react-router-dom";
+import Auth from "./routes/auth";
+import SigninForm from "./components/forms/SigninForm";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -18,10 +21,7 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    // return JSON.parse(localStorage.getItem('isAuthenticated') || "") || false;
-    return true
-  });
+  const isAuthenticated = false;
 
   return (
     <html lang="en">
@@ -32,13 +32,43 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout>
-          <Outlet />
-        </Layout>
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        {isAuthenticated ? (
+          <>
+            <Layout>
+              <Outlet />
+            </Layout>
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+          </>
+        ) : (
+          <>
+            <section className="flex flex-1 justify-center items-center flex-col py-10">
+              <Auth />
+            </section>
+          </>
+        )}
       </body>
     </html>
   );
-}
+};
+
+//   return (
+    // <html lang="en">
+    //   <head>
+    //     <meta charSet="utf-8" />
+    //     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    //     <Meta />
+    //     <Links />
+    //   </head>
+      // <body>
+        // <Layout>
+        //   <Outlet />
+        // </Layout>
+        // <ScrollRestoration />
+        // <Scripts />
+        // <LiveReload />
+      // </body>
+//     </html>
+//   );
+// }
