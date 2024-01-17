@@ -15,8 +15,6 @@ import {
 } from "~/components/ui/select"
 import { Switch } from "~/components/ui/switch";
 import { Label } from "~/components/ui/label";
-import { Input } from "~/components/ui/input";
-import { Button } from "~/components/ui/button";
 import { useRef } from "react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -30,6 +28,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         weapons_prices.price AS steam_price,
         weapons_prices.icon_url,
         skins.stickers_price,
+        skins.stickers_patern,
         skins.profit,
         skins.link,
         skins.stickers,
@@ -53,8 +52,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         quality: `${row["quality"]}`,
         market_price: row["market_price"],
         steam_price: row["steam_price"],
+        stickers_patern: row["stickers_patern"],
         image: `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
-        stickers_price: `${row["stickers_price"]}`,
+        stickers_price: row["stickers_price"],
         profit: row["profit"],
         link: `${row["link"]}`,
         stickers_instances: row["stickers_array"],

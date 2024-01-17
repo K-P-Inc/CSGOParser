@@ -257,6 +257,16 @@
     overflow: hidden;
   }
 
+  .item-card-popup_title {
+    @apply text-[14px] font-normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 16px;
+    overflow: hidden;
+  }
+
+
   /* User card */
   .user-card {
     @apply flex-center flex-col gap-4 border border-dark-4 rounded-[20px] px-5 py-8;

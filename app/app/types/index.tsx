@@ -1,5 +1,8 @@
-interface Sticker {
+export interface Sticker {
     id: string;
+    price: number;
+    icon_url: string;
+    name: string;
 }
 
 export interface SkinItem {
@@ -10,7 +13,8 @@ export interface SkinItem {
     market_price: number;
     steam_price: number;
     image: string;
-    stickers_price: string;
+    stickers_price: number;
+    stickers_patern: string;
     profit: number;
     link: string;
     stickers_instances: Sticker[];
