@@ -6,3 +6,5 @@ selenium_stealth
 omegaconf
 python-dotenv
 pg8000
+selenium-wire==5.1.0
+Brotli==1.1.0 
