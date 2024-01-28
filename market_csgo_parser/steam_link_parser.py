@@ -71,32 +71,30 @@ def main(item_link, driver):
 
     time.sleep(5) # Need this break to get logs update
 
-    with open('./market_csgo_parser/item_in_game_link.json', 'w') as item_logs:
-        for request in driver.requests:
-                if not request.response:
+    for request in driver.requests:
+            if not request.response:
+                continue
+
+            if request.url != 'https://market.csgo.com/api/graphql':
+                continue
+
+            try:
+                decompressed_data = brotli.decompress(request.response.body)
+                decoded_json = json.loads(decompressed_data.decode('utf-8'))
+
+                if 'data' not in decoded_json or 'getInGameLink' not in decoded_json['data']:
+                    logging.warning("Invalid JSON structure")
                     continue
 
-                if request.url != 'https://market.csgo.com/api/graphql':
-                    continue
+                in_game_link = decoded_json['data']['getInGameLink'].get('gameLink')
+                if in_game_link and 'steam://rungame/' in in_game_link:
 
-                try:
-                    decompressed_data = brotli.decompress(request.response.body)
-                    decoded_json = json.loads(decompressed_data.decode('utf-8'))
+                    return in_game_link
 
-                    if 'data' not in decoded_json or 'getInGameLink' not in decoded_json['data']:
-                        logging.warning("Invalid JSON structure")
-                        continue
-
-                    in_game_link = decoded_json['data']['getInGameLink'].get('gameLink')
-                    if in_game_link and 'steam://rungame/' in in_game_link:
-                        item_logs.write(json.dumps({"item": item_link, "link": in_game_link}, indent=2))
-                        item_logs.write('\n')
-                        return in_game_link
-
-                except UnicodeDecodeError:
-                    pass # Skip decode error, becouse we don't need other value
-                except Exception as e:
-                    logging.error(f'Error processing request: {e}')
+            except UnicodeDecodeError:
+                pass # Skip decode error, becouse we don't need other value
+            except Exception as e:
+                logging.error(f'Error processing request: {e}')
 
 
 if __name__ == "__main__":
