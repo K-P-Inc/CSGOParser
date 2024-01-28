@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS skins (
   amount_of_stickers_distinct INTEGER,
   amount_of_stickers INTEGER,
   stickers uuid[],
+  in_game_link TEXT,
   FOREIGN KEY (skin_id) REFERENCES weapons_prices (id)
 );
 
