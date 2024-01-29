@@ -4,6 +4,8 @@ x-db-credentials: &db_credentials
   POSTGRES_USER: ${POSTGRES_USER}
   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_HOST: ${POSTGRES_HOST}
+  POSTGRES_PORT: ${POSTGRES_PORT}
 
 x-market_csgo_parser_service: &market_csgo_parser_service
   image: market_csgo_parser_service
@@ -97,7 +99,6 @@ services:
       - SE_EVENT_BUS_HOST=seleniarm-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_START_VNC=false
     networks:
       - parser_network
 

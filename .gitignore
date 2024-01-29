@@ -1,3 +1,4 @@
 market_csgo_parser_logs/*
 .hydra/*
 docker-compose.yml
+.env
