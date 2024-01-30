@@ -1,0 +1,10 @@
+hydra-core
+selenium==4.10.0
+undetected-chromedriver
+selenium_stealth
+2captcha-python
+omegaconf
+python-dotenv
+pg8000
+selenium-wire==5.1.0
+Brotli==1.1.0 

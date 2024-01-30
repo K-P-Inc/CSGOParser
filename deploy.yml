@@ -1,0 +1,25 @@
+---
+- name: Market csgo parser service
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+    weapon_types:
+      - AWP
+      - AK-47
+      - M4A4
+      - M4A1-S
+
+  tasks:
+    - name: Set arm_arch based on architecture
+      set_fact:
+        arm_arch: "{{ ansible_architecture == 'arm64' }}"
+    - name: Create Docker Compose file
+      template:
+        src: docker-compose.yml.j2
+        dest: ./docker-compose.yml
+    - name: Run docker-compose
+      command: docker-compose up -d --build --force-recreate
+      args:
+        chdir: .

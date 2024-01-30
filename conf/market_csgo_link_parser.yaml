@@ -1,0 +1,12 @@
+logging_level: INFO
+
+hydra:
+  job_logging:
+    formatters:
+      simple:
+        format: '[%(asctime)s] [%(levelname)-7s] %(message)-100s # [%(module)s(%(funcName)s):%(lineno)d]'
+    handlers:
+      file:
+        encoding: 'utf-8'
+  run:
+    dir: market_csgo_link_parser_logs

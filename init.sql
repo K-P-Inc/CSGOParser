@@ -2,12 +2,14 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS stickers (
     id uuid DEFAULT uuid_generate_v4 (),
+    classid TEXT,
     name TEXT,
     key TEXT,
     price FLOAT,
     rare TEXT,
     type TEXT,
     collection TEXT,
+    icon_url TEXT,
     PRIMARY KEY (id)
 );
 
@@ -34,6 +36,7 @@ CREATE TABLE IF NOT EXISTS weapons_prices (
   price_all_time_low FLOAT,
   price_all_time_high FLOAT,
   parsing_time TIMESTAMP DEFAULT NOW(),
+  icon_url TEXT,
   PRIMARY KEY (id)
 );
 
@@ -56,6 +59,8 @@ CREATE TABLE IF NOT EXISTS skins (
   stickers_patern weapon_stickers_patern,
   amount_of_stickers_distinct INTEGER,
   amount_of_stickers INTEGER,
+  stickers uuid[],
+  in_game_link TEXT,
   FOREIGN KEY (skin_id) REFERENCES weapons_prices (id)
 );
 
