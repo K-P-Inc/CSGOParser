@@ -1,8 +1,8 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Form, json, useActionData, useLoaderData, useSubmit } from "@remix-run/react";
+import { Form, json, useActionData, useLoaderData, useOutletContext, useSubmit } from "@remix-run/react";
 import ItemCard from "~/components/shared/ItemCard";
 import { rdsClient } from "~/models/postgres.server";
-import { SkinItem } from "~/types";
+import { OutletContext, SkinItem } from "~/types";
 
 import {
   Select,
@@ -15,8 +15,6 @@ import {
 } from "~/components/ui/select"
 import { Switch } from "~/components/ui/switch";
 import { Label } from "~/components/ui/label";
-import { Input } from "~/components/ui/input";
-import { Button } from "~/components/ui/button";
 import { useRef } from "react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -30,6 +28,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         weapons_prices.price AS steam_price,
         weapons_prices.icon_url,
         skins.stickers_price,
+        skins.stickers_patern,
         skins.profit,
         skins.link,
         skins.stickers,
@@ -53,8 +52,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         quality: `${row["quality"]}`,
         market_price: row["market_price"],
         steam_price: row["steam_price"],
+        stickers_patern: row["stickers_patern"],
         image: `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
-        stickers_price: `${row["stickers_price"]}`,
+        stickers_price: row["stickers_price"],
         profit: row["profit"],
         link: `${row["link"]}`,
         stickers_instances: row["stickers_array"],
@@ -82,9 +82,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const submit = useSubmit();
+  const { session } = useOutletContext<OutletContext>();
   const { items, is_stattrak, weapon_type, sort_by } = useLoaderData<typeof loader>();
   const formRef = useRef<HTMLFormElement>(null);
 
+  console.log(session.user.id)
   const handleSubmit = ({ sort_by, weapon_type, is_stattrak } : { sort_by?: string, weapon_type?: string, is_stattrak?: boolean }) => {
     const formData = new FormData(formRef.current ?? undefined)
 
@@ -109,40 +111,40 @@ export default function Index() {
       <div className="home-container">
         <div className="home-posts">
           <h2 className="h3-bold md:h2-bold text-left w-full">Inventory items</h2>
-            <Form ref={formRef} method="get" className="flex flex-1 w-full items-center gap-x-5">
-              <Select name="sort_by" value={sort_by ?? undefined} onValueChange={(value: string) => handleSubmit({ sort_by: value })}>
-                <SelectTrigger className="max-w-[180px]">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Types</SelectLabel>
-                    <SelectItem value="profit_high_to_low">Profit: High to Low</SelectItem>
-                    <SelectItem value="profit_low_to_high">Profit: Low to High</SelectItem>
-                    <SelectItem value="price_high_to_low">Price: High to Low</SelectItem>
-                    <SelectItem value="price_low_to_high">Price: Low to High</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <Select name="weapon_type" value={weapon_type?.toUpperCase() ?? undefined} onValueChange={(value: string) => handleSubmit({ weapon_type: value })}>
-                <SelectTrigger className="max-w-[180px]">
-                  <SelectValue placeholder="Weapon type"/>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Types</SelectLabel>
-                    {["AWP", "AK-47", "M4A1-S", "M4A4"].map((item: string) => <SelectItem value={item}>{item}</SelectItem>)}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <div className="flex items-center space-x-2">
-                <Switch name="is_stattrak" checked={is_stattrak} onCheckedChange={(checked: boolean) => handleSubmit({ is_stattrak: checked })}/>
-                <Label htmlFor="terms" className="min-w-[100px] base-small">Is StatTrak</Label>
-              </div>
-            </Form>
+          <Form ref={formRef} method="get" className="flex flex-1 w-full items-center gap-x-5">
+            <Select name="sort_by" value={sort_by ?? undefined} onValueChange={(value: string) => handleSubmit({ sort_by: value })}>
+              <SelectTrigger className="max-w-[180px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Types</SelectLabel>
+                  <SelectItem value="profit_high_to_low">Profit: High to Low</SelectItem>
+                  <SelectItem value="profit_low_to_high">Profit: Low to High</SelectItem>
+                  <SelectItem value="price_high_to_low">Price: High to Low</SelectItem>
+                  <SelectItem value="price_low_to_high">Price: Low to High</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select name="weapon_type" value={weapon_type?.toUpperCase() ?? undefined} onValueChange={(value: string) => handleSubmit({ weapon_type: value })}>
+              <SelectTrigger className="max-w-[180px]">
+                <SelectValue placeholder="Weapon type"/>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Types</SelectLabel>
+                  {["AWP", "AK-47", "M4A1-S", "M4A4"].map((item: string) => <SelectItem key={item} value={item}>{item}</SelectItem>)}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <div className="flex items-center space-x-2">
+              <Switch name="is_stattrak" checked={is_stattrak} onCheckedChange={(checked: boolean) => handleSubmit({ is_stattrak: checked })}/>
+              <Label htmlFor="terms" className="min-w-[100px] base-small">Is StatTrak</Label>
+            </div>
+          </Form>
           <div className="gap-5 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gridAutoRows: "auto" }}>
             {items?.map((item: SkinItem) => (
-              <ItemCard item={item} />
+              <ItemCard item={item} key={item.link} />
             ))}
           </div>
         </div>

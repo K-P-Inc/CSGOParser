@@ -9,11 +9,11 @@ class RDSClient {
 
   async setup() {
     this.client = new Client({
-        host: "db",
-        user: "postgres",
-        database: "postgres",
-        password: "superbotparser",
-        port: 5432
+        host: process.env.POSTGRES_HOST,
+        user: process.env.POSTGRES_USER,
+        database: process.env.POSTGRES_DB,
+        password: process.env.POSTGRES_PASSWORD,
+        port: parseInt(process.env.POSTGRES_PORT || "5432")
     });
     await this.client.connect();
     // and never end client??

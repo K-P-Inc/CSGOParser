@@ -12,4 +12,4 @@ COPY items_parser/parser.py items_parser/skins.json items_parser/ids.json items_
 RUN pip install requests pg8000 python-dotenv wait-for-it
 RUN chmod +x wait-for-it.sh
 
-CMD ["./wait-for-it.sh", "db:5432", "--", "sh", "-c", "while :; do python parser.py; sleep 900; done"]
+CMD ["sh", "-c", "while :; do python parser.py; sleep 900; done"]

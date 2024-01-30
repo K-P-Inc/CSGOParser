@@ -1,6 +1,7 @@
 import time
 import os
 import threading
+import traceback
 import pg8000
 import logging
 import hydra
@@ -55,11 +56,14 @@ def run_action(weapon_config):
         database = os.environ.get("POSTGRES_DB")
         user = os.environ.get("POSTGRES_USER")
         password = os.environ.get("POSTGRES_PASSWORD")
+        host = os.environ.get("POSTGRES_HOST")
+        port = os.environ.get("POSTGRES_PORT")
         conn = pg8000.connect(
-            host="db",
+            host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            port=port
         )
         logging.info(f'Connected to database')
 
@@ -153,12 +157,11 @@ def run_action(weapon_config):
                                 continue
                         except NoSuchElementException:
                             continue
-
                     try:
                         key_price = max(i.text.splitlines(), key=len)
                         if key_price not in weapons_prices:
                             continue
-                        market_csgo_item_price = float(i.text.split()[1][1:])
+                        market_csgo_item_price = float(i.text.split()[2][1:])
                         market_csgo_item_link = i.get_attribute('href')
                         sticker_data = i.find_elements(By.XPATH, './/*[starts-with(@class, "stickers")]//*[starts-with(@class, "sticker ")]//*[starts-with(@class, "sticker-img")]')
                         stickers_keys = [
@@ -169,6 +172,9 @@ def run_action(weapon_config):
                         continue
 
                     actually_price = weapons_prices[key_price]
+
+                    if market_csgo_item_price == 0:
+                        continue
 
                     if len(stickers_keys) == 0:
                         continue
@@ -274,6 +280,7 @@ def run_action(weapon_config):
         return
     except Exception as e:
         logging.error(f'Got exception: {e}')
+        logging.error(traceback.format_exc())
         run_action(weapon_config)
         parsed_items += 1
     finally:
