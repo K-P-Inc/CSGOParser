@@ -40,24 +40,6 @@ services:
     networks:
       - parser_network
 
-  grafana:
-    container_name: grafana
-    image: grafana/grafana
-    restart: always
-    ports:
-      - "1234:3000"
-    environment:
-      <<: *db_credentials
-      GF_AUTH_DISABLE_INITIAL_SETUP: true
-      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/provisioning/dashboards/home.json
-    volumes:
-      - ./grafana/dashboards/home.json:/etc/grafana/provisioning/dashboards/home.json
-      - ./grafana/datasources/:/etc/grafana/provisioning/datasources/
-    networks:
-      - parser_network
-    depends_on:
-      - db
-
   items:
     container_name: prices-item-parser
     build:
@@ -70,8 +52,8 @@ services:
     networks:
       - parser_network
 
-  market_csgo_items_checker:
-    container_name: market-csgo-items-checker
+  market_csgo_link_parser:
+    container_name: market-csgo-link-parser
     build:
       context: .
       dockerfile: ./market_csgo_link_parser/Dockerfile
@@ -80,8 +62,10 @@ services:
     depends_on:
       - db
       - seleniarm-hub
+    ports:
+      - "8097:8097"
     volumes:
-      - ./market_csgo_parser/parser.py:/app/parser.py
+      - ./market_csgo_link_parser/parser.py:/app/parser.py
       - ./conf:/app/conf
     networks:
       - parser_network

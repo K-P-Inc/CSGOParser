@@ -1,6 +1,6 @@
 pg8000
 selenium-wire
-selenium
+selenium==4.9.1
 Brotli
 hydra-core
 omegaconf

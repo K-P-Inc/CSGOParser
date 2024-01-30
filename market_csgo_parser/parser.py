@@ -281,6 +281,9 @@ def run_action(weapon_config):
     except Exception as e:
         logging.error(f'Got exception: {e}')
         logging.error(traceback.format_exc())
+        if driver_class.driver:
+            driver_class.driver.quit()
+            driver_class.driver = None
         run_action(weapon_config)
         parsed_items += 1
     finally:
