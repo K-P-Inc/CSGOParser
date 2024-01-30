@@ -40,24 +40,6 @@ services:
     networks:
       - parser_network
 
-  grafana:
-    container_name: grafana
-    image: grafana/grafana
-    restart: always
-    ports:
-      - "1234:3000"
-    environment:
-      <<: *db_credentials
-      GF_AUTH_DISABLE_INITIAL_SETUP: true
-      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/provisioning/dashboards/home.json
-    volumes:
-      - ./grafana/dashboards/home.json:/etc/grafana/provisioning/dashboards/home.json
-      - ./grafana/datasources/:/etc/grafana/provisioning/datasources/
-    networks:
-      - parser_network
-    depends_on:
-      - db
-
   items:
     container_name: prices-item-parser
     build:
@@ -67,6 +49,24 @@ services:
       <<: *db_credentials
     depends_on:
       - db
+    networks:
+      - parser_network
+
+  market_csgo_link_parser:
+    container_name: market-csgo-link-parser
+    build:
+      context: .
+      dockerfile: ./market_csgo_link_parser/Dockerfile
+    environment:
+      <<: *db_credentials
+    depends_on:
+      - db
+      - seleniarm-hub
+    ports:
+      - "8097:8097"
+    volumes:
+      - ./market_csgo_link_parser/parser.py:/app/parser.py
+      - ./conf:/app/conf
     networks:
       - parser_network
 
@@ -88,7 +88,7 @@ services:
 
   seleniarm-chrome-node:
     deploy:
-      replicas: {{ weapon_types | length }}
+      replicas: {{ weapon_types | length + 1 }}
     image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
     volumes:
       - ./downloads:/home/seluser/Downloads

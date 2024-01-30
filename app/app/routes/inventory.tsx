@@ -36,6 +36,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       FROM skins
       INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
       LEFT JOIN stickers t on t.id = any (skins.stickers)
+      WHERE is_sold = FALSE
     `
   );
 
