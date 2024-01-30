@@ -1,0 +1,7 @@
+pg8000
+selenium-wire
+selenium
+Brotli
+hydra-core
+omegaconf
+python-dotenv

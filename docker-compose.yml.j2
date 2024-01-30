@@ -68,6 +68,22 @@ services:
     networks:
       - parser_network
 
+  market_csgo_items_checker:
+    container_name: market-csgo-items-checker
+    build:
+      context: .
+      dockerfile: ./market_csgo_link_parser/Dockerfile
+    environment:
+      <<: *db_credentials
+    depends_on:
+      - db
+      - seleniarm-hub
+    volumes:
+      - ./market_csgo_parser/parser.py:/app/parser.py
+      - ./conf:/app/conf
+    networks:
+      - parser_network
+
   dashboard:
     container_name: web-dashboard
     build:
@@ -86,7 +102,7 @@ services:
 
   seleniarm-chrome-node:
     deploy:
-      replicas: {{ weapon_types | length }}
+      replicas: {{ weapon_types | length + 1 }}
     image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
     volumes:
       - ./downloads:/home/seluser/Downloads
