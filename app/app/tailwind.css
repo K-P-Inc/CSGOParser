@@ -170,11 +170,11 @@
 
   /* Profile */
   .profile-container {
-    @apply flex flex-col items-center flex-1 gap-10 overflow-scroll py-10 px-5 md:p-14 custom-scrollbar;
+    @apply flex flex-col items-center flex-1 overflow-scroll py-10 px-5 md:p-14 custom-scrollbar;
   }
 
   .profile-inner_container {
-    @apply flex items-center md:mb-8 xl:items-start gap-8 flex-col xl:flex-row relative max-w-5xl w-full;
+    @apply flex items-center md:mb-8 gap-8 flex-col relative max-w-5xl w-full;
   }
 
   .profile-tab {
@@ -256,6 +256,16 @@
     height: 28px;
     overflow: hidden;
   }
+
+  .item-card-popup_title {
+    @apply text-[14px] font-normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 16px;
+    overflow: hidden;
+  }
+
 
   /* User card */
   .user-card {

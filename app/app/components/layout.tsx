@@ -3,24 +3,24 @@ import {
     NavLink,
     useLocation,
 } from "@remix-run/react"
-import { AccountIcon, LogoIcon, InventoryIcon, WatchlistIcon, SettingsIcon } from "~/assets/images";
+import { AccountIcon, LogoIcon, InventoryIcon, WatchlistIcon, SettingsIcon, LogoutIcon } from "~/assets/images";
 import React from "react";
+import { SupabaseClient } from "@supabase/auth-helpers-remix";
+import { Button } from "./ui/button";
 
 const sidebarNavigation = [
     { label: 'Account', route: '/account', icon: AccountIcon },
     { label: 'Inventory', route: '/inventory', icon: InventoryIcon },
-    { label: 'Watchlist', route: '/watchlist', icon: WatchlistIcon },
-    { label: 'Settings', route: '/settings', icon: SettingsIcon },
+    // { label: 'Watchlist', route: '/watchlist', icon: WatchlistIcon },
+    // { label: 'Settings', route: '/settings', icon: SettingsIcon },
 ];
 
-function TopBar() {
-    // const navigate = useNavigate();
-    // const { user } = useUserContext();
-    // const { mutate: signOut, isSuccess } = useSignOutAccount();
+interface BarProperties {
+    supabase: SupabaseClient;
+    userData: any;
+}
 
-    // useEffect(() => {
-    //     if (isSuccess) navigate(0);
-    // }, [isSuccess]);
+function TopBar({ supabase, userData } : BarProperties) {
 
     return (
         <section className="topbar">
@@ -34,19 +34,19 @@ function TopBar() {
                 />
                 </Link>
                 <div className="flex gap-4">
-                {/* <Button
+                <Button
                     variant="ghost"
                     className="shad-button_ghost"
-                    onClick={() => signOut()}>
-                    <img src="/assets/icons/logout.svg" alt="logout" />
+                    onClick={() => { supabase.auth.signOut() }}>
+                   <img src={LogoutIcon} width={32} height={32} alt="logout"/>
                 </Button>
-                <Link to={`/profile/${user.id}`} className="flex-center gap-3">
+                <div className="flex-center gap-3">
                     <img
-                    src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
-                    alt="profile"
-                    className="h-8 w-8 rounded-full"
+                        src={userData?.icon_url || AccountIcon}
+                        alt="profile"
+                        className="h-8 w-8 rounded-full"
                     />
-                </Link> */}
+                </div>
                 </div>
             </div>
         </section>
@@ -82,8 +82,7 @@ function Bottombar () {
   );
 };
 
-
-function LeftLayout() {
+function LeftLayout({ supabase, userData } : BarProperties) {
     const location = useLocation()
 
     return (
@@ -98,23 +97,17 @@ function LeftLayout() {
                 />
                 </Link>
 
-                {/* {isLoading || !user.email ? (
-                <div className="h-14">
-                    <Loader />
-                </div>
-                ) : (
-                <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center">
                     <img
-                    src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
-                    alt="profile"
-                    className="h-14 w-14 rounded-full"
+                        src={userData?.icon_url || AccountIcon}
+                        alt="profile"
+                        className="h-14 w-14 rounded-full"
                     />
                     <div className="flex flex-col">
-                    <p className="body-bold">{user.name}</p>
-                    <p className="small-regular text-light-3">@{user.username}</p>
+                    <p className="body-bold">{userData?.steam_name || "Steam name"}</p>
+                    <p className="small-regular text-light-3">${userData && userData.market_csgo_balance ? userData?.market_csgo_balance.toFixed(2) : '$$$'}</p>
                     </div>
-                </Link>
-                )} */}
+                </div>
 
                 <ul className="flex flex-col gap-6">
                     {sidebarNavigation.map((link: any) => {
@@ -146,22 +139,29 @@ function LeftLayout() {
                 </ul>
             </div>
 
-        {/* <Button
+        <Button
             variant="ghost"
             className="shad-button_ghost"
-            onClick={(e) => handleSignOut(e)}>
-            <img src="/assets/icons/logout.svg" alt="logout" />
+            onClick={() => { supabase.auth.signOut() }}>
+            <img className="text-primary-500 stroke-primary-500" src={LogoutIcon} width={32} height={32} alt="logout"/>
             <p className="small-medium lg:base-medium">Logout</p>
-        </Button> */}
+        </Button>
     </nav>
     )
 }
-export default function Layout({ children } : { children: React.ReactNode }) {
+
+interface LayoutProperties {
+    supabase: SupabaseClient;
+    userData: any;
+    children: React.ReactNode
+}
+
+export default function Layout({ supabase, userData, children } : LayoutProperties) {
     return (
         <main className="flex h-screen">
             <div className="w-full md:flex">
-                <TopBar/>
-                <LeftLayout/>
+                <TopBar supabase={supabase} userData={userData}/>
+                <LeftLayout supabase={supabase} userData={userData}/>
                 <section className="flex flex-1 h-full">
                     {children}
                 </section>

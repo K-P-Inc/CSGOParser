@@ -1,54 +1,90 @@
-
-// import './Auth.css';
-
-import React, { useState } from 'react';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SigninValidation } from "~/lib/validation";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
+import { useForm } from "react-hook-form";
+import { redirect, useOutletContext } from "@remix-run/react";
+import type { OutletContext } from "~/types";
+import * as z from "zod";
+import { useToast } from "~/components/ui/use-toast";
 
 export default function Index() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { supabase } = useOutletContext<OutletContext>();
+  const { toast } = useToast()
+  const form = useForm<z.infer<typeof SigninValidation>>({
+    resolver: zodResolver(SigninValidation),
+    defaultValues: {
+      email: "",
+      password: "",
+    }
+  });
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSignup = async (user: z.infer<typeof SigninValidation>) => {
+    const { data: response } = await supabase.auth.signInWithPassword({
+      email: user.email,
+      password: user.password
+    })
 
-    // Perform authentication logic here (e.g., check credentials)
-    // For simplicity, assume authentication is successful
-    // setIsAuthenticated(true);
-  };
+    if (!response.user) {
+      toast({ title: "Wrong credentials" });
+    } else {
+      toast({ title: "Success login!" });
+      form.reset();
+      redirect("/");
+    }
+  }
 
   return (
-    <>
-      <div className="login-container">
-        <h2>Вход</h2>
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Имя пользователя:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
+    <main className="flex h-screen flex-1 justify-center items-center flex-col">
+      <Form {...form}>
+        <div className="sm:w-420 flex-center flex-col">
 
-          <div className="form-group">
-            <label htmlFor="password">Пароль:</label>
-            <input
-              type="password"
-              id="password"
+          <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+            Log in to your account
+          </h2>
+
+          <p className="text-light-3 small-medium md:base-regular mt-2">
+            Welcome back! Please enter your details.
+          </p>
+
+          <form
+            onSubmit={form.handleSubmit(handleSignup)}
+            className="flex flex-col gap-5 w-full mt-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Email</FormLabel>
+                  <FormControl>
+                    <Input type="text" className="shad-input" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" className="shad-input" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div className="form-group">
-            <button type="submit">Войти</button>
-          </div>
-        </form>
-      </div>
-    </>
-  );
+            <Button type="submit" className="shad-button_primary">
+              Log in
+            </Button>
+          </form>
+        </div>
+      </Form>
+    </main>
+  )
 }
