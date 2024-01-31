@@ -113,7 +113,7 @@ def run_action(weapon_config):
                 if weapon[0].split(' | ')[0] == weapon_config.type
             ])))
 
-            if len(weapons) != parsed_items:
+            if len(weapons) > parsed_items:
                 weapons = weapons[parsed_items:]
             else:
                 logging.info(f'All items parsed, reseting parsed items counter')
