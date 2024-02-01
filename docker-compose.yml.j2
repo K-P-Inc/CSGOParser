@@ -10,21 +10,17 @@ x-db-credentials: &db_credentials
 x-market_csgo_parser_service: &market_csgo_parser_service
   image: market_csgo_parser_service
   build:
-    context: .
-    dockerfile: ./market_csgo_parser/Dockerfile
+    context: scrappers
+    dockerfile: market_csgo_parser/Dockerfile
   depends_on:
     - db
     - seleniarm-hub
   networks:
     - parser_network
-  volumes:
-    - ./market_csgo_parser/parser.py:/app/parser.py
-    - ./conf:/app/conf
 
 networks:
   parser_network:
     driver: bridge
-
 
 services:
   db:
@@ -40,23 +36,11 @@ services:
     networks:
       - parser_network
 
-  items:
-    container_name: prices-item-parser
-    build:
-      context: .
-      dockerfile: ./items_parser/Dockerfile
-    environment:
-      <<: *db_credentials
-    depends_on:
-      - db
-    networks:
-      - parser_network
-
   market_csgo_link_parser:
     container_name: market-csgo-link-parser
     build:
-      context: .
-      dockerfile: ./market_csgo_link_parser/Dockerfile
+      context: scrappers
+      dockerfile: market_csgo_link_parser/Dockerfile
     environment:
       <<: *db_credentials
     depends_on:
@@ -64,9 +48,18 @@ services:
       - seleniarm-hub
     ports:
       - "8097:8097"
-    volumes:
-      - ./market_csgo_link_parser/parser.py:/app/parser.py
-      - ./conf:/app/conf
+    networks:
+      - parser_network
+
+  items:
+    container_name: items-prices-parser
+    build:
+      context: scrappers
+      dockerfile: items_prices_parser/Dockerfile
+    environment:
+      <<: *db_credentials
+    depends_on:
+      - db
     networks:
       - parser_network
 
