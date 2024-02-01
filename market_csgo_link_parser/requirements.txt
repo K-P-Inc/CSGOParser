@@ -1,7 +1,0 @@
-pg8000
-selenium-wire
-selenium==4.9.1
-Brotli
-hydra-core
-omegaconf
-python-dotenv
