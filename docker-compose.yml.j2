@@ -11,7 +11,7 @@ x-market_csgo_parser_service: &market_csgo_parser_service
   image: market_csgo_parser_service
   build:
     context: scrappers
-    dockerfile: market_csgo_parser/Dockerfile
+    dockerfile: market_csgo_parser_api/Dockerfile
   depends_on:
     - db
     - seleniarm-hub
@@ -51,6 +51,18 @@ services:
     networks:
       - parser_network
 
+  market_csgo_parser_item_status_api:
+    container_name: market-csgo-parser-item-status-api
+    build:
+      context: scrappers
+      dockerfile: market_csgo_parser_item_status_api/Dockerfile
+    environment:
+      <<: *db_credentials
+    depends_on:
+      - db
+    networks:
+      - parser_network
+
   items:
     container_name: items-prices-parser
     build:
@@ -81,7 +93,7 @@ services:
 
   seleniarm-chrome-node:
     deploy:
-      replicas: {{ weapon_types | length + 1 }}
+      replicas: 1
     image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
     volumes:
       - ./downloads:/home/seluser/Downloads

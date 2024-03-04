@@ -52,12 +52,11 @@ def parse_response(result_mapping):
                     key_sticker = key
                     break
 
-            if key_sticker is not None:
-                price = 0
-                for qual in ['24_hours', '7_days', '30_days', 'all_time']:
-                    if qual in item["price"]:
-                        price = item["price"][qual]["average"]
-                        break
+            price = 0
+            for qual in ['24_hours', '7_days', '30_days', 'all_time']:
+                if qual in item["price"]:
+                    price = item["price"][qual]["average"]
+                    break
 
             stickers_to_insert.append((
                 stickers_ids[item['name']] if item['name'] in stickers_ids else '',
