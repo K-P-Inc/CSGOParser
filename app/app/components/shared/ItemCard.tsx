@@ -135,9 +135,9 @@ export default function ItemCard({ item }: { item: SkinItem }) {
       </AlertDialogContent>
       <AlertDialogTrigger className="w-full">
       <div className="post-card space-y-2">
-        <div className="flex w-full">
+        <div className="flex w-full justify-center">
           {item.stickers_icons.map((icon: string, stickerIndex: number) => (
-              <img key={stickerIndex} src={icon} alt={`Sticker ${stickerIndex + 1}`} width={32} height={18}/>
+              <img key={stickerIndex} src={icon} alt={`Sticker ${stickerIndex + 1}`} width={30}/>
           ))}
         </div>
         <div className="flex items-center justify-center w-full">
@@ -147,16 +147,16 @@ export default function ItemCard({ item }: { item: SkinItem }) {
             className="post-card_img"
           />
         </div>
-        <div className="flex-between w-full">
+        <div className="flex-between w-full px-5">
           <div className="flex items-center gap-3 relative w-full">
             <div className="flex flex-col w-full">
               <div className="flex gap-1">
-                <p className="base-medium lg:body-bold text-light-1">
+                <p className="base-medium body-bold text-light-1">
                   ${parseFloat(item.market_price.toString()).toFixed(2)}
                 </p>
-                <p className="base-medium lg:body-bold text-secondary-500">+{parseInt(item.profit.toString())}%</p>
+                <p className="base-medium body-bold text-secondary-500">+{parseInt(item.profit.toString())}%</p>
               </div>
-              <p className="base-medium text-left lg:body-bold text-light-1">
+              <p className="text-left body-bold text-light-1" style={{ fontSize: "16px" }}>
                 {item.quality}
               </p>
               <p className="mt-[2px] item-card_title text-grey">

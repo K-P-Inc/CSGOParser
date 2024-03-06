@@ -16,31 +16,13 @@ import {
 import { Switch } from "~/components/ui/switch";
 import { Label } from "~/components/ui/label";
 import { useRef } from "react";
+import { createSupabaseServerClient } from "~/supabase.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const rdsClient = new RDSClient();
+  const response = new Response();
 
-  const items = await rdsClient.query(
-    `
-      SELECT distinct on (skins.id)
-        weapons_prices.name,
-        weapons_prices.is_stattrak,
-        weapons_prices.quality,
-        skins.price AS market_price,
-        weapons_prices.price AS steam_price,
-        weapons_prices.icon_url,
-        skins.stickers_price,
-        skins.stickers_patern,
-        skins.profit,
-        skins.link,
-        skins.stickers,
-        array_to_json(array_agg(row_to_json(t)) over ( partition by skins.id )) as stickers_array
-      FROM skins
-      INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
-      LEFT JOIN stickers t on t.id = any (skins.stickers)
-      WHERE is_sold = FALSE
-    `
-  );
+  const supabase = createSupabaseServerClient({ request, response });
+  const { data: items, error } = await supabase.rpc("get_all_skins");
 
   const url = new URL(request.url);
   const is_stattrak = url.searchParams.get("is_stattrak");
@@ -48,7 +30,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const sort_by = url.searchParams.get("sort_by");
 
   const filtered_items: SkinItem[] | null = items
-    ? items.map((row) => ({
+    ? items.map((row: any) => ({
         name: `${row["is_stattrak"] ? "StatTrak™ " : ""}${row["name"]}`,
         type: `${row["name"].split(" ")[0]}`,
         is_stattrak: row["is_stattrak"],
@@ -145,7 +127,7 @@ export default function Index() {
               <Label htmlFor="terms" className="min-w-[100px] base-small">Is StatTrak</Label>
             </div>
           </Form>
-          <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
+          <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", display: "grid" }}>
             {items?.map((item: SkinItem) => (
               <ItemCard item={item} key={item.link} />
             ))}
