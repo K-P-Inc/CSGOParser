@@ -16,7 +16,7 @@ export const SigninValidation = z.object({
 });
 
 export const ProfileValidation = z.object({
-  steam_id: z.string().min(5, { message: "SteamID must be bigger." }),
+  steam_id: z.string().transform(z => BigInt(z).toString()),
   steam_api_key: z.string().min(5, { message: "Name must be bigger." }),
   market_csgo_api_key: z.string().min(5, { message: "Name must be bigger." }),
 });

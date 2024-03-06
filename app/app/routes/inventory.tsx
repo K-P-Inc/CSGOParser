@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Form, json, useActionData, useLoaderData, useOutletContext, useSubmit } from "@remix-run/react";
 import ItemCard from "~/components/shared/ItemCard";
-import { rdsClient } from "~/models/postgres.server";
+import { RDSClient } from "~/models/postgres.server";
 import { OutletContext, SkinItem } from "~/types";
 
 import {
@@ -18,6 +18,8 @@ import { Label } from "~/components/ui/label";
 import { useRef } from "react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const rdsClient = new RDSClient();
+
   const items = await rdsClient.query(
     `
       SELECT distinct on (skins.id)
@@ -143,7 +145,7 @@ export default function Index() {
               <Label htmlFor="terms" className="min-w-[100px] base-small">Is StatTrak</Label>
             </div>
           </Form>
-          <div className="gap-5 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gridAutoRows: "auto" }}>
+          <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
             {items?.map((item: SkinItem) => (
               <ItemCard item={item} key={item.link} />
             ))}

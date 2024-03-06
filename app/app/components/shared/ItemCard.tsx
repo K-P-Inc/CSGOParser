@@ -133,8 +133,8 @@ export default function ItemCard({ item }: { item: SkinItem }) {
           </div>
         </div>
       </AlertDialogContent>
-      <AlertDialogTrigger>
-      <div className="post-card">
+      <AlertDialogTrigger className="w-full">
+      <div className="post-card space-y-2">
         <div className="flex w-full">
           {item.stickers_icons.map((icon: string, stickerIndex: number) => (
               <img key={stickerIndex} src={icon} alt={`Sticker ${stickerIndex + 1}`} width={32} height={18}/>

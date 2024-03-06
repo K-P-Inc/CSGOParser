@@ -1,7 +1,7 @@
 import pg from 'pg';
 const { Client } = pg;
 
-class RDSClient {
+export class RDSClient {
   private client?: pg.Client;
   private inited: boolean = false;
 
@@ -63,4 +63,3 @@ class RDSClient {
 
 }
 
-export const rdsClient = new RDSClient();

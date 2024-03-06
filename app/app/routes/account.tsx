@@ -67,7 +67,7 @@ export const action = async ({ request } : ActionFunctionArgs) => {
 
   try {
     if (userData.steam_id !== data.steam_id || userData.steam_api_key !== data.steam_api_key) {
-      const response = await getSteamUserData(data.steam_api_key as string, data.steam_id as string)
+      const response = await getSteamUserData(data.steam_api_key as string, data.steam_id.toString())
 
       if (!updaterJson) {
         updaterJson = {}
@@ -145,7 +145,7 @@ export default function Index() {
                   <FormItem>
                     <FormLabel className="shad-form_label">Steam ID</FormLabel>
                     <FormControl>
-                      <Input type="text" className="shad-input" {...field} />
+                      <Input type="bigint" className="shad-input" {...field} max="999999999999999999"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -159,7 +159,7 @@ export default function Index() {
                   <FormItem>
                     <FormLabel className="shad-form_label">Steam API Key</FormLabel>
                     <FormControl>
-                      <Input type="text" className="shad-input" {...field} />
+                      <Input type="password" className="shad-input" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -174,7 +174,7 @@ export default function Index() {
                   <FormItem>
                     <FormLabel className="shad-form_label">Market CS:GO API Key</FormLabel>
                     <FormControl>
-                      <Input type="text" className="shad-input" {...field} />
+                      <Input type="password" className="shad-input" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
