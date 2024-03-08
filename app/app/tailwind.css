@@ -229,7 +229,7 @@
 
   /* Post Card */
   .post-card {
-    @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 hover:border-primary-500 py-2 min-w-[170px] hover:from-primary-500 hover:to-dark-3;
+    @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 hover:border-primary-500 py-2 min-w-[170px] min-h-[225px] hover:from-primary-500 hover:to-dark-3;
   }
 
 

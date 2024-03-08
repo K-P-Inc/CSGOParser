@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import WebDriverException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 
+ORDER_DELETED_ERROR_CODE = 404
 parsed_items = 0
 
 def do_request(link, name, id):
@@ -37,6 +38,8 @@ def do_request(link, name, id):
     try:
         if json.loads(response.text) and json.loads(response.text)["data"]["viewItem"]:
             return json.loads(response.text)["data"]["viewItem"]
+        if json.loads(response.text) and json.loads(response.text)["errors"]:
+            return json.loads(response.text)["errors"]
         return None
     except:
         time.sleep(5)
@@ -51,9 +54,18 @@ def update_sold_item(item_id, db_client):
     except Exception as e:
         logging.error(f'Error while updating sold status in the database for {item_id}: {e}')
 
+def update_deleted_item(item_id, db_client):
+    try:
+        update_query = "UPDATE skins SET is_deleted = TRUE WHERE id = %s"
+        db_client.execute(update_query, (item_id,))
+
+    except Exception as e:
+        logging.error(f'Error while updating deleted status in the database for {item_id}: {e}')
 
 @hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name='market_csgo_parser_item_status_api')
 def main(cfg: DictConfig):
+    global ORDER_DELETED_ERROR_CODE
+
     while True:
         try:
             db_client = DBClient()
@@ -73,11 +85,14 @@ def main(cfg: DictConfig):
 
                     item_dict = do_request(item_link, decoded_last_path_part, item_market_id)
 
-                    logging.info(f"Item status by market id {item_market_id} with name {decoded_last_path_part} was loaded")
+                    logging.info(f"Item status by market id {item_market_id} with name {decoded_last_path_part} was loaded: {item_dict}")
 
-                    if item_dict and item_dict["status"] == "SOLD":
+                    if item_dict and "status" in item_dict and item_dict["status"] == "SOLD":
                         logging.info(f"Updating item with {item_id} because it was sold")
                         update_sold_item(item_id=item_id, db_client=db_client)
+                    elif item_dict and hasattr(item_dict, "__len__") and len(item_dict) > 0 and "code" in item_dict[0] and item_dict[0]["code"] == ORDER_DELETED_ERROR_CODE:
+                        logging.info(f"Updating item with {item_id} because it was deleted or order was changed")
+                        update_deleted_item(item_id=item_id, db_client=db_client)
 
                     time.sleep(5)
                 except KeyboardInterrupt:
@@ -85,6 +100,7 @@ def main(cfg: DictConfig):
                     break
                 except Exception as e:
                     logging.error(f'Error: {e}')
+                    traceback.print_exc()
                     continue
         except Exception as e:
             logging.error(f'Error: {e}')

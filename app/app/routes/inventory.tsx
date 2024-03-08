@@ -17,6 +17,7 @@ import { Switch } from "~/components/ui/switch";
 import { Label } from "~/components/ui/label";
 import { useRef } from "react";
 import { createSupabaseServerClient } from "~/supabase.server";
+import { Button } from "~/components/ui/button";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const response = new Response();
@@ -28,6 +29,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const is_stattrak = url.searchParams.get("is_stattrak");
   const weapon_type = url.searchParams.get("weapon_type");
   const sort_by = url.searchParams.get("sort_by");
+  const stickers_patern = url.searchParams.get("stickers_patern");
 
   const filtered_items: SkinItem[] | null = items
     ? items.map((row: any) => ({
@@ -50,6 +52,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     }))
       .filter((skin: SkinItem) => is_stattrak === "on" ? skin.is_stattrak === true : true)
       .filter((skin: SkinItem) => weapon_type ? skin.name.toLowerCase().includes(weapon_type.toLowerCase()) : true)
+      .filter((skin: SkinItem) => stickers_patern ? skin.stickers_patern === stickers_patern : true)
       .sort((a: SkinItem, b: SkinItem) => { return sort_by === "profit_high_to_low" ? b.profit - a.profit : 0 })
       .sort((a: SkinItem, b: SkinItem) => { return sort_by === "profit_low_to_high" ? a.profit - b.profit : 0 })
       .sort((a: SkinItem, b: SkinItem) => { return sort_by === "price_high_to_low" ? b.market_price - a.market_price : 0 })
@@ -62,25 +65,30 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     is_stattrak: is_stattrak !== null,
     weapon_type: weapon_type,
     sort_by: sort_by,
+    stickers_patern: stickers_patern
   });
 }
 
 export default function Index() {
   const submit = useSubmit();
   const { session } = useOutletContext<OutletContext>();
-  const { items, is_stattrak, weapon_type, sort_by } = useLoaderData<typeof loader>();
+  const { items, is_stattrak, weapon_type, sort_by, stickers_patern } = useLoaderData<typeof loader>();
   const formRef = useRef<HTMLFormElement>(null);
 
-  console.log(session.user.id)
-  const handleSubmit = ({ sort_by, weapon_type, is_stattrak } : { sort_by?: string, weapon_type?: string, is_stattrak?: boolean }) => {
+  const handleSubmit = (
+    { sort_by, weapon_type, is_stattrak, stickers_patern } :
+    { sort_by?: string, weapon_type?: string, is_stattrak?: boolean, stickers_patern?: string }
+  ) => {
     const formData = new FormData(formRef.current ?? undefined)
 
-    console.log(is_stattrak)
     if (sort_by) {
       formData.set("sort_by", sort_by)
     }
     if (weapon_type) {
       formData.set("weapon_type", weapon_type)
+    }
+    if (stickers_patern) {
+      formData.set("stickers_patern", stickers_patern)
     }
     if (is_stattrak == true) {
       formData.set("is_stattrak", "on")
@@ -119,6 +127,20 @@ export default function Index() {
                 <SelectGroup>
                   <SelectLabel>Types</SelectLabel>
                   {["AWP", "AK-47", "M4A1-S", "M4A4"].map((item: string) => <SelectItem key={item} value={item}>{item}</SelectItem>)}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select name="stickers_patern" value={stickers_patern ?? undefined} onValueChange={(value: string) => handleSubmit({ stickers_patern: value })}>
+              <SelectTrigger className="max-w-[180px]">
+                <SelectValue placeholder="Stickers' pattern" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Types</SelectLabel>
+                  <SelectItem value="full-set">Full-set</SelectItem>
+                  <SelectItem value="3-equal">3 equals</SelectItem>
+                  <SelectItem value="2-equal">2 equals</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
