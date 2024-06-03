@@ -7,14 +7,13 @@ x-db-credentials: &db_credentials
   POSTGRES_HOST: ${POSTGRES_HOST}
   POSTGRES_PORT: ${POSTGRES_PORT}
 
-x-market_csgo_parser_service: &market_csgo_parser_service
-  image: market_csgo_parser_service
+x-template_api_parser_service: &template_api_parser_service
+  image: template_api_parser_service
   build:
     context: scrappers
-    dockerfile: market_csgo_parser/Dockerfile
+    dockerfile: template_parser_api/Dockerfile
   depends_on:
     - db
-    - seleniarm-hub
   networks:
     - parser_network
 
@@ -36,21 +35,6 @@ services:
     networks:
       - parser_network
 
-  market_csgo_link_parser:
-    container_name: market-csgo-link-parser
-    build:
-      context: scrappers
-      dockerfile: market_csgo_link_parser/Dockerfile
-    environment:
-      <<: *db_credentials
-    depends_on:
-      - db
-      - seleniarm-hub
-    ports:
-      - "8097:8097"
-    networks:
-      - parser_network
-
   items:
     container_name: items-prices-parser
     build:
@@ -60,6 +44,8 @@ services:
       <<: *db_credentials
     depends_on:
       - db
+      - seleniarm-hub
+      - seleniarm-chrome-node
     networks:
       - parser_network
 
@@ -81,7 +67,7 @@ services:
 
   seleniarm-chrome-node:
     deploy:
-      replicas: {{ weapon_types | length + 1 }}
+      replicas: 1
     image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
     volumes:
       - ./downloads:/home/seluser/Downloads
@@ -105,12 +91,15 @@ services:
     networks:
       - parser_network
 
+{% for market_type in market_types %}
 {% for weapon_type in weapon_types %}
-  market_csgo_parser_{{ loop.index }}:
-    <<: *market_csgo_parser_service
-    container_name: market-csgo-parser-node-{{ weapon_type.lower().replace(' ', '_') }}
+  {{ market_type.lower().replace('-', '_') }}_parser_{{ loop.index }}:
+    <<: *template_api_parser_service
+    container_name: {{ market_type }}-parser-node-{{ weapon_type.lower().replace(' ', '_') }}
     environment:
       <<: *db_credentials
       WEAPON_TYPE: {{ weapon_type }}
+      MARKET_TYPE: {{ market_type }}
 
+{% endfor %}
 {% endfor %}

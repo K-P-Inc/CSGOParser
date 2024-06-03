@@ -35,84 +35,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const response = new Response();
 
-  const supabase = createSupabaseServerClient({ request, response });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  const requestURL = new URL(request.url)
-  if (!session || !session.user) {
-    if (!requestURL.pathname.startsWith("/auth")) {
-      const searchParams = new URLSearchParams([["redirectTo", requestURL.pathname]]);
-      throw redirect(`/auth?${searchParams}`,  {
-        headers: response.headers
-      });
-    }
-  } else if (requestURL.pathname.startsWith("/auth")) {
-    throw redirect(requestURL.searchParams.get('redirectTo') ?? '/',  {
-      headers: response.headers
-    });
-  }
-
-  let data;
-  if (session?.user.id) {
-    data = await loadUser(supabase, session?.user.id);
-    let updatedData = data
-
-    if ((!data.icon_url || !data.steam_name) && data.steam_api_key && data.steam_id) {
-      const steamdata = await getSteamUserData(data.steam_api_key, data.steam_id);
-
-      updatedData = {
-        ...updatedData,
-        icon_url: steamdata.icon_url,
-        steam_name: steamdata.steam_name
-      }
-    }
-
-    if (!data.market_csgo_balance && data.market_csgo_api_key) {
-      const marketbalance = await getMarketCSGOBalance(data.market_csgo_api_key)
-
-      const currenyConverter = {
-        "USD": marketbalance.money as number,
-        "RUB": marketbalance.money / 90.0 as number,
-        "EUR": marketbalance.money * 0.9 as number,
-      }
-
-      updatedData = {
-        ...updatedData,
-        market_csgo_balance: currenyConverter[marketbalance.currency as ("USD" | "RUB" | "EUR")],
-      }
-    }
-
-    if (data !== updatedData) {
-      data = await updateUser(supabase, session.user.id, updatedData)
-    }
-  }
-
-  return json({ env, session, userDataLoaded: data }, { headers: response.headers });
+  return json({ env }, { headers: response.headers });
 };
 
 export default function App() {
-  const { env, session, userDataLoaded } = useLoaderData<typeof loader>();
-  const { revalidate } = useRevalidator();
-  const [userData, setUserData] = useState<IUserData>(userDataLoaded);
+  const { env } = useLoaderData<typeof loader>();
   const [supabase] = useState(() => createBrowserClient(env.SUPABASE_URL, env.SUPABASE_PUBLIC_KEY));
-
-  const serverAccessToken = session?.access_token;
-
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.access_token !== serverAccessToken) {
-        revalidate();
-      }
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [supabase.auth, serverAccessToken, revalidate]);
 
   return (
     <html lang="en">
@@ -123,13 +51,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {!session?.user ? (
-          <Outlet context={{ supabase, session }} />
-        ) : (
-          <Layout supabase={supabase} userData={userData}>
-            <Outlet context={{ userData, setUserData, supabase, session }} />
-          </Layout>
-        )}
+        <Layout supabase={supabase}>
+          <Outlet context={{ supabase }} />
+        </Layout>
         <Toaster />
         <ScrollRestoration />
         <Scripts />

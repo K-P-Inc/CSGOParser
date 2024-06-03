@@ -77,6 +77,20 @@ class DBClient:
             return weapons
 
 
+    def update_skins_as_sold(self, market, parsed_urls, weapon_uuids):
+        with self.db.cursor() as cursor:
+            if len(parsed_urls) > 0:
+                cursor.execute(f'''
+                    UPDATE skins SET is_sold = True 
+                    WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
+                ''', [*parsed_urls, market, *weapon_uuids])
+            else:
+                cursor.execute(f'''
+                    UPDATE skins SET is_sold = True 
+                    WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
+                ''', [market, *weapon_uuids])
+
+
     def parse_items_without_link(self):
         items_id, item_links, csgo_links = [], [], []
 

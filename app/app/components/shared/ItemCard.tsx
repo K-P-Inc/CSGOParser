@@ -17,6 +17,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card"
+import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon } from "~/assets/images";
 import { Button } from "../ui/button";
 
 function renderSection(title: string, rows : Array<{ label: string, value: number | string }>) {
@@ -48,7 +49,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
     window.open(`https://steamcommunity.com/market/listings/730/${encodeURIComponent(itemname)}`, "_blank")
   }
   const openMarketLink = () => {
-    window.open(item.link, "_blank")
+    window.open(item.market === "cs-money" ? item.link.split("&unique_id")[0] : item.link, "_blank")
   }
 
   return (
@@ -74,10 +75,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                 width={240}
               />
             </div>
-            <div className="flex justify-between items-center w-full px-4 text-[12px] text-grey">
-              <button onClick={openMarketLink}>
-                Open on Market
-              </button>
+            <div className="flex justify-center items-center w-full px-4 text-[12px] text-grey">
               <button onClick={openSteamLink}>
                 Open on Steam
               </button>
@@ -129,34 +127,61 @@ export default function ItemCard({ item }: { item: SkinItem }) {
               </p>
               <p className="body-bold text-secondary-500">+${(item.profit / 100.0 * item.market_price).toFixed(2)}</p>
             </div>
-            <Button className="w-full rounded border border-primary-500 bg-dark-2 hover:border-green hover:bg-green transition">Buy item</Button>
+            {item.market === "cs-money" ? (
+                <Button
+                  onClick={openMarketLink}
+                  className="w-full rounded border border-primary-500 bg-dark-2 hover:border-green hover:bg-green transition"
+                >
+                  Find item on market
+                </Button>
+              ) : (
+                <Button
+                  onClick={openMarketLink}
+                  className="w-full rounded border border-primary-500 bg-dark-2 hover:border-green hover:bg-green transition"
+                >
+                  Buy item
+                </Button>
+              )
+            }
           </div>
         </div>
       </AlertDialogContent>
-      <AlertDialogTrigger>
-      <div className="post-card">
-        <div className="flex w-full">
+      <AlertDialogTrigger className="w-full">
+      <div className="post-card space-y-2">
+        <div className="flex w-full justify-center">
           {item.stickers_icons.map((icon: string, stickerIndex: number) => (
-              <img key={stickerIndex} src={icon} alt={`Sticker ${stickerIndex + 1}`} width={32} height={18}/>
+              <img key={stickerIndex} src={icon} alt={`Sticker ${stickerIndex + 1}`} width={30}/>
           ))}
         </div>
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full" style={{ position: "relative" }}>
           <img
+            style={{ zIndex: 2 }}
             src={item.image}
             alt="post image"
             className="post-card_img"
           />
+          <img
+            style={{ zIndex: 1, position: 'absolute' }}
+            src={
+              item.market === "skinbid" ? SkinbidIcon 
+                : item.market === "cs-money" ? CsmoneyIcon
+                 : item.market === "market-csgo" ? MarketCsgoIcon
+                  : ""
+            }
+            alt="post image"
+            className="post-card_market_img"
+          />
         </div>
-        <div className="flex-between w-full">
+        <div className="flex-between w-full px-5">
           <div className="flex items-center gap-3 relative w-full">
             <div className="flex flex-col w-full">
               <div className="flex gap-1">
-                <p className="base-medium lg:body-bold text-light-1">
+                <p className="base-medium body-bold text-light-1">
                   ${parseFloat(item.market_price.toString()).toFixed(2)}
                 </p>
-                <p className="base-medium lg:body-bold text-secondary-500">+{parseInt(item.profit.toString())}%</p>
+                <p className="base-medium body-bold text-secondary-500">+{parseInt(item.profit.toString())}%</p>
               </div>
-              <p className="base-medium text-left lg:body-bold text-light-1">
+              <p className="text-left body-bold text-light-1" style={{ fontSize: "16px" }}>
                 {item.quality}
               </p>
               <p className="mt-[2px] item-card_title text-grey">

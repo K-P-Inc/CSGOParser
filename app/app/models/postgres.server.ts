@@ -1,14 +1,15 @@
 import pg from 'pg';
-const { Client } = pg;
+const { Pool } = pg;
 
-class RDSClient {
-  private client?: pg.Client;
+export class RDSClient {
+  private client?: pg.Pool;
   private inited: boolean = false;
 
   constructor() {}
 
   async setup() {
-    this.client = new Client({
+    this.client = new Pool({
+        max: 5,
         host: process.env.POSTGRES_HOST,
         user: process.env.POSTGRES_USER,
         database: process.env.POSTGRES_DB,
@@ -20,9 +21,9 @@ class RDSClient {
     this.inited = true;
   }
 
-  destroy() {
+  async destroy() {
     if (this.inited && this.client !== undefined) {
-      this.client.end();
+      await this.client.end();
     }
   }
 
@@ -33,34 +34,22 @@ class RDSClient {
     if (this.client === undefined) {
       throw new Error("Client is undefined when querying");
     }
-    return RDSClient.makeQuery(this.client, query, queryArgs);
+    const result = await RDSClient.makeQuery(this.client, query, queryArgs);
+
+    await this.destroy();
+
+    return result;
   }
 
-  static async makeQuery(client: pg.Client, query: string, queryArgs?: any[]) {
+  static async makeQuery(client: pg.Pool, query: string, queryArgs?: any[]) {
     try {
-      // await client.connect();
       let promise = await client.query(query, queryArgs)
       return promise.rows;
     } catch (e) {
       const error = e as Error
       console.error(error.stack);
     } finally {
-      // await client.end();
     }
   }
-
-  // Get list of all users
-  // note: same as parseUsers
-  async getAllUsers() {
-    let result = await this.query(`
-      SELECT users.username, users.realname, companies.name as company, users.debug_mode, users.send_recordings, users.tgt_spk_id
-      FROM users
-      JOIN companies ON companies.id = users.company_id
-      ORDER BY username ASC
-    `)
-    return result;
-  }
-
 }
 
-export const rdsClient = new RDSClient();

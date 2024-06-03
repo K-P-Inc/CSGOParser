@@ -13,7 +13,10 @@ COPY conf/ /app/conf/
 COPY classes/ /app/classes/
 COPY utils/ /app/utils/
 COPY requirements.txt /app/
+COPY scripts/wait-for-it.sh /app/wait-for-it.sh
 
+# Install dependencies
+RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
-CMD ["sh", "-c", "while :; do python -m items_prices_parser.parser; sleep 600; done"]
+CMD ["./wait-for-it.sh", "-t", "20", "seleniarm-hub:4444", "--", "sh", "-c", "while :; do python -m items_prices_parser.parser; sleep 600; done"]
