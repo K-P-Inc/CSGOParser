@@ -49,9 +49,16 @@ CREATE TYPE weapon_stickers_patern AS ENUM (
     'other'
 );
 
+CREATE TYPE market_type AS ENUM (
+    'market-csgo',
+    'skinbid',
+    'cs-money'
+);
+
 CREATE TABLE IF NOT EXISTS skins (
   id uuid DEFAULT uuid_generate_v4 (),
   link TEXT,
+  market market_type,
   stickers_price FLOAT,
   price FLOAT,
   profit FLOAT,

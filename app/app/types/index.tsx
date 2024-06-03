@@ -10,6 +10,7 @@ export interface Sticker {
 
 export interface SkinItem {
     name: string;
+    market: string;
     type: string;
     is_stattrak: boolean;
     quality: string;

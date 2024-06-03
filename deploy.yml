@@ -11,6 +11,11 @@
       - M4A4
       - M4A1-S
 
+    market_types:
+      - skinbid
+      - cs-money
+      - market-csgo
+
   tasks:
     - name: Set arm_arch based on architecture
       set_fact:

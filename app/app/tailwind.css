@@ -241,6 +241,14 @@
     @apply h-[110px] mt-[-15px] mb-[-5px] mx-[-5px];
   }
 
+  .post-card_market_img {
+    @apply w-auto rounded-[24px] object-cover mt-[-10px] hover:mt-[-5px] hover:mb-[-5px] hover:mx-[-5px] transition-all duration-100 ease-in opacity-50;
+  }
+
+  .post-card:hover .post-card_market_img {
+    @apply mt-[-15px] mb-[-5px] mx-[-5px] opacity-100;
+  }
+
   /* Topbar */
   .topbar {
     @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;

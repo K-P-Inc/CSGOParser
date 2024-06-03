@@ -9,18 +9,16 @@ import { SupabaseClient } from "@supabase/auth-helpers-remix";
 import { Button } from "./ui/button";
 
 const sidebarNavigation = [
-    { label: 'Account', route: '/account', icon: AccountIcon },
-    { label: 'Inventory', route: '/inventory', icon: InventoryIcon },
+    { label: 'Database', route: '/database', icon: InventoryIcon },
     // { label: 'Watchlist', route: '/watchlist', icon: WatchlistIcon },
     // { label: 'Settings', route: '/settings', icon: SettingsIcon },
 ];
 
 interface BarProperties {
     supabase: SupabaseClient;
-    userData: any;
 }
 
-function TopBar({ supabase, userData } : BarProperties) {
+function TopBar({ supabase } : BarProperties) {
 
     return (
         <section className="topbar">
@@ -33,21 +31,6 @@ function TopBar({ supabase, userData } : BarProperties) {
                     height={325}
                 />
                 </Link>
-                <div className="flex gap-4">
-                <Button
-                    variant="ghost"
-                    className="shad-button_ghost"
-                    onClick={() => { supabase.auth.signOut() }}>
-                   <img src={LogoutIcon} width={32} height={32} alt="logout"/>
-                </Button>
-                <div className="flex-center gap-3">
-                    <img
-                        src={userData?.icon_url || AccountIcon}
-                        alt="profile"
-                        className="h-8 w-8 rounded-full"
-                    />
-                </div>
-                </div>
             </div>
         </section>
     );
@@ -82,7 +65,7 @@ function Bottombar () {
   );
 };
 
-function LeftLayout({ supabase, userData } : BarProperties) {
+function LeftLayout({ supabase } : BarProperties) {
     const location = useLocation()
 
     return (
@@ -96,19 +79,6 @@ function LeftLayout({ supabase, userData } : BarProperties) {
                     height={36}
                 />
                 </Link>
-
-                <div className="flex gap-3 items-center">
-                    <img
-                        src={userData?.icon_url || AccountIcon}
-                        alt="profile"
-                        className="h-14 w-14 rounded-full"
-                    />
-                    <div className="flex flex-col">
-                    <p className="body-bold">{userData?.steam_name || "Steam name"}</p>
-                    <p className="small-regular text-light-3">${userData && userData.market_csgo_balance ? userData?.market_csgo_balance.toFixed(2) : '$$$'}</p>
-                    </div>
-                </div>
-
                 <ul className="flex flex-col gap-6">
                     {sidebarNavigation.map((link: any) => {
                         const isActive = location.pathname === link.route;
@@ -138,30 +108,21 @@ function LeftLayout({ supabase, userData } : BarProperties) {
                     })}
                 </ul>
             </div>
-
-        <Button
-            variant="ghost"
-            className="shad-button_ghost"
-            onClick={() => { supabase.auth.signOut() }}>
-            <img className="text-primary-500 stroke-primary-500" src={LogoutIcon} width={32} height={32} alt="logout"/>
-            <p className="small-medium lg:base-medium">Logout</p>
-        </Button>
     </nav>
     )
 }
 
 interface LayoutProperties {
     supabase: SupabaseClient;
-    userData: any;
     children: React.ReactNode
 }
 
-export default function Layout({ supabase, userData, children } : LayoutProperties) {
+export default function Layout({ supabase, children } : LayoutProperties) {
     return (
         <main className="flex h-screen">
             <div className="w-full md:flex">
-                <TopBar supabase={supabase} userData={userData}/>
-                <LeftLayout supabase={supabase} userData={userData}/>
+                <TopBar supabase={supabase}/>
+                <LeftLayout supabase={supabase}/>
                 <section className="flex flex-1 h-full">
                     {children}
                 </section>

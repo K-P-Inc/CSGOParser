@@ -16,7 +16,13 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import WebDriverException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 
-ORDER_DELETED_ERROR_CODE = 404
+ORDER_DELETED_ERROR_CODE = [
+    {
+        "code": 404,
+        "message": "Oops. This item’s page was not found."
+    }
+]
+
 parsed_items = 0
 
 def do_request(link, name, id):
@@ -90,7 +96,7 @@ def main(cfg: DictConfig):
                     if item_dict and "status" in item_dict and item_dict["status"] == "SOLD":
                         logging.info(f"Updating item with {item_id} because it was sold")
                         update_sold_item(item_id=item_id, db_client=db_client)
-                    elif item_dict and hasattr(item_dict, "__len__") and len(item_dict) > 0 and "code" in item_dict[0] and item_dict[0]["code"] == ORDER_DELETED_ERROR_CODE:
+                    elif item_dict and item_dict == ORDER_DELETED_ERROR_CODE:
                         logging.info(f"Updating item with {item_id} because it was deleted or order was changed")
                         update_deleted_item(item_id=item_id, db_client=db_client)
 

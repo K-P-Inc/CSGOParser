@@ -3,7 +3,7 @@ FROM python:3.10-slim-buster
 # Set the working directory
 WORKDIR /app
 
-COPY market_csgo_parser_api/ /app/market_csgo_parser_api/
+COPY template_parser_api/ /app/template_parser_api/
 COPY conf/ /app/conf/
 COPY classes/ /app/classes/
 COPY utils/ /app/utils/
@@ -14,4 +14,4 @@ COPY requirements.txt /app/
 RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["./wait-for-it.sh", "-t", "20", "db:5432", "--", "python3", "-m", "market_csgo_parser_api.parser"]
+ENTRYPOINT ["./wait-for-it.sh", "-t", "20", "db:5432", "--", "python3", "-m", "template_parser_api.parser"]

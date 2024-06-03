@@ -4,11 +4,13 @@ import hydra
 import datetime
 import logging
 import os
+import html
 from omegaconf import DictConfig
 from pathlib import Path
 from dotenv import load_dotenv
-from classes import DBClient
+from classes import DBClient, SeleniumDriver
 from utils import repo_path
+from selenium.webdriver.common.by import By
 
 def load_stickers_ids():
     with open(os.path.join(repo_path(), 'data', 'stickers_ids.json'), 'r') as f:
@@ -19,41 +21,111 @@ def load_stickers_content():
         return json.loads(f.read())
 
 def parse_response(result_mapping):
+    exteriors = [
+        'Factory New',
+        'Minimal Wear',
+        'Field-Tested',
+        'Well-Worn',
+        'Battle-Scarred'
+    ]
+    # Individual weapon type arrays
+
+    # Pistols
+    pistols = [
+        "Glock-18",
+        "P2000",
+        "USP-S",
+        "P250",
+        "Five-SeveN",
+        "Desert Eagle",
+        "R8 Revolver",
+        "CZ75-Auto",
+        "Dual Berettas",
+        "Tec-9"
+    ]
+
+    # Submachine Guns (SMGs)
+    smgs = [
+        "MAC-10",
+        "MP5-SD",
+        "MP7",
+        "MP9",
+        "PP-Bizon",
+        "P90",
+        "UMP-45"
+    ]
+
+    # Rifles
+    rifles = [
+        "AK-47",
+        "M4A4",
+        "M4A1-S",
+        "AUG",
+        "SG 553",
+        "FAMAS",
+        "Galil AR"
+    ]
+
+    # Sniper Rifles
+    sniper_rifles = [
+        "AWP",
+        "SSG 08",
+        "G3SG1",
+        "SCAR-20"
+    ]
+
+    # Shotguns
+    shotguns = [
+        "Nova",
+        "XM1014",
+        "MAG-7",
+        "Sawed-Off"
+    ]
+
+    # Machine Guns
+    machine_guns = [
+        "M249",
+        "Negev"
+    ]
+
+    # Combine all arrays into one
+    all_weapons = pistols + smgs + rifles + sniper_rifles + shotguns + machine_guns
+
     sticker_contents = load_stickers_content()
     stickers_ids = load_stickers_ids()
     weaponts_to_insert, stickers_to_insert = [], []
-    for key, item in result_mapping['items_list'].items():
-        # logging.debug("Got item from API", key, item)
-        if 'type' in item and 'gun_type' in item and 'price' in item:
-            if item['type'] == 'Weapon' and 'Souvenir' not in item['name']:
-                price = 0
-                for qual in ['24_hours', '7_days', '30_days', 'all_time']:
-                    if qual in item["price"]:
-                        price = item["price"][qual]["average"]
-                        break
-                name = item["name"].replace("StatTrak™ ", "").replace(f' ({item["exterior"]})', "")
-                weaponts_to_insert.append((
-                    name, str(item["exterior"]), 'stattrak' in item, price,
-                    item["price"]["7_days"]['lowest_price'] if "7_days" in item["price"] else 0,
-                    item["price"]["7_days"]['highest_price'] if "7_days" in item["price"] else 0,
-                    item["price"]["30_days"]['lowest_price'] if "30_days" in item["price"] else 0,
-                    item["price"]["30_days"]['highest_price'] if "30_days" in item["price"] else 0,
-                    item["price"]["all_time"]['lowest_price'] if "all_time" in item["price"] else 0,
-                    item["price"]["all_time"]['highest_price'] if "all_time" in item["price"] else 0,
-                    datetime.datetime.now(),
-                    item["icon_url"]
-                ))
 
-        elif "sticker" in item and "price" in item:
+    for key, item in result_mapping['items_list'].items():
+        if any(item["name"].startswith(weapon) or item["name"].startswith("StatTrak™ " + weapon) for weapon in all_weapons) and "price" in item:
+            price = 0
+            for qual in ['7_days', '30_days', 'all_time']:
+                if qual in item["price"]:
+                    price = item["price"][qual]["average"]
+                    break
+            exterior = next(x for x in exteriors if x in item["name"])
+            name = html.unescape(item["name"].replace("StatTrak™ ", "").replace(f' ({exterior})', ""))
+            weaponts_to_insert.append((
+                name, exterior, 'StatTrak™' in item["name"], price,
+                item["price"]["7_days"]['lowest_price'] if "7_days" in item["price"] else 0,
+                item["price"]["7_days"]['highest_price'] if "7_days" in item["price"] else 0,
+                item["price"]["30_days"]['lowest_price'] if "30_days" in item["price"] else 0,
+                item["price"]["30_days"]['highest_price'] if "30_days" in item["price"] else 0,
+                item["price"]["all_time"]['lowest_price'] if "all_time" in item["price"] else 0,
+                item["price"]["all_time"]['highest_price'] if "all_time" in item["price"] else 0,
+                datetime.datetime.now(),
+                item["icon_url"]
+            ))
+
+        elif "Sticker | " in item["name"] and "price" in item:
             key_sticker = None
-            name = item['name'].replace("Sticker | ", "")
+            name = html.unescape(item['name'].replace("Sticker | ", ""))
             for key, value in sticker_contents.items():
                 if 'name' in value and value['name'] == name:
                     key_sticker = key
                     break
 
             price = 0
-            for qual in ['24_hours', '7_days', '30_days', 'all_time']:
+            for qual in ['7_days', '30_days', 'all_time']:
                 if qual in item["price"]:
                     price = item["price"][qual]["average"]
                     break
@@ -63,14 +135,20 @@ def parse_response(result_mapping):
                 name,
                 key_sticker,
                 price,
-                "", item["rarity"], "",
+                "", "", "",
                 item["icon_url"]
             ))
 
     return  weaponts_to_insert, stickers_to_insert
 
 def invoke_api():
-    return requests.get('http://csgobackpack.net/api/GetItemsList/v2/').json()
+    driver_class = SeleniumDriver()
+    driver = driver_class.driver
+
+    driver.get('https://inventory.clash.gg/api/GetItemsList/v2')
+    content = driver.find_element(By.TAG_NAME, 'pre').text
+
+    return json.loads(content)
 
 def split_array(array, k=1000):
     return [array[i * k:i * k + k] for i in range(len(array) // k + 1)]
@@ -79,7 +157,7 @@ def split_array(array, k=1000):
 def main(cfg: DictConfig):
     try:
         response_api = invoke_api()
-        logging.info("Got results from API")
+        logging.info(f"Got results from API")
 
         weaponts_to_insert, stickers_to_insert = parse_response(response_api)
         logging.info("Response parsed")
