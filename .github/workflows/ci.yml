@@ -26,6 +26,9 @@ jobs:
       - name: Drop ansible vault password to file
         run: echo "${{ env.ANSIBLE_VAULT_PASSWORD }}" > ${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
 
+      - name: Create Selenium Auth File
+        run: echo "${{ secrets.SENTRY_AUTH_TOKEN_FILE }}" > app/.sentryclirc
+
       - name: Prepare build configuration for ${{ matrix.build_type }}
         env:
           BUILD_TYPE: ${{ matrix.build_type }}
