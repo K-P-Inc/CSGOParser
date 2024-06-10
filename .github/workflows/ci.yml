@@ -7,36 +7,35 @@ env:
 
 jobs:
   build:
+    name: Build, test and publish app Docker images
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         build_type: ["worker", "dashboard", "infrastructure"]
 
     steps:
-      name: Build, test and publish app Docker images
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-        - name: Drop ansible vault password to file
-          run: echo "${{ env.ANSIBLE_VAULT_PASSWORD }}" > ${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
+      - name: Drop ansible vault password to file
+        run: echo "${{ env.ANSIBLE_VAULT_PASSWORD }}" > ${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
 
-        - name: Prepare build configuration for {{ matrix.build_type }}
-          env:
-            BUILD_TYPE: ${{ matrix.build_type }}
-          run: |
-            ansible-playbook prepare-build-config.yml
+      - name: Prepare build configuration for {{ matrix.build_type }}
+        env:
+          BUILD_TYPE: ${{ matrix.build_type }}
+        run: |
+          ansible-playbook prepare-build-config.yml
 
-        - name: Build the docker-compose stack
-          run: docker network create parser_network && docker-compose up --build -d
+      - name: Build the docker-compose stack
+        run: docker network create parser_network && docker-compose up --build -d
 
-        - name: Get init logs
-          run: docker-compose logs
+      - name: Get init logs
+        run: docker-compose logs
 
-        - name: Publish image(s)
-          run: |
-            docker tag ${{ matrix.build_type }}_build ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }} && \
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
-            docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }}
+      - name: Publish image(s)
+        run: |
+          docker tag ${{ matrix.build_type }}_build ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }} && \
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }}
 
   deploy:
     if: github.ref == 'refs/heads/master'
