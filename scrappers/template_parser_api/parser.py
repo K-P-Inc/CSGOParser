@@ -8,13 +8,13 @@ from omegaconf import DictConfig
 from dotenv import load_dotenv
 from classes import DBClient
 from utils import repo_path, get_stickers_dict, get_weapons_array_by_type
-from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper
+from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper, SkinportHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper
 
 parsed_items = 0
 market_type = "market-csgo"
 
 def parse_item(
-    market_class, db_client,
+    market_class,
     items_list, display_name,
     weapon_config, weapons_prices, stickers_dict
 ):
@@ -22,6 +22,7 @@ def parse_item(
         logging.info(f'No weapons found for {display_name}')
         return []
 
+    found_items = []
     parsed_urls = []
 
     logging.info(f'Parsing weapon {display_name} (found {len(items_list)})')
@@ -41,7 +42,7 @@ def parse_item(
 
         sticker_count = {}
         for sticker in matched_stickers:
-            key = sticker[1]
+            key = sticker["name"]
             if key in sticker_count:
                 sticker_count[key] += 1
             else:
@@ -62,34 +63,19 @@ def parse_item(
         else:
             sticker_patern = 'other'
 
-        sticker_sum = sum([sticker[0] for sticker in matched_stickers])
+        sticker_sum = sum([sticker["price"] for sticker in matched_stickers])
         sticker_overprice = sticker_sum * 0.1
-        stickers_names_string = ', '.join([sticker[1] for sticker in matched_stickers])
+        stickers_names_string = ', '.join([sticker["name"] for sticker in matched_stickers])
         future_profit_percentages = (sticker_overprice + actually_price - item_price) / item_price * 100
 
         if future_profit_percentages > weapon_config.profit_threshold and sticker_sum > weapon_config.sticker_sum:
-            query = '''
-                INSERT INTO skins(
-                    market, link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                ON CONFLICT (link) DO UPDATE SET
-                stickers_price = EXCLUDED.stickers_price,
-                price = EXCLUDED.price,
-                profit = EXCLUDED.profit,
-                skin_id = EXCLUDED.skin_id,
-                stickers_patern = EXCLUDED.stickers_patern,
-                amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
-                amount_of_stickers = EXCLUDED.amount_of_stickers,
-                is_sold = EXCLUDED.is_sold,
-                stickers = EXCLUDED.stickers
-            '''
-            db_client.execute(query, (
+            found_items.append((
                 market_class.DB_ENUM_NAME,
                 item_link,
                 sticker_sum, item_price,
                 future_profit_percentages,
                 weapon_uuid, sticker_patern, num_stickers, len(matched_stickers), False,
-                [sticker[3] for sticker in matched_stickers]
+                [sticker["id"] for sticker in matched_stickers]
             ))
             logging.info(
                 f'Found new item:\n\n'
@@ -101,6 +87,9 @@ def parse_item(
                 f'Stickers overprice: {sticker_overprice} $\n'
                 f'Profit: {future_profit_percentages:.2f} %\n\n'
             )
+
+    if found_items:
+        DBClient().insert_skins(found_items)
 
     return parsed_urls
 
@@ -117,21 +106,20 @@ def run_action(market_class, weapon_config):
     ]
 
     try:
-        db_client = DBClient()
-        stickers_dict = get_stickers_dict(db_client)
-        weapons, weapons_prices = get_weapons_array_by_type(db_client, weapon_config, parsed_items)
+        weapons, weapons_prices = get_weapons_array_by_type(weapon_config, parsed_items, with_quality=market_class.PARSE_WITH_QUALITY)
+        stickers_dict = get_stickers_dict()
 
         for weapon_type, weapon_name, weapon_is_stattrak in weapons:
             page_number = 0
             items_list = None
             parsed_urls = []
             display_name = f'{"StatTrak™ " if weapon_is_stattrak == True else ""}{weapon_type} | {weapon_name}'
-            while items_list == None or len(items_list) == market_class.MAX_ITEMS_PER_PAGE:
-                logging.info(f'Trying to find {display_name} on {page_number + 1} page')
+            while (items_list == None and page_number == 0) or (items_list != None and len(items_list) == market_class.MAX_ITEMS_PER_PAGE):
+                logging.info(f'Trying to find {display_name} on {page_number + 1} page {market_class.PARSE_WITH_QUALITY}')
                 items_list = market_class.do_request(weapon_type, weapon_name, weapon_is_stattrak, weapon_config["max_steam_item_price"], page_number)
                 if items_list != None:
                     parsed_urls_iter = parse_item(
-                        market_class=market_class, db_client=db_client,
+                        market_class=market_class,
                         items_list=items_list, display_name=display_name,
                         weapon_config=weapon_config, weapons_prices=weapons_prices,
                         stickers_dict=stickers_dict
@@ -144,10 +132,18 @@ def run_action(market_class, weapon_config):
 
                 logging.info(f'Parsed weapon {display_name} on {page_number + 1} page')
                 time.sleep(market_class.REQUEST_TIMEOUT)
-            db_client.update_skins_as_sold(
-                market_class.DB_ENUM_NAME, parsed_urls,
-                [weapons_prices[f"{display_name} ({key_price})"]["uuid"] for key_price in types if f"{display_name} ({key_price})" in weapons_prices]
-            )
+            
+            if market_class.PARSE_WITH_QUALITY == False:
+                uuids_for_update = [
+                    weapons_prices[f"{display_name} ({key_price})"]["uuid"] 
+                    for key_price in types 
+                    if f"{display_name} ({key_price})" in weapons_prices
+                ]
+            else:
+                uuids_for_update = [weapons_prices[display_name]["uuid"]]
+
+            DBClient().update_skins_as_sold(market_class.DB_ENUM_NAME, parsed_urls, uuids_for_update)
+
             parsed_items += 1
     except KeyboardInterrupt:
         logging.info('Closing parsing process (KeyboardInterrupt)')
@@ -170,6 +166,16 @@ def market_factory(market_type):
         return CSMoneyHelper()
     elif market_type == "market-csgo":
         return MarketCSGOHelper()
+    elif market_type == "skinport":
+        return SkinportHelper()
+    elif market_type == "csfloat":
+        return CSFloatHelper()
+    elif market_type == "bitskins":
+        return BitskinsHelper()
+    elif market_type == "haloskins":
+        return HaloskinsHelper()
+    elif market_type == "dmarket":
+        return DmarketHelper()
     else:
         raise Exception('Unknown market type: {0}'.format(market_type))
 

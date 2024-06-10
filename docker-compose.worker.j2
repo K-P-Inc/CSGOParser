@@ -58,27 +58,9 @@ services:
     networks:
       - parser_network
 
-  items:
-    container_name: items-prices-parser
-    build:
-      context: scrappers
-      dockerfile: items_prices_parser/Dockerfile
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-    depends_on:
-      - db
-      - seleniarm-hub
-      - seleniarm-chrome-node
-    networks:
-      - parser_network
-
   seleniarm-chrome-node:
     deploy:
-      replicas: 2
+      replicas: 1
     image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
     volumes:
       - ./downloads:/home/seluser/Downloads

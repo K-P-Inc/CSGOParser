@@ -17,7 +17,7 @@ class DBClient:
             password=password,
             port=port
         )
-        logging.info("Connecting to database")
+        logging.info("Connected to database")
 
     def execute(self, query, params) -> None:
         with self.db.cursor() as cursor:
@@ -47,6 +47,25 @@ class DBClient:
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
 
+    def insert_skins(self, values):
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
+        query = f'''
+            INSERT INTO skins(
+                market, link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers
+            ) VALUES {placeholders}
+            ON CONFLICT (link) DO UPDATE SET
+                stickers_price = EXCLUDED.stickers_price,
+                price = EXCLUDED.price,
+                profit = EXCLUDED.profit,
+                skin_id = EXCLUDED.skin_id,
+                stickers_patern = EXCLUDED.stickers_patern,
+                amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
+                amount_of_stickers = EXCLUDED.amount_of_stickers,
+                is_sold = EXCLUDED.is_sold,
+                stickers = EXCLUDED.stickers
+        '''
+        flat_values = [val for row in values for val in row]
+        self.execute(query, flat_values)
 
     def update_stickers_prices(self, values):
         query = f'''
@@ -64,14 +83,14 @@ class DBClient:
             stickers = cursor.fetchall()
             return stickers
 
-    def get_all_weapons(self, min_price=0, max_price=1000000000):
+    def get_all_weapons(self, type, min_price=0, max_price=1000000000):
         with self.db.cursor() as cursor:
-            cursor.execute('''
+            cursor.execute(f'''
                 SELECT name, price, quality, is_stattrak, id
                 FROM weapons_prices
-                WHERE price >= %s and price <= %s
+                WHERE price >= %s and price <= %s and name LIKE '{type}%'
                 ORDER BY name
-            ''', (min_price, max_price,))
+            ''', (min_price, max_price))
 
             weapons = cursor.fetchall()
             return weapons

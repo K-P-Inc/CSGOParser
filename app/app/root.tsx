@@ -1,3 +1,4 @@
+import { captureRemixErrorBoundaryError } from "@sentry/remix";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import {
@@ -8,7 +9,8 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useRevalidator
+  useRevalidator,
+  useRouteError,
 } from "@remix-run/react";
 import { createSupabaseServerClient } from "~/supabase.server";
 import { createBrowserClient } from "@supabase/auth-helpers-remix";
@@ -38,6 +40,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({ env }, { headers: response.headers });
 };
 
+export const ErrorBoundary = () => {
+  const error = useRouteError();
+  captureRemixErrorBoundaryError(error);
+  return <div>Something went wrong</div>;
+};
+
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
   const [supabase] = useState(() => createBrowserClient(env.SUPABASE_URL, env.SUPABASE_PUBLIC_KEY));
@@ -61,4 +69,4 @@ export default function App() {
       </body>
     </html>
   );
-};
+}

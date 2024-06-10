@@ -10,3 +10,5 @@ blinker==1.7.0
 Brotli==1.1.0 
 selenium==4.9.1
 requests
+redis
+fake_useragent

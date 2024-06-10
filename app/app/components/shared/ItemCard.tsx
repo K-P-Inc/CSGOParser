@@ -17,7 +17,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card"
-import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon } from "~/assets/images";
+import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon } from "~/assets/images";
 import { Button } from "../ui/button";
 
 function renderSection(title: string, rows : Array<{ label: string, value: number | string }>) {
@@ -48,8 +48,9 @@ export default function ItemCard({ item }: { item: SkinItem }) {
     const itemname = `${item.name} (${item.quality})`
     window.open(`https://steamcommunity.com/market/listings/730/${encodeURIComponent(itemname)}`, "_blank")
   }
+
   const openMarketLink = () => {
-    window.open(item.market === "cs-money" ? item.link.split("&unique_id")[0] : item.link, "_blank")
+    let newWindow = window.open(item.market === "cs-money" ? item.link.split("&unique_id")[0] : item.link, "_blank");
   }
 
   return (
@@ -127,22 +128,12 @@ export default function ItemCard({ item }: { item: SkinItem }) {
               </p>
               <p className="body-bold text-secondary-500">+${(item.profit / 100.0 * item.market_price).toFixed(2)}</p>
             </div>
-            {item.market === "cs-money" ? (
-                <Button
-                  onClick={openMarketLink}
-                  className="w-full rounded border border-primary-500 bg-dark-2 hover:border-green hover:bg-green transition"
-                >
-                  Find item on market
-                </Button>
-              ) : (
-                <Button
-                  onClick={openMarketLink}
-                  className="w-full rounded border border-primary-500 bg-dark-2 hover:border-green hover:bg-green transition"
-                >
-                  Buy item
-                </Button>
-              )
-            }
+              <Button
+                onClick={openMarketLink}
+                className="w-full rounded border border-primary-500 bg-dark-2 hover:border-green hover:bg-green transition"
+              >
+                Buy item
+              </Button>
           </div>
         </div>
       </AlertDialogContent>
@@ -166,7 +157,12 @@ export default function ItemCard({ item }: { item: SkinItem }) {
               item.market === "skinbid" ? SkinbidIcon 
                 : item.market === "cs-money" ? CsmoneyIcon
                  : item.market === "market-csgo" ? MarketCsgoIcon
-                  : ""
+                  : item.market === "skinport" ? SkinportIcon
+                    : item.market === "bitskins" ? BitskinsIcon
+                      : item.market === "csfloat" ? CsfloatIcon
+                        : item.market === "dmarket" ? DmarketIcon
+                          : item.market === "haloskins" ? CsfloatIcon
+                            : ""
             }
             alt="post image"
             className="post-card_market_img"

@@ -14,4 +14,4 @@ COPY requirements.txt /app/
 RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["./wait-for-it.sh", "-t", "20", "db:5432", "--", "python3", "-m", "template_parser_api.parser"]
+ENTRYPOINT ["./wait-for-it.sh", "-t", "20", "seleniarm-hub:4444", "--", "./wait-for-it.sh", "-t", "20", "db:5432", "--", "python3", "-m", "template_parser_api.parser"]

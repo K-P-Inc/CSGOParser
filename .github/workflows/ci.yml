@@ -1,0 +1,53 @@
+name: Build
+on: push
+
+env:
+  ANSIBLE_VAULT_PASSWORD_FILE: ~/.vault_pass.txt
+  ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: ["worker", "dashboard", "infrastructure"]
+        include:
+        - build_type: worker
+          service: worker
+        - build_type: dashboard
+          service: dashboard
+        - build_type: infrastructure
+          service: items_prices_parser
+
+    name: Build, test and publish app Docker images (${{ matrix.build_type }})
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Drop ansible vault password to file
+        run: echo "${{ env.ANSIBLE_VAULT_PASSWORD }}" > ${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
+
+      - name: Create Selenium Auth File
+        run: echo "${{ secrets.SENTRY_AUTH_TOKEN_FILE }}" > app/.sentryclirc
+
+      - name: Prepare build configuration for ${{ matrix.build_type }}
+        env:
+          BUILD_TYPE: ${{ matrix.build_type }}
+        run: |
+          ansible-playbook prepare-build-config.yml
+
+      - name: Build the docker-compose services
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        run: |
+          ./build_by_image.sh ${{ matrix.service }}
+
+      - name: Get init logs
+        run: docker-compose logs
+
+      - name: Publish images
+        run: |
+          docker tag ${{ matrix.service }} ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }}
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }}

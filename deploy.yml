@@ -1,30 +1,13 @@
 ---
-- name: Market csgo parser service
-  hosts: localhost
-  connection: local
-  gather_facts: true
-
-  vars:
-    weapon_types:
-      - AWP
-      - AK-47
-      - M4A4
-      - M4A1-S
-
-    market_types:
-      - skinbid
-      - cs-money
-      - market-csgo
-
+- hosts: all
+  become: yes
+  become_user: deploy
   tasks:
-    - name: Set arm_arch based on architecture
-      set_fact:
-        arm_arch: "{{ ansible_architecture == 'arm64' }}"
-    - name: Create Docker Compose file
-      template:
-        src: docker-compose.yml.j2
-        dest: ./docker-compose.yml
-    - name: Run docker-compose
-      command: docker-compose up -d --build --force-recreate
-      args:
-        chdir: .
+  - name: "Login to DockerHub"
+    command: "docker login -u {{ docker_username }} --password-stdin"
+    args:
+      stdin: "{{ docker_password }}"
+
+  - name: "Deploy apps"
+    command: "/home/deploy/deploy-{{ item }}.sh"
+    loop: "{{ apps }}"
