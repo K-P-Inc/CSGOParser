@@ -7,19 +7,19 @@ env:
 
 jobs:
   build:
-    name: Build, test and publish app Docker images
     runs-on: ubuntu-latest
     strategy:
       matrix:
         build_type: ["worker", "dashboard", "infrastructure"]
 
+    name: Build, test and publish app Docker images (${{ matrix.build_type }})
     steps:
       - uses: actions/checkout@v3
 
       - name: Drop ansible vault password to file
         run: echo "${{ env.ANSIBLE_VAULT_PASSWORD }}" > ${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
 
-      - name: Prepare build configuration for {{ matrix.build_type }}
+      - name: Prepare build configuration for ${{ matrix.build_type }}
         env:
           BUILD_TYPE: ${{ matrix.build_type }}
         run: |
