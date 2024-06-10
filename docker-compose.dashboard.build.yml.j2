@@ -19,8 +19,6 @@ services:
       dockerfile: ./app/Dockerfile
     environment:
       <<: *db_credentials
-    depends_on:
-      - db
     ports:
       - "5555:3000"
     networks:

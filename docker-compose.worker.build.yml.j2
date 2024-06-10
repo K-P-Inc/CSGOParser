@@ -13,7 +13,6 @@ x-template_api_parser_service: &template_api_parser_service
     context: scrappers
     dockerfile: template_parser_api/Dockerfile
   depends_on:
-    - db
     - seleniarm-hub
     - seleniarm-chrome-node
   networks:
