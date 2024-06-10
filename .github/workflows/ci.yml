@@ -27,7 +27,7 @@ jobs:
           ansible-playbook prepare-build-config.yml
 
       - name: Build the docker-compose stack
-        run: docker network create parser_network && docker-compose up --build -d
+        run: docker network create parser_network && docker-compose up --build --no-start
 
       - name: Get init logs
         run: docker-compose logs
@@ -37,17 +37,3 @@ jobs:
           docker tag ${{ matrix.build_type }}_build ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }} && \
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }}
-
-  deploy:
-    if: github.ref == 'refs/heads/master'
-    name: Run remote deploy script
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: appleboy/ssh-action@v0.0.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: deploy
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          script: ./deploy-hello-web-app.sh
