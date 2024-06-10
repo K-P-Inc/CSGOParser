@@ -42,6 +42,6 @@ jobs:
 
       - name: Publish images
         run: |
-          docker tag ${{ matrix.service }}_build ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }}
+          docker tag ${{ matrix.service }} ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }}
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }}
