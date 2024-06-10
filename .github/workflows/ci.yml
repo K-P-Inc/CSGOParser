@@ -12,13 +12,14 @@ jobs:
     strategy:
       matrix:
         build_type: ["worker", "dashboard", "infrastructure"]
+        service: [worker", "dashboard", "items_prices_parser"]
         include:
         - build_type: worker
-          build_services: ["worker"]
+          service: worker
         - build_type: dashboard
-          build_services: ["dashboard"]
+          service: dashboard
         - build_type: infrastructure
-          build_services: ["items_prices_parser"]
+          service: items_prices_parser
 
     name: Build, test and publish app Docker images (${{ matrix.build_type }})
     steps:
@@ -35,17 +36,13 @@ jobs:
 
       - name: Build the docker-compose services
         run: |
-          for service in $(echo ${{ toJson(matrix.build_services) }} | tr -d '[],'); do
-            ./build_by_image.sh "$service"
-          done
+          ./build_by_image.sh ${{ matrix.service }}
 
       - name: Get init logs
         run: docker-compose logs
 
       - name: Publish images
         run: |
-          for service in ${{ toJson(matrix.build_services) }}; do
-            docker tag ${service}_build ${{ secrets.DOCKER_USERNAME }}/${service}:${{ github.sha }}
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
-            docker push ${{ secrets.DOCKER_USERNAME }}/${service}:${{ github.sha }}
-          done
+          docker tag ${{ matrix.service }}_build ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }}
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }}
