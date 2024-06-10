@@ -34,18 +34,18 @@ jobs:
           ansible-playbook prepare-build-config.yml
 
       - name: Build the docker-compose services
-        shell: bash
         run: |
-          for service in ${matrix.build_services[@]}; do
-            echo "Building service $service"
-            ./build_by_image.sh ${service}
+          for service in ${{ matrix.build_services[@] }}
+          do
+            ./build_by_image.sh "$service"
           done
 
+      - name: Get init logs
+        run: docker-compose logs
+
       - name: Publish images
-        shell: bash
         run: |
-          for service in ${matrix.build_services[@]}; do
-            echo "Tagging and pushing service $service"
+          for service in ${{ toJson(matrix.build_services) }}; do
             docker tag ${service}_build ${{ secrets.DOCKER_USERNAME }}/${service}:${{ github.sha }}
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
             docker push ${{ secrets.DOCKER_USERNAME }}/${service}:${{ github.sha }}
