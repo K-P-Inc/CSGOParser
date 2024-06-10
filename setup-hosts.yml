@@ -156,6 +156,9 @@
         create: yes
       with_items: "{{ github_keys.stdout_lines }}"
 
+    - name: Install ansible on remote machine
+      command: pip3 install ansible
+
     - name: "Login to DockerHub"
       become: yes
       become_user: deploy
