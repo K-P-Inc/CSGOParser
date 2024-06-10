@@ -1,0 +1,53 @@
+name: Build
+on: push
+
+env:
+  ANSIBLE_VAULT_PASSWORD_FILE: ~/.vault_pass.txt
+  ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        build_type: ["worker", "dashboard", "infrastructure"]
+
+    steps:
+      name: Build, test and publish app Docker images
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+
+        - name: Drop ansible vault password to file
+          run: echo "${{ env.ANSIBLE_VAULT_PASSWORD }}" > ${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
+
+        - name: Prepare build configuration for {{ matrix.build_type }}
+          env:
+            BUILD_TYPE: ${{ matrix.build_type }}
+          run: |
+            ansible-playbook prepare-build-config.yml
+
+        - name: Build the docker-compose stack
+          run: docker network create parser_network && docker-compose up --build -d
+
+        - name: Get init logs
+          run: docker-compose logs
+
+        - name: Publish image(s)
+          run: |
+            docker tag ${{ matrix.build_type }}_build ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }} && \
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
+            docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }}
+
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    name: Run remote deploy script
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: appleboy/ssh-action@v0.0.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: deploy
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          script: ./deploy-hello-web-app.sh

@@ -9,6 +9,7 @@ class SeleniumDriver:
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument("--enable-javascript")
+        options.add_argument("--incognito")
 
         logging.info(f'Starting undetected chromedriver')
         self.driver = Remote(options=options, command_executor="http://seleniarm-hub:4444/wd/hub")

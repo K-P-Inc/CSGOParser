@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  seleniarm-chrome-node:
+    logging:
+      driver: journald
+
+  seleniarm-hub:
+    logging:
+      driver: journald
+
+{% for market_type in market_types %}
+  {{ market_type.lower().replace('-', '_') }}_parser:
+    image: sprili/worker:${COMMIT}
+    logging:
+      driver: journald
+{% endfor %}

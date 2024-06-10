@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS weapons_prices (
 CREATE UNIQUE INDEX IF NOT EXISTS weapons_prices_index ON weapons_prices(name, quality, is_stattrak);
 
 CREATE TYPE weapon_stickers_patern AS ENUM (
-    'full-set',
+    '5-equal',
+    '4-equal',
     '3-equal',
     '2-equal',
     'other'
@@ -52,13 +53,19 @@ CREATE TYPE weapon_stickers_patern AS ENUM (
 CREATE TYPE market_type AS ENUM (
     'market-csgo',
     'skinbid',
-    'cs-money'
+    'cs-money',
+    'skinport',
+    'csfloat',
+    'bitskins',
+    'dmarket',
+    'skinbaron',
+    'haloskins',
+    'csmiddler'
 );
 
 CREATE TABLE IF NOT EXISTS skins (
   id uuid DEFAULT uuid_generate_v4 (),
   link TEXT,
-  market market_type,
   stickers_price FLOAT,
   price FLOAT,
   profit FLOAT,
@@ -68,6 +75,12 @@ CREATE TABLE IF NOT EXISTS skins (
   amount_of_stickers INTEGER,
   stickers uuid[],
   in_game_link TEXT,
+  created_at timestamp with time zone null default now(),
+  is_out_dated boolean null default false,
+  in_game_link text null default ''::text,
+  is_sold boolean not null default false,
+  is_deleted boolean null default false,
+  market market_type null,
   FOREIGN KEY (skin_id) REFERENCES weapons_prices (id)
 );
 

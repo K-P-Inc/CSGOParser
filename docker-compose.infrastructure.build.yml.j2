@@ -7,27 +7,15 @@ x-db-credentials: &db_credentials
   POSTGRES_HOST: ${POSTGRES_HOST}
   POSTGRES_PORT: ${POSTGRES_PORT}
 
-x-template_api_parser_service: &template_api_parser_service
-  image: template_api_parser_service
-  build:
-    context: scrappers
-    dockerfile: template_parser_api/Dockerfile
-  depends_on:
-    - db
-    - seleniarm-hub
-    - seleniarm-chrome-node
-  networks:
-    - parser_network
-
-networks:
-  parser_network:
-    driver: bridge
-
 volumes:
   db:
     driver: local
   cache:
     driver: local
+
+networks:
+  parser_network:
+    driver: bridge
 
 services:
   db:
@@ -58,30 +46,11 @@ services:
     networks:
       - parser_network
 
-  items:
-    container_name: items-prices-parser
-    build:
-      context: scrappers
-      dockerfile: items_prices_parser/Dockerfile
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-    depends_on:
-      - db
-      - seleniarm-hub
-      - seleniarm-chrome-node
-    networks:
-      - parser_network
-
   seleniarm-chrome-node:
     deploy:
-      replicas: 2
+      replicas: 1
     image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
     volumes:
-      - ./downloads:/home/seluser/Downloads
       - /dev/shm:/dev/shm
     depends_on:
       - seleniarm-hub
@@ -102,16 +71,20 @@ services:
     networks:
       - parser_network
 
-{% for market_type in market_types %}
-{% for weapon_type in weapon_types %}
-  {{ market_type.lower().replace('-', '_') }}_parser_{{ loop.index }}:
-    <<: *template_api_parser_service
-    container_name: {{ market_type }}-parser-node-{{ weapon_type.lower().replace(' ', '_') }}
+  items:
+    container_name: items_prices_parser
+    build:
+      context: scrappers
+      dockerfile: items_prices_parser/Dockerfile
     environment:
-      <<: *db_credentials
-      REDIS_PWD: ${REDIS_PWD}
-      WEAPON_TYPE: {{ weapon_type }}
-      MARKET_TYPE: {{ market_type }}
-
-{% endfor %}
-{% endfor %}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    depends_on:
+      - db
+      - seleniarm-hub
+      - seleniarm-chrome-node
+    networks:
+      - parser_network

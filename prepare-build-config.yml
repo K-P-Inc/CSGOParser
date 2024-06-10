@@ -1,0 +1,26 @@
+---
+- name: Prepare docker compose configuration
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+    market_types:
+      - dmarket
+      - cs-money
+      - haloskins
+      - market-csgo
+      - skinport
+      - bitskins
+      - skinbid
+      - csfloat
+
+  tasks:
+    - name: Create Docker Compose file
+      template:
+        src: docker-compose.{{ lookup('env', 'BUILD_TYPE') }}.build.yml.j2
+        dest: ./docker-compose.yml
+    - name: Create Production Docker Compose file
+      template:
+        src: docker-compose.{{ lookup('env', 'BUILD_TYPE') }}.prod.yml.j2
+        dest: ./docker-compose-prod.yml

@@ -19,4 +19,4 @@ COPY scripts/wait-for-it.sh /app/wait-for-it.sh
 RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
-CMD ["./wait-for-it.sh", "-t", "20", "seleniarm-hub:4444", "--", "sh", "-c", "while :; do python -m items_prices_parser.parser; sleep 600; done"]
+CMD ["./wait-for-it.sh", "-t", "20", "seleniarm-hub:4444", "--", "sh", "-c", "while :; do python -m items_prices_parser.parser; sleep 3600; done"]

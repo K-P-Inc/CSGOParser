@@ -168,9 +168,14 @@ export default function Index() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Market</SelectLabel>
+                  <SelectItem value="bitskins">bitskins.com</SelectItem>
                   <SelectItem value="cs-money">cs.money</SelectItem>
-                  <SelectItem value="skinbid">skinbid.com</SelectItem>
+                  <SelectItem value="csfloat">csfloat.com</SelectItem>
+                  <SelectItem value="dmarket">dmarket.com</SelectItem>
+                  <SelectItem value="haloskins">haloskins.com</SelectItem>
                   <SelectItem value="market-csgo">market.csgo.com</SelectItem>
+                  <SelectItem value="skinbid">skinbid.com</SelectItem>
+                  <SelectItem value="skinport">skinport.com</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

@@ -2,5 +2,7 @@ market_csgo_parser_logs/
 scrappers/*_logs
 .hydra/*
 docker-compose.yml
+docker-compose-prod.yml
 .env
 __pycache__/
+keys/
