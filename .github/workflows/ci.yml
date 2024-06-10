@@ -35,7 +35,7 @@ jobs:
 
       - name: Build the docker-compose services
         run: |
-          for service in ${{ matrix.build_services[@] }}
+          for service in ${{ toJson(matrix.build_services) }}
           do
             ./build_by_image.sh "$service"
           done
