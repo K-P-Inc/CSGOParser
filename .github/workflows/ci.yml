@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         build_type: ["worker", "dashboard", "infrastructure"]
-        service: [worker", "dashboard", "items_prices_parser"]
         include:
         - build_type: worker
           service: worker
