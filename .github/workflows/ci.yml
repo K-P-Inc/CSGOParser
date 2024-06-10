@@ -12,6 +12,13 @@ jobs:
     strategy:
       matrix:
         build_type: ["worker", "dashboard", "infrastructure"]
+        include:
+        - build_type: worker
+          build_services: ["worker"]
+        - build_type: dashboard
+          build_services: ["dashboard"]
+        - build_type: infrastructure
+          build_services: ["items_prices_parser"]
 
     name: Build, test and publish app Docker images (${{ matrix.build_type }})
     steps:
@@ -26,14 +33,19 @@ jobs:
         run: |
           ansible-playbook prepare-build-config.yml
 
-      - name: Build the docker-compose stack
-        run: docker network create parser_network && docker-compose up --build --no-start
+      - name: Build the docker-compose services
+        run: |
+          for service in ${{ toJson(matrix.build_services) }}; do
+            /build_by_image.sh ${service}
+          done
 
       - name: Get init logs
         run: docker-compose logs
 
-      - name: Publish image(s)
+      - name: Publish images
         run: |
-          docker tag ${{ matrix.build_type }}_build ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }} && \
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.build_type }}:${{ github.sha }}
+          for service in ${{ toJson(matrix.build_services) }}; do
+            docker tag ${service}_build ${{ secrets.DOCKER_USERNAME }}/${service}:${{ github.sha }}
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}"
+            docker push ${{ secrets.DOCKER_USERNAME }}/${service}:${{ github.sha }}
+          done

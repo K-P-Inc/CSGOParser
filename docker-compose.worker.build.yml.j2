@@ -52,7 +52,7 @@ services:
 {% for market_type in market_types %}
   {{ market_type.lower().replace('-', '_') }}_parser:
     <<: *template_api_parser_service
-    container_name: {{ market_type.lower().replace('-', '_') }}-parser-node
+    container_name: worker
     environment:
       <<: *db_credentials
       REDIS_PWD: ${REDIS_PWD}
