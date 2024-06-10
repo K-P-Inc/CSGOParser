@@ -20,6 +20,7 @@ services:
       dockerfile: ./app/Dockerfile
     environment:
       <<: *db_credentials
+      SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
     ports:
       - "5555:3000"
     networks:
