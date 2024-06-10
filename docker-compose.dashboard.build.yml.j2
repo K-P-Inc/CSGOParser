@@ -21,6 +21,8 @@ services:
     environment:
       <<: *db_credentials
       SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
+      SENTRY_ORG: ${SENTRY_ORG}
+      SENTRY_PROJECT: ${SENTRY_PROJECT}
     ports:
       - "5555:3000"
     networks:
