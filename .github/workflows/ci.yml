@@ -4,9 +4,6 @@ on: push
 env:
   ANSIBLE_VAULT_PASSWORD_FILE: ~/.vault_pass.txt
   ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
-  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
 
 jobs:
   build:
@@ -36,6 +33,10 @@ jobs:
           ansible-playbook prepare-build-config.yml
 
       - name: Build the docker-compose services
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         run: |
           ./build_by_image.sh ${{ matrix.service }}
 
