@@ -30,4 +30,4 @@ if [ -z "$SERVICE_NAME" ]; then
 fi
 
 # Build the service
-docker-compose build $SERVICE_NAME --no-cache
+docker-compose build $SERVICE_NAME
