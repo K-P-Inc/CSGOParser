@@ -4,6 +4,7 @@ on: push
 env:
   ANSIBLE_VAULT_PASSWORD_FILE: ~/.vault_pass.txt
   ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
 jobs:
   build:
