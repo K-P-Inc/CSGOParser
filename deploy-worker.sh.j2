@@ -6,7 +6,7 @@ git pull
 
 docker-compose down
 
-BUILD_TYPE={{item}} ansible-playbook prepare-build-config.yml
+BUILD_TYPE={{item}} WEAPON_TYPE={{ weapon_type }} ansible-playbook prepare-build-config.yml
 
 # Pass current commit hash as the image tag
-COMMIT=`git rev-parse HEAD` WEAPON_TYPE={{ weapon_type }} docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
+COMMIT=`git rev-parse HEAD` docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
