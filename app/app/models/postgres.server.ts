@@ -1,15 +1,14 @@
 import pg from 'pg';
-const { Pool } = pg;
+const { Client } = pg;
 
 export class RDSClient {
-  private client?: pg.Pool;
+  private client?: pg.Client;
   private inited: boolean = false;
 
   constructor() {}
 
   async setup() {
-    this.client = new Pool({
-        max: 5,
+    this.client = new Client({
         host: process.env.POSTGRES_HOST,
         user: process.env.POSTGRES_USER,
         database: process.env.POSTGRES_DB,
@@ -41,7 +40,7 @@ export class RDSClient {
     return result;
   }
 
-  static async makeQuery(client: pg.Pool, query: string, queryArgs?: any[]) {
+  static async makeQuery(client: pg.Client, query: string, queryArgs?: any[]) {
     try {
       let promise = await client.query(query, queryArgs)
       return promise.rows;

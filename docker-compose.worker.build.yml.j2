@@ -56,6 +56,8 @@ services:
     environment:
       <<: *db_credentials
       REDIS_PWD: ${REDIS_PWD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
       WEAPON_TYPE: ${WEAPON_TYPE}
       MARKET_TYPE: {{ market_type }}
 {% endfor %}

@@ -61,8 +61,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const supabase = createSupabaseServerClient({ request, response });
   const { data, error } = await supabase
-    .select('*')
     .from('markets')
+    .select('*')
 
   return json({});
 }

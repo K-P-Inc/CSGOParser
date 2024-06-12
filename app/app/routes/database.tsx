@@ -20,17 +20,35 @@ import { createSupabaseServerClient } from "~/supabase.server";
 import { Button } from "~/components/ui/button";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const response = new Response();
-
-  const supabase = createSupabaseServerClient({ request, response });
   const url = new URL(request.url);
   const is_stattrak = url.searchParams.get("is_stattrak");
   const weapon_type = url.searchParams.get("weapon_type");
   const sort_by = url.searchParams.get("sort_by");
   const stickers_patern = url.searchParams.get("stickers_patern");
   const market_type = url.searchParams.get("market_type");
-  const { data: items, error } = await supabase.rpc("get_all_skins");
-
+  const postgresClient = new RDSClient();
+  let items = await postgresClient.query(
+    `
+      SELECT DISTINCT ON (skins.id)
+        weapons_prices.name,
+        skins.market,
+        weapons_prices.is_stattrak,
+        weapons_prices.quality,
+        skins.price AS market_price,
+        weapons_prices.price AS steam_price,
+        weapons_prices.icon_url,
+        skins.stickers_price,
+        skins.stickers_patern,
+        skins.profit,
+        skins.link,
+        skins.stickers,
+        array_to_json(array_agg(row_to_json(t)) OVER (PARTITION BY skins.id)) AS stickers_array
+      FROM skins
+      INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+      LEFT JOIN stickers t ON t.id = ANY (skins.stickers)
+      WHERE skins.is_sold = FALSE;
+    `
+  );
 
   const filtered_items: SkinItem[] | null = items
     ? items.map((row: any) => ({

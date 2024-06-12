@@ -5,7 +5,7 @@ import logging
 class RedisClient:
     def __init__(self) -> None:
         logging.info("Initializing Redis client.")
-        self.r = redis.Redis(host='redis', port=6379, password=os.getenv("REDIS_PWD"), decode_responses=True)
+        self.r = redis.Redis(host=os.getenv("REDIS_HOST"), port=os.getenv("REDIS_PORT"), password=os.getenv("REDIS_PWD"), decode_responses=True)
         logging.info("Redis client initialized.")
 
     def set(self, key, value, ex=3600):
