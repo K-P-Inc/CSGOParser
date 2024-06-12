@@ -161,7 +161,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                     : item.market === "bitskins" ? BitskinsIcon
                       : item.market === "csfloat" ? CsfloatIcon
                         : item.market === "dmarket" ? DmarketIcon
-                          : item.market === "haloskins" ? CsfloatIcon
+                          : item.market === "haloskins" ? HaloSkinsIcon
                             : ""
             }
             alt="post image"

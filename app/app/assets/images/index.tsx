@@ -11,9 +11,10 @@ import skinportIcon from "./svg/skinport_icon.svg"
 import csfloatIcon from "./svg/csfloat_icon.svg"
 import dmarketicon from "./svg/dmarket_icon.svg"
 import bitskinsIcon from "./svg/bitskins_icon.svg"
+import haloskinIcon from ".svg/haloskins_icon.svg"
 
 export {
     logo as LogoIcon, account as AccountIcon, settings as SettingsIcon, watchlist as WatchlistIcon, inventory as InventoryIcon, logout as LogoutIcon,
     marketCsgoIcon as MarketCsgoIcon, skinbidIcon as SkinbidIcon, csmoneyIcon as CsmoneyIcon, skinportIcon as SkinportIcon, csfloatIcon as CsfloatIcon,
-    dmarketicon as DmarketIcon, bitskinsIcon as BitskinsIcon
+    dmarketicon as DmarketIcon, bitskinsIcon as BitskinsIcon, haloskinIcon as HaloSkinsIcon
 }
