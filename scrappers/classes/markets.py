@@ -228,7 +228,6 @@ class CSFloatHelper(BaseHelper):
     PARSE_WITH_QUALITY = True
 
     def parse_item(self, item):
-        logging.info(item)
         item_json = item["item"]
         key_price = item_json["market_hash_name"]
         item_price = float(item["price"]) / 100.0
@@ -242,7 +241,6 @@ class CSFloatHelper(BaseHelper):
         url = f"https://csfloat.com/api/v1/listings?limit=50&sort_by=lowest_price&market_hash_name={quote(fullname)}&max_price={max_price * 100}&page={page_number}"
         response = requests.request("GET", url)
 
-        logging.info(response.text)
         try:
             if json.loads(response.text) and len(json.loads(response.text)) >= 0:
                 return json.loads(response.text)
