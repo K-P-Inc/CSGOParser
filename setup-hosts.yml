@@ -41,7 +41,8 @@
           - docker-ce 
           - docker-ce-cli 
           - containerd.io
-          # Allows Ansible to become an unprivileged user
+          - docker-buildx-plugin
+          - docker-compose-plugin          # Allows Ansible to become an unprivileged user
           # https://github.com/georchestra/ansible/issues/55#issuecomment-588313638
           - acl
 
@@ -155,6 +156,22 @@
         line: "github.com {{ item }}"
         create: yes
       with_items: "{{ github_keys.stdout_lines }}"
+
+    - name: Get the latest release tag of Docker Compose
+      shell: "curl -s https://api.github.com/repos/docker/compose/releases/latest | grep tag_name | cut -d '\"' -f 4"
+      register: docker_compose_version
+
+    - name: Download Docker Compose binary
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version.stdout }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Ensure Docker Compose binary is executable
+      file:
+        path: /usr/local/bin/docker-compose
+        mode: '0755'
+        state: file
 
     - name: Install ansible on remote machine
       command: pip3 install ansible
