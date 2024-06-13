@@ -49,7 +49,6 @@ services:
       WEAPON_TYPE: {{ weapon_type }}
       MARKET_TYPES: {{ market_types | join(',') }}
     networks:
-      grid_net:
       parser_net_{{ loop.index0 }}:
         ipv4_address: 172.{{ loop.index0 }}.0.4
 
