@@ -24,8 +24,8 @@ networks:
       com.docker.network.bridge.enable_ip_masquerade: "false"
     ipam:
       config:
-        - subnet: 10.{{ loop.index0 }}.0.0/16
-          gateway: 10.{{ loop.index0 }}.0.1
+        - subnet: 182.{{ loop.index0 }}.0.0/16
+          gateway: 182.{{ loop.index0 }}.0.1
 
 {% endfor %}
 services:
@@ -52,7 +52,7 @@ services:
       MARKET_TYPES: {{ market_types | join(',') }}
     networks:
       parser_net_{{ loop.index0 }}:
-        ipv4_address: 10.{{ loop.index0 }}.0.4
+        ipv4_address: 182.{{ loop.index0 }}.0.4
 
   {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-seleniarm-chrome:
     container_name: {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-seleniarm-chrome
@@ -68,6 +68,6 @@ services:
       SE_NODE_STEREOTYPE: '{"browserName": "chrome", "platformName": "Linux", "goog:chromeOptions": {"binary": "{{ "/usr/bin/chromium" if ansible_architecture == 'arm64' else "/usr/bin/google-chrome" }}"}, "ps:weaponType":"{{ weapon_type }}" }'
     networks:
       parser_net_{{ loop.index0 }}:
-        ipv4_address: 10.{{ loop.index0 }}.0.5
+        ipv4_address: 182.{{ loop.index0 }}.0.5
 
 {% endfor %}

@@ -94,8 +94,7 @@ def parse_item(
     return parsed_urls
 
 
-def run_action(market_class, weapon_config):
-    parsed_items = 0
+def run_action(parsed_items, market_class, weapon_config):
     db_client = DBClient()
     types = [
         'Factory New',
@@ -183,24 +182,23 @@ def main(cfg: DictConfig):
     weapon_type = os.environ.get("WEAPON_TYPE")
 
     market_classes = {market_type: market_factory(market_type) for market_type in market_types}
+    weapon = next((w for w in cfg.weapons if w.type == weapon_type), None)
     threads = {}
 
-    while True:
-        weapon = next((w for w in cfg.weapons if w.type == weapon_type), None)
+    def run_thread(market_class, weapon):
+        parsed_items = 0
+        while True:
+            run_action(parsed_items, market_class, weapon)
+            time.sleep(1)
 
-        if weapon is not None:
-            for market_type, market_class in market_classes.items():
-                if market_type not in threads or not threads[market_type].is_alive():
-                    thread = threading.Thread(target=run_action, args=(market_class, weapon), name=market_type)
-                    thread.start()
-                    threads[market_type] = thread
-        else:
-            logging.info("Weapon not found")
+    for market_type, market_class in market_classes.items():
+        if market_type not in threads or not threads[market_type].is_alive():
+            thread = threading.Thread(target=run_thread, args=(market_class, weapon), name=market_type)
+            thread.start()
+            threads[market_type] = thread
 
-        # Clean up completed threads to avoid memory leak
-        threads = {mt: t for mt, t in threads.items() if t.is_alive()}
-
-        time.sleep(1)
+    # Clean up completed threads to avoid memory leak
+    threads = {mt: t for mt, t in threads.items() if t.is_alive()}
 
 if __name__ == "__main__":
     load_dotenv()
