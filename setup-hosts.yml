@@ -16,6 +16,7 @@
           - gnupg-agent
           - software-properties-common
           - jq
+          - iptables-persistent
 
     - name: Add Docker repo key
       apt_key:
@@ -208,7 +209,7 @@
       iptables:
         table: nat
         chain: POSTROUTING
-        source: "182.{{ item.0 }}.0.0/16"
+        source: "10.{{ item.0 }}.0.0/16"
         jump: SNAT
         to_source: "{{ item.1 }}"
         state: present
