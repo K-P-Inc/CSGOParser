@@ -20,6 +20,8 @@ networks:
 {% for weapon_type in weapon_types %}
   parser_net_{{ loop.index0 }}:
     driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
     ipam:
       config:
         - subnet: 182.{{ loop.index0 }}.0.0/16
