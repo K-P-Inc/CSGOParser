@@ -101,7 +101,7 @@
         mode: '0770'
         owner: deploy
       loop: "{{ apps }}"
-      when: weapon_type is undefined
+      when: weapon_types is undefined and weapon_type is undefined
 
     - name: Copy worker-specific deploy scripts
       template:
@@ -111,6 +111,15 @@
         owner: deploy
       loop: "{{ apps }}"
       when: weapon_type is defined
+
+    - name: Copy global-worker- specific deploy scripts
+      template:
+        src: ./deploy-global_worker.sh.j2
+        dest: /home/deploy/deploy-{{ item }}.sh
+        mode: '0770'
+        owner: deploy
+      loop: "{{ apps }}"
+      when: weapon_types is defined
 
     # Configure deploy's SSH to use the deploy keys generated earlier when cloning/pulling git repos.
     # When cloning/pulling/etc the <app> repo, we'll use <app>.github.com, so that way, we can
@@ -169,6 +178,7 @@
         url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version.stdout }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
         dest: /usr/local/bin/docker-compose
         mode: '0755'
+      ignore_errors: yes
 
     - name: Ensure Docker Compose binary is executable
       file:
@@ -185,3 +195,33 @@
       command: "docker login -u {{ docker_username }} --password-stdin"
       args:
         stdin: "{{ docker_password }}"
+
+    - name: Enable IP forwarding
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        state: present
+        reload: yes
+      when: ips_pool is defined
+
+    - name: Add SNAT rules for each IP in the pool
+      iptables:
+        table: nat
+        chain: POSTROUTING
+        source: "172.{{ item.0 }}.0.0/16"
+        jump: SNAT
+        to_source: "{{ item.1 }}"
+        state: present
+      with_indexed_items: "{{ ips_pool }}"
+      when: ips_pool is defined
+
+    - name: Ensure iptables directory exists
+      file:
+        path: /etc/iptables
+        state: directory
+        mode: '0755'
+      when: ips_pool is defined
+
+    - name: Save iptables rules
+      shell: iptables-save > /etc/iptables/rules.v4
+      when: ips_pool is defined

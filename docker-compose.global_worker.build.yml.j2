@@ -1,0 +1,72 @@
+version: "3.9"
+
+x-db-credentials: &db_credentials
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_HOST: ${POSTGRES_HOST}
+  POSTGRES_PORT: ${POSTGRES_PORT}
+
+x-global_api_parser_service: &global_api_parser_service
+  build:
+    context: scrappers
+    dockerfile: global_parser_api/Dockerfile
+
+{% set weapon_types = lookup('env', 'WEAPON_TYPES') | split(',') %}
+networks:
+  grid_net:
+    driver: bridge
+
+{% for weapon_type in weapon_types %}
+  parser_net_{{ loop.index0 }}:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.{{ loop.index0 }}.0.0/16
+          gateway: 172.{{ loop.index0 }}.0.1
+
+{% endfor %}
+services:
+  seleniarm-hub:
+    image: {{ "seleniarm/hub:latest" if ansible_architecture == 'arm64' else "selenium/hub:latest" }}
+    container_name: selenium-hub
+    networks:
+      - grid_net
+{% for weapon_type in weapon_types %}
+      - parser_net_{{ loop.index0 }}
+{% endfor %}
+
+{% for weapon_type in weapon_types %}
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}_global_parser:
+    <<: *global_api_parser_service
+    image: global_worker
+    container_name: {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}_global_parser
+    environment:
+      <<: *db_credentials
+      REDIS_PWD: ${REDIS_PWD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      WEAPON_TYPE: {{ weapon_type }}
+      MARKET_TYPES: {{ market_types | join(',') }}
+    networks:
+      grid_net:
+      parser_net_{{ loop.index0 }}:
+        ipv4_address: 172.{{ loop.index0 }}.0.4
+
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-seleniarm-chrome:
+    container_name: {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-seleniarm-chrome
+    image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - seleniarm-hub
+    environment:
+      SE_EVENT_BUS_HOST: seleniarm-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_STEREOTYPE: '{"browserName": "chrome", "platformName": "Linux", "goog:chromeOptions": {"binary": "/usr/bin/chromium"}, "ps:weaponType":"{{ weapon_type }}" }'
+    networks:
+      parser_net_{{ loop.index0 }}:
+        ipv4_address: 172.{{ loop.index0 }}.0.5
+
+{% endfor %}

@@ -13,7 +13,7 @@ jobs:
         build_type: ["worker", "dashboard", "infrastructure"]
         include:
         - build_type: worker
-          service: worker
+          service: global_worker
         - build_type: dashboard
           service: dashboard
         - build_type: infrastructure

@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  seleniarm-hub:
+    logging:
+      driver: journald
+
+{% set weapon_types = lookup('env', 'WEAPON_TYPES') | split(',') %}
+{% for weapon_type in weapon_types %}
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}_global_parser:
+    image: sprili/global_worker:${COMMIT}
+    logging:
+      driver: journald
+
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-seleniarm-chrome:
+    logging:
+      driver: journald
+
+{% endfor %}

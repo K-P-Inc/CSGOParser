@@ -140,7 +140,7 @@ class SkinportHelper(BaseHelper):
     DB_ENUM_NAME = 'skinport'
     MAX_ITEMS_PER_PAGE = 50
     MAX_PAGE_NUMBER = 10
-    REQUEST_TIMEOUT = 3
+    REQUEST_TIMEOUT = 6
     PARSE_WITH_QUALITY = True
 
     def __init__(self) -> None:

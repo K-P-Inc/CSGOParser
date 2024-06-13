@@ -1,4 +1,5 @@
 import logging
+import os
 from seleniumwire import webdriver
 
 class SeleniumWireDriver:
@@ -21,6 +22,11 @@ class SeleniumWireDriver:
                 "enableVNC": True
             }
         }
+
+        weapon_parser_type = os.getenv("WEAPON_TYPE")
+        if weapon_parser_type:
+            capabilities['ps:weaponType'] = weapon_parser_type
+
         capabilities.update(options.to_capabilities())
 
         logging.info('Connecting to selenium wire remote driver')

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd /home/deploy/{{item}}
+. .envrc
+git pull
+
+docker-compose down
+
+BUILD_TYPE={{item}} WEAPON_TYPE="{{ weapon_types | join(',') }}" ansible-playbook prepare-build-config.yml
+
+# Pass current commit hash as the image tag
+COMMIT=`git rev-parse HEAD` docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
