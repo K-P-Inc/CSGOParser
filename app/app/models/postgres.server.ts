@@ -8,6 +8,13 @@ export class RDSClient {
   constructor() {}
 
   async setup() {
+  //   console.log({
+  //     host: process.env.POSTGRES_HOST,
+  //     user: process.env.POSTGRES_USER,
+  //     database: process.env.POSTGRES_DB,
+  //     password: process.env.POSTGRES_PASSWORD,
+  //     port: parseInt(process.env.POSTGRES_PORT || "5432")
+  // })
     this.client = new Client({
         host: process.env.POSTGRES_HOST,
         user: process.env.POSTGRES_USER,
@@ -22,10 +29,14 @@ export class RDSClient {
 
   async destroy() {
     if (this.inited && this.client !== undefined) {
-      await this.client.end();
+      try {
+        await this.client.end();
+      } catch (e) {
+        console.error("Error closing the client:", e.stack);
+      }
     }
   }
-
+  
   public async query(query: string, queryArgs?: any[]) {
     if (!this.inited) {
       await this.setup();
@@ -51,4 +62,3 @@ export class RDSClient {
     }
   }
 }
-
