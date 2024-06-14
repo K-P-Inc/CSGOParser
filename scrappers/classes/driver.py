@@ -24,8 +24,10 @@ class SeleniumDriver:
         if weapon_parser_type:
             capabilities['ps:weaponType'] = weapon_parser_type
 
-        logging.info(f'Starting undetected chromedriver')
-        self.driver = Remote(command_executor="http://seleniarm-hub:4444/wd/hub", desired_capabilities=capabilities)
+        command_executor = os.getenv("CUSTOM_ALONE_NODE") if os.getenv("CUSTOM_ALONE_NODE") else "seleniarm-hub"
+
+        logging.info(f'Starting undetected chromedriver {command_executor}')
+        self.driver = Remote(command_executor=f"http://{command_executor}:4444/wd/hub", desired_capabilities=capabilities)
         logging.info(f'Undetected chromedriver started')
 
     def __del__(self):

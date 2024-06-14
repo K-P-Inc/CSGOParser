@@ -28,10 +28,11 @@ class SeleniumWireDriver:
             capabilities['ps:weaponType'] = weapon_parser_type
 
         capabilities.update(options.to_capabilities())
+        command_executor = os.getenv("CUSTOM_ALONE_NODE") if os.getenv("CUSTOM_ALONE_NODE") else "seleniarm-hub"
 
         logging.info('Connecting to selenium wire remote driver')
         self.driver = webdriver.Remote(
-            command_executor="http://seleniarm-hub:4444/wd/hub",
+            command_executor=f"http://{command_executor}:4444/wd/hub",
             desired_capabilities=capabilities,
             seleniumwire_options=seleniumwire_options
         )

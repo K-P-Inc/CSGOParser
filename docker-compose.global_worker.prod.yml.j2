@@ -1,10 +1,6 @@
 version: "3.9"
 
 services:
-  seleniarm-hub:
-    logging:
-      driver: journald
-
 {% set weapon_types = lookup('env', 'WEAPON_TYPES') | split(',') %}
 {% for weapon_type in weapon_types %}
   {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}_global_parser:
@@ -12,7 +8,7 @@ services:
     logging:
       driver: journald
 
-  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-seleniarm-chrome:
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-chrome-node:
     logging:
       driver: journald
 
