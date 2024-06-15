@@ -141,7 +141,7 @@ class SkinportHelper(BaseHelper):
     MAX_ITEMS_PER_PAGE = 50
     MAX_PAGE_NUMBER = 10
     REQUEST_TIMEOUT = 6
-    PARSE_WITH_QUALITY = True
+    PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
 
     def __init__(self) -> None:
         response = requests.request("GET", "https://skinport.com/api/data")
@@ -225,7 +225,7 @@ class CSFloatHelper(BaseHelper):
     DB_ENUM_NAME = 'csfloat'
     MAX_ITEMS_PER_PAGE = 50
     REQUEST_TIMEOUT = 5
-    PARSE_WITH_QUALITY = True
+    PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
 
     def parse_item(self, item):
         item_json = item["item"]
@@ -252,7 +252,7 @@ class BitskinsHelper(BaseHelper):
     DB_ENUM_NAME = 'bitskins'
     MAX_ITEMS_PER_PAGE = 501
     REQUEST_TIMEOUT = 3
-    PARSE_WITH_QUALITY = True
+    PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
 
     def parse_item(self, item):
         key_price = item["name"]
@@ -281,7 +281,7 @@ class HaloskinsHelper(BaseHelper):
     DB_ENUM_NAME = 'haloskins'
     MAX_ITEMS_PER_PAGE = 500
     REQUEST_TIMEOUT = 3
-    PARSE_WITH_QUALITY = True
+    PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
 
     def __init__(self) -> None:
         self.redis_client = RedisClient()

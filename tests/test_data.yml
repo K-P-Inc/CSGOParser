@@ -1,0 +1,46 @@
+data: &weapon_data
+  - type: AK-47
+    name: Head Shot
+
+  - type: AWP
+    name: Neo-Noir
+
+  - type: M4A4
+    name: Temukau
+
+  - type: M4A1-S
+    name: Decimator
+
+data: &default_data
+  - type: AK-47
+    name: Head Shot
+    is_stattrak: False
+    max_price: ''
+    page_number: 0
+
+data: &stattrack_data_true
+  - type: AK-47
+    name: Head Shot
+    is_stattrak: True
+    max_price: ''
+    page_number: 0
+
+data: &stattrack_data_false
+  - type: AK-47
+    name: Head Shot
+    is_stattrak: False
+    max_price: ''
+    page_number: 0
+
+test_is_request_type_equal_types: *weapon_data
+test_is_market_name_has_right_type_and_name: *weapon_data
+
+test_is_stattrak_true: *stattrack_data_true
+test_is_stattrak_false: *stattrack_data_false
+
+test_is_price_is_float: *default_data
+test_is_request_not_empty: *default_data
+test_is_price_is_not_empty: *default_data
+test_is_currency_equal_usd: *default_data
+
+test_is_souvenir_false_by_default: *default_data
