@@ -13,7 +13,6 @@
       - bitskins
       - skinbid
       - csfloat
-      - skinport
 
   tasks:
     - name: Create Docker Compose file
