@@ -15,6 +15,7 @@ services:
   web-dashboard:
     image: dashboard
     container_name: dashboard
+    restart: always
     build:
       context: .
       dockerfile: ./app/Dockerfile

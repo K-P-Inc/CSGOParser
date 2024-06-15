@@ -188,17 +188,26 @@ def main(cfg: DictConfig):
     def run_thread(market_class, weapon):
         parsed_items = 0
         while True:
-            run_action(parsed_items, market_class, weapon)
-            time.sleep(1)
+            try:
+                run_action(parsed_items, market_class, weapon)
+                time.sleep(1)
+            except Exception as e:
+                print(f"Error in thread {market_class}: {e}")
+                break
 
-    for market_type, market_class in market_classes.items():
-        if market_type not in threads or not threads[market_type].is_alive():
-            thread = threading.Thread(target=run_thread, args=(market_class, weapon), name=market_type)
-            thread.start()
-            threads[market_type] = thread
+    while True:
+        for market_type, market_class in market_classes.items():
+            if market_type not in threads or not threads[market_type].is_alive():
+                thread = threading.Thread(target=run_thread, args=(market_class, weapon), name=market_type)
+                thread.start()
+                threads[market_type] = thread
 
-    # Clean up completed threads to avoid memory leak
-    threads = {mt: t for mt, t in threads.items() if t.is_alive()}
+        # Clean up completed threads to avoid memory leaks
+        threads = {mt: t for mt, t in threads.items() if t.is_alive()}
+
+        # Sleep for a while before checking the threads again
+        time.sleep(5)
+
 
 if __name__ == "__main__":
     load_dotenv()

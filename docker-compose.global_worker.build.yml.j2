@@ -32,6 +32,7 @@ services:
     <<: *global_api_parser_service
     image: global_worker
     container_name: {{ weapon_short_name }}_global_parser
+    restart: always
     environment:
       <<: *db_credentials
       REDIS_PWD: ${REDIS_PWD}
@@ -48,10 +49,9 @@ services:
     image: {{ "seleniarm/standalone-chromium:latest" if ansible_architecture == 'arm64' else "selenium/standalone-chrome:latest" }}
     container_name: {{ weapon_short_name }}-chrome-node
     hostname: {{ weapon_short_name }}-chrome-node
+    restart: always
     volumes:
       - /dev/shm:/dev/shm
-    environment:
-      SE_NODE_STEREOTYPE: '{"browserName": "chrome", "platformName": "Linux", "goog:chromeOptions": {"binary": "{{ "/usr/bin/chromium" if ansible_architecture == 'arm64' else "/usr/bin/google-chrome" }}"}, "ps:weaponType":"{{ weapon_type }}" }'
     networks:
       parser_net_{{ loop.index0 }}:
         ipv4_address: 182.{{ loop.index0 }}.0.5

@@ -50,6 +50,7 @@ services:
     deploy:
       replicas: 1
     image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
+    restart: always
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -64,12 +65,14 @@ services:
   seleniarm-hub:
     image: {{ "seleniarm/hub:latest" if ansible_architecture == 'arm64' else "selenium/hub:latest" }}
     container_name: selenium-hub
+    restart: always
     networks:
       - parser_network
 
   items:
     image: items_prices_parser
     container_name: items_prices_parser
+    restart: always
     build:
       context: scrappers
       dockerfile: items_prices_parser/Dockerfile
