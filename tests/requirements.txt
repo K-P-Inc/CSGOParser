@@ -1,3 +1,5 @@
 pytest-xdist
 pytest
 parametrize-from-file
+validators
+pytest-dotenv
