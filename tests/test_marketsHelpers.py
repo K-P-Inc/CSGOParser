@@ -39,7 +39,7 @@ markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_c
     CSMoneyHelper(),
     MarketCSGOHelper(),
     SkinbidHelper(),
-    # CSFloatHelper(),
+    CSFloatHelper(),
     BitskinsHelper(),
     HaloskinsHelper(),
     DmarketHelper(),
