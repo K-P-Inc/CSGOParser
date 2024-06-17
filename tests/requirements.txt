@@ -3,3 +3,4 @@ pytest
 parametrize-from-file
 validators
 pytest-dotenv
+allure-pytest
