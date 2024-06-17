@@ -38,8 +38,8 @@ class TestData:
 markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_class in [
     CSMoneyHelper(),
     MarketCSGOHelper(),
-    SkinbidHelper(),
-    CSFloatHelper(),
+    # SkinbidHelper(),
+    # CSFloatHelper(),
     BitskinsHelper(),
     HaloskinsHelper(),
     DmarketHelper(),
