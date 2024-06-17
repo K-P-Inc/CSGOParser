@@ -44,3 +44,5 @@ test_is_price_is_not_empty: *default_data
 test_is_currency_equal_usd: *default_data
 
 test_is_souvenir_false_by_default: *default_data
+
+test_is_market_name_has_right_type: *default_data
