@@ -17,7 +17,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card"
-import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon } from "~/assets/images";
+import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon } from "~/assets/images";
 import { Button } from "../ui/button";
 
 function renderSection(title: string, rows : Array<{ label: string, value: number | string }>) {
@@ -162,7 +162,9 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                       : item.market === "csfloat" ? CsfloatIcon
                         : item.market === "dmarket" ? DmarketIcon
                           : item.market === "haloskins" ? HaloSkinsIcon
-                            : ""
+                            : item.market === "skinbaron" ? SkinBaronIcon
+                              : item.market === "white-market" ? WhiteMarketIcon
+                                : ""
             }
             alt="post image"
             className="post-card_market_img"
