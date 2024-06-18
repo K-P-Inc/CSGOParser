@@ -393,3 +393,141 @@ class DmarketHelper(BaseHelper):
         except:
             self.cursor = None
             return None
+
+class WhiteMarketHelper(BaseHelper):
+    DB_ENUM_NAME = 'white-market'
+    MAX_ITEMS_PER_PAGE = 100
+    REQUEST_TIMEOUT = 5
+
+    def __init__(self) -> None:
+        self.cursor_point = None
+        self.cursor = None
+
+    def parse_item(self, item):
+        node_json = item["node"]
+        key_price = node_json["item"]["description"]["nameHash"]
+        market_csgo_item_price = float(node_json["price"]["value"])
+        market_csgo_item_link = f'https://white.market/item/{node_json["slug"]}'
+        stickers_keys = [sticker.replace("Sticker | ", "") for sticker in node_json["item"]["stickerTitles"]]
+
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+
+    def get_cursor(self, type, name, is_stattrak):
+        if self.cursor_point and self.cursor_point != (type, name, is_stattrak):
+            return self.cursor
+        else:
+            return None
+
+    def save_cursor(self, type, name, is_stattrak, value):
+        self.cursort_point = (type, name, is_stattrak)
+        self.cursor = value
+
+    def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
+        url = "https://api.white.market/graphql/api"
+
+        payload = json.dumps({
+            "query": "\n  query MarketList($search: MarketProductSearchInput, $forwardPagination: ForwardPaginationInput) {\n    market_list(search: $search, forwardPagination: $forwardPagination) {\n      totalCount\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n      edges {\n        node {\n          id\n          price {\n            value\n            currency\n          }\n          slug\n          similarQty\n          storeSimilarQty\n          store {\n            slug\n            storeName\n            avatar\n            isStoreNamePublic\n            isTopSeller\n            steamAvatar\n            customAvatar\n          }\n          item {\n            ... on CSGOInventoryItem {\n              link\n              paintSeed\n              paintIndex\n              phase\n              float\n              stickerTitles\n            }\n            isAdditionalDataMissed\n            appId\n            id\n            description {\n              steamPrice {\n                value\n                currency\n              }\n              description\n              icon(width: 90, height: 90)\n              iconLarge(width: 400, height: 300)\n              name\n              nameHash\n              isTradeable\n              ... on CSGOSteamItem {\n                isStatTrak\n                isSouvenir\n                stickerImages\n                short\n                skin\n                collection {\n                  key\n                  value\n                }\n                categoryEnum\n                categoryTitle\n                subcategoryEnum\n                subcategoryTitle\n                rarity {\n                  value\n                  key\n                }\n                exterior {\n                  value\n                  key\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n",
+            "variables": {
+                "search": {
+                    "name": f"{type} | {name}",
+                    "sort": {
+                        "field": "PRICE",
+                        "type": "ASC"
+                    },
+                    "csgoStatTrak": is_stattrak,
+                    "csgoSouvenir": False,
+                    "csgoRarityEnum": [],
+                    "csgoExteriorEnum": [],
+                    "priceFrom": {
+                        "value": "0",
+                        "currency": "USD"
+                    },
+                    "priceTo": {
+                        "value": f"{max_price}",
+                        "currency": "USD"
+                    },
+                    "csgoStickerNames": [],
+                    "csgoStickerNamesOperand": "OR",
+                    "csgoItemSkin": None,
+                    "distinctValues": False,
+                    "csgoStickerTeam": None,
+                    "csgoStickerPlayer": None,
+                    "csgoStickerTournament": None,
+                    "csgoStickerFilm": None,
+                    "csgoStickers": True,
+                    "nameStrict": False,
+                    "csgoFloatFrom": None,
+                "csgoFloatTo": None
+                },
+                "forwardPagination": {
+                    "after": self.get_cursor(type, name, is_stattrak),
+                    "first": 100
+                }
+            },
+            "operationName": "MarketList"
+        })
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+
+        try:
+            respone_json = json.loads(response.text)
+            if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
+                self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
+                return respone_json["data"]["market_list"]["edges"]
+            return None
+        except:
+            return None
+
+
+class SkinbaronHelper(BaseHelper):
+    DB_ENUM_NAME = 'skinbaron'
+    MAX_ITEMS_PER_PAGE = 61
+    REQUEST_TIMEOUT = 5
+
+    def parse_item(self, item):
+        key_price = f'{"StatTrak™ " if "statTrakString" in item["singleOffer"] else ""}{item["singleOffer"]["localizedName"]} ({item["singleOffer"]["localizedExteriorName"]})'
+        market_csgo_item_price = float(item["singleOffer"]["formattedItemPriceOtherCurrency"][1:])
+        market_csgo_item_link = f'https://skinbaron.de{item["offerLink"]}'
+        stickers_keys = [sticker["localizedName"].strip() for sticker in item["singleOffer"]["stickers"]] if "stickers" in item["singleOffer"] else []
+
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+
+    def get_item_variant_id(self, type, name):
+        try:
+            name = f'{type} | {name}'
+            url = f"https://skinbaron.de/api/v2/Browsing/QuickSearch?variantName={quote(name)}&appId=730&language=en"
+            response = requests.request("GET", url)
+
+            return json.loads(response.text)["variants"][0]["id"]
+        except:
+            return None
+
+    def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
+        variant_id = self.get_item_variant_id(type, name)
+
+        if not variant_id:
+            logging.info(f"Failed to get variant_id for {type=} with {name=} {is_stattrak=}")
+            return None
+
+        url = f"https://skinbaron.de/api/v2/Browsing/FilterOffers?appId=730&variantId={variant_id}&sort=CF&wf=0&wf=1&wf=2&wf=3&wf=4&language=en&otherCurrency=USD&itemsPerPage=60&page={page_number + 1}&pub={max_price}{'&statTrak=true' if is_stattrak else ''}"
+
+        response = requests.request("GET", url)
+
+        try:
+            respone_json = json.loads(response.text)
+            if respone_json and len(respone_json["aggregatedMetaOffers"]) >= 0:
+                for offer in respone_json["aggregatedMetaOffers"]:
+                        if ("statTrakString" in offer["singleOffer"] and not is_stattrak) or \
+                            ("statTrakString" not in offer["singleOffer"] and is_stattrak) or "souvenirString" in offer["singleOffer"]:
+                            offer["singleOffer"]["stickers"] = []
+
+                return respone_json["aggregatedMetaOffers"]
+            return None
+        except:
+            return None
+
+

@@ -13,6 +13,9 @@
       - bitskins
       - skinbid
       - csfloat
+      - white-market
+      - skinport
+      - skinbaron
 
   tasks:
     - name: Create Docker Compose file

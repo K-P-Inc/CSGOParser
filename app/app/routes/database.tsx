@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Form, json, useActionData, useLoaderData, useOutletContext, useSubmit } from "@remix-run/react";
+import { Form, json, useActionData, useFetcher, useLoaderData, useOutletContext, useSubmit } from "@remix-run/react";
 import ItemCard from "~/components/shared/ItemCard";
 import { RDSClient } from "~/models/postgres.server";
 import { OutletContext, SkinItem } from "~/types";
@@ -15,9 +15,53 @@ import {
 } from "~/components/ui/select"
 import { Switch } from "~/components/ui/switch";
 import { Label } from "~/components/ui/label";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createSupabaseServerClient } from "~/supabase.server";
 import { Button } from "~/components/ui/button";
+
+const MAX_PAGE_ITEMS = 60;
+
+const InfiniteScroller = (props: {
+  children: any;
+  loading: boolean;
+  loadNext: () => void;
+}) => {
+  const { children, loading, loadNext } = props;
+  const scrollListener = useRef(loadNext);
+
+  useEffect(() => {
+    scrollListener.current = loadNext;
+  }, [loadNext]);
+
+  const onScroll = (e: any) => {
+    const div = e.target;
+    const scrollDifference = Math.floor(div.scrollHeight - div.scrollTop - div.clientHeight);
+    const scrollEnded = scrollDifference === 0;
+    if (scrollEnded && !loading) {
+      scrollListener.current();
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      console.log("added listener");
+      const cls = document.getElementsByClassName("home-container");
+      if (cls.length > 0) {
+        const div = cls[0] as HTMLDivElement;
+        div.addEventListener("scroll", onScroll);
+      }
+    }
+    return () => {
+      const cls = document.getElementsByClassName("home-container");
+      if (cls.length > 0) {
+        const div = cls[0] as HTMLDivElement;
+        div.removeEventListener("scroll", onScroll);
+      }
+    };
+  }, []);
+
+  return <>{children}</>;
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -26,9 +70,56 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const sort_by = url.searchParams.get("sort_by");
   const stickers_patern = url.searchParams.get("stickers_patern");
   const market_type = url.searchParams.get("market_type");
+  const page = parseInt(url.searchParams.get("page") || "0");
   const postgresClient = new RDSClient();
-  let items = await postgresClient.query(
-    `
+
+  const filters = [];
+  if (is_stattrak === "on") {
+    filters.push(`weapons_prices.is_stattrak = TRUE`);
+  }
+  if (weapon_type) {
+    filters.push(`LOWER(weapons_prices.name) LIKE LOWER('%${weapon_type}%')`);
+  }
+  if (stickers_patern) {
+    filters.push(`skins.stickers_patern = '${stickers_patern}'`);
+  }
+  if (market_type) {
+    filters.push(`skins.market = '${market_type}'`);
+  }
+  filters.push(`(COALESCE(stickers_total_price, 0) * 0.1 + weapons_prices.price - skins.price) / skins.price * 100.0 > 10`);
+  filters.push(`skins.is_sold = FALSE`);
+
+  const filterCondition = filters.length ? `WHERE ${filters.join(' AND ')}` : '';
+
+  // Construct the sorting
+  let orderBy = '';
+  switch (sort_by) {
+    case 'profit_high_to_low':
+      orderBy = 'ORDER BY profit DESC';
+      break;
+    case 'profit_low_to_high':
+      orderBy = 'ORDER BY profit ASC';
+      break;
+    case 'price_high_to_low':
+      orderBy = 'ORDER BY market_price DESC';
+      break;
+    case 'price_low_to_high':
+      orderBy = 'ORDER BY market_price ASC';
+      break;
+    default:
+      orderBy = '';
+  }
+
+  const query = `
+  SELECT * FROM (
+      WITH sticker_prices AS (
+        SELECT
+          skins.id AS skin_id,
+          SUM(COALESCE(stickers.price, 0)) AS stickers_total_price
+        FROM skins
+        LEFT JOIN stickers ON stickers.id = ANY(skins.stickers)
+        GROUP BY skins.id
+      )
       SELECT DISTINCT ON (skins.id)
         weapons_prices.name,
         skins.market,
@@ -37,20 +128,25 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         skins.price AS market_price,
         weapons_prices.price AS steam_price,
         weapons_prices.icon_url,
-        skins.stickers_price,
+        COALESCE(sticker_prices.stickers_total_price, 0) AS stickers_price,
         skins.stickers_patern,
-        skins.profit,
         skins.link,
         skins.stickers,
-        array_to_json(array_agg(row_to_json(t)) OVER (PARTITION BY skins.id)) AS stickers_array
+        array_to_json(array_agg(row_to_json(t)) OVER (PARTITION BY skins.id)) AS stickers_array,
+        (COALESCE(sticker_prices.stickers_total_price, 0) * 0.1 + weapons_prices.price - skins.price) / skins.price * 100.0 AS profit
       FROM skins
       INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+      LEFT JOIN sticker_prices ON skins.id = sticker_prices.skin_id
       LEFT JOIN stickers t ON t.id = ANY (skins.stickers)
-      WHERE skins.is_sold = FALSE;
-    `
-  );
+      ${filterCondition}
+    )
+    ${orderBy}
+    LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
+  `;
 
-  const filtered_items: SkinItem[] | null = items
+  let items = await postgresClient.query(query);
+
+  const filtered_items: SkinItem[] | [] = items
     ? items.map((row: any) => ({
         name: `${row["is_stattrak"] ? "StatTrak™ " : ""}${row["name"]}`,
         market: row["market"],
@@ -70,25 +166,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         }),
         stickers_price: row["stickers"].map((stc: string) => {
           const stc_instance = row["stickers_array"].find((ins: any) => ins["id"] === stc)
-
           return stc_instance["price"];
         }).reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0)
       }))
-      .map((skin: SkinItem) => ({
-        ...skin,
-        profit: (skin.stickers_price * 0.1 + skin.steam_price - skin.market_price) / skin.market_price * 100.0 
-      }))
-      .filter((skin: SkinItem) => is_stattrak === "on" ? skin.is_stattrak === true : true)
-      .filter((skin: SkinItem) => weapon_type ? skin.name.toLowerCase().includes(weapon_type.toLowerCase()) : true)
-      .filter((skin: SkinItem) => stickers_patern ? skin.stickers_patern === stickers_patern : true)
-      .filter((skin: SkinItem) => market_type ? skin.market === market_type : true)
-      .filter((skin: SkinItem) => skin.profit > 10)
-      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "profit_high_to_low" ? b.profit - a.profit : 0 })
-      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "profit_low_to_high" ? a.profit - b.profit : 0 })
-      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "price_high_to_low" ? b.market_price - a.market_price : 0 })
-      .sort((a: SkinItem, b: SkinItem) => { return sort_by === "price_low_to_high" ? a.market_price - b.market_price : 0 })
-    : null
-
+    : [];
 
   return json({
     items: filtered_items,
@@ -96,14 +177,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     weapon_type: weapon_type,
     sort_by: sort_by,
     stickers_patern: stickers_patern,
-    market_type: market_type
+    market_type: market_type,
+    page: page
   });
 }
 
 export default function Index() {
   const submit = useSubmit();
   const { session } = useOutletContext<OutletContext>();
-  const { items, is_stattrak, weapon_type, sort_by, stickers_patern, market_type } = useLoaderData<typeof loader>();
+  const { items, is_stattrak, weapon_type, sort_by, stickers_patern, market_type, page } = useLoaderData<typeof loader>();
+  const fetcher = useFetcher<typeof loader>();
+  const [skins, setSkins] = useState<SkinItem[]>(items);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (
@@ -132,6 +216,23 @@ export default function Index() {
 
     submit(formData, { replace: true });
   }
+
+  // An effect for appending data to items state
+  useEffect(() => {
+    if (!fetcher.data || fetcher.state === "loading") {
+      return;
+    }
+    // If we have new data - append it
+    if (fetcher.data) {
+      const newItems = fetcher.data.items;
+      console.log("Appending data", newItems.length);
+      setSkins((prevAssets) => [...prevAssets, ...newItems]);
+    }
+  }, [fetcher.data]);
+
+  useEffect(() => {
+    setSkins(items);
+  }, [items])
 
   return (
     <div className="flex flex-1">
@@ -194,6 +295,8 @@ export default function Index() {
                   <SelectItem value="market-csgo">market.csgo.com</SelectItem>
                   <SelectItem value="skinbid">skinbid.com</SelectItem>
                   <SelectItem value="skinport">skinport.com</SelectItem>
+                  <SelectItem value="white-market">white.market</SelectItem>
+                  <SelectItem value="skinbaron">skinbaron.de</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -202,11 +305,25 @@ export default function Index() {
               <Label htmlFor="terms" className="min-w-[100px] base-small">Is StatTrak</Label>
             </div>
           </Form>
-          <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", display: "grid" }}>
-            {items?.map((item: SkinItem) => (
-              <ItemCard item={item} key={item.link} />
-            ))}
-          </div>
+          <InfiniteScroller
+            loadNext={() => {
+              const newPage = fetcher.data
+                ? fetcher.data.page + 1
+                : page + 1;
+              const query = window.location.search
+                ? `${window.location.search}&page=${newPage}`
+                : `?page=${newPage}`;
+
+              fetcher.load(query);
+            }}
+            loading={fetcher.state === "loading"}
+          >
+            <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", display: "grid" }}>
+              {skins?.map((item: SkinItem) => (
+                <ItemCard item={item} key={item.link} />
+              ))}
+            </div>
+          </InfiniteScroller>
         </div>
       </div>
     </div>

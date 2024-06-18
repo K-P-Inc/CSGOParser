@@ -120,7 +120,7 @@ interface LayoutProperties {
 export default function Layout({ supabase, children } : LayoutProperties) {
     return (
         <main className="flex h-screen">
-            <div className="w-full md:flex">
+            <div className="w-full md:flex h-full">
                 <TopBar supabase={supabase}/>
                 <LeftLayout supabase={supabase}/>
                 <section className="flex flex-1 h-full">

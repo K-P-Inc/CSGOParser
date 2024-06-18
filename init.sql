@@ -60,7 +60,8 @@ CREATE TYPE market_type AS ENUM (
     'dmarket',
     'skinbaron',
     'haloskins',
-    'csmiddler'
+    'csmiddler',
+    'white-market'
 );
 
 CREATE TABLE IF NOT EXISTS skins (
