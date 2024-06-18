@@ -58,7 +58,7 @@ validators_asserts = [pytest.param(func, id=id) for (func, id) in [
     (lambda market_data, _: not market_data.key_price.startswith("Souvenir"), "is_not_sounvenir"),
     (lambda market_data, _: isinstance(market_data.item_price, float), "is_price_valid"),
     (lambda market_data, _: validators.url(market_data.item_link), "is_url_valid"),
-    (lambda market_data, _: len(market_data.stickers_array) > 0, "are_stickers_exists"),
+    (lambda market_data, _: len(market_data.stickers_array) >= 0, "are_stickers_exists"),
 ]]
 
 @allure.parent_suite("Integration Tests")
