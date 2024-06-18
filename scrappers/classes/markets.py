@@ -4,6 +4,7 @@ import time
 import logging
 from urllib.parse import quote, urlencode
 from fake_useragent import UserAgent
+from selenium.webdriver.common.by import By
 from .redis import RedisClient
 from .driver import SeleniumDriver
 
@@ -400,6 +401,8 @@ class WhiteMarketHelper(BaseHelper):
     REQUEST_TIMEOUT = 5
 
     def __init__(self) -> None:
+        self.redis_client = RedisClient()
+        self.force_update = True
         self.cursor_point = None
         self.cursor = None
 
@@ -421,6 +424,48 @@ class WhiteMarketHelper(BaseHelper):
     def save_cursor(self, type, name, is_stattrak, value):
         self.cursort_point = (type, name, is_stattrak)
         self.cursor = value
+
+
+    def get_cookies(self, type):
+        redis_key = f"{type}_white_market_cookies"
+        if self.redis_client.exists(redis_key) and not self.force_update:
+            logging.info(f"Found cookies in redis for {type}")
+            cookies_json = self.redis_client.get(redis_key)
+            return json.loads(cookies_json)
+        else:
+            cookies_json = {
+                'i18n': 'eu'
+            }
+            driver_class = SeleniumDriver()
+            driver = driver_class.driver
+            driver.delete_all_cookies()
+            driver.get("https://white.market/market")
+
+            try:
+                time.sleep(3)  # adjust sleep time if needed
+
+                driver.find_element(By.XPATH, "//button[text()='Accept all']").click()
+                logging.info("Button 'accept cookies' clicked successfully.")
+            except Exception as e:
+                logging.error(f"An error occurred: {e}")
+
+            time.sleep(5)
+
+            # Get all cookies
+            logging.info("Getting cookies from white.market")
+            cookies = driver.get_cookies()
+
+            # Print the cookies
+            for cookie in cookies:
+                if cookie["name"] not in cookies_json:
+                    cookies_json[cookie["name"]] = cookie["value"]
+
+            logging.info("Cookies from white.market: {}".format(cookies_json))
+            self.redis_client.set(redis_key, json.dumps(cookies_json), ex=3600)
+            self.force_update = False
+
+            return cookies_json
+
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = "https://api.white.market/graphql/api"
@@ -467,13 +512,19 @@ class WhiteMarketHelper(BaseHelper):
             "operationName": "MarketList"
         })
 
+        ua = UserAgent()
+        user_agent = ua.random
+
         headers = {
-            'Content-Type': 'application/json'
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Encoding': 'gzip, deflate, br, zstd',
+            'Referer': "https://white.market/",
+            'Content-Type': 'application/json',
+            'User-Agent': user_agent
         }
 
-        response = requests.request("POST", url, headers=headers, data=payload)
-
         try:
+            response = requests.request("POST", url, headers=headers, data=payload, cookies=self.get_cookies(type))
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
