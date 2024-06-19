@@ -10,7 +10,6 @@ class SeleniumDriver:
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument("--enable-javascript")
-        options.add_argument("--incognito")
 
         capabilities = {
             "browserName": "chrome",
