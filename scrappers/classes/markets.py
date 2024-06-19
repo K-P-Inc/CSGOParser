@@ -562,6 +562,7 @@ class SkinbaronHelper(BaseHelper):
         response = requests.request("GET", url)
 
         try:
+            logging.info(response.text)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["aggregatedMetaOffers"]) >= 0:
                 for offer in respone_json["aggregatedMetaOffers"]:
