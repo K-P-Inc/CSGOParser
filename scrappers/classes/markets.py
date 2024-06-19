@@ -425,7 +425,6 @@ class WhiteMarketHelper(BaseHelper):
         self.cursort_point = (type, name, is_stattrak)
         self.cursor = value
 
-
     def get_cookies(self, type):
         redis_key = f"{type}_white_market_cookies"
         if self.redis_client.exists(redis_key) and not self.force_update:
@@ -518,12 +517,14 @@ class WhiteMarketHelper(BaseHelper):
 
         try:
             response = requests.request("POST", url, headers=headers, data=payload)
+            logging.info(response.text)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
                 return respone_json["data"]["market_list"]["edges"]
             return None
-        except:
+        except Exception as e:
+            logging.error(e)
             return None
 
 
@@ -562,7 +563,6 @@ class SkinbaronHelper(BaseHelper):
         response = requests.request("GET", url)
 
         try:
-            logging.info(response.text)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["aggregatedMetaOffers"]) >= 0:
                 for offer in respone_json["aggregatedMetaOffers"]:
