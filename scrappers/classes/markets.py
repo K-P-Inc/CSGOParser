@@ -516,8 +516,10 @@ class WhiteMarketHelper(BaseHelper):
         }
 
         try:
-            response = requests.request("POST", url, headers=headers, data=payload)
+            cookies = self.get_cookies(type)
+            response = requests.request("POST", url, headers=headers, data=payload, cookies=cookies)
             logging.info(response.text)
+            logging.info(cookies)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
