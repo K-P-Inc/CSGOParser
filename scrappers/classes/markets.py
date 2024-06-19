@@ -443,8 +443,8 @@ class WhiteMarketHelper(BaseHelper):
             try:
                 time.sleep(3)  # adjust sleep time if needed
                 driver.implicitly_wait(30)
-                driver.find_element(By.XPATH, "//button[text()='Accept all']").click()
                 logging(driver.page_source)
+                driver.find_element(By.XPATH, "//button[text()='Accept all']").click()
                 logging.info("Button 'accept cookies' clicked successfully.")
             except Exception as e:
                 logging.error(f"An error occurred: {e}")
