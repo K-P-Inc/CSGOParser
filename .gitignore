@@ -6,3 +6,4 @@ docker-compose-prod.yml
 .env
 __pycache__/
 keys/
+allure_results/

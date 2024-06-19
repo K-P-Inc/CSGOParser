@@ -43,13 +43,13 @@ markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_c
     CSMoneyHelper(),
     MarketCSGOHelper(),
     # SkinbidHelper(),
-    # CSFloatHelper(),
+    CSFloatHelper(),
     BitskinsHelper(),
     HaloskinsHelper(),
     DmarketHelper(),
     # SkinportHelper(),
     # SkinbaronHelper(),
-    # WhiteMarketHelper()
+    WhiteMarketHelper()
 ]]
 
 validators_asserts = [pytest.param(func, id=id) for (func, id) in [
@@ -77,7 +77,7 @@ class TestMarketsHelpers:
     def _prepare_name(self, market: BaseHelper, name: str, quality: Optional[str] = None) -> str:
         """Prepares the item name based on market specific parsing rules"""
         if market.PARSE_WITH_QUALITY:
-            return f"{name} | ({quality})"
+            return f"{name} ({quality})"
         return name
 
     @allure.step('Fetching item list from the market')
@@ -87,7 +87,7 @@ class TestMarketsHelpers:
             cache_key = (market.DB_ENUM_NAME, test_data.name, test_data.type, test_data.is_stattrak, test_data.max_price, test_data.page_number, test_data.quality)
             if cache_key in self.cache:
                 return self.cache[cache_key]
-        
+
         with allure.step('Setup item name'):
             name = self._prepare_name(market, test_data.name, test_data.quality)
 

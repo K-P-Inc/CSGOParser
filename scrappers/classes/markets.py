@@ -512,20 +512,12 @@ class WhiteMarketHelper(BaseHelper):
             "operationName": "MarketList"
         })
 
-        ua = UserAgent()
-        user_agent = ua.random
-
         headers = {
-            'Accept': 'application/json, text/plain, */*',
-            'Accept-Encoding': 'gzip, deflate, br, zstd',
-            'Referer': "https://white.market/",
             'Content-Type': 'application/json',
-            'User-Agent': user_agent
         }
 
         try:
-            response = requests.request("POST", url, headers=headers, data=payload, cookies=self.get_cookies(type))
-            logging.info(response.text)
+            response = requests.request("POST", url, headers=headers, data=payload)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
