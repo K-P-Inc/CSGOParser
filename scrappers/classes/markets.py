@@ -416,13 +416,13 @@ class WhiteMarketHelper(BaseHelper):
         return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
 
     def get_cursor(self, type, name, is_stattrak):
-        if self.cursor_point and self.cursor_point != (type, name, is_stattrak):
+        if self.cursor_point and self.cursor_point == (type, name, is_stattrak):
             return self.cursor
         else:
             return None
 
     def save_cursor(self, type, name, is_stattrak, value):
-        self.cursort_point = (type, name, is_stattrak)
+        self.cursor_point = (type, name, is_stattrak)
         self.cursor = value
 
     def get_cookies(self, type):
@@ -519,6 +519,7 @@ class WhiteMarketHelper(BaseHelper):
             response = requests.request("POST", url, headers=headers, data=payload)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
+                logging.info(f'Current cursor {self.get_cursor(type, name, is_stattrak)}, new {respone_json["data"]["market_list"]["pageInfo"]["endCursor"]}')
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
                 return respone_json["data"]["market_list"]["edges"]
             return None
