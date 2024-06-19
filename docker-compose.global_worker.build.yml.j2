@@ -45,6 +45,21 @@ services:
       parser_net_{{ loop.index0 }}:
         ipv4_address: 182.{{ loop.index0 }}.0.4
 
+{% for market_type_one_network_only in market_types_one_network_only %}
+  {{ weapon_short_name }}_global_parser_{{ market_type_one_network_only }}:
+    <<: *global_api_parser_service
+    image: global_worker
+    container_name: {{ weapon_short_name }}_global_parser_{{ market_type_one_network_only }}
+    restart: always
+    environment:
+      <<: *db_credentials
+      REDIS_PWD: ${REDIS_PWD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      WEAPON_TYPE: {{ weapon_type }}
+      MARKET_TYPES: {{ market_type_one_network_only }}
+{% endfor %}
+
   {{ weapon_short_name }}-chrome-node:
     image: {{ "seleniarm/standalone-chromium:latest" if ansible_architecture == 'arm64' else "selenium/standalone-chrome:latest" }}
     container_name: {{ weapon_short_name }}-chrome-node

@@ -16,6 +16,9 @@
       - skinport
       - skinbaron
 
+    market_types_one_network_only:
+      - white-market
+
   tasks:
     - name: Create Docker Compose file
       template:

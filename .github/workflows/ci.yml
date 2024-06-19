@@ -34,10 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: ["global_worker", "dashboard", "infrastructure"]
+        build_type: ["global_worker", "worker", "dashboard", "infrastructure"]
         include:
         - build_type: global_worker
           service: global_worker
+        - build_type: worker
+          service: worker
         - build_type: dashboard
           service: dashboard
         - build_type: infrastructure
