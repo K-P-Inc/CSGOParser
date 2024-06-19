@@ -6,7 +6,15 @@
 
   vars:
     market_types:
-      - white-market
+      - dmarket
+      - cs-money
+      - haloskins
+      - market-csgo
+      - bitskins
+      - skinbid
+      - csfloat
+      - skinport
+      - skinbaron
 
   tasks:
     - name: Create Docker Compose file

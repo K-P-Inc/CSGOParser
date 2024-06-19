@@ -442,8 +442,7 @@ class WhiteMarketHelper(BaseHelper):
 
             try:
                 time.sleep(3)  # adjust sleep time if needed
-                driver.implicitly_wait(30)
-                logging.info(driver.page_source)
+                driver.implicitly_wait(10)
                 driver.find_element(By.XPATH, "//button[text()='Accept all']").click()
                 logging.info("Button 'accept cookies' clicked successfully.")
             except Exception as e:
@@ -517,10 +516,7 @@ class WhiteMarketHelper(BaseHelper):
         }
 
         try:
-            cookies = self.get_cookies(type)
-            response = requests.request("POST", url, headers=headers, data=payload, cookies=cookies)
-            logging.info(response.text)
-            logging.info(cookies)
+            response = requests.request("POST", url, headers=headers, data=payload)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
