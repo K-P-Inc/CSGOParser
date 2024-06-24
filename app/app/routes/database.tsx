@@ -9,7 +9,7 @@ import { Label } from "~/components/ui/label";
 import { Button } from "~/components/ui/button";
 import SkeletonItemCard from '~/components/shared/SkeletonItemCard';
 import { MarketFilter } from '~/components/shared/MarketFilter';
-import { WearType, StickersPattern, StickersType, WeaponType, ShopType, SortType } from "~/types"
+import { WearType, StickersPattern, StickersType, WeaponType, ShopType, SortType, CategoryType } from "~/types"
 
 const MAX_PAGE_ITEMS = 100;
 
@@ -65,8 +65,12 @@ function getParamArray<T>(url: string, param: string): T[] {
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const sort_by: SortType | undefined = url.searchParams.get("sort_by") ? url.searchParams.get("sort_by") as SortType : undefined;
+  const search: string = url.searchParams.get("search") ?? "";
   const weapon_types = getParamArray<WeaponType>(request.url, "weapon_types");
   const wears = getParamArray<WearType>(request.url, "wears");
+  const categories = getParamArray<CategoryType>(request.url, "categories");
+  const min_price: number | undefined = url.searchParams.get("min_price") ? parseFloat(url.searchParams.get("min_price") ?? "") : undefined;
+  const max_price: number | undefined = url.searchParams.get("max_price") ? parseFloat(url.searchParams.get("max_price") ?? "") : undefined;
   const stickers_patterns = getParamArray<StickersPattern>(request.url, "stickers_patterns");
   const sticker_types = getParamArray<StickersType>(request.url, "sticker_types");
   const market_types = getParamArray<ShopType>(request.url, "market_types");
@@ -74,9 +78,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const postgresClient = new RDSClient();
 
   const filters = [];
-  // if (is_stattrak === "on") {
-  //   filters.push(`weapons_prices.is_stattrak = TRUE`);
-  // }
+  const args = [];
+
+  if (categories.includes("StatTrak™")) {
+    const categories_filters = {
+      "StatTrak™": `weapons_prices.is_stattrak = TRUE`,
+      "Normal": `weapons_prices.is_stattrak = FALSE`
+    };
+    filters.push(categories.map(category => categories_filters[category]).join(` OR `));
+  }
   if (wears.length > 0) {
     filters.push(wears.map(quality => `weapons_prices.quality = '${quality}'`).join(` OR `));
   }
@@ -88,6 +98,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
   if (sticker_types.length > 0) {
     filters.push(sticker_types.map(sticker_type => `LOWER(t.name) LIKE LOWER('%(${sticker_type})%')`).join(` OR `));
+  }
+
+  if (search.length > 0) {
+    filters.push(`LOWER(weapons_prices.name) LIKE LOWER($1)`)
+    args.push(`%${search}%`)
+  }
+  if (min_price !== undefined) {
+    filters.push(`skins.price >= ${min_price}`)
+  }
+  if (max_price !== undefined) {
+    filters.push(`skins.price <= ${max_price}`)
   }
 
   if (market_types.length > 0) {
@@ -184,7 +205,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
   `;
 
-  let filtered_items: Promise<SkinItem[]> = postgresClient.query(query)
+  let filtered_items: Promise<SkinItem[]> = postgresClient.query(query, args)
     .then((items: any[] | undefined) => {
       return items
         ? items.map((row: any) => ({
@@ -216,6 +237,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     items: filtered_items,
     weapon_types: weapon_types,
     sort_by: sort_by,
+    search: search,
+    categories: categories,
+    min_price: min_price,
+    max_price: max_price,
     stickers_patterns: stickers_patterns,
     sticker_types: sticker_types,
     market_types: market_types,
@@ -226,7 +251,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const submit = useSubmit();
-  const { items, weapon_types, sort_by, stickers_patterns, sticker_types, market_types, wears, page } = useLoaderData<typeof loader>();
+  const {
+    items, weapon_types, sort_by, search, categories,
+    min_price, max_price, stickers_patterns, sticker_types,
+    market_types, wears, page 
+  } = useLoaderData<typeof loader>();
   const [skins, setSkins] = useState<SkinItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const fetcher = useFetcher<typeof loader>();
@@ -282,8 +311,12 @@ export default function Index() {
             wears={wears as WearType[]}
             weapons={weapon_types as WeaponType[]}
             shops={market_types as ShopType[]}
+            search={search}
+            categories={categories}
             stickersPatterns={stickers_patterns as StickersPattern[]}
             stickersTypes={sticker_types as StickersType[]}
+            min_price={min_price}
+            max_price={max_price}
             sort_by={sort_by}
           />
           <InfiniteScroller

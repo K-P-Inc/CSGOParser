@@ -1,10 +1,9 @@
 
 import * as React from "react"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 import { X } from "lucide-react"
-
 import { Button } from "~/components/ui/button"
 import {
   DropdownMenu,
@@ -27,7 +26,7 @@ import {
 
 import { SubmitFunction } from "@remix-run/react"
 import { Input } from "../ui/input"
-import { WearType, StickersPattern, StickersType, WeaponType, ShopType } from "~/types"
+import { WearType, StickersPattern, StickersType, WeaponType, ShopType, CategoryType } from "~/types"
 
 type ShortNameMap<T extends string> = { [key in T]: string };
 
@@ -46,8 +45,8 @@ export function GenericSelector<T extends string>({
   itemShortNames,
   label
 }: SelectorProps<T>) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [newSelectedItems, setNewSelectedItems] = React.useState<T[]>(selectedItems);
+  const [isOpen, setIsOpen] = useState(false);
+  const [newSelectedItems, setNewSelectedItems] = useState<T[]>(selectedItems);
 
   return (
     <div className="flex">
@@ -70,10 +69,7 @@ export function GenericSelector<T extends string>({
             {selectedItems.length === 0 && (
               <ChevronDown
                 className="ml-2 h-4 w-4 opacity-50"
-                onClick={(e: any) => {
-                  e.stopPropagation();
-                  alert("Please")
-                }}
+                onClick={(e: any) => {}}
               />
             )}
           </Button>
@@ -165,6 +161,30 @@ export function WearSelector({
   );
 }
 
+// Usage example for WearType
+export function CategorySelector({
+  selectedCategories,
+  setSelectedCategories
+}: {
+  selectedCategories: CategoryType[];
+  setSelectedCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>;
+}) {
+  const { items: categories, itemShortNames: categoriesShort } = createItemsAndShortNames([
+    "StatTrak™", "Normal"
+  ] as CategoryType[]);
+
+
+  return (
+    <GenericSelector
+      items={categories}
+      selectedItems={selectedCategories}
+      setSelectedItems={setSelectedCategories}
+      itemShortNames={categoriesShort}
+      label="Category"
+    />
+  );
+}
+
 // Usage example for WeaponType
 export function WeaponSelector({
   selectedWeapons,
@@ -219,7 +239,7 @@ export function ShopSelector({
   );
 }
 
-export function CategorySelector({
+export function StickersCategorySelector({
   selectedStickersPatterns,
   setSelectedStickersPatterns,
   selectedStickersTypes,
@@ -230,12 +250,12 @@ export function CategorySelector({
   selectedStickersTypes: StickersType[],
   setSelectedStickersTypes: React.Dispatch<React.SetStateAction<StickersType[]>>;
 }) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [newSelectedStickersPatterns, setNewSelectedStickersPatterns] = React.useState<StickersPattern[]>(selectedStickersPatterns);
-  const [newSelectedSelectedStickersTypes, setNewSelectedStickersTypes] = React.useState<StickersType[]>(selectedStickersTypes);
+  const [isOpen, setIsOpen] = useState(false);
+  const [newSelectedStickersPatterns, setNewSelectedStickersPatterns] = useState<StickersPattern[]>(selectedStickersPatterns);
+  const [newSelectedSelectedStickersTypes, setNewSelectedStickersTypes] = useState<StickersType[]>(selectedStickersTypes);
   const stickersPatterns: StickersPattern[] = ["5-equal", "4-equal", "3-equal", "2-equal", "other"]
   const stickersTypes: StickersType[] = ["Gold", "Foil", "Holo", "Glitter"]
-  const label = "Category"
+  const label = "Stickers";
 
   return (
     <div className="flex">
@@ -265,10 +285,7 @@ export function CategorySelector({
             {selectedStickersPatterns.length === 0 && selectedStickersTypes.length === 0 && (
               <ChevronDown
                 className="ml-2 h-4 w-4 opacity-50"
-                onClick={(e: any) => {
-                  e.stopPropagation();
-                  alert("Please")
-                }}
+                onClick={(e: any) => {}}
               />
             )}
           </Button>
@@ -341,6 +358,177 @@ export function CategorySelector({
   );
 }
 
+
+export function PriceSelector({
+  selectedMinPrice,
+  setSelectedMinPrice,
+  selectedMaxPrice,
+  setSelectedMaxPrice,
+}: {
+  selectedMinPrice: number | undefined,
+  setSelectedMinPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
+  selectedMaxPrice: number | undefined,
+  setSelectedMaxPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [newSelectedMinPrice, setNewSelectedMinPrice] = useState<number | undefined>(selectedMinPrice);
+  const [newSelectedMaxPrice, setNewSelectedMaxPrice] = useState<number | undefined>(selectedMaxPrice);
+  const label = "Price";
+
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    setNewSelectedMinPrice(value);
+  };
+
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    setNewSelectedMaxPrice(value);
+  };
+
+  return (
+    <div className="flex">
+      <DropdownMenu open={isOpen} onOpenChange={(open) => {
+        if (open) {
+          setNewSelectedMinPrice(selectedMinPrice);
+          setNewSelectedMaxPrice(selectedMaxPrice);
+        }
+        setIsOpen(open);
+      }}>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant={isOpen || selectedMinPrice !== undefined || selectedMaxPrice !== undefined ? "active" : "default"}
+            size={selectedMinPrice !== undefined || selectedMaxPrice !== undefined ? "left" : "default"}
+          >
+            {(!selectedMinPrice && !selectedMaxPrice)
+              ? label
+              : `$ ${selectedMinPrice !== undefined ? selectedMinPrice.toFixed(2) : "0"} - $ ${selectedMaxPrice !== undefined ? selectedMaxPrice.toFixed(2) : "∞"}`
+            }
+            {(!selectedMinPrice && !selectedMaxPrice) && (
+              <ChevronDown
+                className="ml-2 h-4 w-4 opacity-50"
+              />
+            )}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Price</DropdownMenuLabel>
+          <DropdownMenuSeparator className="mb-2" />
+          <div className="grid grid-cols-5 gap-2 mx-2 pt-2 mb-4 items-center">
+            <div className="col-span-2">
+              <small>From</small>
+              <Input
+                value={newSelectedMinPrice !== undefined ? newSelectedMinPrice : ''}
+                onChange={handleMinPriceChange}
+                className="w-[100px]"
+                type="number"
+                placeholder="$ 0.00"
+              />
+            </div>
+            <div className="col-span-1 text-center">
+              <span>-</span>
+            </div>
+            <div className="col-span-2">
+              <small>To</small>
+              <Input
+                value={newSelectedMaxPrice !== undefined ? newSelectedMaxPrice : ''}
+                onChange={handleMaxPriceChange}
+                className="w-[100px]"
+                type="number"
+                placeholder="$ ∞"
+              />
+            </div>
+          </div>
+          <div className="flex justify-end gap-4 mt-4">
+            <Button variant="secondary" onClick={() => {
+              setSelectedMaxPrice(undefined);
+              setSelectedMinPrice(undefined);
+            }}>Clear</Button>
+            <Button variant="secondary" onClick={() => {
+              setSelectedMaxPrice(newSelectedMaxPrice);
+              setSelectedMinPrice(newSelectedMinPrice);
+              setIsOpen(false);
+            }}>Apply</Button>
+          </div>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {(selectedMinPrice !== undefined || selectedMaxPrice !== undefined) &&
+        <Button className="w-[30px]" size="right" onClick={(e: any) => {
+          e.preventDefault();
+          setIsOpen(false);
+          setSelectedMaxPrice(undefined);
+          setSelectedMinPrice(undefined);
+        }}>
+          <X className="h-4 w-4" />
+        </Button>
+      }
+    </div>
+  );
+}
+
+export function SearchNameInput({ searchName, setSearchName } : { searchName: string, setSearchName: React.Dispatch<React.SetStateAction<string>> } ) {
+  const [proxyValue, setProxyValue] = useState<string>(searchName);
+
+  const handleChange = (e: any) => {
+    setProxyValue(e.target.value);
+  };
+
+  // Function to handle blur event
+  const handleBlur = (e: any) => {
+    setSearchName(proxyValue);
+  };
+
+  // Function to handle key down event
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      setSearchName(proxyValue);
+    }
+  };
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchName(proxyValue);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [proxyValue]);
+
+  return (
+    <Input
+      value={proxyValue}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+      className="w-[250px]" type="text" placeholder="Search name"
+    />
+  )
+}
+
+export function SortSelector(
+  { sortBy, setSortBy } :
+  { sortBy: string | undefined, setSortBy: React.Dispatch<React.SetStateAction<string | undefined>> }
+) {
+  return (
+    <Select name="sort_by" value={sortBy} onValueChange={(value: string) => setSortBy(value)}>
+      <SelectTrigger className="w-[150px]">
+        <SelectValue placeholder="Sort by" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Types</SelectLabel>
+          <SelectItem value="newest">Newest</SelectItem>
+          <SelectItem value="oldest">Oldest</SelectItem>
+          <SelectItem value="profit_high_to_low">Highest Profit</SelectItem>
+          <SelectItem value="profit_low_to_high">Lowest Profit</SelectItem>
+          <SelectItem value="price_high_to_low">Highest Price</SelectItem>
+          <SelectItem value="price_low_to_high">Lowest Price</SelectItem>
+      </SelectGroup>
+      </SelectContent>
+    </Select>
+  )
+}
+
 interface MarketFilterParams {
   submit: SubmitFunction,
   wears: WearType[],
@@ -348,21 +536,33 @@ interface MarketFilterParams {
   shops: ShopType[],
   stickersPatterns: StickersPattern[],
   stickersTypes: StickersType[],
+  categories: CategoryType[],
+  search: string;
+  min_price: number | undefined;
+  max_price: number | undefined;
   sort_by: string | undefined
 }
 
-export function MarketFilter({ wears, weapons, shops, stickersPatterns, stickersTypes, sort_by, submit } : MarketFilterParams) {
-  const [selectedWears, setSelectedWears] = React.useState<WearType[]>(wears);
-  const [selectedWeapons, setSelectedWeapons] = React.useState<WeaponType[]>(weapons);
-  const [selectedShops, setSelectedShops] = React.useState<ShopType[]>(shops);
-  const [selectedStickersPatterns, setSelectedStickersPatterns] = React.useState<StickersPattern[]>(stickersPatterns);
-  const [selectedStickersTypes, setSelectedStickersTypes] = React.useState<StickersType[]>(stickersTypes);
-  const [sortType, setSortType] = React.useState<string | undefined>(sort_by)
+export function MarketFilter(
+  { wears, weapons, shops, stickersPatterns, stickersTypes, categories, search, min_price, max_price, sort_by, submit } :
+  MarketFilterParams
+) {
+  const [selectedWears, setSelectedWears] = useState<WearType[]>(wears);
+  const [selectedWeapons, setSelectedWeapons] = useState<WeaponType[]>(weapons);
+  const [selectedShops, setSelectedShops] = useState<ShopType[]>(shops);
+  const [selectedStickersPatterns, setSelectedStickersPatterns] = useState<StickersPattern[]>(stickersPatterns);
+  const [selectedStickersTypes, setSelectedStickersTypes] = useState<StickersType[]>(stickersTypes);
+  const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>(categories);
+  const [selectedMinPrice, setSelectedMinPrice] = useState<number | undefined>(min_price);
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState<number | undefined>(max_price);
+  const [searchName, setSearchName] = useState<string>(search);
+  const [sortType, setSortType] = useState<string | undefined>(sort_by)
 
   useEffect(() => {
     if (
       wears !== selectedWears || weapons !== selectedWeapons || shops !== selectedShops || sort_by !== sortType ||
-      selectedStickersPatterns != stickersPatterns || selectedStickersTypes != stickersTypes
+      selectedStickersPatterns != stickersPatterns || selectedStickersTypes != stickersTypes || searchName !== search ||
+      categories !== selectedCategories || min_price !== selectedMinPrice || max_price !== selectedMaxPrice
     ) {
       const formData = new FormData(undefined);
 
@@ -384,37 +584,45 @@ export function MarketFilter({ wears, weapons, shops, stickersPatterns, stickers
       if (sortType !== undefined) {
         formData.set("sort_by", sortType);
       }
+      if (searchName.length > 0) {
+        formData.set("search", searchName);
+      }
+      if (selectedCategories.length > 0) {
+        formData.set("categories", selectedCategories.join(","));
+      }
+      if (selectedMinPrice !== undefined) {
+        formData.set("min_price", selectedMinPrice.toFixed(2));
+      }
+      if (selectedMaxPrice !== undefined) {
+        formData.set("max_price", selectedMaxPrice.toFixed(2));
+      }
 
       submit(formData);
     }
-  }, [selectedWeapons, selectedWears, selectedShops, selectedStickersPatterns, selectedStickersTypes, sortType])
+  }, [
+    selectedWeapons, selectedWears, selectedShops, selectedStickersPatterns, selectedStickersTypes,
+    searchName, selectedCategories, sortType, selectedMinPrice, selectedMaxPrice
+  ])
 
   return (
     <div className="w-full space-y-3">
       <div className="flex flex-wrap w-full flex-1 items-center gap-x-3 gap-y-3">
+        <PriceSelector
+          selectedMinPrice={selectedMinPrice} setSelectedMinPrice={setSelectedMinPrice}
+          selectedMaxPrice={selectedMaxPrice} setSelectedMaxPrice={setSelectedMaxPrice}
+        />
         <WeaponSelector selectedWeapons={selectedWeapons} setSelectedWeapons={setSelectedWeapons} />
         <WearSelector selectedWears={selectedWears} setSelectedWears={setSelectedWears} />
-        <CategorySelector
+        <StickersCategorySelector
           selectedStickersTypes={selectedStickersTypes} setSelectedStickersTypes={setSelectedStickersTypes}
           selectedStickersPatterns={selectedStickersPatterns} setSelectedStickersPatterns={setSelectedStickersPatterns}
         />
+        <CategorySelector selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
         <ShopSelector selectedShops={selectedShops} setSelectedShops={setSelectedShops} />
-        <Select name="sort_by" value={sort_by} onValueChange={(value: string) => setSortType(value)}>
-          <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Types</SelectLabel>
-              <SelectItem value="newest">Newest</SelectItem>
-              <SelectItem value="oldest">Oldest</SelectItem>
-              <SelectItem value="profit_high_to_low">Highest Profit</SelectItem>
-              <SelectItem value="profit_low_to_high">Lowest Profit</SelectItem>
-              <SelectItem value="price_high_to_low">Highest Price</SelectItem>
-              <SelectItem value="price_low_to_high">Lowest Price</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+      </div>
+      <div className="flex flex-wrap w-full flex-1 items-center gap-x-3 gap-y-3">
+        <SearchNameInput searchName={searchName} setSearchName={setSearchName}/>
+        <SortSelector sortBy={sortType} setSortBy={setSortType}/>
       </div>
     </div>
   )

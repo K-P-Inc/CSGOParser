@@ -97,3 +97,4 @@ export type ShopType = "bitskins.com" | "cs.money" | "csfloat.com" | "dmarket.co
 export type StickersPattern = "5-equal" | "4-equal" | "3-equal" | "2-equal" | "other";
 export type StickersType = "Gold" | "Foil" | "Holo" | "Glitter";
 export type SortType = "newest" | "oldest" | "profit_high_to_low" | "profit_low_to_high" | "price_high_to_low" | "price_low_to_high";
+export type CategoryType = "StatTrak™" | "Normal"
