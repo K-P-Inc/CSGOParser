@@ -415,7 +415,7 @@ export function PriceSelector({
           <DropdownMenuSeparator className="mb-2" />
           <div className="grid grid-cols-5 gap-2 mx-2 pt-2 mb-4 items-center">
             <div className="col-span-2">
-              <small>From</small>
+              <small className="ml-1">From</small>
               <Input
                 value={newSelectedMinPrice !== undefined ? newSelectedMinPrice : ''}
                 onChange={handleMinPriceChange}
@@ -424,11 +424,11 @@ export function PriceSelector({
                 placeholder="$ 0.00"
               />
             </div>
-            <div className="col-span-1 text-center">
-              <span>-</span>
+            <div className="col-span-1 text-center mt-4">
+              <span style={{ fontSize: "40px" }}>-</span>
             </div>
             <div className="col-span-2">
-              <small>To</small>
+              <small className="ml-1">To</small>
               <Input
                 value={newSelectedMaxPrice !== undefined ? newSelectedMaxPrice : ''}
                 onChange={handleMaxPriceChange}
