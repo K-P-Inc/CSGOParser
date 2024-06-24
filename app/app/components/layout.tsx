@@ -15,7 +15,7 @@ const sidebarNavigation = [
 ];
 
 interface BarProperties {
-    supabase: SupabaseClient;
+    supabase?: SupabaseClient;
 }
 
 function TopBar({ supabase } : BarProperties) {
@@ -113,16 +113,15 @@ function LeftLayout({ supabase } : BarProperties) {
 }
 
 interface LayoutProperties {
-    supabase: SupabaseClient;
     children: React.ReactNode
 }
 
-export default function Layout({ supabase, children } : LayoutProperties) {
+export default function Layout({ children } : LayoutProperties) {
     return (
         <main className="flex h-screen">
             <div className="w-full md:flex h-full">
-                <TopBar supabase={supabase}/>
-                <LeftLayout supabase={supabase}/>
+                <TopBar />
+                <LeftLayout />
                 <section className="flex flex-1 h-full">
                     {children}
                 </section>

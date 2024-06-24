@@ -249,6 +249,21 @@
     @apply mt-[-15px] mb-[-5px] mx-[-5px] opacity-100;
   }
 
+  .skeleton-post-card {
+    @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 py-2 min-w-[170px] min-h-[225px];
+    overflow: hidden
+  }
+
+  .skeleton-post-card_img {
+    @apply h-[100px] w-auto rounded-[24px] object-cover mt-[-10px] transition-all duration-100 ease-in;
+    filter: drop-shadow(0px 200px 0 theme("colors.dark-4"));
+    transform: translateY(-200px);
+  }
+
+  .skeleton-post-card_market_img {
+    @apply w-auto rounded-[24px] object-cover mt-[-10px] transition-all duration-100 ease-in opacity-50;
+  }
+
   /* Topbar */
   .topbar {
     @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;

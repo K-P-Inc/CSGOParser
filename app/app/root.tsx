@@ -48,7 +48,6 @@ export const ErrorBoundary = () => {
 
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
-  const [supabase] = useState(() => createBrowserClient(env.SUPABASE_URL, env.SUPABASE_PUBLIC_KEY));
 
   return (
     <html lang="en">
@@ -59,8 +58,8 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout supabase={supabase}>
-          <Outlet context={{ supabase }} />
+        <Layout>
+          <Outlet/>
         </Layout>
         <Toaster />
         <ScrollRestoration />
