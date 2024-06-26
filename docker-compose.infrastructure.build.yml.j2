@@ -1,0 +1,90 @@
+version: "3.9"
+
+x-db-credentials: &db_credentials
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_HOST: ${POSTGRES_HOST}
+  POSTGRES_PORT: ${POSTGRES_PORT}
+
+volumes:
+  db:
+    driver: local
+  cache:
+    driver: local
+
+networks:
+  parser_network:
+    driver: bridge
+
+services:
+  db:
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    container_name: pg
+    image: postgres
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "8080:5432"
+    networks:
+      - parser_network
+
+  redis:
+    container_name: redisdb
+    image: redis:6.2-alpine
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PWD}
+    ports:
+      - "6379:6379"
+    volumes: 
+      - cache:/data
+    networks:
+      - parser_network
+
+  seleniarm-chrome-node:
+    deploy:
+      replicas: 1
+    image: {{ "seleniarm/node-chromium:latest" if ansible_architecture == 'arm64' else "selenium/node-chrome:latest" }}
+    restart: always
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks:
+      - parser_network
+
+  seleniarm-hub:
+    image: {{ "seleniarm/hub:latest" if ansible_architecture == 'arm64' else "selenium/hub:latest" }}
+    container_name: selenium-hub
+    restart: always
+    networks:
+      - parser_network
+
+  items:
+    image: items_prices_parser
+    container_name: items_prices_parser
+    restart: always
+    build:
+      context: scrappers
+      dockerfile: items_prices_parser/Dockerfile
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    depends_on:
+      - db
+      - seleniarm-hub
+      - seleniarm-chrome-node
+    networks:
+      - parser_network

@@ -1,0 +1,92 @@
+logging_level: INFO
+
+# parser settings
+weapons:
+  - type: 'AWP'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'M4A4'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'M4A1-S'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'AK-47'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'Desert Eagle'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'USP-S'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'Glock-18'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'P250'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'SSG 08'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'AUG'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+  
+  - type: 'FAMAS'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'Galil AR'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+  - type: 'SG 553'
+    min_steam_item_price: 2
+    max_steam_item_price: 200
+    profit_threshold: 10
+    sticker_sum: 20
+
+hydra:
+  job_logging:
+    formatters:
+      simple:
+        format: '[%(asctime)s] [%(levelname)-7s] %(message)-100s # [%(module)s(%(funcName)s):%(lineno)d]'
+    handlers:
+      file:
+        encoding: 'utf-8'
+  run:
+    dir: white_market_parser_api_logs

@@ -2,12 +2,14 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS stickers (
     id uuid DEFAULT uuid_generate_v4 (),
+    classid TEXT,
     name TEXT,
     key TEXT,
     price FLOAT,
     rare TEXT,
     type TEXT,
     collection TEXT,
+    icon_url TEXT,
     PRIMARY KEY (id)
 );
 
@@ -34,28 +36,51 @@ CREATE TABLE IF NOT EXISTS weapons_prices (
   price_all_time_low FLOAT,
   price_all_time_high FLOAT,
   parsing_time TIMESTAMP DEFAULT NOW(),
+  icon_url TEXT,
   PRIMARY KEY (id)
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS weapons_prices_index ON weapons_prices(name, quality, is_stattrak);
 
 CREATE TYPE weapon_stickers_patern AS ENUM (
-    'full-set',
+    '5-equal',
+    '4-equal',
     '3-equal',
     '2-equal',
     'other'
 );
 
+CREATE TYPE market_type AS ENUM (
+    'market-csgo',
+    'skinbid',
+    'cs-money',
+    'skinport',
+    'csfloat',
+    'bitskins',
+    'dmarket',
+    'skinbaron',
+    'haloskins',
+    'csmiddler',
+    'white-market'
+);
+
 CREATE TABLE IF NOT EXISTS skins (
   id uuid DEFAULT uuid_generate_v4 (),
-  link TEXT,
-  stickers_price FLOAT,
-  price FLOAT,
-  profit FLOAT,
-  skin_id uuid NOT NULL,
-  stickers_patern weapon_stickers_patern,
-  amount_of_stickers_distinct INTEGER,
-  amount_of_stickers INTEGER,
+  link text null,
+  stickers_price double precision null,
+  price double precision null,
+  profit double precision null,
+  skin_id uuid not null,
+  stickers_patern public.weapon_stickers_patern null,
+  amount_of_stickers_distinct integer null,
+  amount_of_stickers integer null,
+  stickers uuid[] null,
+  created_at timestamp with time zone null default now(),
+  is_out_dated boolean null default false,
+  in_game_link text null default ''::text,
+  is_sold boolean not null default false,
+  is_deleted boolean null default false,
+  market market_type null,
   FOREIGN KEY (skin_id) REFERENCES weapons_prices (id)
 );
 

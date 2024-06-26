@@ -1,0 +1,14 @@
+hydra-core
+undetected-chromedriver
+selenium_stealth
+2captcha-python
+omegaconf
+python-dotenv
+pg8000
+selenium-wire==5.1.0
+blinker==1.7.0
+Brotli==1.1.0 
+selenium==4.9.1
+requests
+redis
+fake_useragent

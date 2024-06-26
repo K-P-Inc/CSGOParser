@@ -1,0 +1,35 @@
+version: "3.9"
+
+x-db-credentials: &db_credentials
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_HOST: ${POSTGRES_HOST}
+  POSTGRES_PORT: ${POSTGRES_PORT}
+
+x-template_api_parser_service: &template_api_parser_service
+  build:
+    context: scrappers
+    dockerfile: template_parser_api/Dockerfile
+  networks:
+    - parser_network
+
+networks:
+  parser_network:
+    driver: bridge
+
+services:
+{% for market_type in market_types %}
+  {{ market_type.lower().replace('-', '_') }}_parser:
+    <<: *template_api_parser_service
+    image: worker
+    container_name: {{ market_type.lower().replace('-', '_') }}_parser
+    environment:
+      <<: *db_credentials
+      REDIS_PWD: ${REDIS_PWD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      WEAPON_TYPE: {{ lookup('env', 'WEAPON_TYPE') }}
+      MARKET_TYPE: {{ market_type }}
+
+{% endfor %}

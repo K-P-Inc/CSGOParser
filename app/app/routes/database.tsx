@@ -1,0 +1,349 @@
+import React, { useEffect, useRef, useState } from 'react';
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { Form, defer, useLoaderData, useOutletContext, useSubmit, Await, useFetcher } from "@remix-run/react";
+import ItemCard from "~/components/shared/ItemCard";
+import { RDSClient } from "~/models/postgres.server";
+import { OutletContext, SkinItem } from "~/types";
+import { Switch } from "~/components/ui/switch";
+import { Label } from "~/components/ui/label";
+import { Button } from "~/components/ui/button";
+import SkeletonItemCard from '~/components/shared/SkeletonItemCard';
+import { MarketFilter } from '~/components/shared/MarketFilter';
+import { WearType, StickersPattern, StickersType, WeaponType, ShopType, SortType, CategoryType } from "~/types"
+
+const MAX_PAGE_ITEMS = 100;
+
+const InfiniteScroller = (props: { children: any; loading: boolean; loadNext: () => void; }) => {
+  const { children, loading, loadNext } = props;
+  const scrollListener = useRef(loadNext);
+  const isLoadingRef = useRef(loading);
+
+  useEffect(() => {
+    scrollListener.current = loadNext;
+  }, [loadNext]);
+
+  useEffect(() => {
+    isLoadingRef.current = loading;
+  }, [loading])
+
+  const onScroll = (e: any) => {
+    const div = e.target;
+    const scrollDifference = Math.floor(div.scrollHeight - div.scrollTop - div.clientHeight);
+    const scrollEnded = scrollDifference - 1000 <= 0;
+    if (scrollEnded && !isLoadingRef.current) {
+      scrollListener.current();
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      console.log("added listener");
+      const cls = document.getElementsByClassName("home-container");
+      if (cls.length > 0) {
+        const div = cls[0] as HTMLDivElement;
+        div.addEventListener("scroll", onScroll);
+      }
+    }
+    return () => {
+      const cls = document.getElementsByClassName("home-container");
+      if (cls.length > 0) {
+        const div = cls[0] as HTMLDivElement;
+        div.removeEventListener("scroll", onScroll);
+      }
+    };
+  }, []);
+
+  return <>{children}</>;
+}
+
+function getParamArray<T>(url: string, param: string): T[] {
+  const urlStruct = new URL(url);
+  const paramValue = urlStruct.searchParams.get(param);
+  return paramValue ? paramValue.split(",").map(type => type as T) : [];
+}
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const sort_by: SortType | undefined = url.searchParams.get("sort_by") ? url.searchParams.get("sort_by") as SortType : undefined;
+  const search: string = url.searchParams.get("search") ?? "";
+  const weapon_types = getParamArray<WeaponType>(request.url, "weapon_types");
+  const wears = getParamArray<WearType>(request.url, "wears");
+  const categories = getParamArray<CategoryType>(request.url, "categories");
+  const min_price: number | undefined = url.searchParams.get("min_price") ? parseFloat(url.searchParams.get("min_price") ?? "") : undefined;
+  const max_price: number | undefined = url.searchParams.get("max_price") ? parseFloat(url.searchParams.get("max_price") ?? "") : undefined;
+  const stickers_patterns = getParamArray<StickersPattern>(request.url, "stickers_patterns");
+  const sticker_types = getParamArray<StickersType>(request.url, "sticker_types");
+  const market_types = getParamArray<ShopType>(request.url, "market_types");
+  const page = parseInt(url.searchParams.get("page") || "0");
+  const postgresClient = new RDSClient();
+
+  const filters = [];
+  const args = [];
+
+  if (categories.includes("StatTrak™")) {
+    const categories_filters = {
+      "StatTrak™": `weapons_prices.is_stattrak = TRUE`,
+      "Normal": `weapons_prices.is_stattrak = FALSE`
+    };
+    filters.push(categories.map(category => categories_filters[category]).join(` OR `));
+  }
+  if (wears.length > 0) {
+    filters.push(wears.map(quality => `weapons_prices.quality = '${quality}'`).join(` OR `));
+  }
+  if (weapon_types.length > 0) {
+    filters.push(weapon_types.map(weapon_type => `LOWER(weapons_prices.name) LIKE LOWER('%${weapon_type}%')`).join(` OR `));
+  }
+  if (stickers_patterns.length > 0) {
+    filters.push(stickers_patterns.map(stickers_patern => `skins.stickers_patern = '${stickers_patern}'`).join(` OR `));
+  }
+  if (sticker_types.length > 0) {
+    filters.push(sticker_types.map(sticker_type => `LOWER(t.name) LIKE LOWER('%(${sticker_type})%')`).join(` OR `));
+  }
+
+  if (search.length > 0) {
+    filters.push(`LOWER(weapons_prices.name) LIKE LOWER($1)`)
+    args.push(`%${search}%`)
+  }
+  if (min_price !== undefined) {
+    filters.push(`skins.price >= ${min_price}`)
+  }
+  if (max_price !== undefined) {
+    filters.push(`skins.price <= ${max_price}`)
+  }
+
+  if (market_types.length > 0) {
+    const market_keys = {
+      "bitskins.com": "bitskins",
+      "cs.money": "cs-money",
+      "csfloat.com": "csfloat",
+      "dmarket.com": "dmarket",
+      "haloskins.com": "haloskins",
+      "market.csgo.com": "market-csgo",
+      "skinbid.com": "skinbid",
+      "skinport.com": "skinport",
+      "white.market": "white-market",
+      "skinbaron.de": "skinbaron",
+    }
+
+    filters.push(
+      market_types
+        .map((market_type: ShopType) => `skins.market = '${market_keys[market_type as keyof typeof market_keys]}'`)
+        .join(' OR ')
+    );
+  }
+
+  filters.push(`(COALESCE(stickers_total_price, 0) * 0.1 + weapons_prices.price - skins.price) / skins.price * 100.0 > 10`);
+  filters.push(`skins.is_sold = FALSE`);
+
+  const filterCondition = filters.length ? `WHERE ${filters.map(value => `(${value})`).join(' AND ')}` : '';
+
+  let orderBy = '';
+  switch (sort_by) {
+    case 'newest':
+      orderBy = 'ORDER BY created_at DESC';
+      break;
+    case 'oldest':
+      orderBy = 'ORDER BY created_at ASC';
+      break;
+    case 'profit_high_to_low':
+      orderBy = 'ORDER BY profit DESC';
+      break;
+    case 'profit_low_to_high':
+      orderBy = 'ORDER BY profit ASC';
+      break;
+    case 'price_high_to_low':
+      orderBy = 'ORDER BY market_price DESC';
+      break;
+    case 'price_low_to_high':
+      orderBy = 'ORDER BY market_price ASC';
+      break;
+    default:
+      orderBy = '';
+  }
+
+  const query = `
+    SELECT *
+    FROM (
+      SELECT *,
+            array_length(stickers, 1) AS stickers_count,
+            (SELECT COUNT(DISTINCT sticker_id) 
+              FROM unnest(stickers) AS sticker_id) AS distinct_stickers_count,
+            json_array_length(stickers_array) AS stickers_array_count
+      FROM (
+        WITH sticker_prices AS (
+        SELECT
+          skins.id AS skin_id,
+          SUM(COALESCE(stickers.price, 0)) AS stickers_total_price
+        FROM skins
+        LEFT JOIN stickers ON stickers.id = ANY(skins.stickers)
+        GROUP BY skins.id
+      )
+        SELECT DISTINCT ON (skins.id)
+          weapons_prices.name,
+          skins.market,
+          weapons_prices.is_stattrak,
+          weapons_prices.quality,
+          skins.price AS market_price,
+          weapons_prices.price AS steam_price,
+          weapons_prices.icon_url,
+          COALESCE(sticker_prices.stickers_total_price, 0) AS stickers_price,
+          skins.stickers_patern,
+          skins.created_at,
+          skins.link,
+          skins.stickers,
+          array_to_json(array_agg(row_to_json(t)) OVER (PARTITION BY skins.id)) AS stickers_array,
+          (COALESCE(sticker_prices.stickers_total_price, 0) * 0.1 + weapons_prices.price - skins.price) / skins.price * 100.0 AS profit
+        FROM skins
+        INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+        LEFT JOIN sticker_prices ON skins.id = sticker_prices.skin_id
+        LEFT JOIN stickers t ON t.id = ANY (skins.stickers)
+        ${filterCondition}
+      ) AS subquery
+    ) AS final_query
+    WHERE distinct_stickers_count = stickers_array_count
+    ${orderBy}
+    LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
+  `;
+
+  let filtered_items: Promise<SkinItem[]> = postgresClient.query(query, args)
+    .then((items: any[] | undefined) => {
+      return items
+        ? items.map((row: any) => ({
+          name: `${row["is_stattrak"] ? "StatTrak™ " : ""}${row["name"]}`,
+          market: row["market"],
+          type: `${row["name"].split(" ")[0]}`,
+          is_stattrak: row["is_stattrak"],
+          quality: `${row["quality"]}`,
+          market_price: row["market_price"],
+          steam_price: row["steam_price"],
+          stickers_patern: row["stickers_patern"],
+          image: `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
+          profit: row["profit"],
+          link: `${row["link"]}`,
+          stickers_instances: row["stickers_array"],
+          stickers_icons: row["stickers"].map((stc: string) => {
+            const stc_instance = row["stickers_array"].find((ins: any) => ins["id"] === stc)
+            return `https://community.akamai.steamstatic.com/economy/image/${stc_instance["icon_url"]}`
+          }),
+          stickers_price: row["stickers"].map((stc: string) => {
+            const stc_instance = row["stickers_array"].find((ins: any) => ins["id"] === stc)
+            return stc_instance["price"];
+          }).reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0)
+        }))
+        : []
+    });
+
+  return defer({
+    items: filtered_items,
+    weapon_types: weapon_types,
+    sort_by: sort_by,
+    search: search,
+    categories: categories,
+    min_price: min_price,
+    max_price: max_price,
+    stickers_patterns: stickers_patterns,
+    sticker_types: sticker_types,
+    market_types: market_types,
+    wears: wears,
+    page: page
+  });
+}
+
+export default function Index() {
+  const submit = useSubmit();
+  const {
+    items, weapon_types, sort_by, search, categories,
+    min_price, max_price, stickers_patterns, sticker_types,
+    market_types, wears, page 
+  } = useLoaderData<typeof loader>();
+  const [skins, setSkins] = useState<SkinItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const fetcher = useFetcher<typeof loader>();
+  const pageRef = useRef(page);
+  const skinsRef = useRef<SkinItem[]>([]);
+
+  const addNewSkins = (newItems: SkinItem[]) => {
+    setSkins((prevSkins) => {
+      skinsRef.current = [...prevSkins, ...newItems]
+
+      return skinsRef.current
+    });
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    const updateSkins = async () => {
+      if (!fetcher.data || fetcher.state === "loading") {
+        return;
+      }
+      if (fetcher.data) {
+        const newItems = await fetcher.data.items;
+        addNewSkins(newItems);
+      }
+    };
+
+    updateSkins();
+  }, [fetcher.data?.items]);
+
+  useEffect(() => {
+    const updateSkins = async () => {
+      const newSkins = await items;
+      skinsRef.current = newSkins
+      setSkins(newSkins);
+      setIsLoading(false);
+    };
+
+    updateSkins();
+  }, [items]);
+
+
+  return (
+    <div className="flex flex-1">
+      <div className="home-container">
+        <div className="home-posts">
+          <h2 className="h3-bold md:h2-bold text-left w-full">Markets items</h2>
+          <MarketFilter
+            submit={(target: any) => {
+              submit(target, { replace: true });
+              setSkins([]);
+              setIsLoading(true);
+            }}
+            wears={wears as WearType[]}
+            weapons={weapon_types as WeaponType[]}
+            shops={market_types as ShopType[]}
+            search={search}
+            categories={categories}
+            stickersPatterns={stickers_patterns as StickersPattern[]}
+            stickersTypes={sticker_types as StickersType[]}
+            min_price={min_price}
+            max_price={max_price}
+            sort_by={sort_by}
+          />
+          <InfiniteScroller
+            loadNext={() => {
+              if (isLoading || skinsRef.current.length % MAX_PAGE_ITEMS !== 0) { return };
+              setIsLoading(true);
+              const newPage = pageRef.current + 1;
+              pageRef.current = newPage;
+
+              const query = new URLSearchParams(window.location.search);
+              query.set("page", newPage.toString());
+
+              fetcher.load(`?${query.toString()}`);
+            }}
+            loading={isLoading}
+          >
+            <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", display: "grid" }}>
+              {skins.map((item: SkinItem) => (
+                <ItemCard item={item} key={item.link} />
+              ))}
+              {isLoading &&
+                [...Array(MAX_PAGE_ITEMS).keys()].map((i) => <div className="w-full" key={i}><SkeletonItemCard/></div>)
+              }
+            </div>
+          </InfiniteScroller>
+        </div>
+      </div>
+    </div>
+  );
+}

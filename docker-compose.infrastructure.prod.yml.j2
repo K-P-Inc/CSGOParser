@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  db:
+    logging:
+      driver: journald
+
+  redis:
+    logging:
+      driver: journald
+
+  seleniarm-chrome-node:
+    logging:
+      driver: journald
+
+  seleniarm-hub:
+    logging:
+      driver: journald
+
+  items:
+    image: sprili/items_prices_parser:${COMMIT}
+    logging:
+      driver: journald

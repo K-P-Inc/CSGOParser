@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+{% set weapon_types = lookup('env', 'WEAPON_TYPES') | split(',') %}
+{% for weapon_type in weapon_types %}
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}_global_parser:
+    image: sprili/global_worker:${COMMIT}
+    logging:
+      driver: journald
+
+{% for market_type_one_network_only in market_types_one_network_only %}
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}_global_parser_{{ market_type_one_network_only }}:
+    image: sprili/global_worker:${COMMIT}
+    logging:
+      driver: journald
+{% endfor %}
+
+  {{ weapon_type.lower().replace('-', '_').replace(' ', '_') }}-chrome-node:
+    logging:
+      driver: journald
+
+{% endfor %}

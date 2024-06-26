@@ -1,3 +1,9 @@
-market_csgo_parser_logs/*
+market_csgo_parser_logs/
+scrappers/*_logs
 .hydra/*
-venv/*
+docker-compose.yml
+docker-compose-prod.yml
+.env
+__pycache__/
+keys/
+allure_results/
