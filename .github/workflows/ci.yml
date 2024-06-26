@@ -25,7 +25,7 @@ jobs:
         run: |
           pip install --upgrade pip
 
-      - name: Update pip
+      - name: Update setuptools
         run: |
           pip install --upgrade setuptools
 
