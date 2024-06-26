@@ -26,6 +26,8 @@ class MarketData:
         return f"MarketData(key_price='{self.key_price}', item_price={self.item_price}, item_link='{self.item_link}', stickers_array={self.stickers_array})"
 
 class TestData:
+    __test__ = False  # Ignoring class for pytest
+
     def __init__(self, name: str, type: str, is_stattrak: bool, max_price: float, page_number: int, quality: Optional[str] = None):
         self.name = name
         self.type = type
