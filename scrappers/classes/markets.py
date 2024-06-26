@@ -8,6 +8,9 @@ from selenium.webdriver.common.by import By
 from .redis import RedisClient
 from .driver import SeleniumDriver
 
+# stickers_wears = 0 (not scratched)
+# stickers_wears = 0.68 (100% - 68% = 32% sticker health)
+# stickers_wears = 1 (fully scratched)
 
 class BaseHelper:
     PARSE_WITH_QUALITY = False
@@ -26,8 +29,10 @@ class SkinbidHelper(BaseHelper):
         item_price = float(item["auction"]["startBid"])
         item_link = f'https://skinbid.com/market/{item["auction"]["auctionHash"]}'
         stickers_keys = [sticker["name"] for sticker in item_json["stickers"]]
+        stickers_wears = [f'{round(float(sticker["wear"]), 2)}' for sticker in item_json["stickers"]]
+        item_float = item["items"][0]["item"]['float']
 
-        return key_price, item_price, item_link, stickers_keys
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://api.skinbid.com/api/search/auctions?take=120&sort=discount%23desc&goodDeals=false&popular=false&currency=USD&name={quote(name)}&type={type}&Category=Stickers%23true,Souvenir%23false,{'StatTrak%23false' if is_stattrak == False else 'StatTrak%23true'}&skip={self.MAX_ITEMS_PER_PAGE * page_number}"
@@ -61,7 +66,10 @@ class CSMoneyHelper(BaseHelper):
         item_link = f'https://cs.money/market/buy/?search={quote(item_json["names"]["short"])}&sort=price&order=asc&minFloat={start_float:.8f}&maxFloat={end_float:.8f}&isStatTrak={"true" if item_json["isStatTrak"] else "false"}&isSouvenir=false&hasStickers=true&unique_id={item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"] if sticker] if "stickers" in item else []
 
-        return key_price, item_price, item_link, stickers_keys
+        stickers_wears = [f'{round(float(1 - sticker["wear"] / 100), 2)}' for sticker in item["stickers"] if sticker] if "stickers" in item else []
+        item_float = item_json["float"]
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://cs.money/1.0/market/sell-orders?isStatTrak={'true' if is_stattrak else 'false'}&order=asc&sort=price&isSouvenir=false&hasStickers=true&limit={self.MAX_ITEMS_PER_PAGE}&name={quote(type)}%20%7C%20{quote(name)}&offset={page_number * self.MAX_ITEMS_PER_PAGE}&maxPrice={max_price}"
@@ -85,8 +93,10 @@ class MarketCSGOHelper(BaseHelper):
         market_csgo_item_price = float(item["price"])
         market_csgo_item_link = f'https://market.csgo.com/en/{quote(item["seo"]["category"])}/{item["seo"]["type"]}/{quote(key_price)}?id={item["id"]}'
         stickers_keys = [sticker["name"] for sticker in item["stickers"]]
+        stickers_wears = [None for _ in item["stickers"]]
+        item_float = None
 
-        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float
 
     def generate_market_link(self, type, name, is_stattrak):
         return f'https://market.csgo.com/en/?sort=price&order=asc&search={quote(type)}%20%7C%20{quote(name)}%20&priceMax=1000000&categories=any_stickers{"&search=StatTrak" if is_stattrak == True else ""}'
@@ -158,7 +168,12 @@ class SkinportHelper(BaseHelper):
         item_link = f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
         stickers_keys = [sticker["name"] for sticker in item["stickers"]]
 
-        return key_price, item_price, item_link, stickers_keys
+        # TODO: stickers_wears / this is not really None
+        stickers_wears = [None for sticker in item["stickers"]]
+        # TODO: item_float / this is not really None
+        item_float = None
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
     def get_cookies(self, type):
         redis_key = f"{type}_skinport_cookies"
@@ -234,8 +249,10 @@ class CSFloatHelper(BaseHelper):
         item_price = float(item["price"]) / 100.0
         item_link = f'https://csfloat.com/item/{item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item_json["stickers"]] if "stickers" in item_json else []
+        stickers_wears = [None for _ in item_json["stickers"]] if "stickers" in item_json else []
+        item_float = item_json['float_value']
 
-        return key_price, item_price, item_link, stickers_keys
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
@@ -261,7 +278,10 @@ class BitskinsHelper(BaseHelper):
         item_link = f'https://bitskins.com/item/cs2/{item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"]] if "stickers" in item else []
 
-        return key_price, item_price, item_link, stickers_keys
+        stickers_wears = [f'{round(float(sticker["wear"]), 2)}' for sticker in item["stickers"]] if "stickers" in item else []
+        item_float = item['float_value']
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
     def do_request(self, type, name, is_stattrak, max_price, _):
         try:
@@ -334,8 +354,13 @@ class HaloskinsHelper(BaseHelper):
         item_price = float(item["price"])
         item_link = f'https://www.haloskins.com/market/{item_id}?id={item["id"]}'
         stickers_keys = [sticker["enName"] for sticker in item["assetInfo"]["stickers"]]
+        
+        # TODO: stickers_wears / this is not really None
+        stickers_wears = [None for sticker in item["assetInfo"]["stickers"]]
+        # TODO: item_float / this is not really None
+        item_float = None
 
-        return key_price, item_price, item_link, stickers_keys
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         try:
@@ -375,8 +400,13 @@ class DmarketHelper(BaseHelper):
         item_price = float(item["price"]["USD"]) / 100.0
         item_link = f'https://dmarket.com/ingame-items/item-list/csgo-skins?userOfferId={item["extra"]["linkId"]}'
         stickers_keys = [sticker["name"] for sticker in item["extra"]["stickers"]]
+    
+        # TODO: stickers_wears / this is not really None
+        stickers_wears = [None for sticker in item["extra"]["stickers"]]
+        # TODO: item_float / this is not really None
+        item_float = None
 
-        return key_price, item_price, item_link, stickers_keys
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
@@ -412,8 +442,10 @@ class WhiteMarketHelper(BaseHelper):
         market_csgo_item_price = float(node_json["price"]["value"])
         market_csgo_item_link = f'https://white.market/item/{node_json["slug"]}'
         stickers_keys = [sticker.replace("Sticker | ", "") for sticker in node_json["item"]["stickerTitles"]]
+        stickers_wears = [None for _ in node_json["item"]["stickerTitles"]]
+        item_float = node_json['float']
 
-        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float
 
     def get_cursor(self, type, name, is_stattrak):
         if self.cursor_point and self.cursor_point == (type, name, is_stattrak):
@@ -538,8 +570,10 @@ class SkinbaronHelper(BaseHelper):
         market_csgo_item_price = float(item["singleOffer"]["formattedItemPriceOtherCurrency"][1:])
         market_csgo_item_link = f'https://skinbaron.de{item["offerLink"]}'
         stickers_keys = [sticker["localizedName"].strip() for sticker in item["singleOffer"]["stickers"]] if "stickers" in item["singleOffer"] else []
+        stickers_wears = [None for _ in item["singleOffer"]["stickers"]] if "stickers" in item["singleOffer"] else []
+        item_float = item['singleOffer']['wearPercent'] / 100
 
-        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float
 
     def get_item_variant_id(self, type, name):
         try:
