@@ -30,7 +30,7 @@ class SkinbidHelper(BaseHelper):
         item_link = f'https://skinbid.com/market/{item["auction"]["auctionHash"]}'
         stickers_keys = [sticker["name"] for sticker in item_json["stickers"]]
         stickers_wears = [f'{round(float(sticker["wear"]), 2)}' for sticker in item_json["stickers"]]
-        item_float = item["items"][0]["item"]['float']
+        item_float = item_json['float']
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float
 
