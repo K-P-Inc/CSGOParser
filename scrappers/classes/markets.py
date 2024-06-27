@@ -81,7 +81,7 @@ class CSMoneyHelper(BaseHelper):
         item_float = item_json["float"]
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
-        item_in_game_link = f'steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item_json['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}'
+        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item_json['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}"
         pattern_template = item_json['pattern']
 
         is_buy_type_fixed = True
@@ -190,14 +190,13 @@ class SkinportHelper(BaseHelper):
         item_link = f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
         stickers_keys = [sticker["name"] for sticker in item["stickers"]]
 
-        # TODO: stickers_wears / this is not really None
-        stickers_wears = [None for sticker in item["stickers"]]
-        # TODO: item_float / this is not really None
-        item_float = None
+        stickers_wears = [item['stickers']['wear'] for _ in item["stickers"]]
+        stickers_wears = 0 if stickers_wears == None else round(1 - stickers_wears, 2)
 
-        # TODO: Need response to find this
-        item_in_game_link = None
-        pattern_template = None
+        item_float = item['wear']
+
+        item_in_game_link = item['link']
+        pattern_template = item['wear']
 
         is_buy_type_fixed = True
 
@@ -315,7 +314,7 @@ class BitskinsHelper(BaseHelper):
         item_float = item['float_value']
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
-        item_in_game_link = f'steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['bot_steam_id']}A{item['asset_id']}D{item['float_id']}'
+        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['bot_steam_id']}A{item['asset_id']}D{item['float_id']}"
         pattern_template = item['paint_seed']
 
         is_buy_type_fixed = True
@@ -393,15 +392,11 @@ class HaloskinsHelper(BaseHelper):
         item_price = float(item["price"])
         item_link = f'https://www.haloskins.com/market/{item_id}?id={item["id"]}'
         stickers_keys = [sticker["enName"] for sticker in item["assetInfo"]["stickers"]]
-        
-        # TODO: stickers_wears / this is not really None
-        stickers_wears = [None for sticker in item["assetInfo"]["stickers"]]
-        # TODO: item_float / this is not really None
-        item_float = None
+        stickers_wears = [sticker["wear"] for sticker in item["assetInfo"]["stickers"]]
+        item_float = item['assetInfo']['wear']
 
-        # TODO: Need response to find this
         item_in_game_link = None
-        pattern_template = None
+        pattern_template = item['assetInfo']['paintSeed']
 
         is_buy_type_fixed = True
 
@@ -416,7 +411,8 @@ class HaloskinsHelper(BaseHelper):
             if not item_id:
                 return []
 
-            url = f"https://api.haloskins.com/steam-trade-center/search/sell/list?itemId={item_id}&appId=730&limit=500&page={page_number + 1}&sort=0"
+            # https://api.haloskins.com/steam-trade-center/search/sell/list?itemId=22499&appId=730&limit=10&page=1&sort=2&containSticker=1
+            url = f"https://api.haloskins.com/steam-trade-center/search/sell/list?itemId={item_id}&appId=730&limit=500&page={page_number + 1}&sort=0&containSticker=1"
             payload = json.dumps({
                 "appId": 730,
                 "itemId": item_id,
@@ -445,15 +441,11 @@ class DmarketHelper(BaseHelper):
         item_price = float(item["price"]["USD"]) / 100.0
         item_link = f'https://dmarket.com/ingame-items/item-list/csgo-skins?userOfferId={item["extra"]["linkId"]}'
         stickers_keys = [sticker["name"] for sticker in item["extra"]["stickers"]]
-    
-        # TODO: stickers_wears / this is not really None
         stickers_wears = [None for sticker in item["extra"]["stickers"]]
-        # TODO: item_float / this is not really None
-        item_float = None
+        item_float = item['extra']['floatValue']
 
-        # TODO: Need response to find this
-        item_in_game_link = None
-        pattern_template = None
+        item_in_game_link = item['extra']['inspectInGame']
+        pattern_template = item['extra']['paintSeed']
 
         is_buy_type_fixed = True
 
