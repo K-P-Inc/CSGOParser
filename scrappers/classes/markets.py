@@ -8,9 +8,14 @@ from selenium.webdriver.common.by import By
 from .redis import RedisClient
 from .driver import SeleniumDriver
 
+
 # stickers_wears = 0 (not scratched)
 # stickers_wears = 0.68 (100% - 68% = 32% sticker health)
 # stickers_wears = 1 (fully scratched)
+
+# is_buy_type_fixed = True (not auctions)
+# is_buy_type_fixed = False (auctions)
+
 
 class BaseHelper:
     PARSE_WITH_QUALITY = False
@@ -26,6 +31,7 @@ class SkinbidHelper(BaseHelper):
     def parse_item(self, item):
         item_json = item["items"][0]["item"]
         key_price = item_json["fullName"]
+        # TODO: Here we got EUR price, do we change it to USD?
         item_price = float(item["auction"]["startBid"] if item['auction']['sellType'] == 'FIXED_PRICE' else item["auction"]["buyNowPriceEur"])
         item_link = f'https://skinbid.com/market/{item["auction"]["auctionHash"]}'
         stickers_keys = [sticker["name"] for sticker in item_json["stickers"]]
@@ -74,7 +80,8 @@ class CSMoneyHelper(BaseHelper):
         stickers_wears = [f'{round(float(1 - sticker["wear"] / 100), 2)}' for sticker in item["stickers"] if sticker] if "stickers" in item else []
         item_float = item_json["float"]
 
-        item_in_game_link = None # TODO: Do they really have not in game link?
+        # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
+        item_in_game_link = f'steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item_json['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}'
         pattern_template = item_json['pattern']
 
         is_buy_type_fixed = True
@@ -307,7 +314,8 @@ class BitskinsHelper(BaseHelper):
         stickers_wears = [f'{round(float(sticker["wear"]), 2)}' for sticker in item["stickers"]] if "stickers" in item else []
         item_float = item['float_value']
 
-        item_in_game_link = None
+        # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
+        item_in_game_link = f'steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['bot_steam_id']}A{item['asset_id']}D{item['float_id']}'
         pattern_template = item['paint_seed']
 
         is_buy_type_fixed = True
