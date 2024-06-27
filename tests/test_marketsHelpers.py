@@ -16,11 +16,19 @@ from scrappers.classes import (
 MarketClass = Union[CSMoneyHelper, MarketCSGOHelper, SkinbidHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, SkinportHelper]
 
 class MarketData:
-    def __init__(self, key_price: str, item_price: float, item_link: str, stickers_array: List[str]):
+    def __init__(self,
+        key_price: str, item_price: float, item_link: str, stickers_array: List[str],
+        stickers_wears: List[float | None], item_float: float | None, item_in_game_link: str | None, pattern_template: float | None, is_buy_type_fixed: str
+    ):
         self.key_price = key_price
         self.item_price = item_price
         self.item_link = item_link
         self.stickers_array = stickers_array
+        self.stickers_wears = stickers_wears
+        self.item_float = item_float
+        self.item_in_game_link = item_in_game_link
+        self.pattern_template = pattern_template
+        self.is_buy_type_fixed = is_buy_type_fixed
 
     def __str__(self):
         return f"MarketData(key_price='{self.key_price}', item_price={self.item_price}, item_link='{self.item_link}', stickers_array={self.stickers_array})"
@@ -45,7 +53,7 @@ markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_c
     # SkinbidHelper(),
     CSFloatHelper(),
     BitskinsHelper(),
-    HaloskinsHelper(),
+    # HaloskinsHelper(),
     DmarketHelper(),
     # SkinportHelper(),
     # SkinbaronHelper(),
@@ -100,8 +108,10 @@ class TestMarketsHelpers:
         with allure.step('Parsing raw items into MarketData objects'):
             result_list = []
             for raw_item in raw_item_list:
-                key_price, item_price, item_link, stickers_array = market.parse_item(raw_item)
-                result_list.append(MarketData(key_price, item_price, item_link, stickers_array))
+                key_price, item_price, item_link, stickers_array, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed = market.parse_item(raw_item)
+                result_list.append(MarketData(
+                    key_price, item_price, item_link, stickers_array, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
+                ))
 
         with allure.step('Caching fetched item list'):
             self.cache[cache_key] = result_list

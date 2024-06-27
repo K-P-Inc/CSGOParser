@@ -13,7 +13,7 @@ from .driver import SeleniumDriver
 # stickers_wears = 0.68 (100% - 68% = 32% sticker health)
 # stickers_wears = 1 (fully scratched)
 
-# is_buy_type_fixed = True (not auctions)
+# is_buy_type_fixed = 'fixed' (not auctions)
 # is_buy_type_fixed = False (auctions)
 
 
@@ -41,7 +41,7 @@ class SkinbidHelper(BaseHelper):
         item_in_game_link = item_json['inspectLink']
         pattern_template = item_json['paintSeed']
 
-        is_buy_type_fixed = True if item['auction']['sellType'] == 'FIXED_PRICE' else False
+        is_buy_type_fixed = 'fixed' if item['auction']['sellType'] == 'FIXED_PRICE' else 'auction'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -81,10 +81,10 @@ class CSMoneyHelper(BaseHelper):
         item_float = item_json["float"]
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
-        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item_json['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}"
+        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item_json['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}" if "seller" in item_json and "inspect" in item_json and "id" in item_json else ""
         pattern_template = item_json['pattern']
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -116,7 +116,7 @@ class MarketCSGOHelper(BaseHelper):
         item_in_game_link = None
         pattern_template = None
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -198,7 +198,7 @@ class SkinportHelper(BaseHelper):
         item_in_game_link = item['link']
         pattern_template = item['wear']
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -282,7 +282,7 @@ class CSFloatHelper(BaseHelper):
         item_in_game_link = item_json['inspect_link']
         pattern_template = item_json['paint_seed']
 
-        is_buy_type_fixed = True if item['type'] == 'buy_now' else False
+        is_buy_type_fixed = 'fixed' if item['type'] == 'buy_now' else 'auction'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -317,7 +317,7 @@ class BitskinsHelper(BaseHelper):
         item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['bot_steam_id']}A{item['asset_id']}D{item['float_id']}"
         pattern_template = item['paint_seed']
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -398,7 +398,7 @@ class HaloskinsHelper(BaseHelper):
         item_in_game_link = None
         pattern_template = item['assetInfo']['paintSeed']
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -447,7 +447,7 @@ class DmarketHelper(BaseHelper):
         item_in_game_link = item['extra']['inspectInGame']
         pattern_template = item['extra']['paintSeed']
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -491,7 +491,7 @@ class WhiteMarketHelper(BaseHelper):
         item_in_game_link = node_json['link']
         pattern_template = node_json['item']['paintSeed']
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
@@ -624,7 +624,7 @@ class SkinbaronHelper(BaseHelper):
         item_in_game_link = ['singleOffer']['inspectLink']
         pattern_template = None
 
-        is_buy_type_fixed = True
+        is_buy_type_fixed = 'fixed'
 
         return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
