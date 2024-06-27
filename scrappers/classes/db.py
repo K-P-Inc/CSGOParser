@@ -48,10 +48,12 @@ class DBClient:
         self.execute(query, flat_values)
 
     def insert_skins(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
         query = f'''
             INSERT INTO skins(
-                market, link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers
+                market, link, stickers_price, price, profit, skin_id,
+                stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers,
+                stickers_wears, item_float, in_game_link, pattern_template, order_type, stickers_distinct_variants
             ) VALUES {placeholders}
             ON CONFLICT (link) DO UPDATE SET
                 stickers_price = EXCLUDED.stickers_price,

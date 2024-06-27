@@ -1,0 +1,132 @@
+{
+    "id": 0,
+    "saleId": 45648233,
+    "shortId": "1LS8QWBDVD0",
+    "productId": 30022601,
+    "assetId": 331715765,
+    "itemId": 1,
+    "appid": 730,
+    "steamid": "76561199565801983",
+    "url": "ak-47-aquamarine-revenge-battle-scarred",
+    "family": "Aquamarine Revenge",
+    "family_localized": "Aquamarine Revenge",
+    "name": "Aquamarine Revenge",
+    "title": "AK-47",
+    "text": "Battle-Scarred Covert Rifle",
+    "marketName": "AK-47 | Aquamarine Revenge (Battle-Scarred)",
+    "marketHashName": "AK-47 | Aquamarine Revenge (Battle-Scarred)",
+    "color": "#D2D2D2",
+    "bgColor": None,
+    "image": "-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5gZKKkPLLMrfFqWNU6dNoxLiSoI6sjg3s_kI4MG2hJtTGdgM8aVHRqFPtyO3ujZ_qtZSan3Y1u3I8pSGK2QR2YY8",
+    "classid": "5991663446",
+    "assetid": "38418353478",
+    "lock": "2024-06-29T07: 00: 00.000Z",
+    "version": "default",
+    "versionType": "default",
+    "stackAble": False,
+    "suggestedPrice": 1354,
+    "salePrice": 1632,
+    "currency": "EUR",
+    "saleStatus": "listed",
+    "saleType": "public",
+    "category": "Rifle",
+    "category_localized": "Rifle",
+    "subCategory": "AK-47",
+    "subCategory_localized": "AK-47",
+    "pattern": 516,
+    "finish": 474,
+    "customName": None,
+    "wear": 0.5440930724143982,
+    "link": "steam: //rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199565801983A38418353478D640650682678398879",
+    "type": "Covert Rifle",
+    "exterior": "Battle-Scarred",
+    "quality": "Normal",
+    "rarity": "Covert",
+    "rarity_localized": "Covert",
+    "rarityColor": "#eb4b4b",
+    "collection": "The Falchion Collection",
+    "collection_localized": "The Falchion Collection",
+    "stickers": [
+      {
+        "sticker_id": None,
+        "wear": None,
+        "img": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/g2_glitter.ff71e8fdf5b81ec69292cdcb2566a84b4d948b57.png",
+        "name": "G2 Esports (Glitter) | Copenhagen 2024",
+        "type": None,
+        "slot": 3,
+        "color": None,
+        "value": None,
+        "slug": None,
+        "scale": None,
+        "rotation": None,
+        "offset_x": -0.010958701372146606,
+        "offset_y": -0.00074806809425354,
+        "name_localized": "G2 Esports (Glitter) | Copenhagen 2024",
+        "type_localized": None
+      },
+      {
+        "sticker_id": None,
+        "wear": None,
+        "img": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/pgl_glitter.e5c2075e4191738953d86d717a287a2c03ed253f.png",
+        "name": "PGL (Glitter) | Copenhagen 2024",
+        "type": None,
+        "slot": 0,
+        "color": None,
+        "value": None,
+        "slug": None,
+        "scale": None,
+        "rotation": None,
+        "offset_x": 0.06106269359588623,
+        "offset_y": 0.03044027090072632,
+        "name_localized": "PGL (Glitter) | Copenhagen 2024",
+        "type_localized": None
+      }
+    ],
+    "canHaveScreenshots": True,
+    "screenshots": [
+      "playside",
+      "backside",
+      "inspect",
+      "hold",
+      "reload",
+      "image"
+    ],
+    "souvenir": False,
+    "stattrak": False,
+    "tags": [
+      {
+        "name": "AK-47",
+        "name_localized": "AK-47"
+      },
+      {
+        "name": "Battle-Scarred",
+        "name_localized": "Battle-Scarred"
+      },
+      {
+        "name": "Covert",
+        "name_localized": "Covert"
+      },
+      {
+        "name": "G2 Esports",
+        "name_localized": "G2 Esports"
+      },
+      {
+        "name": "Normal",
+        "name_localized": "Normal"
+      },
+      {
+        "name": "PGL Copenhagen 2024",
+        "name_localized": "PGL Copenhagen 2024"
+      },
+      {
+        "name": "Rifle",
+        "name_localized": "Rifle"
+      },
+      {
+        "name": "The Falchion Collection",
+        "name_localized": "The Falchion Collection"
+      }
+    ],
+    "ownItem": False
+  }
+  

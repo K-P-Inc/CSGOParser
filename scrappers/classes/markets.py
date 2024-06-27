@@ -9,6 +9,14 @@ from .redis import RedisClient
 from .driver import SeleniumDriver
 
 
+# stickers_wears = 0 (not scratched)
+# stickers_wears = 0.68 (100% - 68% = 32% sticker health)
+# stickers_wears = 1 (fully scratched)
+
+# is_buy_type_fixed = 'fixed' (not auctions)
+# is_buy_type_fixed = False (auctions)
+
+
 class BaseHelper:
     PARSE_WITH_QUALITY = False
 
@@ -23,11 +31,19 @@ class SkinbidHelper(BaseHelper):
     def parse_item(self, item):
         item_json = item["items"][0]["item"]
         key_price = item_json["fullName"]
-        item_price = float(item["auction"]["startBid"])
+        # TODO: Here we got EUR price, do we change it to USD?
+        item_price = float(item["auction"]["startBid"] if item['auction']['sellType'] == 'FIXED_PRICE' else item["auction"]["buyNowPriceEur"])
         item_link = f'https://skinbid.com/market/{item["auction"]["auctionHash"]}'
         stickers_keys = [sticker["name"] for sticker in item_json["stickers"]]
+        stickers_wears = [f'{round(float(sticker["wear"]), 2)}' for sticker in item_json["stickers"]]
+        item_float = item_json['float']
 
-        return key_price, item_price, item_link, stickers_keys
+        item_in_game_link = item_json['inspectLink']
+        pattern_template = item_json['paintSeed']
+
+        is_buy_type_fixed = 'fixed' if item['auction']['sellType'] == 'FIXED_PRICE' else 'auction'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://api.skinbid.com/api/search/auctions?take=120&sort=discount%23desc&goodDeals=false&popular=false&currency=USD&name={quote(name)}&type={type}&Category=Stickers%23true,Souvenir%23false,{'StatTrak%23false' if is_stattrak == False else 'StatTrak%23true'}&skip={self.MAX_ITEMS_PER_PAGE * page_number}"
@@ -61,7 +77,16 @@ class CSMoneyHelper(BaseHelper):
         item_link = f'https://cs.money/market/buy/?search={quote(item_json["names"]["short"])}&sort=price&order=asc&minFloat={start_float:.8f}&maxFloat={end_float:.8f}&isStatTrak={"true" if item_json["isStatTrak"] else "false"}&isSouvenir=false&hasStickers=true&unique_id={item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"] if sticker] if "stickers" in item else []
 
-        return key_price, item_price, item_link, stickers_keys
+        stickers_wears = [f'{round(float(1 - sticker["wear"] / 100), 2)}' for sticker in item["stickers"] if sticker] if "stickers" in item else []
+        item_float = item_json["float"]
+
+        # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
+        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item_json['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}" if "seller" in item_json and "inspect" in item_json and "id" in item_json else ""
+        pattern_template = item_json['pattern']
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://cs.money/1.0/market/sell-orders?isStatTrak={'true' if is_stattrak else 'false'}&order=asc&sort=price&isSouvenir=false&hasStickers=true&limit={self.MAX_ITEMS_PER_PAGE}&name={quote(type)}%20%7C%20{quote(name)}&offset={page_number * self.MAX_ITEMS_PER_PAGE}&maxPrice={max_price}"
@@ -85,8 +110,15 @@ class MarketCSGOHelper(BaseHelper):
         market_csgo_item_price = float(item["price"])
         market_csgo_item_link = f'https://market.csgo.com/en/{quote(item["seo"]["category"])}/{item["seo"]["type"]}/{quote(key_price)}?id={item["id"]}'
         stickers_keys = [sticker["name"] for sticker in item["stickers"]]
+        stickers_wears = [None for _ in item["stickers"]]
+        item_float = None
 
-        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+        item_in_game_link = None
+        pattern_template = None
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def generate_market_link(self, type, name, is_stattrak):
         return f'https://market.csgo.com/en/?sort=price&order=asc&search={quote(type)}%20%7C%20{quote(name)}%20&priceMax=1000000&categories=any_stickers{"&search=StatTrak" if is_stattrak == True else ""}'
@@ -158,7 +190,17 @@ class SkinportHelper(BaseHelper):
         item_link = f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
         stickers_keys = [sticker["name"] for sticker in item["stickers"]]
 
-        return key_price, item_price, item_link, stickers_keys
+        stickers_wears = [item['stickers']['wear'] for _ in item["stickers"]]
+        stickers_wears = 0 if stickers_wears == None else round(1 - stickers_wears, 2)
+
+        item_float = item['wear']
+
+        item_in_game_link = item['link']
+        pattern_template = item['wear']
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def get_cookies(self, type):
         redis_key = f"{type}_skinport_cookies"
@@ -234,8 +276,15 @@ class CSFloatHelper(BaseHelper):
         item_price = float(item["price"]) / 100.0
         item_link = f'https://csfloat.com/item/{item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item_json["stickers"]] if "stickers" in item_json else []
+        stickers_wears = [None for _ in item_json["stickers"]] if "stickers" in item_json else []
+        item_float = item_json['float_value']
 
-        return key_price, item_price, item_link, stickers_keys
+        item_in_game_link = item_json['inspect_link']
+        pattern_template = item_json['paint_seed']
+
+        is_buy_type_fixed = 'fixed' if item['type'] == 'buy_now' else 'auction'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
@@ -261,7 +310,16 @@ class BitskinsHelper(BaseHelper):
         item_link = f'https://bitskins.com/item/cs2/{item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"]] if "stickers" in item else []
 
-        return key_price, item_price, item_link, stickers_keys
+        stickers_wears = [f'{round(float(sticker["wear"]), 2)}' for sticker in item["stickers"]] if "stickers" in item else []
+        item_float = item['float_value']
+
+        # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
+        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['bot_steam_id']}A{item['asset_id']}D{item['float_id']}"
+        pattern_template = item['paint_seed']
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def do_request(self, type, name, is_stattrak, max_price, _):
         try:
@@ -334,8 +392,15 @@ class HaloskinsHelper(BaseHelper):
         item_price = float(item["price"])
         item_link = f'https://www.haloskins.com/market/{item_id}?id={item["id"]}'
         stickers_keys = [sticker["enName"] for sticker in item["assetInfo"]["stickers"]]
+        stickers_wears = [sticker["wear"] for sticker in item["assetInfo"]["stickers"]]
+        item_float = item['assetInfo']['wear']
 
-        return key_price, item_price, item_link, stickers_keys
+        item_in_game_link = None
+        pattern_template = item['assetInfo']['paintSeed']
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         try:
@@ -346,7 +411,8 @@ class HaloskinsHelper(BaseHelper):
             if not item_id:
                 return []
 
-            url = f"https://api.haloskins.com/steam-trade-center/search/sell/list?itemId={item_id}&appId=730&limit=500&page={page_number + 1}&sort=0"
+            # https://api.haloskins.com/steam-trade-center/search/sell/list?itemId=22499&appId=730&limit=10&page=1&sort=2&containSticker=1
+            url = f"https://api.haloskins.com/steam-trade-center/search/sell/list?itemId={item_id}&appId=730&limit=500&page={page_number + 1}&sort=0&containSticker=1"
             payload = json.dumps({
                 "appId": 730,
                 "itemId": item_id,
@@ -375,8 +441,15 @@ class DmarketHelper(BaseHelper):
         item_price = float(item["price"]["USD"]) / 100.0
         item_link = f'https://dmarket.com/ingame-items/item-list/csgo-skins?userOfferId={item["extra"]["linkId"]}'
         stickers_keys = [sticker["name"] for sticker in item["extra"]["stickers"]]
+        stickers_wears = [None for sticker in item["extra"]["stickers"]]
+        item_float = item['extra']['floatValue']
 
-        return key_price, item_price, item_link, stickers_keys
+        item_in_game_link = item['extra']['inspectInGame']
+        pattern_template = item['extra']['paintSeed']
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
@@ -412,8 +485,15 @@ class WhiteMarketHelper(BaseHelper):
         market_csgo_item_price = float(node_json["price"]["value"])
         market_csgo_item_link = f'https://white.market/item/{node_json["slug"]}'
         stickers_keys = [sticker.replace("Sticker | ", "") for sticker in node_json["item"]["stickerTitles"]]
+        stickers_wears = [None for _ in node_json["item"]["stickerTitles"]]
+        item_float = node_json['float']
 
-        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+        item_in_game_link = node_json['link']
+        pattern_template = node_json['item']['paintSeed']
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def get_cursor(self, type, name, is_stattrak):
         if self.cursor_point and self.cursor_point == (type, name, is_stattrak):
@@ -538,8 +618,15 @@ class SkinbaronHelper(BaseHelper):
         market_csgo_item_price = float(item["singleOffer"]["formattedItemPriceOtherCurrency"][1:])
         market_csgo_item_link = f'https://skinbaron.de{item["offerLink"]}'
         stickers_keys = [sticker["localizedName"].strip() for sticker in item["singleOffer"]["stickers"]] if "stickers" in item["singleOffer"] else []
+        stickers_wears = [None for _ in item["singleOffer"]["stickers"]] if "stickers" in item["singleOffer"] else []
+        item_float = item['singleOffer']['wearPercent'] / 100
 
-        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys
+        item_in_game_link = ['singleOffer']['inspectLink']
+        pattern_template = None
+
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, market_csgo_item_price, market_csgo_item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def get_item_variant_id(self, type, name):
         try:
