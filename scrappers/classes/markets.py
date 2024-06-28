@@ -85,7 +85,8 @@ class CSMoneyHelper(BaseHelper):
         item_float = item_json["float"]
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
-        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item_json['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}" if "seller" in item_json and "inspect" in item_json and "id" in item_json else ""
+        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}" if ("seller" in item and "steamId64" in item["seller"]) and ("inspect" in item_json) and ("id" in item_json) else ""
+        logging.info(item_in_game_link)
         pattern_template = item_json['pattern']
 
         is_buy_type_fixed = 'fixed'
