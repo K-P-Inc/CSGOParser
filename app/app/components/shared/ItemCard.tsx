@@ -124,7 +124,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                             Wear
                           </p>
                           <p className="small-regular text-light-1">
-                            {item.stickers_wears[stickerIndex] !== null ? `${(1 - (item.stickers_wears[stickerIndex] ?? 0)) * 100}%` : `-`}
+                            {`${((item.stickers_wears[stickerIndex] ?? 0)) * 100}%`}
                           </p>
                         </div>
                       </HoverCardContent>
