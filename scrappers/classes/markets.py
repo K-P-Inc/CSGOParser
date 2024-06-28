@@ -74,7 +74,7 @@ class CSMoneyHelper(BaseHelper):
             start_float = round(item_json["float"], 8)
             end_float = round(round(item_json["float"], 8) + 10 ** -8, 8)
 
-        item_link = f'https://cs.money/market/buy/?search={quote(item_json["names"]["short"])}&sort=price&order=asc&minFloat={start_float:.8f}&maxFloat={end_float:.8f}&isStatTrak={"true" if item_json["isStatTrak"] else "false"}&isSouvenir=false&hasStickers=true&unique_id={item["id"]}'
+        item_link = f'https://cs.money/market/buy/?search={quote(key_price)}&sort=price&order=asc&minFloat={start_float:.8f}&maxFloat={end_float:.8f}&unique_id={item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"] if sticker] if "stickers" in item else []
 
         stickers_wears = [
@@ -86,7 +86,6 @@ class CSMoneyHelper(BaseHelper):
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
         item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['seller']['steamId64']}A{item_json['id']}D{item_json['inspect']}" if ("seller" in item and "steamId64" in item["seller"]) and ("inspect" in item_json) and ("id" in item_json) else ""
-        logging.info(item_in_game_link)
         pattern_template = item_json['pattern']
 
         is_buy_type_fixed = 'fixed'
