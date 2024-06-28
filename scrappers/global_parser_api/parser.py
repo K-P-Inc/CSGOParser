@@ -66,10 +66,13 @@ def parse_item(
         sticker_sum = sum([sticker["price"] for sticker in matched_stickers])
         sticker_overprice = sticker_sum * 0.1
         stickers_names_string = ', '.join([sticker["name"] for sticker in matched_stickers])
-        stickers_distinct_variants = list(set([
-            value if any(f'({value.lower()})' in sticker["name"].lower() for sticker in matched_stickers) else "Paper"
-            for value in ['Glitter', 'Holo', 'Foil', 'Gold']
-        ]))
+
+        stickers_variants = ['Glitter', 'Holo', 'Foil', 'Gold']
+        stickers_distinct_variants = list(set(
+            next((value for value in stickers_variants if f'({value.lower()})' in sticker["name"].lower()), "Paper")
+            for sticker in matched_stickers
+        ))
+
         future_profit_percentages = (sticker_overprice + actually_price - item_price) / item_price * 100
 
         if future_profit_percentages > weapon_config.profit_threshold and sticker_sum > weapon_config.sticker_sum:
