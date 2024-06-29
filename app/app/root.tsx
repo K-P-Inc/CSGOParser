@@ -23,7 +23,7 @@ import { useEffect, useState } from "react";
 import { getSteamUserData } from "~/models/steam.api";
 import { loadUser, updateUser } from "~/models/supabase.api";
 import { getMarketCSGOBalance } from "~/models/market.csgo.api";
-import { initGA, logPageView } from './utils/analytics';
+import { initGA, logPageView, initGTM, logGTMEvent } from './utils/analytics';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -52,7 +52,11 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-    initGA('G-G09RN92J4H');
+    initGA();
+  }, []);
+
+  useEffect(() => {
+    initGTM();
   }, []);
 
   useEffect(() => {
