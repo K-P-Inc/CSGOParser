@@ -9,8 +9,8 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useRevalidator,
   useRouteError,
+  useLocation,
 } from "@remix-run/react";
 import { createSupabaseServerClient } from "~/supabase.server";
 import { createBrowserClient } from "@supabase/auth-helpers-remix";
@@ -18,11 +18,12 @@ import { LoaderFunctionArgs, json, redirect } from "@remix-run/node";
 import { Toaster } from "./components/ui/toaster";
 import Layout from "./components/layout";
 import stylesheet from "~/tailwind.css";
-import { IUserData } from "~/types"
+import { IUserData } from "~/types";
 import { useEffect, useState } from "react";
 import { getSteamUserData } from "~/models/steam.api";
 import { loadUser, updateUser } from "~/models/supabase.api";
 import { getMarketCSGOBalance } from "~/models/market.csgo.api";
+import { initGA, logPageView } from './utils/analytics';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -48,6 +49,15 @@ export const ErrorBoundary = () => {
 
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
+  const location = useLocation();
+
+  useEffect(() => {
+    initGA('G-G09RN92J4H');
+  }, []);
+
+  useEffect(() => {
+    logPageView(location.pathname + location.search);
+  }, [location]);
 
   return (
     <html lang="en">
