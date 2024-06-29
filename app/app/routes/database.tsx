@@ -10,6 +10,7 @@ import { Button } from "~/components/ui/button";
 import SkeletonItemCard from '~/components/shared/SkeletonItemCard';
 import { MarketFilter } from '~/components/shared/MarketFilter';
 import { WearType, StickersPattern, StickersType, WeaponType, ShopType, SortType, CategoryType } from "~/types"
+import { initGA, logPageView } from '../utils/analytics';
 
 const MAX_PAGE_ITEMS = 100;
 
@@ -25,6 +26,14 @@ const InfiniteScroller = (props: { children: any; loading: boolean; loadNext: ()
   useEffect(() => {
     isLoadingRef.current = loading;
   }, [loading])
+
+  useEffect(() => {
+    initGA('G-G09RN92J4H');
+  }, []);
+
+  useEffect(() => {
+    logPageView(location.pathname + location.search);
+  }, [location]);
 
   const onScroll = (e: any) => {
     const div = e.target;
