@@ -4,9 +4,10 @@ import time
 from classes import DBClient
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from lxml import etree
 
 items = {
-    'ak-47': ['inheritance', 'asiimov', 'ice-coaled', 'slate',
+    'ak-47': ['inheritance', #'asiimov', 'ice-coaled', 'slate',
             #   'the-empress', 'nightwish', 'redline', 'legion-of-anubis',
             #   'head-shot', 'bloodsport', 'neon-revolution', 'aquamarine-revenge', 'frontside-misty',
             #   'phantom-disruptor', 'point-disarray', 'elite-build', 'vulcan', 'case-hardened', 'leet-museo',
@@ -33,7 +34,7 @@ items = {
     # ],
 }
 
-qualitys = ['factory-new', 'minimal-wear', 'field-tested', 'well-worn', 'battle-scarred']
+qualitys = ['factory-new', 'minimal-wear', ]#'field-tested', 'well-worn', 'battle-scarred']
 
 class Driver(webdriver.Chrome):
     def __init__(self, **kwargs):
@@ -96,14 +97,30 @@ def mock_pages(driver, url, pages_mock):
     except Exception as e:
         print(f"Failed to parse: {e}")
 
+def price_statistics_xpath(period):
+    return f"//*[@class = 'order-[24]']//*[@class = 'flex px-4 py-2']//*[contains(text(), '{period}')]//../*[2]"
+
 def parse_mock_pages(pages_mock):
     parsed_items = []
     for page_html in pages_mock:
         soup = BeautifulSoup(page_html, 'html.parser')
+        dom = etree.HTML(str(soup))
 
         spans = soup.select('.w-full > .font-bold.text-xl')
 
         item = soup.find('meta', {'property': 'og:url'}).get('content').replace('https://csgoskins.gg/items/', '').split('/')
+
+        week_low_elements = dom.xpath(price_statistics_xpath('7 Day Low'))
+        week_low_value = week_low_elements[0].text.strip() if week_low_elements else None
+
+        week_high_elements = dom.xpath(price_statistics_xpath('7 Day High'))
+        week_high_value = week_high_elements[0].text.strip() if week_high_elements else None
+
+        month_low_elements = dom.xpath(price_statistics_xpath('30 Day Low'))
+        month_low_value = month_low_elements[0].text.strip() if month_low_elements else None
+
+        month_high_elements = dom.xpath(price_statistics_xpath('30 Day High'))
+        month_high_value = month_high_elements[0].text.strip() if month_high_elements else None
 
         weapon_type = item[0].split('-')[0] if len(item[0].split('-')) == 2 else "-".join(item[0].split('-')[:2])
         name = item[0].replace(f'{weapon_type}-', '')
@@ -113,27 +130,29 @@ def parse_mock_pages(pages_mock):
             price = span.get_text()
             if "$" in price:
                 prev_img = span.find_previous('img', class_='inline-block h-5 w-5 mr-2')
+                active_offers = span.find_previous('div', class_='w-1/4 p-4 flex-none hidden sm:block').find('span', class_='').get_text().strip()
                 if prev_img and 'alt' in prev_img.attrs:
                     alt = prev_img['alt']
                     if 'stattrak' in item[1]:
                         quality = item[1].replace('stattrak-', '')
-                        parsed_item = {
-                            "type": weapon_type,
-                            "name": name,
-                            'stattrak': True,
-                            "quality": quality,
-                            "market": alt,
-                            "price": price
-                        }
+                        stattrak = True
                     else:
-                        parsed_item = {
-                            "type": weapon_type,
-                            "name": name,
-                            'stattrak': False,
-                            "quality": quality,
-                            "market": alt,
-                            "price": price
-                        }
+                        stattrak = False
+
+                    parsed_item = {
+                        "type": weapon_type,
+                        "name": name,
+                        'stattrak': stattrak,
+                        "quality": quality,
+                        "market": alt,
+                        "price": price,
+                        "active_offers": active_offers,
+                        # Значения по периоду, это за все магазины, а не за конкретный. Подумать бы как их лучше выводить
+                        # 'week_low': week_low_value,
+                        # "week_high": week_high_value,
+                        # "month_low": month_low_value,
+                        # "month_high": month_high_value,
+                    }
                     parsed_items.append(parsed_item)
 
     return parsed_items

@@ -5,7 +5,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "Skinport",
-        "price": "$163.46"
+        "price": "$163.46",
+        "active_offers": "17",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -13,7 +18,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "DMarket",
-        "price": "$156.00"
+        "price": "$156.00",
+        "active_offers": "17",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -21,7 +31,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "Lis Skins",
-        "price": "$161.31"
+        "price": "$161.31",
+        "active_offers": "8",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -29,7 +44,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "BUFF163",
-        "price": "$163.74"
+        "price": "$163.74",
+        "active_offers": "243",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -37,7 +57,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "BUFF Market",
-        "price": "$165.00"
+        "price": "$165.00",
+        "active_offers": "9",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -45,7 +70,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "BitSkins",
-        "price": "$166.69"
+        "price": "$166.69",
+        "active_offers": "4",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -53,7 +83,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "SkinBaron",
-        "price": "$171.52"
+        "price": "$171.52",
+        "active_offers": "8",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -61,7 +96,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "CSFloat",
-        "price": "$172.28"
+        "price": "$172.28",
+        "active_offers": "30",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -69,7 +109,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "CS.MONEY",
-        "price": "$177.00"
+        "price": "$177.00",
+        "active_offers": "18",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -77,7 +122,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "SkinBid",
-        "price": "$181.97"
+        "price": "$181.97",
+        "active_offers": "7",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -85,7 +135,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "GamerPay",
-        "price": "$181.98"
+        "price": "$181.98",
+        "active_offers": "4",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -93,7 +148,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "SkinSwap",
-        "price": "$183.93"
+        "price": "$183.93",
+        "active_offers": "1",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -101,7 +161,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "Tradeit.gg",
-        "price": "$193.05"
+        "price": "$193.03",
+        "active_offers": "1",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -109,7 +174,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "CS.DEALS",
-        "price": "$198.41"
+        "price": "$198.41",
+        "active_offers": "1",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -117,7 +187,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "HaloSkins",
-        "price": "$199.28"
+        "price": "$199.28",
+        "active_offers": "10",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -125,7 +200,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "WAXPEER",
-        "price": "$208.49"
+        "price": "$208.49",
+        "active_offers": "3",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -133,7 +213,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "Steam",
-        "price": "$209.69"
+        "price": "$209.69",
+        "active_offers": "23",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -141,7 +226,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "ShadowPay",
-        "price": "$212.45"
+        "price": "$212.28",
+        "active_offers": "1",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -149,7 +239,12 @@
         "stattrak": false,
         "quality": "factory-new",
         "market": "Market CSGO",
-        "price": "$271.87"
+        "price": "$271.87",
+        "active_offers": "2",
+        "week_low": "$139.43",
+        "week_high": "$156.00",
+        "month_low": "$133.98",
+        "month_high": "$165.45"
     },
     {
         "type": "ak-47",
@@ -157,7 +252,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "Skinport",
-        "price": "$392.23"
+        "price": "$392.23",
+        "active_offers": "4",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -165,7 +265,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "SkinBaron",
-        "price": "$385.92"
+        "price": "$385.92",
+        "active_offers": "4",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -173,7 +278,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "Lis Skins",
-        "price": "$396.23"
+        "price": "$396.23",
+        "active_offers": "9",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -181,7 +291,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "BUFF163",
-        "price": "$404.34"
+        "price": "$404.34",
+        "active_offers": "41",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -189,7 +304,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "DMarket",
-        "price": "$411.67"
+        "price": "$411.67",
+        "active_offers": "8",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -197,7 +317,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "BUFF Market",
-        "price": "$422.01"
+        "price": "$422.01",
+        "active_offers": "8",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -205,7 +330,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "GamerPay",
-        "price": "$436.25"
+        "price": "$436.25",
+        "active_offers": "2",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -213,7 +343,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "ShadowPay",
-        "price": "$446.99"
+        "price": "$446.99",
+        "active_offers": "6",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -221,7 +356,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "Market CSGO",
-        "price": "$447.99"
+        "price": "$447.99",
+        "active_offers": "8",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -229,7 +369,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "CSFloat",
-        "price": "$450.00"
+        "price": "$450.00",
+        "active_offers": "11",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -237,7 +382,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "WAXPEER",
-        "price": "$472.43"
+        "price": "$472.28",
+        "active_offers": "6",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -245,7 +395,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "CS.MONEY",
-        "price": "$480.00"
+        "price": "$480.00",
+        "active_offers": "4",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -253,7 +408,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "Steam",
-        "price": "$517.80"
+        "price": "$517.80",
+        "active_offers": "7",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -261,7 +421,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "SkinBid",
-        "price": "$685.12"
+        "price": "$685.12",
+        "active_offers": "2",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -269,7 +434,12 @@
         "stattrak": true,
         "quality": "factory-new",
         "market": "BitSkins",
-        "price": "$740.00"
+        "price": "$740.00",
+        "active_offers": "1",
+        "week_low": "$385.92",
+        "week_high": "$412.50",
+        "month_low": "$376.14",
+        "month_high": "$451.37"
     },
     {
         "type": "ak-47",
@@ -277,7 +447,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "Skinport",
-        "price": "$91.08"
+        "price": "$96.14",
+        "active_offers": "54",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -285,7 +460,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "CSFloat",
-        "price": "$84.08"
+        "price": "$84.08",
+        "active_offers": "44",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -293,7 +473,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "DMarket",
-        "price": "$87.60"
+        "price": "$87.60",
+        "active_offers": "32",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -301,7 +486,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "Lis Skins",
-        "price": "$92.41"
+        "price": "$92.41",
+        "active_offers": "79",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -309,7 +499,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "BUFF163",
-        "price": "$92.87"
+        "price": "$92.87",
+        "active_offers": "448",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -317,7 +512,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "CS.MONEY",
-        "price": "$92.99"
+        "price": "$92.99",
+        "active_offers": "21",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -325,7 +525,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "BUFF Market",
-        "price": "$93.28"
+        "price": "$93.28",
+        "active_offers": "19",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -333,7 +538,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "GamerPay",
-        "price": "$93.50"
+        "price": "$93.50",
+        "active_offers": "7",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -341,7 +551,51 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "WAXPEER",
-        "price": "$96.07"
+        "price": "$96.07",
+        "active_offers": "38",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
+    },
+    {
+        "type": "ak-47",
+        "name": "inheritance",
+        "stattrak": false,
+        "quality": "minimal-wear",
+        "market": "SkinBaron",
+        "price": "$96.80",
+        "active_offers": "6",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
+    },
+    {
+        "type": "ak-47",
+        "name": "inheritance",
+        "stattrak": false,
+        "quality": "minimal-wear",
+        "market": "ShadowPay",
+        "price": "$97.00",
+        "active_offers": "5",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
+    },
+    {
+        "type": "ak-47",
+        "name": "inheritance",
+        "stattrak": false,
+        "quality": "minimal-wear",
+        "market": "SkinBid",
+        "price": "$97.23",
+        "active_offers": "8",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -349,31 +603,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "HaloSkins",
-        "price": "$96.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBaron",
-        "price": "$96.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "ShadowPay",
-        "price": "$97.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBid",
-        "price": "$97.23"
+        "price": "$98.89",
+        "active_offers": "17",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -381,7 +616,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "BitSkins",
-        "price": "$99.99"
+        "price": "$99.99",
+        "active_offers": "11",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -389,7 +629,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "SkinSwap",
-        "price": "$105.42"
+        "price": "$105.42",
+        "active_offers": "1",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -397,7 +642,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "Tradeit.gg",
-        "price": "$106.34"
+        "price": "$106.34",
+        "active_offers": "3",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -405,7 +655,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "Steam",
-        "price": "$117.30"
+        "price": "$121.23",
+        "active_offers": "66",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -413,7 +668,12 @@
         "stattrak": false,
         "quality": "minimal-wear",
         "market": "Market CSGO",
-        "price": "$131.26"
+        "price": "$131.26",
+        "active_offers": "11",
+        "week_low": "$81.50",
+        "week_high": "$87.00",
+        "month_low": "$79.50",
+        "month_high": "$92.80"
     },
     {
         "type": "ak-47",
@@ -421,7 +681,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "Skinport",
-        "price": "$181.08"
+        "price": "$181.08",
+        "active_offers": "15",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -429,7 +694,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "Lis Skins",
-        "price": "$173.02"
+        "price": "$173.02",
+        "active_offers": "1",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -437,7 +707,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "BUFF163",
-        "price": "$189.82"
+        "price": "$189.82",
+        "active_offers": "55",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -445,7 +720,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "BUFF Market",
-        "price": "$190.00"
+        "price": "$190.00",
+        "active_offers": "7",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -453,7 +733,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "DMarket",
-        "price": "$199.99"
+        "price": "$199.99",
+        "active_offers": "10",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -461,7 +746,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "CS.MONEY",
-        "price": "$200.00"
+        "price": "$200.00",
+        "active_offers": "5",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -469,7 +759,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "CSFloat",
-        "price": "$210.00"
+        "price": "$210.00",
+        "active_offers": "9",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -477,7 +772,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "BitSkins",
-        "price": "$217.79"
+        "price": "$217.79",
+        "active_offers": "2",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -485,7 +785,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "GamerPay",
-        "price": "$218.38"
+        "price": "$218.38",
+        "active_offers": "2",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -493,7 +798,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "Market CSGO",
-        "price": "$222.60"
+        "price": "$222.60",
+        "active_offers": "4",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -501,7 +811,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "Steam",
-        "price": "$253.00"
+        "price": "$253.00",
+        "active_offers": "9",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -509,7 +824,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "ShadowPay",
-        "price": "$259.63"
+        "price": "$259.63",
+        "active_offers": "1",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -517,7 +837,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "SkinBaron",
-        "price": "$268.00"
+        "price": "$268.00",
+        "active_offers": "3",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -525,7 +850,12 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "SkinBid",
-        "price": "$291.18"
+        "price": "$291.18",
+        "active_offers": "3",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     },
     {
         "type": "ak-47",
@@ -533,4862 +863,11 @@
         "stattrak": true,
         "quality": "minimal-wear",
         "market": "HaloSkins",
-        "price": "$350.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$53.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$50.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$54.60"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$54.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF Market",
-        "price": "$56.16"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$56.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$56.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$57.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$57.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$58.29"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$58.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$60.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$62.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$63.04"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinSwap",
-        "price": "$63.23"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$65.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$73.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.DEALS",
-        "price": "$75.90"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBid",
-        "price": "$89.91"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$111.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$93.31"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$94.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$98.09"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$98.37"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$102.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$103.60"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BUFF Market",
-        "price": "$104.28"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$107.41"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$108.68"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$112.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$113.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$115.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$122.51"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$123.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$137.40"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Skinport",
-        "price": "$79.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CSFloat",
-        "price": "$50.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Lis Skins",
-        "price": "$50.09"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "DMarket",
-        "price": "$51.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF Market",
-        "price": "$53.42"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF163",
-        "price": "$53.59"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$53.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BitSkins",
-        "price": "$54.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CS.MONEY",
-        "price": "$55.85"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$57.05"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "WAXPEER",
-        "price": "$57.25"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "ShadowPay",
-        "price": "$58.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinSwap",
-        "price": "$59.63"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "HaloSkins",
-        "price": "$60.16"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Tradeit.gg",
-        "price": "$60.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$68.74"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinBaron",
-        "price": "$92.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BUFF163",
-        "price": "$98.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$112.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "WAXPEER",
-        "price": "$120.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$132.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$140.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "ShadowPay",
-        "price": "$170.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "HaloSkins",
-        "price": "$175.34"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Skinport",
-        "price": "$44.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "WAXPEER",
-        "price": "$38.59"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "DMarket",
-        "price": "$39.88"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Lis Skins",
-        "price": "$40.75"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BUFF163",
-        "price": "$41.48"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "HaloSkins",
-        "price": "$41.59"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BitSkins",
-        "price": "$41.62"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CSFloat",
-        "price": "$41.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BUFF Market",
-        "price": "$42.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CS.MONEY",
-        "price": "$42.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "GamerPay",
-        "price": "$42.94"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Tradeit.gg",
-        "price": "$46.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Market CSGO",
-        "price": "$49.48"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "ShadowPay",
-        "price": "$52.11"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Steam",
-        "price": "$54.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBaron",
-        "price": "$64.32"
-    },
-    {
-        "type": "ak-47",
-        "name": "inheritance",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBid",
-        "price": "$128.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Skinport",
-        "price": "$161.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "CSFloat",
-        "price": "$158.60"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "BUFF Market",
-        "price": "$159.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "DMarket",
-        "price": "$159.39"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "GamerPay",
-        "price": "$160.57"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "SkinBaron",
-        "price": "$160.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "BitSkins",
-        "price": "$164.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "BUFF163",
-        "price": "$166.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Lis Skins",
-        "price": "$168.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "HaloSkins",
-        "price": "$171.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Market CSGO",
-        "price": "$172.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "CS.MONEY",
-        "price": "$174.42"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "SkinBid",
-        "price": "$176.63"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "WAXPEER",
-        "price": "$177.11"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "ShadowPay",
-        "price": "$197.37"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "CS.DEALS",
-        "price": "$225.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Steam",
-        "price": "$233.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Skinport",
-        "price": "$417.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "GamerPay",
-        "price": "$386.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CSFloat",
-        "price": "$387.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BUFF Market",
-        "price": "$389.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BUFF163",
-        "price": "$391.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "SkinBaron",
-        "price": "$393.41"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "SkinBid",
-        "price": "$396.51"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "DMarket",
-        "price": "$399.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CS.MONEY",
-        "price": "$405.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Market CSGO",
-        "price": "$436.07"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CS.DEALS",
-        "price": "$441.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "HaloSkins",
-        "price": "$533.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Steam",
-        "price": "$587.83"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Skinport",
-        "price": "$56.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CS.DEALS",
-        "price": "$54.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CSFloat",
-        "price": "$54.40"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "GamerPay",
-        "price": "$54.48"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BUFF Market",
-        "price": "$55.18"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CS.MONEY",
-        "price": "$55.55"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "DMarket",
-        "price": "$55.57"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBid",
-        "price": "$55.67"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBaron",
-        "price": "$56.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BitSkins",
-        "price": "$57.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BUFF163",
-        "price": "$60.26"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Lis Skins",
-        "price": "$60.85"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "WAXPEER",
-        "price": "$61.23"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "HaloSkins",
-        "price": "$61.29"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Market CSGO",
-        "price": "$61.64"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "ShadowPay",
-        "price": "$61.64"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Tradeit.gg",
-        "price": "$65.47"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinSwap",
-        "price": "$67.16"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Steam",
-        "price": "$77.69"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Mannco.store",
-        "price": "$98.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Skinport",
-        "price": "$88.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "GamerPay",
-        "price": "$80.77"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "DMarket",
-        "price": "$83.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BUFF Market",
-        "price": "$85.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CSFloat",
-        "price": "$86.03"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BUFF163",
-        "price": "$87.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Lis Skins",
-        "price": "$88.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "HaloSkins",
-        "price": "$90.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinBid",
-        "price": "$90.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinBaron",
-        "price": "$92.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Market CSGO",
-        "price": "$94.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CS.MONEY",
-        "price": "$95.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CS.DEALS",
-        "price": "$96.10"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinSwap",
-        "price": "$99.73"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Tradeit.gg",
-        "price": "$101.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BitSkins",
-        "price": "$104.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "WAXPEER",
-        "price": "$108.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "ShadowPay",
-        "price": "$108.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Mannco.store",
-        "price": "$110.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Steam",
-        "price": "$114.73"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$24.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$24.85"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$24.95"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$24.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$25.25"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF Market",
-        "price": "$25.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBid",
-        "price": "$25.58"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$26.60"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$26.76"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$26.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$27.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$27.10"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.DEALS",
-        "price": "$28.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$28.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$29.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$29.90"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$29.98"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$34.67"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Mannco.store",
-        "price": "$43.87"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$50.04"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$49.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$49.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$49.54"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$51.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BUFF Market",
-        "price": "$51.73"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CS.DEALS",
-        "price": "$52.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$52.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$52.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$53.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinBid",
-        "price": "$53.52"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$54.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$57.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$57.15"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$58.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$58.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinSwap",
-        "price": "$59.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$59.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$66.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Skinport",
-        "price": "$25.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$22.15"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "DMarket",
-        "price": "$23.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Lis Skins",
-        "price": "$23.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CSFloat",
-        "price": "$23.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF163",
-        "price": "$24.49"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF Market",
-        "price": "$24.62"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BitSkins",
-        "price": "$24.76"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinBid",
-        "price": "$24.94"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CS.MONEY",
-        "price": "$25.87"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "HaloSkins",
-        "price": "$26.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinBaron",
-        "price": "$26.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CS.DEALS",
-        "price": "$27.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Tradeit.gg",
-        "price": "$27.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$31.14"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$33.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "ShadowPay",
-        "price": "$94.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "WAXPEER",
-        "price": "$99.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Skinport",
-        "price": "$50.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$51.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BUFF Market",
-        "price": "$52.31"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CSFloat",
-        "price": "$53.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "SkinBid",
-        "price": "$53.52"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "SkinBaron",
-        "price": "$53.59"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "DMarket",
-        "price": "$54.73"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BitSkins",
-        "price": "$57.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CS.DEALS",
-        "price": "$58.77"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$59.43"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$67.05"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CS.MONEY",
-        "price": "$69.69"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Skinport",
-        "price": "$16.72"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBaron",
-        "price": "$16.17"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "DMarket",
-        "price": "$16.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Lis Skins",
-        "price": "$16.69"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "GamerPay",
-        "price": "$16.75"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BUFF163",
-        "price": "$17.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BitSkins",
-        "price": "$17.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CSFloat",
-        "price": "$17.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "HaloSkins",
-        "price": "$17.72"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "WAXPEER",
-        "price": "$17.82"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CS.MONEY",
-        "price": "$18.59"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinSwap",
-        "price": "$18.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBid",
-        "price": "$19.27"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Tradeit.gg",
-        "price": "$19.29"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CS.DEALS",
-        "price": "$20.60"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "ShadowPay",
-        "price": "$20.88"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Steam",
-        "price": "$22.31"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Market CSGO",
-        "price": "$23.95"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Mannco.store",
-        "price": "$50.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Skinport",
-        "price": "$42.32"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CS.MONEY",
-        "price": "$39.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "DMarket",
-        "price": "$40.98"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BUFF163",
-        "price": "$41.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "GamerPay",
-        "price": "$41.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BUFF Market",
-        "price": "$42.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BitSkins",
-        "price": "$43.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "SkinBaron",
-        "price": "$43.83"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CSFloat",
-        "price": "$46.48"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "SkinBid",
-        "price": "$46.56"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CS.DEALS",
-        "price": "$48.73"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Tradeit.gg",
-        "price": "$48.87"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "HaloSkins",
-        "price": "$51.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Steam",
-        "price": "$56.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Market CSGO",
-        "price": "$57.64"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "WAXPEER",
-        "price": "$59.34"
-    },
-    {
-        "type": "ak-47",
-        "name": "asiimov",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "ShadowPay",
-        "price": "$59.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Skinport",
-        "price": "$13.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "GamerPay",
-        "price": "$12.51"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "DMarket",
-        "price": "$13.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "HaloSkins",
-        "price": "$13.74"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "BUFF Market",
-        "price": "$13.75"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "CSFloat",
-        "price": "$13.78"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "CS.DEALS",
-        "price": "$14.14"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "BUFF163",
-        "price": "$14.15"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Lis Skins",
-        "price": "$14.15"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "BitSkins",
-        "price": "$14.47"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "SkinBid",
-        "price": "$14.85"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Market CSGO",
-        "price": "$14.94"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "WAXPEER",
-        "price": "$15.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "ShadowPay",
-        "price": "$15.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "SkinBaron",
-        "price": "$15.32"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "SkinSwap",
-        "price": "$15.54"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "CS.MONEY",
-        "price": "$15.92"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Tradeit.gg",
-        "price": "$15.94"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Steam",
-        "price": "$18.25"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "factory-new",
-        "market": "Mannco.store",
-        "price": "$30.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Skinport",
-        "price": "$40.76"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "GamerPay",
-        "price": "$38.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "DMarket",
-        "price": "$40.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CSFloat",
-        "price": "$41.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BUFF163",
-        "price": "$41.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Lis Skins",
-        "price": "$41.60"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BitSkins",
-        "price": "$41.62"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "HaloSkins",
-        "price": "$42.64"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "WAXPEER",
-        "price": "$43.28"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Market CSGO",
-        "price": "$44.27"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BUFF Market",
-        "price": "$44.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "SkinBaron",
-        "price": "$44.58"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CS.MONEY",
-        "price": "$45.88"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "ShadowPay",
-        "price": "$45.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Tradeit.gg",
-        "price": "$48.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CS.DEALS",
-        "price": "$51.88"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Steam",
-        "price": "$55.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "SkinBid",
-        "price": "$81.56"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Skinport",
-        "price": "$7.56"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "GamerPay",
-        "price": "$7.52"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "DMarket",
-        "price": "$7.60"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CSFloat",
-        "price": "$7.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBaron",
-        "price": "$7.94"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BitSkins",
-        "price": "$7.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CS.MONEY",
-        "price": "$8.10"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Lis Skins",
-        "price": "$8.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BUFF163",
-        "price": "$8.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "HaloSkins",
-        "price": "$8.26"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Market CSGO",
-        "price": "$8.27"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BUFF Market",
-        "price": "$8.28"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "WAXPEER",
-        "price": "$8.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "ShadowPay",
-        "price": "$8.49"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CS.DEALS",
-        "price": "$8.51"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Tradeit.gg",
-        "price": "$8.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinSwap",
-        "price": "$9.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBid",
-        "price": "$9.63"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Steam",
-        "price": "$10.71"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Mannco.store",
-        "price": "$17.82"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Skinport",
-        "price": "$19.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "GamerPay",
-        "price": "$17.94"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CSFloat",
-        "price": "$18.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "DMarket",
-        "price": "$18.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BUFF163",
-        "price": "$18.68"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Lis Skins",
-        "price": "$18.81"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BitSkins",
-        "price": "$19.09"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "WAXPEER",
-        "price": "$19.53"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "HaloSkins",
-        "price": "$19.61"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BUFF Market",
-        "price": "$19.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CS.MONEY",
-        "price": "$21.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Tradeit.gg",
-        "price": "$22.16"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Market CSGO",
-        "price": "$22.81"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinBaron",
-        "price": "$23.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CS.DEALS",
-        "price": "$23.47"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Steam",
-        "price": "$24.75"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "ShadowPay",
-        "price": "$25.72"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinBid",
-        "price": "$26.35"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$4.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$4.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$4.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$4.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$4.28"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$4.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBid",
-        "price": "$4.37"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$4.40"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$4.42"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF Market",
-        "price": "$4.51"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$4.65"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$4.69"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$4.73"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.DEALS",
-        "price": "$4.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$4.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$5.11"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$5.16"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$6.17"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Mannco.store",
-        "price": "$8.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$8.63"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$8.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$8.91"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$8.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$8.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$9.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$9.07"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$9.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$9.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinSwap",
-        "price": "$10.10"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$10.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$10.23"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$10.29"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$10.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$10.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$11.56"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BUFF Market",
-        "price": "$12.31"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinBid",
-        "price": "$14.93"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Skinport",
-        "price": "$4.21"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BitSkins",
-        "price": "$3.98"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$4.14"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CSFloat",
-        "price": "$4.23"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Lis Skins",
-        "price": "$4.27"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "DMarket",
-        "price": "$4.40"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "HaloSkins",
-        "price": "$4.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF163",
-        "price": "$4.52"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CS.MONEY",
-        "price": "$4.67"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinBid",
-        "price": "$4.71"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Tradeit.gg",
-        "price": "$5.05"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinSwap",
-        "price": "$5.05"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$5.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "WAXPEER",
-        "price": "$5.28"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "ShadowPay",
-        "price": "$5.39"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinBaron",
-        "price": "$5.88"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$5.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF Market",
-        "price": "$7.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Skinport",
-        "price": "$11.67"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Lis Skins",
-        "price": "$9.76"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "SkinSwap",
-        "price": "$10.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BitSkins",
-        "price": "$10.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BUFF163",
-        "price": "$10.25"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "DMarket",
-        "price": "$10.40"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CSFloat",
-        "price": "$10.65"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "HaloSkins",
-        "price": "$11.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$11.31"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CS.MONEY",
-        "price": "$11.55"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Tradeit.gg",
-        "price": "$12.29"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BUFF Market",
-        "price": "$12.31"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$12.37"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$12.41"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "SkinBaron",
-        "price": "$12.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "WAXPEER",
-        "price": "$14.27"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "ShadowPay",
-        "price": "$14.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Skinport",
-        "price": "$3.11"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "GamerPay",
-        "price": "$2.87"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BitSkins",
-        "price": "$2.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CSFloat",
-        "price": "$3.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Lis Skins",
-        "price": "$3.03"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BUFF163",
-        "price": "$3.09"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "DMarket",
-        "price": "$3.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "HaloSkins",
-        "price": "$3.16"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CS.MONEY",
-        "price": "$3.27"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BUFF Market",
-        "price": "$3.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "ShadowPay",
-        "price": "$3.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "WAXPEER",
-        "price": "$3.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Tradeit.gg",
-        "price": "$3.57"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Market CSGO",
-        "price": "$3.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Steam",
-        "price": "$3.92"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBid",
-        "price": "$6.31"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBaron",
-        "price": "$7.78"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Mannco.store",
-        "price": "$8.98"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CS.DEALS",
-        "price": "$20.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Skinport",
-        "price": "$8.03"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Lis Skins",
-        "price": "$8.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CSFloat",
-        "price": "$8.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CS.MONEY",
-        "price": "$8.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "DMarket",
-        "price": "$8.52"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "HaloSkins",
-        "price": "$8.53"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BUFF163",
-        "price": "$8.54"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "WAXPEER",
-        "price": "$8.98"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Market CSGO",
-        "price": "$9.74"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "ShadowPay",
-        "price": "$9.77"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Tradeit.gg",
-        "price": "$9.78"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BitSkins",
-        "price": "$10.04"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Steam",
-        "price": "$10.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "ice-coaled",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BUFF Market",
-        "price": "$12.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Skinport",
-        "price": "$32.26"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BitSkins",
-        "price": "$28.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "DMarket",
-        "price": "$29.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Lis Skins",
-        "price": "$30.42"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BUFF163",
-        "price": "$30.61"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "GamerPay",
-        "price": "$31.04"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "HaloSkins",
-        "price": "$31.11"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "BUFF Market",
-        "price": "$31.36"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CSFloat",
-        "price": "$31.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "SkinBid",
-        "price": "$32.11"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "SkinSwap",
-        "price": "$32.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CS.DEALS",
-        "price": "$32.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "SkinBaron",
-        "price": "$33.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Market CSGO",
-        "price": "$34.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "WAXPEER",
-        "price": "$34.47"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "ShadowPay",
-        "price": "$34.52"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Tradeit.gg",
-        "price": "$35.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "CS.MONEY",
-        "price": "$36.21"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Steam",
-        "price": "$40.18"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "factory-new",
-        "market": "Mannco.store",
-        "price": "$67.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Skinport",
-        "price": "$3.41"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "GamerPay",
-        "price": "$3.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "DMarket",
-        "price": "$3.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BitSkins",
-        "price": "$3.46"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CSFloat",
-        "price": "$3.50"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "WAXPEER",
-        "price": "$3.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "ShadowPay",
-        "price": "$3.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BUFF163",
-        "price": "$3.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "HaloSkins",
-        "price": "$3.82"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "BUFF Market",
-        "price": "$3.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Market CSGO",
-        "price": "$3.85"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CS.MONEY",
-        "price": "$3.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Lis Skins",
-        "price": "$3.90"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBid",
-        "price": "$4.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinBaron",
-        "price": "$4.06"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "CS.DEALS",
-        "price": "$4.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "SkinSwap",
-        "price": "$4.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Tradeit.gg",
-        "price": "$4.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Steam",
-        "price": "$5.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "minimal-wear",
-        "market": "Mannco.store",
-        "price": "$7.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Skinport",
-        "price": "$12.61"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "DMarket",
-        "price": "$12.06"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CSFloat",
-        "price": "$12.25"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinBaron",
-        "price": "$12.43"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BitSkins",
-        "price": "$12.44"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Lis Skins",
-        "price": "$12.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "GamerPay",
-        "price": "$12.58"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BUFF163",
-        "price": "$12.78"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CS.DEALS",
-        "price": "$12.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "CS.MONEY",
-        "price": "$12.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "HaloSkins",
-        "price": "$13.05"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "BUFF Market",
-        "price": "$13.47"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinSwap",
-        "price": "$13.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "ShadowPay",
-        "price": "$14.42"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Tradeit.gg",
-        "price": "$14.49"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "WAXPEER",
-        "price": "$15.63"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Market CSGO",
-        "price": "$15.92"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Steam",
-        "price": "$17.40"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "Mannco.store",
-        "price": "$20.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "minimal-wear",
-        "market": "SkinBid",
-        "price": "$20.32"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$1.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$1.68"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CS.DEALS",
-        "price": "$1.90"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$1.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$2.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$2.03"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$2.04"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF Market",
-        "price": "$2.19"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$2.20"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$2.21"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$2.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$2.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$2.22"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$2.29"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinSwap",
-        "price": "$2.37"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBid",
-        "price": "$2.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$2.39"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$2.45"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$2.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "field-tested",
-        "market": "Mannco.store",
-        "price": "$3.28"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Skinport",
-        "price": "$7.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "DMarket",
-        "price": "$7.09"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CSFloat",
-        "price": "$7.30"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BitSkins",
-        "price": "$7.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "GamerPay",
-        "price": "$7.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinBaron",
-        "price": "$7.37"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Lis Skins",
-        "price": "$7.49"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "BUFF163",
-        "price": "$7.78"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "ShadowPay",
-        "price": "$7.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Market CSGO",
-        "price": "$7.87"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "WAXPEER",
-        "price": "$7.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "HaloSkins",
-        "price": "$8.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CS.MONEY",
-        "price": "$8.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Tradeit.gg",
-        "price": "$8.67"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Steam",
-        "price": "$9.95"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "CS.DEALS",
-        "price": "$12.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "SkinBid",
-        "price": "$13.06"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "field-tested",
-        "market": "Mannco.store",
-        "price": "$22.97"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Skinport",
-        "price": "$1.76"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$1.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CS.MONEY",
-        "price": "$1.72"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BitSkins",
-        "price": "$1.72"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CSFloat",
-        "price": "$1.77"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "DMarket",
-        "price": "$1.81"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF163",
-        "price": "$1.82"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinBaron",
-        "price": "$1.84"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Lis Skins",
-        "price": "$1.88"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "BUFF Market",
-        "price": "$1.90"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "HaloSkins",
-        "price": "$1.92"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "WAXPEER",
-        "price": "$1.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinSwap",
-        "price": "$1.98"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "CS.DEALS",
-        "price": "$2.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Tradeit.gg",
-        "price": "$2.04"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "ShadowPay",
-        "price": "$2.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "SkinBid",
-        "price": "$2.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$2.14"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$2.34"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "well-worn",
-        "market": "Mannco.store",
-        "price": "$3.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Skinport",
-        "price": "$6.78"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "GamerPay",
-        "price": "$5.88"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CS.MONEY",
-        "price": "$6.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BUFF163",
-        "price": "$6.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BitSkins",
-        "price": "$6.21"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Lis Skins",
-        "price": "$6.23"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "BUFF Market",
-        "price": "$6.29"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "DMarket",
-        "price": "$6.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CSFloat",
-        "price": "$6.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "SkinBaron",
-        "price": "$6.64"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "HaloSkins",
-        "price": "$6.78"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "WAXPEER",
-        "price": "$6.79"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Tradeit.gg",
-        "price": "$7.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "CS.DEALS",
-        "price": "$7.56"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "ShadowPay",
-        "price": "$7.57"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Steam",
-        "price": "$7.93"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "Market CSGO",
-        "price": "$7.94"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "well-worn",
-        "market": "SkinBid",
-        "price": "$10.70"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Skinport",
-        "price": "$1.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "GamerPay",
-        "price": "$1.69"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BitSkins",
-        "price": "$1.75"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CSFloat",
-        "price": "$1.80"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "DMarket",
-        "price": "$1.83"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BUFF163",
-        "price": "$1.85"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Lis Skins",
-        "price": "$1.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "BUFF Market",
-        "price": "$1.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CS.MONEY",
-        "price": "$1.89"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "WAXPEER",
-        "price": "$1.93"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "HaloSkins",
-        "price": "$1.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBid",
-        "price": "$1.98"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinSwap",
-        "price": "$2.04"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Tradeit.gg",
-        "price": "$2.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Market CSGO",
-        "price": "$2.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "CS.DEALS",
-        "price": "$2.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "ShadowPay",
-        "price": "$2.13"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "SkinBaron",
-        "price": "$2.24"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Steam",
-        "price": "$2.33"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": false,
-        "quality": "battle-scarred",
-        "market": "Mannco.store",
-        "price": "$3.64"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Skinport",
-        "price": "$5.96"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "GamerPay",
-        "price": "$5.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BitSkins",
-        "price": "$6.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Lis Skins",
-        "price": "$6.00"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BUFF Market",
-        "price": "$6.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "BUFF163",
-        "price": "$6.02"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CS.MONEY",
-        "price": "$6.08"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "DMarket",
-        "price": "$6.14"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "HaloSkins",
-        "price": "$6.38"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CSFloat",
-        "price": "$6.48"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "WAXPEER",
-        "price": "$6.49"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "SkinSwap",
-        "price": "$6.56"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Tradeit.gg",
-        "price": "$6.92"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "ShadowPay",
-        "price": "$7.12"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "SkinBaron",
-        "price": "$7.57"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Market CSGO",
-        "price": "$7.86"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Steam",
-        "price": "$8.01"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "CS.DEALS",
-        "price": "$9.99"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "SkinBid",
-        "price": "$16.05"
-    },
-    {
-        "type": "ak-47",
-        "name": "slate",
-        "stattrak": true,
-        "quality": "battle-scarred",
-        "market": "Mannco.store",
-        "price": "$17.00"
+        "price": "$350.00",
+        "active_offers": "1",
+        "week_low": "$173.02",
+        "week_high": "$178.15",
+        "month_low": "$153.02",
+        "month_high": "$222.00"
     }
 ]
