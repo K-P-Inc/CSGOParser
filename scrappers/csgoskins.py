@@ -110,17 +110,21 @@ def parse_mock_pages(pages_mock):
 
         item = soup.find('meta', {'property': 'og:url'}).get('content').replace('https://csgoskins.gg/items/', '').split('/')
 
-        week_low_elements = dom.xpath(price_statistics_xpath('7 Day Low'))
-        week_low_value = week_low_elements[0].text.strip() if week_low_elements else None
+        periods = ['7 Day', '30 Day']
+        statistics = ['Low', 'High']
 
-        week_high_elements = dom.xpath(price_statistics_xpath('7 Day High'))
-        week_high_value = week_high_elements[0].text.strip() if week_high_elements else None
+        price_values = {}
 
-        month_low_elements = dom.xpath(price_statistics_xpath('30 Day Low'))
-        month_low_value = month_low_elements[0].text.strip() if month_low_elements else None
+        for period in periods:
+            for stat in statistics:
+                elements = dom.xpath(price_statistics_xpath(f'{period} {stat}'))
+                value = elements[0].text.strip() if elements else None
+                price_values[f'{period} {stat}'] = value
 
-        month_high_elements = dom.xpath(price_statistics_xpath('30 Day High'))
-        month_high_value = month_high_elements[0].text.strip() if month_high_elements else None
+        week_low_value = price_values.get('7 Day Low')
+        week_high_value = price_values.get('7 Day High')
+        month_low_value = price_values.get('30 Day Low')
+        month_high_value = price_values.get('30 Day High')
 
         weapon_type = item[0].split('-')[0] if len(item[0].split('-')) == 2 else "-".join(item[0].split('-')[:2])
         name = item[0].replace(f'{weapon_type}-', '')
@@ -148,10 +152,10 @@ def parse_mock_pages(pages_mock):
                         "price": price,
                         "active_offers": active_offers,
                         # Значения по периоду, это за все магазины, а не за конкретный. Подумать бы как их лучше выводить
-                        # 'week_low': week_low_value,
-                        # "week_high": week_high_value,
-                        # "month_low": month_low_value,
-                        # "month_high": month_high_value,
+                        'week_low': week_low_value,
+                        "week_high": week_high_value,
+                        "month_low": month_low_value,
+                        "month_high": month_high_value,
                     }
                     parsed_items.append(parsed_item)
 
