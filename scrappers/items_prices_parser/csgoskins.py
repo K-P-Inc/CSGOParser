@@ -1,10 +1,12 @@
 import json
 import logging
+import os
 import time
-from classes import DBClient
+from classes import DBClient, SeleniumDriver
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from lxml import etree
+from utils import repo_path
 
 items = {
     'ak-47': ['inheritance', #'asiimov', 'ice-coaled', 'slate',
@@ -97,6 +99,10 @@ def mock_pages(driver, url, pages_mock):
     except Exception as e:
         print(f"Failed to parse: {e}")
 
+def write_data(parsed_items):
+    with open(os.path.join(repo_path(), 'data', 'csgoskins-mock.json'), 'w') as mock_file:
+        json.dump(parsed_items, mock_file, indent=4)
+
 def price_statistics_xpath(period):
     return f"//*[@class = 'order-[24]']//*[@class = 'flex px-4 py-2']//*[contains(text(), '{period}')]//../*[2]"
 
@@ -183,8 +189,7 @@ def main():
 
         parsed_items = parse_mock_pages(pages_mock)
 
-        with open('./scrappers/data/csgoskins-mock.json', 'w') as mock_file:
-             json.dump(parsed_items, mock_file, indent=4)
+        write_data(parsed_items)
 
         # db_client = DBClient()
 
@@ -196,4 +201,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
