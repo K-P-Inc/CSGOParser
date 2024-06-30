@@ -1,5 +1,7 @@
+import json
+import logging
 import time
-# from classes import DBClient, SeleniumWireDriver
+from classes import DBClient
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
@@ -13,22 +15,22 @@ items = {
             #   'baroque-purple', 'x-ray', 'panthera-onca', 'red-laminate', 'black-laminate', 'safari-mesh', 'jet-set',
             #   'predator', 'jungle-spray', 'first-class', 'gold-arabesque', 'wild-lotus', 'hydroponic',
     ],
-    'm4a4': ['temukau', 'neo-noir', 'the-emperor', 'desolate-space', 'tooth-fairy', 'in-living-color', 'dragon-king',
-            #  'spider-lily', 'cyber-security', 'buzz-kill', 'asiimov', 'etch-lord', 'evil-daimyo', 'eye-of-horus', 'royal-paladin',
-            #  'bullet-rain', 'magnesium', 'hellfire', 'the-coalition', 'converter', 'the-battlestar', 'griffin', 'desert-strike',
-            #  'dark-blossom', 'x-ray', 'global-offensive', 'poly-mag', 'urban-ddpat', 'daybreak', 'tornado', 'zirka', 'radiation-hazard',
-            #  'mainframe', 'desert-storm', 'red-ddpat', 'faded-zebra', 'jungle-tiger', 'modern-hunter', 'poseidon', 'howl'
-    ],
-    'm4a1-s': ['black-lotus', 'printstream', 'player-two', 'decimator', 'nightmare', 'hyper-beast', 'cyrex', 'golden-coil', 'chanticos-fire',
-            #    'leaded-glass', 'mecha-industries', 'night-terror', 'emphorosaur-s', 'atomic-alloy', 'basilisk', 'dark-water', 'control-panel',
-            #    'blue-phosphor', 'bright-water', 'guardian', 'nitro', 'mud-spec', 'hot-rod', 'varicamo', 'moss-quartz', 'welcome-to-the-jungle',
-            #    'flashback', 'blood-tiger', 'briefing', 'icarus-fell', 'fizzy-pop', 'master-piece', 'boreal-forest', 'imminent-danger', 'knight'
-    ],
-    'awp': ['chrome-cannon', 'neo-noir', 'atheris', 'chromatic-aberration', 'asiimov', 'wildfire', 'duality', 'hyper-beast', 'fever-dream', 'redline',
-            # 'mortis', 'containment-breach', 'graphite', 'sun-in-leo', 'exoskeleton', 'black-nile', 'elite-build', 'paw', 'worm-god', 'electric-hive',
-            # 'man-o-war', 'boom', 'corticera', 'phobos', 'capillary', 'oni-taiji', 'acheron', 'pop-awp', 'pink-ddpat', 'silk-tiger', 'pit-viper',
-            # 'snake-camo', 'safari-mesh', 'desert-hydra', 'fade', 'gungnir', 'the-prince', 'medusa', 'dragon-lore', 'lightning-strike'
-    ],
+    # 'm4a4': ['temukau', #'neo-noir', 'the-emperor', 'desolate-space', 'tooth-fairy', 'in-living-color', 'dragon-king',
+    #         #  'spider-lily', 'cyber-security', 'buzz-kill', 'asiimov', 'etch-lord', 'evil-daimyo', 'eye-of-horus', 'royal-paladin',
+    #         #  'bullet-rain', 'magnesium', 'hellfire', 'the-coalition', 'converter', 'the-battlestar', 'griffin', 'desert-strike',
+    #         #  'dark-blossom', 'x-ray', 'global-offensive', 'poly-mag', 'urban-ddpat', 'daybreak', 'tornado', 'zirka', 'radiation-hazard',
+    #         #  'mainframe', 'desert-storm', 'red-ddpat', 'faded-zebra', 'jungle-tiger', 'modern-hunter', 'poseidon', 'howl'
+    # ],
+    # 'm4a1-s': ['black-lotus', 'printstream', 'player-two', 'decimator', 'nightmare', 'hyper-beast', 'cyrex', 'golden-coil', 'chanticos-fire',
+    #         #    'leaded-glass', 'mecha-industries', 'night-terror', 'emphorosaur-s', 'atomic-alloy', 'basilisk', 'dark-water', 'control-panel',
+    #         #    'blue-phosphor', 'bright-water', 'guardian', 'nitro', 'mud-spec', 'hot-rod', 'varicamo', 'moss-quartz', 'welcome-to-the-jungle',
+    #         #    'flashback', 'blood-tiger', 'briefing', 'icarus-fell', 'fizzy-pop', 'master-piece', 'boreal-forest', 'imminent-danger', 'knight'
+    # ],
+    # 'awp': ['chrome-cannon', 'neo-noir', 'atheris', 'chromatic-aberration', 'asiimov', 'wildfire', 'duality', 'hyper-beast', 'fever-dream', 'redline',
+    #         # 'mortis', 'containment-breach', 'graphite', 'sun-in-leo', 'exoskeleton', 'black-nile', 'elite-build', 'paw', 'worm-god', 'electric-hive',
+    #         # 'man-o-war', 'boom', 'corticera', 'phobos', 'capillary', 'oni-taiji', 'acheron', 'pop-awp', 'pink-ddpat', 'silk-tiger', 'pit-viper',
+    #         # 'snake-camo', 'safari-mesh', 'desert-hydra', 'fade', 'gungnir', 'the-prince', 'medusa', 'dragon-lore', 'lightning-strike'
+    # ],
 }
 
 qualitys = ['factory-new', 'minimal-wear', 'field-tested', 'well-worn', 'battle-scarred']
@@ -90,12 +92,12 @@ def mock_pages(driver, url, pages_mock):
     try:
         driver.get(url)
         pages_mock.append(driver.page_source)
-        time.sleep(1)
+        time.sleep(0.5)
     except Exception as e:
         print(f"Failed to parse: {e}")
 
 def parse_mock_pages(pages_mock):
-    alt_price_pairs = []
+    parsed_items = []
     for page_html in pages_mock:
         soup = BeautifulSoup(page_html, 'html.parser')
 
@@ -103,36 +105,72 @@ def parse_mock_pages(pages_mock):
 
         item = soup.find('meta', {'property': 'og:url'}).get('content').replace('https://csgoskins.gg/items/', '').split('/')
 
+        weapon_type = item[0].split('-')[0] if len(item[0].split('-')) == 2 else "-".join(item[0].split('-')[:2])
+        name = item[0].replace(f'{weapon_type}-', '')
+        quality = item[1].replace('stattrak-', '') if 'stattrak' in item else item[1]
+
         for span in spans:
             price = span.get_text()
             if "$" in price:
                 prev_img = span.find_previous('img', class_='inline-block h-5 w-5 mr-2')
                 if prev_img and 'alt' in prev_img.attrs:
                     alt = prev_img['alt']
-                    alt_price_pairs.append((alt, price))
+                    if 'stattrak' in item[1]:
+                        quality = item[1].replace('stattrak-', '')
+                        parsed_item = {
+                            "type": weapon_type,
+                            "name": name,
+                            'stattrak': True,
+                            "quality": quality,
+                            "market": alt,
+                            "price": price
+                        }
+                    else:
+                        parsed_item = {
+                            "type": weapon_type,
+                            "name": name,
+                            'stattrak': False,
+                            "quality": quality,
+                            "market": alt,
+                            "price": price
+                        }
+                    parsed_items.append(parsed_item)
 
-        for alt, price in alt_price_pairs:
-            print(f"item: {item[0]}, quality: {item[1]} market: {alt}, min_price: {price}")
+    return parsed_items
 
 
-if __name__ == '__main__':
-    pages_mock = []
-    parse_urls = []
-
-    driver = create_driver()
-    get_parse_urls(parse_urls)
-
+# @hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name='items_prices_parser')
+# def main(cfg: DictConfig):
+def main():
+    pages_mock, parse_urls = [], []
     try:
+        driver = create_driver()
+        logging.info(f"Creating driver")
+
+        get_parse_urls(parse_urls)
+        logging.info("Get items url")
+
         for url in parse_urls:
             if driver:
-                # Мокаем обычные
+                logging.info(f"Mocking in progress: {url}")
                 mock_pages(driver, url, pages_mock)
                 url = url.replace(url.split('/')[-1], f"stattrak-{url.split('/')[-1]}")
-                # Мокаем статрэки
                 mock_pages(driver, url, pages_mock)
-    except Exception as e:
-        print(f"Failed to parse: {e}")    
-    finally:
-        driver.quit()
+        logging.info(f"Mocking finished")
 
-    parse_mock_pages(pages_mock)
+        parsed_items = parse_mock_pages(pages_mock)
+
+        with open('./scrappers/data/csgoskins-mock.json', 'w') as mock_file:
+             json.dump(parsed_items, mock_file, indent=4)
+
+        # db_client = DBClient()
+
+    except Exception as e:
+        logging.error(f"Got exception: {e}")
+    finally:
+        if driver:
+            driver.quit()
+
+if __name__ == '__main__':
+    main()
+    
