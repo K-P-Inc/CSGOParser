@@ -121,6 +121,17 @@ def run_action(parsed_items, market_class, weapon_config):
             items_list = None
             parsed_urls = []
             display_name = f'{"StatTrak™ " if weapon_is_stattrak == True else ""}{weapon_type} | {weapon_name}'
+
+            if market_class.PARSE_WITH_QUALITY == False:
+                uuids_for_update = [
+                    weapons_prices[f"{display_name} ({key_price})"]["uuid"]
+                    for key_price in types 
+                    if f"{display_name} ({key_price})" in weapons_prices
+                ]
+            else:
+                uuids_for_update = [weapons_prices[display_name]["uuid"]]
+
+            db_client.delete_old_skins(market_class.DB_ENUM_NAME, uuids_for_update)
             while (items_list == None and page_number == 0) or (items_list != None and len(items_list) == market_class.MAX_ITEMS_PER_PAGE):
                 logging.info(f'Trying to find {display_name} on {page_number + 1} page {market_class.PARSE_WITH_QUALITY}')
                 items_list = market_class.do_request(weapon_type, weapon_name, weapon_is_stattrak, weapon_config["max_steam_item_price"], page_number)
@@ -140,17 +151,6 @@ def run_action(parsed_items, market_class, weapon_config):
 
                 logging.info(f'Parsed weapon {display_name} on {page_number + 1} page')
                 time.sleep(market_class.REQUEST_TIMEOUT)
-
-            if market_class.PARSE_WITH_QUALITY == False:
-                uuids_for_update = [
-                    weapons_prices[f"{display_name} ({key_price})"]["uuid"] 
-                    for key_price in types 
-                    if f"{display_name} ({key_price})" in weapons_prices
-                ]
-            else:
-                uuids_for_update = [weapons_prices[display_name]["uuid"]]
-
-            db_client.update_skins_as_sold(market_class.DB_ENUM_NAME, parsed_urls, uuids_for_update)
 
             parsed_items += 1
     except KeyboardInterrupt:

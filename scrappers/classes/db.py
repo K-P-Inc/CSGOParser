@@ -97,6 +97,12 @@ class DBClient:
             weapons = cursor.fetchall()
             return weapons
 
+    def delete_old_skins(self, market, weapon_uuids):
+        with self.db.cursor() as cursor:
+            cursor.execute(f'''
+                DELETE FROM skins
+                WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
+            ''', [market, *weapon_uuids])
 
     def update_skins_as_sold(self, market, parsed_urls, weapon_uuids):
         with self.db.cursor() as cursor:
