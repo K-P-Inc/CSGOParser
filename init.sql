@@ -103,3 +103,4 @@ CREATE TABLE IF NOT EXISTS skins (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS skins_link_index ON skins(link);
+CREATE INDEX skins_idx_market ON skins(market);

@@ -27,7 +27,7 @@ def parse_item(
 
     logging.info(f'Parsing weapon {display_name} (found {len(items_list)})')
     for i in items_list:
-        key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed = market_class.parse_item(i)
+        key_price, item_price, item_link, stickers_keys = market_class.parse_item(i)
         parsed_urls.append(item_link)
 
         if len(stickers_keys) == 0 or key_price not in weapons_prices:
@@ -66,13 +66,6 @@ def parse_item(
         sticker_sum = sum([sticker["price"] for sticker in matched_stickers])
         sticker_overprice = sticker_sum * 0.1
         stickers_names_string = ', '.join([sticker["name"] for sticker in matched_stickers])
-
-        stickers_variants = ['Glitter', 'Holo', 'Foil', 'Gold']
-        stickers_distinct_variants = list(set(
-            next((value for value in stickers_variants if f'({value.lower()})' in sticker["name"].lower()), "Paper")
-            for sticker in matched_stickers
-        ))
-
         future_profit_percentages = (sticker_overprice + actually_price - item_price) / item_price * 100
 
         if future_profit_percentages > weapon_config.profit_threshold and sticker_sum > weapon_config.sticker_sum:
@@ -82,8 +75,7 @@ def parse_item(
                 sticker_sum, item_price,
                 future_profit_percentages,
                 weapon_uuid, sticker_patern, num_stickers, len(matched_stickers), False,
-                [sticker["id"] for sticker in matched_stickers],
-                stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants
+                [sticker["id"] for sticker in matched_stickers]
             ))
             logging.info(
                 f'Found new item:\n\n'
@@ -121,17 +113,6 @@ def run_action(parsed_items, market_class, weapon_config):
             items_list = None
             parsed_urls = []
             display_name = f'{"StatTrak™ " if weapon_is_stattrak == True else ""}{weapon_type} | {weapon_name}'
-
-            if market_class.PARSE_WITH_QUALITY == False:
-                uuids_for_update = [
-                    weapons_prices[f"{display_name} ({key_price})"]["uuid"]
-                    for key_price in types 
-                    if f"{display_name} ({key_price})" in weapons_prices
-                ]
-            else:
-                uuids_for_update = [weapons_prices[display_name]["uuid"]]
-
-            db_client.delete_old_skins(market_class.DB_ENUM_NAME, uuids_for_update)
             while (items_list == None and page_number == 0) or (items_list != None and len(items_list) == market_class.MAX_ITEMS_PER_PAGE):
                 logging.info(f'Trying to find {display_name} on {page_number + 1} page {market_class.PARSE_WITH_QUALITY}')
                 items_list = market_class.do_request(weapon_type, weapon_name, weapon_is_stattrak, weapon_config["max_steam_item_price"], page_number)
@@ -151,6 +132,17 @@ def run_action(parsed_items, market_class, weapon_config):
 
                 logging.info(f'Parsed weapon {display_name} on {page_number + 1} page')
                 time.sleep(market_class.REQUEST_TIMEOUT)
+
+            if market_class.PARSE_WITH_QUALITY == False:
+                uuids_for_update = [
+                    weapons_prices[f"{display_name} ({key_price})"]["uuid"] 
+                    for key_price in types 
+                    if f"{display_name} ({key_price})" in weapons_prices
+                ]
+            else:
+                uuids_for_update = [weapons_prices[display_name]["uuid"]]
+
+            db_client.update_skins_as_sold(market_class.DB_ENUM_NAME, parsed_urls, uuids_for_update)
 
             parsed_items += 1
     except KeyboardInterrupt:
