@@ -1,6 +1,6 @@
 import { captureRemixErrorBoundaryError } from "@sentry/remix";
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -27,8 +27,60 @@ import { initGA, logPageView, initGTM, logGTMEvent } from './utils/analytics';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
+  {
+    rel: 'icon',
+    sizes: '192x192',
+    type: 'image/png',
+    href: '/android-chrome-192x192.png',
+  },
+  {
+    rel: 'icon',
+    sizes: '512x512',
+    type: 'image/png',
+    href: '/android-chrome-512x512.png',
+  },
+  {
+    rel: 'apple-touch-icon',
+    sizes: '180x180',
+    href: '/apple-touch-icon.png',
+  },
+  {
+    rel: 'icon',
+    type: 'image/png',
+    sizes: '32x32',
+    href: '/favicon-32x32.png',
+  },
+  {
+    rel: 'icon',
+    type: 'image/png',
+    sizes: '16x16',
+    href: '/favicon-16x16.png',
+  },
+  {
+    rel: 'icon',
+    type: 'image/x-icon',
+    href: '/favicon.ico',
+  },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "SKINHUB.PRO | Find the rarest CS2 items in the web" },
+    {
+      property: "og:title",
+      content: "SKINHUB.PRO | Find the rarest CS2 items in the web",
+    },
+    {
+      property: "og:description",
+      content: "Best platform to find rarest and most profitable CS2 stickers combos on the markets",
+    },
+    {
+      property: "og:image",
+      content: "https://i.imgur.com/f3O055M.png"
+    }
+  ];
+};
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const env = {
