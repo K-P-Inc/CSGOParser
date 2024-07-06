@@ -79,7 +79,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   let filters = [];
   let args = [];
 
-  if (categories.includes("StatTrak™")) {
+  if (categories.length > 0) {
     const categories_filters = {
       "StatTrak™": `weapons_prices.is_stattrak = TRUE`,
       "Normal": `weapons_prices.is_stattrak = FALSE`
