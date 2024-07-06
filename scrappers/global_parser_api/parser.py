@@ -74,7 +74,7 @@ def parse_item(
             for sticker in matched_stickers
         ))
 
-        if future_profit_percentages > weapon_config.profit_threshold and sticker_sum > weapon_config.sticker_sum:
+        if sticker_sum > weapon_config.sticker_sum:
             found_items.append((
                 market_class.DB_ENUM_NAME,
                 item_link,
@@ -84,7 +84,7 @@ def parse_item(
                 [sticker["id"] for sticker in matched_stickers],
                 stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants
             ))
-            logging.info(
+            logging.debug(
                 f'Found new item:\n\n'
                 f'Link: {item_link}\n'
                 f'Name - price: {key_price} - {item_price:.2f} $\n'
