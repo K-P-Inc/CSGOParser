@@ -81,6 +81,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                 src={item.image}
                 alt="post image"
                 width={380}
+                loading="lazy"
               />
             </div>
             <div className="flex justify-center items-center w-full px-4 text-[12px] space-x-8 text-grey">
@@ -103,6 +104,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                         <img
                           key={stickerIndex}
                           src={icon}
+                          loading="lazy"
                           alt={`Sticker ${stickerIndex + 1}`}
                           className="h-[56px] hover:h-[62px] w-[65px] hover:w-[76px] object-cover hover:my-[-3px] mx-[5.5px] hover:mx-[0px] transition-all duration-100 ease-in"
                         />
@@ -124,7 +126,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                             Wear
                           </p>
                           <p className="small-regular text-light-1">
-                            {`${((item.stickers_wears[stickerIndex] ?? 0)) * 100}%`}
+                            {`${(((item.stickers_wears[stickerIndex] ?? 0)) * 100).toFixed(0)}%`}
                           </p>
                         </div>
                       </HoverCardContent>
@@ -174,9 +176,11 @@ export default function ItemCard({ item }: { item: SkinItem }) {
             src={item.image}
             alt="post image"
             className="post-card_img"
+            loading="lazy"
           />
           <img
             style={{ zIndex: 1, position: 'absolute' }}
+            loading="lazy"
             src={
               item.market === "skinbid" ? SkinbidIcon 
                 : item.market === "cs-money" ? CsmoneyIcon

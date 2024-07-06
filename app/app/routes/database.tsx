@@ -37,7 +37,6 @@ const InfiniteScroller = (props: { children: any; loading: boolean; loadNext: ()
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      console.log("added listener");
       const cls = document.getElementsByClassName("home-container");
       if (cls.length > 0) {
         const div = cls[0] as HTMLDivElement;
@@ -199,7 +198,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     .then((responses: any[]) => {
       const [items, stickersMap] = responses
 
-      return items
+      const filteredItems = items
         ? items.map((row: any) => ({
           name: `${row["is_stattrak"] ? "StatTrak™ " : ""}${row["name"]}`,
           market: row["market"],
@@ -228,6 +227,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           in_game_link: row["in_game_link"]
         }))
         : []
+
+      return filteredItems;
     });
 
   return defer({
@@ -259,7 +260,27 @@ export default function Index() {
   const pageRef = useRef(page);
   const skinsRef = useRef<SkinItem[]>([]);
 
+  const preloadImages = (newItems: SkinItem[]) => {
+    let imageLinks = new Set<string>();
+
+    console.log(newItems);
+    newItems.forEach((item: SkinItem) => {
+      if (item.image) {
+        imageLinks.add(item.image);
+      }
+      if (item.stickers_icons) {
+        item.stickers_icons.forEach((icon: string) => imageLinks.add(icon));
+      }
+    });
+
+    imageLinks.forEach((src: string) => {
+      var img: HTMLImageElement = new Image();
+      img.src = src;
+    });
+  }
+
   const addNewSkins = (newItems: SkinItem[]) => {
+    preloadImages(newItems);
     setSkins((prevSkins) => {
       skinsRef.current = [...prevSkins, ...newItems]
 
@@ -285,7 +306,8 @@ export default function Index() {
   useEffect(() => {
     const updateSkins = async () => {
       const newSkins = await items;
-      skinsRef.current = newSkins
+      preloadImages(newSkins);
+      skinsRef.current = newSkins;
       setSkins(newSkins);
       setIsLoading(false);
     };
