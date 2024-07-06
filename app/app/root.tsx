@@ -69,7 +69,7 @@ export const meta: MetaFunction = () => {
     { title: "SKINHUB.PRO | Find the rarest CS2 items in the web" },
     {
       property: "og:title",
-      content: "SKINHUB.PRO | Find the rarest CS2 items in the web",
+      content: "SKINHUB.PRO | Find the rarest CS2 items",
     },
     {
       property: "og:description",
@@ -94,6 +94,18 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image:width",
       content: "1200"
+    },
+    {
+      name: "twitter:site",
+      content: "@SkinhubPro"
+    },
+    {
+      name: "twitter:creator",
+      content: "@SkinhubPro"
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image"
     }
   ];
 };
