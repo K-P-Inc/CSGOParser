@@ -152,7 +152,10 @@ export default function ItemCard({ item }: { item: SkinItem }) {
               <p className="body-bold text-light-1">
                 ${parseFloat(item.market_price.toString()).toFixed(2)}
               </p>
-              <p className="body-bold text-secondary-500">+${(item.profit / 100.0 * item.market_price).toFixed(2)}</p>
+              {item.profit > 0
+                ? <p className="body-bold text-green">-${(item.profit / 100.0 * item.market_price).toFixed(2)}</p>
+                : <p className="body-bold text-secondary-500">+${((-1 * item.profit) / 100.0 * item.market_price).toFixed(2)}</p>
+              }
             </div>
               <Button
                 onClick={openMarketLink}
@@ -206,7 +209,10 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                 <p className="base-medium body-bold text-light-1">
                   ${parseFloat(item.market_price.toString()).toFixed(2)}
                 </p>
-                <p className="base-medium body-bold text-secondary-500">+{parseInt(item.profit.toString())}%</p>
+                {parseInt(item.profit.toString()) !== 0 && (item.profit > 0
+                  ? <p className="base-medium body-bold text-green">-{item.profit.toFixed(0)}%</p>
+                  : <p className="base-medium body-bold text-secondary-500">+{(-1 * item.profit).toFixed(0)}%</p>
+                )}
               </div>
               <p className="text-left body-bold text-light-1" style={{ fontSize: "16px" }}>
                 {item.quality}

@@ -76,7 +76,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const page = parseInt(url.searchParams.get("page") || "0");
 
   let stickers_filters = [];
-  let filters = [];
+  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`];
   let args = [];
 
   if (categories.length > 0) {
@@ -181,7 +181,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       skins.stickers_price,
       skins.link,
       skins.stickers,
-      skins.stickers_price,
       skins.profit
     FROM skins
     INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
