@@ -78,6 +78,18 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content: "https://i.imgur.com/f3O055M.png"
+    },
+    {
+      property: "og:image:width",
+      content: "4096"
+    },
+    {
+      property: "og:image:height",
+      content: "1714"
+    },
+    {
+      property: "og:image:type",
+      content: "image/png"
     }
   ];
 };
