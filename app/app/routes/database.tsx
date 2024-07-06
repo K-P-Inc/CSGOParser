@@ -76,7 +76,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const page = parseInt(url.searchParams.get("page") || "0");
 
   let stickers_filters = [];
-  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`];
+  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`];
   let args = [];
 
   if (categories.length > 0) {
