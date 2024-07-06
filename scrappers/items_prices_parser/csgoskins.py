@@ -3,43 +3,43 @@ import logging
 import os
 import time
 from urllib.parse import urlparse
-from classes import DBClient, SeleniumDriver
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
-from bs4 import BeautifulSoup
-from lxml import etree
-from utils import repo_path
 
-items = {
-    'ak-47': ['inheritance', 'asiimov', 'ice-coaled', 'slate',
-              'the-empress', 'nightwish', 'redline', 'legion-of-anubis',
-              'head-shot', 'bloodsport', 'neon-revolution', 'aquamarine-revenge', 'frontside-misty',
-            #   'phantom-disruptor', 'point-disarray', 'elite-build', 'vulcan', 'case-hardened', 'leet-museo',
-            #   'fuel-injector', 'cartel', 'emerald-pinstripe', 'blue-laminate', 'safety-net', 'fire-serpent',
-            #   'orbit-mk01', 'uncharted', 'wasteland-rebel', 'rat-rod', 'jaguar', 'steel-delta', 'green-laminate',
-            #   'baroque-purple', 'x-ray', 'panthera-onca', 'red-laminate', 'black-laminate', 'safari-mesh', 'jet-set',
-            #   'predator', 'jungle-spray', 'first-class', 'gold-arabesque', 'wild-lotus', 'hydroponic',
-    ],
-    # 'm4a4': ['temukau', #'neo-noir', 'the-emperor', 'desolate-space', 'tooth-fairy', 'in-living-color', 'dragon-king',
-    #         #  'spider-lily', 'cyber-security', 'buzz-kill', 'asiimov', 'etch-lord', 'evil-daimyo', 'eye-of-horus', 'royal-paladin',
-    #         #  'bullet-rain', 'magnesium', 'hellfire', 'the-coalition', 'converter', 'the-battlestar', 'griffin', 'desert-strike',
-    #         #  'dark-blossom', 'x-ray', 'global-offensive', 'poly-mag', 'urban-ddpat', 'daybreak', 'tornado', 'zirka', 'radiation-hazard',
-    #         #  'mainframe', 'desert-storm', 'red-ddpat', 'faded-zebra', 'jungle-tiger', 'modern-hunter', 'poseidon', 'howl'
-    # ],
-    # 'm4a1-s': ['black-lotus', 'printstream', 'player-two', 'decimator', 'nightmare', 'hyper-beast', 'cyrex', 'golden-coil', 'chanticos-fire',
-    #         #    'leaded-glass', 'mecha-industries', 'night-terror', 'emphorosaur-s', 'atomic-alloy', 'basilisk', 'dark-water', 'control-panel',
-    #         #    'blue-phosphor', 'bright-water', 'guardian', 'nitro', 'mud-spec', 'hot-rod', 'varicamo', 'moss-quartz', 'welcome-to-the-jungle',
-    #         #    'flashback', 'blood-tiger', 'briefing', 'icarus-fell', 'fizzy-pop', 'master-piece', 'boreal-forest', 'imminent-danger', 'knight'
-    # ],
-    # 'awp': ['chrome-cannon', 'neo-noir', 'atheris', 'chromatic-aberration', 'asiimov', 'wildfire', 'duality', 'hyper-beast', 'fever-dream', 'redline',
-    #         # 'mortis', 'containment-breach', 'graphite', 'sun-in-leo', 'exoskeleton', 'black-nile', 'elite-build', 'paw', 'worm-god', 'electric-hive',
-    #         # 'man-o-war', 'boom', 'corticera', 'phobos', 'capillary', 'oni-taiji', 'acheron', 'pop-awp', 'pink-ddpat', 'silk-tiger', 'pit-viper',
-    #         # 'snake-camo', 'safari-mesh', 'desert-hydra', 'fade', 'gungnir', 'the-prince', 'medusa', 'dragon-lore', 'lightning-strike'
-    # ],
-}
 
 qualitys = ['factory-new', 'minimal-wear', 'field-tested', 'well-worn', 'battle-scarred']
+
+periods = ['7 Day', '30 Day']
+statistics = ['Low', 'High']
+
+def alt_xpath(alt):
+    return f"//*[contains(@alt, '{alt}')]//..//..//..//.."
+
+
+def active_offers_xpath(driver, alt):
+    try:
+        active_offers_xpath = "//*[contains(text(), 'active offers')]//..//..//*[2]"
+        return driver.find_element(By.XPATH, f"{alt_xpath(alt)}{active_offers_xpath}").text or None
+    except NoSuchElementException as e:
+        return None
+
+
+def price_offers_xpath(driver, alt):
+    try:
+        price_from = "//*[text() = 'from']//..//..//*[2]"
+        return  driver.find_element(By.XPATH, f"{alt_xpath(alt)}{price_from}").text or None
+    except NoSuchElementException as e:
+        return None
+
+
+def get_market_prices(driver, alt):
+    if alt_xpath(alt):
+        return {'active_offers': active_offers_xpath(driver, alt), 'price': price_offers_xpath(driver, alt)}
+
+
+def price_statistics_xpath(period):
+    return f"//*[@class = 'order-[24]']//*[@class = 'flex px-4 py-2']//*[contains(text(), '{period}')]//../*[2]"
 
 class Driver(webdriver.Chrome):
     def __init__(self, **kwargs):
@@ -49,40 +49,16 @@ class Driver(webdriver.Chrome):
         options.add_argument('--disable-extensions')
         # Отключает использование GPU для ускорения отрисовки страницы. Может быть полезно в виртуальных средах.
         options.add_argument('--disable-gpu')
-        # Отключает информационные панели и уведомления.
-        # options.add_argument('--disable-infobars')
-        # Отключает уведомления браузера.
-        # options.add_argument('--disable-notifications')
         # # Запускает браузер в безопасном режиме, отключая некоторые функции безопасности.
         options.add_argument('--no-sandbox')
-        # Отключает блокировку всплывающих окон.
-        # options.add_argument('--disable-popup-blocking')
-        # # Отключает логирование браузера.
-        # options.add_argument("--disable-logging")
-        # # Запускает браузер с максимальным размером окна.
-        # options.add_argument("--start-maximized")
-        # # Устанавливает фактор масштабирования устройства, что может быть полезно для управления масштабом.
-        # options.add_argument("--force-device-scale-factor=0.8")
-        # # Разрешает выполнение небезопасного контента на страницах (например, HTTP на HTTPS).
-        # options.add_argument("--allow-running-insecure-content")
-        # # Отключает веб-безопасность, что может понадобиться для разработки и тестирования.
-        # options.add_argument("--disable-web-security")
-        # # Отключает изоляцию сайтов (site isolation) для испытательных целей.
-        # options.add_argument("--disable-site-isolation-trials")
-        # # Игнорирует ошибки сертификатов SSL, что может быть полезно для тестирования на локальных серверах.
-        # options.add_argument("--ignore-certificate-errors")
-        # # Игнорирует ошибки SSL, если такие ошибки возникают при обращении к сайту.
-        # options.add_argument('--ignore-ssl-errors')
-        # # Исключает опцию "enable-logging" при настройке экспериментальных параметров браузера.
-        # options.add_experimental_option("excludeSwitches", ["enable-logging"])
-        # options.add_argument('--headless=new')
+
         super().__init__(options=options, **kwargs)
 
 
 def create_driver():
     try:
         driver = Driver()
-        driver.implicitly_wait(10)
+        driver.implicitly_wait(0.1)
         return driver
     except Exception as e:
         print(f"Failed to create WebDriver: {e}")
@@ -130,22 +106,88 @@ def find_items_global_links(driver):
 
 
 def parse_global_weapon_information(driver, url):
+    markets_data = dict()
     time.sleep(1)
     driver.get(url)
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(0.5)
 
     skin_name = driver.find_element(By.XPATH, '//h1[@class="text-2xl sm:text-3xl font-bold"]').text
 
-    types_config = []
+    types_config, links = [], []
+
     try:
-        for type_link in driver.find_elements(By.XPATH, f'//a[starts-with(@href, "{url}")]'):
-            type_name = type_link.find_element(By.XPATH, './/div[@class="w-2/3 flex-none"]').text
+        for element in driver.find_elements(By.XPATH, f'//a[starts-with(@href, "{url}")]'):
+            if 'key' not in element.get_attribute('href'):
+                links.append(element.get_attribute('href'))
+    finally:
+        if len(links) == 0:
+            links.append(url)
+
+    try:
+        for link in links:
+            if link != url:
+                driver.get(link)
+            print(link)
+
+            try:
+                type_name = driver.find_element(By.XPATH, "//*[contains(@class, 'hover:bg-gray-700 bg-gray-700')]//div[1]").text
+                if type_name:
+                    name = type_name.replace("StatTrak ", "").replace("Souvenir ", "")
+                    is_stattrak = type_name.startswith("StatTrak")
+                    is_souvenir = type_name.startswith("Souvenir")
+            except NoSuchElementException:
+                name, is_stattrak, is_souvenir = None, None, None
+
+            price_values = {}
+
+            for period in periods:
+                for stat in statistics:
+                    value = driver.find_element(By.XPATH, price_statistics_xpath(f'{period} {stat}')).text
+                    price_values[f'{period} {stat}'] = value
+
+            markets_data = {
+                "Skinport": get_market_prices(driver, 'Skinport'),
+                # "GamerPay": get_market_prices(driver, 'GamerPay'),
+                # "Lis Skins": get_market_prices(driver, 'Lis Skins'),
+                "CS.MONEY": get_market_prices(driver, 'CS.MONEY'),
+                "SkinBaron": get_market_prices(driver, 'SkinBaron'),
+                # "SkinSwap": get_market_prices(driver, 'SkinSwap'),
+                # "BUFF163": get_market_prices(driver, 'BUFF163'),
+                "BitSkins": get_market_prices(driver, 'BitSkins'),
+                # "WAXPEER": get_market_prices(driver, 'WAXPEER'),
+                # "ShadowPay": get_market_prices(driver, 'ShadowPay'),
+                "Market CSGO": get_market_prices(driver, 'Market CSGO'),
+                "CSFloat": get_market_prices(driver, 'CSFloat'),
+                "HaloSkins": get_market_prices(driver, 'HaloSkins'),
+                # "CS.DEALS": get_market_prices(driver, 'CS.DEALS'),
+                "DMarket": get_market_prices(driver, 'DMarket'),
+                # "Tradeit.gg": get_market_prices(driver, 'Tradeit.gg'),
+                # "Mannco.store": get_market_prices(driver, 'Mannco.store'),
+                "Steam": get_market_prices(driver, 'Steam'),
+                # "BUFF Market": get_market_prices(driver, 'BUFF Market')
+            }
+
+            week_low_value = price_values.get('7 Day Low')
+            week_high_value = price_values.get('7 Day High')
+            month_low_value = price_values.get('30 Day Low')
+            month_high_value = price_values.get('30 Day High')
+            
             types_config.append({
-                "link": type_link.get_attribute("href"),
-                "name": type_name.replace("StatTrak ", "").replace("Souvenir ", ""),
-                "is_stattrak": type_name.startswith("StatTrak"),
-                "is_souvenir": type_name.startswith("Souvenir"),
+                "link": driver.current_url,
+                "name": name,
+                "is_stattrak": is_stattrak,
+                "is_souvenir": is_souvenir,
+                "weeks_price": {
+                    "high": week_high_value,
+                    "low": week_low_value 
+                },
+                "monthly_price": {
+                    "high": month_high_value,
+                    "low": month_low_value
+                },
+                "markets_data": markets_data
             })
+
     except NoSuchElementException:
         types_config = []
 
@@ -206,142 +248,67 @@ def parse_global_weapon_information(driver, url):
 
 def find_items_description(driver, items_list):
     global_weapon_configs = []
-    file_path = "data/global_weapon_configs.json"
+    # file_path = "scrappers/data/global_weapon_configs.json"
+    file_path = "scrappers/data/parse_items_with_price.json"
+    try:
+        # if os.path.exists(file_path):
+        #     with open(file_path, "r") as file:
+        #         global_weapon_configs = json.load(file)
 
-    if os.path.exists(file_path):
-        with open(file_path, "r") as file:
-            global_weapon_configs = json.load(file)
+        # if global_weapon_configs:
+            # return global_weapon_configs
 
-    if global_weapon_configs:
-        return global_weapon_configs
+        for url in items_list:
+            global_weapon_configs.append(parse_global_weapon_information(driver, url))
 
-    for url in items_list:
-        global_weapon_configs.append(parse_global_weapon_information(driver, url))
-
-    with open(file_path, "w") as file:
-        json.dump(global_weapon_configs, file, indent=4)
+        with open(file_path, "w") as file:
+            json.dump(global_weapon_configs, file, indent=4)
+    except Exception as e:
+        logging.error(f"Got exception: {e}")
 
     return global_weapon_configs
 
 
-def get_parse_urls(parse_urls):
-    for category, names in items.items():
-        for name in names:
-            for quality in qualitys:
-                url = f"https://csgoskins.gg/items/{category}-{name}/{quality}"
-                parse_urls.append(url)
-
-
-def mock_pages(driver, url, pages_mock):
-    try:
-        driver.get(url)
-        pages_mock.append(driver.page_source)
-        time.sleep(0.5)
-    except Exception as e:
-        print(f"Failed to parse: {e}")
-
-
-def write_data(parsed_items):
-    with open(os.path.join(repo_path(), 'data', 'csgoskins-mock.json'), 'w') as mock_file:
-        json.dump(parsed_items, mock_file, indent=4)
-
-
-def price_statistics_xpath(period):
-    return f"//*[@class = 'order-[24]']//*[@class = 'flex px-4 py-2']//*[contains(text(), '{period}')]//../*[2]"
-
-
-def parse_mock_pages(pages_mock):
-    parsed_items = []
-    for page_html in pages_mock:
-        soup = BeautifulSoup(page_html, 'html.parser')
-        dom = etree.HTML(str(soup))
-
-        spans = soup.select('.w-full > .font-bold.text-xl')
-
-        item = soup.find('meta', {'property': 'og:url'}).get('content').replace('https://csgoskins.gg/items/', '').split('/')
-
-        periods = ['7 Day', '30 Day']
-        statistics = ['Low', 'High']
-
-        price_values = {}
-
-        for period in periods:
-            for stat in statistics:
-                elements = dom.xpath(price_statistics_xpath(f'{period} {stat}'))
-                value = elements[0].text.strip() if elements else None
-                price_values[f'{period} {stat}'] = value
-
-        week_low_value = price_values.get('7 Day Low')
-        week_high_value = price_values.get('7 Day High')
-        month_low_value = price_values.get('30 Day Low')
-        month_high_value = price_values.get('30 Day High')
-
-        weapon_type = item[0].split('-')[0] if len(item[0].split('-')) == 2 else "-".join(item[0].split('-')[:2])
-        name = item[0].replace(f'{weapon_type}-', '')
-        quality = item[1].replace('stattrak-', '') if 'stattrak' in item else item[1]
-
-        for span in spans:
-            price = span.get_text()
-            if "$" in price:
-                prev_img = span.find_previous('img', class_='inline-block h-5 w-5 mr-2')
-                active_offers = span.find_previous('div', class_='w-1/4 p-4 flex-none hidden sm:block').find('span', class_='').get_text().strip()
-                if prev_img and 'alt' in prev_img.attrs:
-                    alt = prev_img['alt']
-                    if 'stattrak' in item[1]:
-                        quality = item[1].replace('stattrak-', '')
-                        stattrak = True
-                    else:
-                        stattrak = False
-
-                    parsed_item = {
-                        "type": weapon_type,
-                        "name": name,
-                        'stattrak': stattrak,
-                        "quality": quality,
-                        "market": alt,
-                        "price": price,
-                        "active_offers": active_offers,
-                        # Значения по периоду, это за все магазины, а не за конкретный. Подумать бы как их лучше выводить
-                        'week_low': week_low_value,
-                        "week_high": week_high_value,
-                        "month_low": month_low_value,
-                        "month_high": month_high_value,
-                    }
-                    parsed_items.append(parsed_item)
-
-    return parsed_items
-
-
-# @hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name='items_prices_parser')
-# def main(cfg: DictConfig):
 def main():
     pages_mock, parse_urls = [], []
+
     try:
         driver = create_driver()
         logging.info(f"Creating driver")
 
-        items_links_without_quality = find_items_global_links(driver)
+        # with open('scrappers/data/items_links_without_quality.json', 'r') as file:
+            # items_links_without_quality = json.load(file)
+
+        items_links_without_quality = [
+            "https://csgoskins.gg/items/five-seven-forest-night", # Пушка
+            "https://csgoskins.gg/items/m9-bayonet-tiger-tooth", # Нож
+            "https://csgoskins.gg/items/bloodhound-gloves-bronzed", # Перчатки
+            'https://csgoskins.gg/items/dreams-nightmares-case', # Сундук
+            "https://csgoskins.gg/items/csgo-case-key", # Ключ
+            'https://csgoskins.gg/items/dreams-nightmares-case-key', # Ключ без предложений обмена на рынке
+            'https://csgoskins.gg/items/sticker-koi-holo-copenhagen-2024', # Стикер
+            "https://csgoskins.gg/items/paris-2023-mirage-souvenir-package", # Сувенирная коробка
+            "https://csgoskins.gg/items/anubis-collection-package", # Коллекционная коробка
+            "https://csgoskins.gg/items/copenhagen-2024-contenders-sticker-capsule", # Капсула с наклейками
+            "https://csgoskins.gg/items/copenhagen-2024-legends-autograph-capsule", # Капсула с автографами
+            "https://csgoskins.gg/items/stockholm-2021-legends-patch-pack", # Патч пакет
+            "https://csgoskins.gg/items/community-graffiti-box-1", # Граффити коробка
+            "https://csgoskins.gg/items/nightmode-music-kit-box", # Музыкальный набор
+            "https://csgoskins.gg/items/collectible-pins-capsule-series-1", # Набор пинов
+            "https://csgoskins.gg/items/audience-participation-parcel", # Подарки
+            "https://csgoskins.gg/items/special-agent-ava-fbi", # Агент
+            "https://csgoskins.gg/items/music-kit-knock2-dashstar", # Музыкальный набор
+            "https://csgoskins.gg/items/operation-breakout-all-access-pass", # Пропуск на операцию
+            "https://csgoskins.gg/items/howl-pin", # Пин
+            "https://csgoskins.gg/items/name-tag", # Нейм тег
+            "https://csgoskins.gg/items/stattrak-swap-tool", # Статтрек свап тул
+            'https://csgoskins.gg/items/sealed-graffiti-recoil-awp', # Граффити
+            'https://csgoskins.gg/items/patch-metal-silver-demon' # Патч
+            ]
+
+        # items_links_without_quality = find_items_global_links(driver)
+
         weapon_configs = find_items_description(driver,  items_links_without_quality)
-
-        print(json.dumps(weapon_configs, indent=4))
-
-        return
-
-        logging.info("Get items url")
-
-        for url in parse_urls:
-            if driver:
-                logging.info(f"Mocking in progress: {url}")
-                mock_pages(driver, url, pages_mock)
-                url = url.replace(url.split('/')[-1], f"stattrak-{url.split('/')[-1]}")
-                mock_pages(driver, url, pages_mock)
-        logging.info(f"Mocking finished")
-
-        parsed_items = parse_mock_pages(pages_mock)
-
-        write_data(parsed_items)
-
-        # db_client = DBClient()
 
     except Exception as e:
         logging.error(f"Got exception: {e}")
