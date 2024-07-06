@@ -76,20 +76,24 @@ export const meta: MetaFunction = () => {
       content: "Best platform to find rarest and most profitable CS2 stickers combos on the markets",
     },
     {
-      property: "og:image",
-      content: "https://i.imgur.com/f3O055M.png"
+      property: "og:site_name",
+      content: "SKINHUB.PRO",
     },
     {
-      property: "og:image:width",
-      content: "4096"
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:image",
+      content: "https://i.imgur.com/uYnMdd9.png"
     },
     {
       property: "og:image:height",
-      content: "1714"
+      content: "630"
     },
     {
-      property: "og:image:type",
-      content: "image/png"
+      property: "og:image:width",
+      content: "1200"
     }
   ];
 };
