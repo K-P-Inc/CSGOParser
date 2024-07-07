@@ -32,14 +32,17 @@ def active_offers_xpath(driver, alt):
 def price_offers_xpath(driver, alt):
     try:
         price_from = "//*[text() = 'from']//..//..//*[2]"
-        return  float(driver.find_element(By.XPATH, f"{alt_xpath(alt)}{price_from}").text.replace('$','')) or None
+        price_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{price_from}").text.replace('$','')
+        price_float = float(price_text) if ',' not in price_text else float(price_text.replace(',',''))
+        return price_float or None
     except NoSuchElementException as e:
         return None
 
 
-def get_market_prices(driver, alt):
-    if alt_xpath(alt):
-        return {'active_offers': active_offers_xpath(driver, alt), 'price': price_offers_xpath(driver, alt)}
+def get_market_prices(driver, alts):
+    for alt in alts:
+        if alt_xpath(alt):
+            return {'active_offers': active_offers_xpath(driver, alt), 'price': price_offers_xpath(driver, alt)}
 
 
 def price_statistics_xpath(period):
@@ -120,11 +123,6 @@ def parse_global_weapon_information(driver, url):
         driver.implicitly_wait(0.5)
 
         skin_name = driver.find_element(By.XPATH, '//h1[@class="text-2xl sm:text-3xl font-bold"]').text
-
-        try:
-            icon = driver.find_element(By.XPATH, "//img[@id = 'main-image']").get_attribute('src')
-        except NoSuchElementException:
-            icon = None
 
         types_config, links = [], []
 
@@ -265,6 +263,73 @@ def parse_global_weapon_information(driver, url):
             'icon': icon
         }
 
+def get_item_icon(driver):
+    icon = None
+    try:
+        icon = driver.find_element(By.XPATH, "//img[@id = 'main-image']").get_attribute('src')
+    finally:
+        return icon
+
+def get_price_values(driver, price_values):
+    try:
+        for period in periods:
+            for stat in statistics:
+                value = float(driver.find_element(By.XPATH, price_statistics_xpath(f'{period} {stat}')).text.replace('$',''))
+                price_values[f'{period} {stat}'] = value
+    finally:
+        return price_values
+
+def parse(driver):
+    global_weapon_configs = []
+    parsed_items = ['sticker', 'ak-47', 'm4a1-s', 'm4a4', 'awp']
+    file_to_read = "scrappers/data/global_weapon_configs.json"
+    file_to_write = "scrappers/data/parse_items_with_price.json"
+
+    with open(file_to_read, 'r') as file:
+        items = json.load(file)
+
+    try:
+        for item in items[:1000]:
+            for i in parsed_items:
+                price_values = {}
+                if i in item['link'] and 'souvenir' not in item['link']:
+                    for item_types in item.get('types'):
+                        item_link = item_types['link']
+
+                        driver.get(item_link)
+                        icon = get_item_icon(driver)
+                        prices = get_price_values(driver, price_values)
+
+                        markets_data = {
+                                "Skinport": get_market_prices(driver, 'Skinport'),
+                                "CS.MONEY": get_market_prices(driver, 'CS.MONEY'),
+                                "SkinBaron": get_market_prices(driver, 'SkinBaron'),
+                                "BitSkins": get_market_prices(driver, 'BitSkins'),
+                                "Market CSGO": get_market_prices(driver, 'Market CSGO'),
+                                "CSFloat": get_market_prices(driver, 'CSFloat'),
+                                "HaloSkins": get_market_prices(driver, 'HaloSkins'),
+                                "DMarket": get_market_prices(driver, 'DMarket'),
+                                "Steam": get_market_prices(driver, 'Steam'),
+                        }
+
+                        item_types['markets'] = markets_data
+
+                        item_types['week_low_value'] = prices['7 Day Low']
+                        item_types['week_high_value'] = prices['7 Day High']
+                        item_types['month_low_value'] = prices['30 Day Low']
+                        item_types['month_high_value'] = prices['30 Day High']
+                        item_types['all_time_low'] = prices['All Time Low']
+                        item_types['all_time_high'] = prices['All Time High']
+
+                        item_types['icon'] = icon
+
+                        global_weapon_configs.append(item_types)
+    
+    finally:
+        with open(file_to_write, "w") as file:
+            json.dump(global_weapon_configs, file, indent=4)
+
+
 
 def find_items_description(driver, items_list):
     global_weapon_configs = []
@@ -297,69 +362,71 @@ def main():
         driver = create_driver()
         logging.info(f"Creating driver")
 
-        # with open('scrappers/data/items_links_without_quality.json', 'r') as file:
-            # items_links_without_quality = json.load(file)
+        parse(driver)
 
-        items_links_without_quality = [
-            "https://csgoskins.gg/items/ak-47-redline",
-            "https://csgoskins.gg/items/sticker-kennys-krakow-2017"
-        ]
+        # # with open('scrappers/data/items_links_without_quality.json', 'r') as file:
+        #     # items_links_without_quality = json.load(file)
 
-        logging.info(f"Get items links")
+        # items_links_without_quality = [
+        #     "https://csgoskins.gg/items/ak-47-redline",
+        #     "https://csgoskins.gg/items/sticker-kennys-krakow-2017"
+        # ]
 
-        # items_links_without_quality = find_items_global_links(driver)
+        # logging.info(f"Get items links")
 
-        weapon_configs = find_items_description(driver,  items_links_without_quality)
+        # # items_links_without_quality = find_items_global_links(driver)
 
-        with open('scrappers/data/parse_items_with_price.json','r') as file:
-            weapon_with_prices_file = json.load(file)
-        logging.info(f"Get items data")
+        # weapon_configs = find_items_description(driver,  items_links_without_quality)
 
-        for item in weapon_with_prices_file:
-            for items_exterior in range(len(item['types'])):
-                item_name = item['name']
-                avarage_prive = (item['types'][items_exterior]['weeks_price']['high'] + item['types'][items_exterior]['weeks_price']['low']) / 2,
-                week_price_low = item['types'][items_exterior]['weeks_price']['low'],
-                week_price_high = item['types'][items_exterior]['weeks_price']['high'],
-                monthly_price_low = item['types'][items_exterior]['monthly_price']['low'],
-                monthly_price_high = item['types'][items_exterior]['monthly_price']['high'],
-                all_time_price_low = item['types'][items_exterior]['all_time_price']['low'],
-                all_time_price_high = item['types'][items_exterior]['all_time_price']['high'],
-                date = datetime.datetime.now(),
-                icon = item['icon']
+        # with open('scrappers/data/parse_items_with_price.json','r') as file:
+        #     weapon_with_prices_file = json.load(file)
+        # logging.info(f"Get items data")
 
-                if 'Sticker |' in item['name']:
-                    stickers_to_insert.append((
-                        item_name,
-                        avarage_prive,
-                        week_price_low,
-                        week_price_high,
-                        monthly_price_low,
-                        monthly_price_high,
-                        all_time_price_low,
-                        all_time_price_high,
-                        date,
-                        icon
-                    ))
-                else:
-                    weapons_to_insert.append((
-                        item_name,
-                        item['types'][items_exterior]['name'],
-                        item['types'][items_exterior]['is_stattrak'],
-                        # item['types'][items_exterior]['is_souvenir'],
-                        avarage_prive,
-                        # TODO: Add markets prices?
-                        week_price_low,
-                        week_price_high,
-                        monthly_price_low,
-                        monthly_price_high,
-                        all_time_price_low,
-                        all_time_price_high,
-                        date,
-                        icon
-                    )
+        # for item in weapon_with_prices_file:
+        #     for items_exterior in range(len(item['types'])):
+        #         item_name = item['name']
+        #         avarage_prive = (item['types'][items_exterior]['weeks_price']['high'] + item['types'][items_exterior]['weeks_price']['low']) / 2,
+        #         week_price_low = item['types'][items_exterior]['weeks_price']['low'],
+        #         week_price_high = item['types'][items_exterior]['weeks_price']['high'],
+        #         monthly_price_low = item['types'][items_exterior]['monthly_price']['low'],
+        #         monthly_price_high = item['types'][items_exterior]['monthly_price']['high'],
+        #         all_time_price_low = item['types'][items_exterior]['all_time_price']['low'],
+        #         all_time_price_high = item['types'][items_exterior]['all_time_price']['high'],
+        #         date = datetime.datetime.now(),
+        #         icon = item['icon']
 
-        print(weapons_to_insert, stickers_to_insert)
+        #         if 'Sticker |' in item['name']:
+        #             stickers_to_insert.append((
+        #                 item_name,
+        #                 avarage_prive,
+        #                 week_price_low,
+        #                 week_price_high,
+        #                 monthly_price_low,
+        #                 monthly_price_high,
+        #                 all_time_price_low,
+        #                 all_time_price_high,
+        #                 date,
+        #                 icon
+        #             ))
+        #         else:
+        #             weapons_to_insert.append((
+        #                 item_name,
+        #                 item['types'][items_exterior]['name'],
+        #                 item['types'][items_exterior]['is_stattrak'],
+        #                 # item['types'][items_exterior]['is_souvenir'],
+        #                 avarage_prive,
+        #                 # TODO: Add markets prices?
+        #                 week_price_low,
+        #                 week_price_high,
+        #                 monthly_price_low,
+        #                 monthly_price_high,
+        #                 all_time_price_low,
+        #                 all_time_price_high,
+        #                 date,
+        #                 icon
+        #             )
+
+        # print(weapons_to_insert, stickers_to_insert)
 
         # db_client = DBClient()
         # for weapons in split_array(weapons_to_insert):
