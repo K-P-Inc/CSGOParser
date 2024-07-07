@@ -1,3579 +1,569 @@
 [
     {
-        "name": "Five-SeveN | Forest Night",
-        "link": "https://csgoskins.gg/items/five-seven-forest-night",
+        "name": "AK-47 | Redline",
+        "link": "https://csgoskins.gg/items/ak-47-redline",
         "types": [
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/factory-new",
-                "name": "Factory New",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$0.07",
-                    "low": "$0.06"
-                },
-                "monthly_price": {
-                    "high": "$0.07",
-                    "low": "$0.05"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "3",
-                        "price": "$0.21"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "7",
-                        "price": "$0.08"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "7",
-                        "price": "$1.57"
-                    },
-                    "BitSkins": {
-                        "active_offers": "9",
-                        "price": "$0.09"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "19",
-                        "price": "$0.08"
-                    },
-                    "CSFloat": {
-                        "active_offers": "21",
-                        "price": "$0.12"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "41",
-                        "price": "$0.06"
-                    },
-                    "DMarket": {
-                        "active_offers": "24",
-                        "price": "$0.11"
-                    },
-                    "Steam": {
-                        "active_offers": "544",
-                        "price": "$0.10"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/minimal-wear",
+                "link": "https://csgoskins.gg/items/ak-47-redline/minimal-wear",
                 "name": "Minimal Wear",
                 "is_stattrak": false,
                 "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 77.94,
+                    "low": 77.55
                 },
                 "monthly_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 77.94,
+                    "low": 74.0
+                },
+                "all_time_price": {
+                    "low": 18.98,
+                    "high": 99.68
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "138",
-                        "price": "$0.02"
+                        "active_offers": 87,
+                        "price": 81.59
                     },
                     "CS.MONEY": {
-                        "active_offers": "39",
-                        "price": "$0.02"
+                        "active_offers": 66,
+                        "price": 85.35
                     },
                     "SkinBaron": {
-                        "active_offers": "293",
-                        "price": "$0.02"
+                        "active_offers": 27,
+                        "price": 78.05
                     },
                     "BitSkins": {
-                        "active_offers": "183",
-                        "price": "$0.02"
+                        "active_offers": 24,
+                        "price": 87.59
                     },
                     "Market CSGO": {
-                        "active_offers": "28",
-                        "price": "$0.03"
+                        "active_offers": 34,
+                        "price": 87.03
                     },
                     "CSFloat": {
-                        "active_offers": "34",
-                        "price": "$0.03"
+                        "active_offers": 161,
+                        "price": 79.23
                     },
                     "HaloSkins": {
-                        "active_offers": "36",
-                        "price": "$0.02"
+                        "active_offers": 74,
+                        "price": 87.23
                     },
                     "DMarket": {
-                        "active_offers": null,
-                        "price": null
+                        "active_offers": 45,
+                        "price": 78.62
                     },
                     "Steam": {
-                        "active_offers": "11.5K",
-                        "price": "$0.04"
+                        "active_offers": 80,
+                        "price": 113.36
                     }
                 }
             },
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/field-tested",
+                "link": "https://csgoskins.gg/items/ak-47-redline/field-tested",
                 "name": "Field-Tested",
                 "is_stattrak": false,
                 "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 16.38,
+                    "low": 15.75
                 },
                 "monthly_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 16.57,
+                    "low": 15.52
+                },
+                "all_time_price": {
+                    "low": 3.69,
+                    "high": 23.0
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "1.7K",
-                        "price": "$0.02"
+                        "active_offers": 782,
+                        "price": 16.64
                     },
                     "CS.MONEY": {
-                        "active_offers": "102",
-                        "price": "$0.02"
+                        "active_offers": 636,
+                        "price": 17.95
                     },
                     "SkinBaron": {
-                        "active_offers": "1.5K",
-                        "price": "$0.02"
+                        "active_offers": 433,
+                        "price": 17.95
                     },
                     "BitSkins": {
-                        "active_offers": "580",
-                        "price": "$0.02"
+                        "active_offers": 425,
+                        "price": 16.85
                     },
                     "Market CSGO": {
-                        "active_offers": "219",
-                        "price": "$0.01"
+                        "active_offers": 395,
+                        "price": 18.47
                     },
                     "CSFloat": {
-                        "active_offers": "106",
-                        "price": "$0.03"
+                        "active_offers": 1500,
+                        "price": 16.5
                     },
                     "HaloSkins": {
-                        "active_offers": "79",
-                        "price": "$0.01"
+                        "active_offers": 770,
+                        "price": 17.48
                     },
                     "DMarket": {
-                        "active_offers": null,
-                        "price": null
+                        "active_offers": 635,
+                        "price": 17.23
                     },
                     "Steam": {
-                        "active_offers": "32.4K",
-                        "price": "$0.04"
+                        "active_offers": 943,
+                        "price": 23.71
                     }
                 }
             },
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/well-worn",
+                "link": "https://csgoskins.gg/items/ak-47-redline/well-worn",
                 "name": "Well-Worn",
                 "is_stattrak": false,
                 "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 12.55,
+                    "low": 11.9
                 },
                 "monthly_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 12.83,
+                    "low": 11.89
+                },
+                "all_time_price": {
+                    "low": 7.45,
+                    "high": 18.76
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "249",
-                        "price": "$0.02"
+                        "active_offers": 32,
+                        "price": 13.9
                     },
                     "CS.MONEY": {
-                        "active_offers": "14",
-                        "price": "$0.02"
+                        "active_offers": 53,
+                        "price": 15.0
                     },
                     "SkinBaron": {
-                        "active_offers": "241",
-                        "price": "$0.02"
+                        "active_offers": 4,
+                        "price": 16.0
                     },
                     "BitSkins": {
-                        "active_offers": "103",
-                        "price": "$0.02"
+                        "active_offers": 32,
+                        "price": 13.42
                     },
                     "Market CSGO": {
-                        "active_offers": "18",
-                        "price": "$0.01"
+                        "active_offers": 48,
+                        "price": 13.82
                     },
                     "CSFloat": {
-                        "active_offers": "26",
-                        "price": "$0.03"
+                        "active_offers": 60,
+                        "price": 12.46
                     },
                     "HaloSkins": {
-                        "active_offers": "24",
-                        "price": "$0.01"
+                        "active_offers": 18,
+                        "price": 14.59
                     },
                     "DMarket": {
-                        "active_offers": "1",
-                        "price": "$5.43"
+                        "active_offers": 63,
+                        "price": 12.4
                     },
                     "Steam": {
-                        "active_offers": "7.1K",
-                        "price": "$0.03"
+                        "active_offers": 97,
+                        "price": 17.9
                     }
                 }
             },
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/battle-scarred",
+                "link": "https://csgoskins.gg/items/ak-47-redline/battle-scarred",
                 "name": "Battle-Scarred",
                 "is_stattrak": false,
                 "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 9.47,
+                    "low": 8.92
                 },
                 "monthly_price": {
-                    "high": "$0.01",
-                    "low": "$0.01"
+                    "high": 9.49,
+                    "low": 8.89
+                },
+                "all_time_price": {
+                    "low": 4.66,
+                    "high": 12.96
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "439",
-                        "price": "$0.02"
+                        "active_offers": 16,
+                        "price": 11.6
                     },
                     "CS.MONEY": {
-                        "active_offers": "19",
-                        "price": "$0.02"
+                        "active_offers": 42,
+                        "price": 10.8
                     },
                     "SkinBaron": {
-                        "active_offers": "408",
-                        "price": "$0.02"
+                        "active_offers": 2,
+                        "price": 18.37
                     },
                     "BitSkins": {
-                        "active_offers": "123",
-                        "price": "$0.02"
+                        "active_offers": 36,
+                        "price": 10.7
                     },
                     "Market CSGO": {
-                        "active_offers": "62",
-                        "price": "$0.01"
+                        "active_offers": 67,
+                        "price": 11.34
                     },
                     "CSFloat": {
-                        "active_offers": "36",
-                        "price": "$0.03"
+                        "active_offers": 84,
+                        "price": 10.74
                     },
                     "HaloSkins": {
-                        "active_offers": "22",
-                        "price": "$0.01"
+                        "active_offers": 34,
+                        "price": 9.86
                     },
                     "DMarket": {
-                        "active_offers": "1",
-                        "price": "$5.23"
+                        "active_offers": 55,
+                        "price": 9.7
                     },
                     "Steam": {
-                        "active_offers": "18.7K",
-                        "price": "$0.03"
+                        "active_offers": 144,
+                        "price": 13.13
                     }
                 }
             },
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/souvenir-factory-new",
-                "name": "Factory New",
-                "is_stattrak": false,
-                "is_souvenir": true,
-                "weeks_price": {
-                    "high": "$12.92",
-                    "low": "$12.85"
-                },
-                "monthly_price": {
-                    "high": "$14.03",
-                    "low": "$12.85"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "1",
-                        "price": "$19.47"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "4",
-                        "price": "$19.78"
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$49.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1",
-                        "price": "$44.94"
-                    },
-                    "CSFloat": {
-                        "active_offers": "10",
-                        "price": "$14.05"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "3",
-                        "price": "$14.15"
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "13",
-                        "price": "$20.72"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/souvenir-minimal-wear",
+                "link": "https://csgoskins.gg/items/ak-47-redline/stattrak-minimal-wear",
                 "name": "Minimal Wear",
-                "is_stattrak": false,
-                "is_souvenir": true,
+                "is_stattrak": true,
+                "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$1.30",
-                    "low": "$1.18"
+                    "high": 189.9,
+                    "low": 182.53
                 },
                 "monthly_price": {
-                    "high": "$1.37",
-                    "low": "$1.18"
+                    "high": 189.9,
+                    "low": 181.49
+                },
+                "all_time_price": {
+                    "low": 91.46,
+                    "high": 232.0
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "31",
-                        "price": "$1.63"
+                        "active_offers": 39,
+                        "price": 197.22
                     },
                     "CS.MONEY": {
-                        "active_offers": "13",
-                        "price": "$1.34"
+                        "active_offers": 26,
+                        "price": 204.99
                     },
                     "SkinBaron": {
-                        "active_offers": "7",
-                        "price": "$1.82"
+                        "active_offers": 10,
+                        "price": 206.71
                     },
                     "BitSkins": {
-                        "active_offers": "7",
-                        "price": "$7.50"
+                        "active_offers": 3,
+                        "price": 210.91
                     },
                     "Market CSGO": {
-                        "active_offers": "12",
-                        "price": "$1.72"
+                        "active_offers": 15,
+                        "price": 216.57
                     },
                     "CSFloat": {
-                        "active_offers": "60",
-                        "price": "$1.30"
+                        "active_offers": 61,
+                        "price": 184.49
                     },
                     "HaloSkins": {
-                        "active_offers": "27",
-                        "price": "$1.97"
+                        "active_offers": 25,
+                        "price": 205.83
                     },
                     "DMarket": {
-                        "active_offers": null,
-                        "price": null
+                        "active_offers": 8,
+                        "price": 187.07
                     },
                     "Steam": {
-                        "active_offers": "169",
-                        "price": "$1.87"
+                        "active_offers": 12,
+                        "price": 302.33
                     }
                 }
             },
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/souvenir-field-tested",
+                "link": "https://csgoskins.gg/items/ak-47-redline/stattrak-field-tested",
                 "name": "Field-Tested",
-                "is_stattrak": false,
-                "is_souvenir": true,
+                "is_stattrak": true,
+                "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$0.28",
-                    "low": "$0.28"
+                    "high": 38.06,
+                    "low": 36.01
                 },
                 "monthly_price": {
-                    "high": "$0.29",
-                    "low": "$0.26"
+                    "high": 38.06,
+                    "low": 35.88
+                },
+                "all_time_price": {
+                    "low": 22.06,
+                    "high": 52.23
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "73",
-                        "price": "$0.40"
+                        "active_offers": 115,
+                        "price": 41.41
                     },
                     "CS.MONEY": {
-                        "active_offers": "28",
-                        "price": "$0.28"
+                        "active_offers": 172,
+                        "price": 39.71
                     },
                     "SkinBaron": {
-                        "active_offers": "29",
-                        "price": "$0.75"
+                        "active_offers": 106,
+                        "price": 38.49
                     },
                     "BitSkins": {
-                        "active_offers": "16",
-                        "price": "$0.28"
+                        "active_offers": 35,
+                        "price": 39.22
                     },
                     "Market CSGO": {
-                        "active_offers": "12",
-                        "price": "$0.78"
+                        "active_offers": 48,
+                        "price": 51.99
                     },
                     "CSFloat": {
-                        "active_offers": "162",
-                        "price": "$0.35"
+                        "active_offers": 348,
+                        "price": 38.95
                     },
                     "HaloSkins": {
-                        "active_offers": "16",
-                        "price": "$0.34"
+                        "active_offers": 124,
+                        "price": 42.8
                     },
                     "DMarket": {
-                        "active_offers": "6",
-                        "price": "$0.45"
+                        "active_offers": 106,
+                        "price": 37.96
                     },
                     "Steam": {
-                        "active_offers": "410",
-                        "price": "$0.41"
+                        "active_offers": 175,
+                        "price": 54.83
                     }
                 }
             },
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/souvenir-well-worn",
+                "link": "https://csgoskins.gg/items/ak-47-redline/stattrak-well-worn",
                 "name": "Well-Worn",
-                "is_stattrak": false,
-                "is_souvenir": true,
+                "is_stattrak": true,
+                "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$0.62",
-                    "low": "$0.58"
+                    "high": 30.22,
+                    "low": 27.94
                 },
                 "monthly_price": {
-                    "high": "$0.66",
-                    "low": "$0.54"
+                    "high": 30.22,
+                    "low": 26.76
+                },
+                "all_time_price": {
+                    "low": 17.89,
+                    "high": 46.35
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "15",
-                        "price": "$1.22"
+                        "active_offers": 13,
+                        "price": 31.22
                     },
                     "CS.MONEY": {
-                        "active_offers": "10",
-                        "price": "$0.62"
+                        "active_offers": 10,
+                        "price": 37.0
                     },
                     "SkinBaron": {
-                        "active_offers": "8",
-                        "price": "$1.62"
+                        "active_offers": 5,
+                        "price": 32.51
                     },
                     "BitSkins": {
-                        "active_offers": "3",
-                        "price": "$2.00"
+                        "active_offers": 5,
+                        "price": 34.51
                     },
                     "Market CSGO": {
-                        "active_offers": "3",
-                        "price": "$2.78"
+                        "active_offers": 8,
+                        "price": 39.75
                     },
                     "CSFloat": {
-                        "active_offers": "19",
-                        "price": "$0.75"
+                        "active_offers": 25,
+                        "price": 32.22
                     },
                     "HaloSkins": {
-                        "active_offers": "4",
-                        "price": "$0.70"
+                        "active_offers": 3,
+                        "price": 39.65
                     },
                     "DMarket": {
-                        "active_offers": "2",
-                        "price": "$1.30"
+                        "active_offers": 10,
+                        "price": 35.59
                     },
                     "Steam": {
-                        "active_offers": "166",
-                        "price": "$0.64"
+                        "active_offers": 19,
+                        "price": 44.11
                     }
                 }
             },
             {
-                "link": "https://csgoskins.gg/items/five-seven-forest-night/souvenir-battle-scarred",
+                "link": "https://csgoskins.gg/items/ak-47-redline/stattrak-battle-scarred",
                 "name": "Battle-Scarred",
-                "is_stattrak": false,
-                "is_souvenir": true,
+                "is_stattrak": true,
+                "is_souvenir": false,
                 "weeks_price": {
-                    "high": "$0.36",
-                    "low": "$0.36"
+                    "high": 17.67,
+                    "low": 16.68
                 },
                 "monthly_price": {
-                    "high": "$0.46",
-                    "low": "$0.33"
+                    "high": 19.19,
+                    "low": 16.68
+                },
+                "all_time_price": {
+                    "low": 9.99,
+                    "high": 22.2
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "17",
-                        "price": "$0.47"
+                        "active_offers": 12,
+                        "price": 21.64
                     },
                     "CS.MONEY": {
-                        "active_offers": "10",
-                        "price": "$0.40"
+                        "active_offers": 29,
+                        "price": 19.98
                     },
                     "SkinBaron": {
-                        "active_offers": "28",
-                        "price": "$1.39"
+                        "active_offers": 2,
+                        "price": 34.68
                     },
                     "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$5.00"
+                        "active_offers": 7,
+                        "price": 23.76
                     },
                     "Market CSGO": {
-                        "active_offers": "3",
-                        "price": "$0.88"
+                        "active_offers": 52,
+                        "price": 21.93
                     },
                     "CSFloat": {
-                        "active_offers": "33",
-                        "price": "$1.00"
+                        "active_offers": 35,
+                        "price": 18.88
                     },
                     "HaloSkins": {
-                        "active_offers": "10",
-                        "price": "$0.96"
+                        "active_offers": 6,
+                        "price": 19.82
                     },
                     "DMarket": {
-                        "active_offers": null,
-                        "price": null
+                        "active_offers": 17,
+                        "price": 17.83
                     },
                     "Steam": {
-                        "active_offers": "193",
-                        "price": "$0.47"
+                        "active_offers": 59,
+                        "price": 24.01
                     }
                 }
             }
         ],
         "item_classes": [
-            "Consumer Grade",
-            "Souvenir"
-        ],
-        "collections": [
-            "The Train Collection"
-        ],
-        "containers": [
-            "Atlanta 2017 Train Souvenir Package",
-            "Berlin 2019 Train Souvenir Package",
-            "Boston 2018 Train Souvenir Package",
-            "Cologne 2016 Train Souvenir Package",
-            "DreamHack Cluj-Napoca 2015 Train Souvenir Package",
-            "ESL One Cologne 2015 Train Souvenir Package",
-            "Katowice 2019 Train Souvenir Package",
-            "Krakow 2017 Train Souvenir Package",
-            "London 2018 Train Souvenir Package",
-            "MLG Columbus 2016 Train Souvenir Package"
-        ],
-        "colors": [
-            "Blue"
-        ],
-        "summary": {
-            "Category": "Skin",
-            "Type": "Pistol",
-            "Weapon": "Five-SeveN",
-            "Finish": "Forest Night",
-            "Finish Style": "Hydrographic",
-            "Finish Catalog": "78",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "November 27th, 2013",
-            "Update": "Out with the old, in with the new"
-        }
-    },
-    {
-        "name": "\u2605 M9 Bayonet | Tiger Tooth",
-        "link": "https://csgoskins.gg/items/m9-bayonet-tiger-tooth",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/m9-bayonet-tiger-tooth/factory-new",
-                "name": "Factory New",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$954.49",
-                    "low": "$943.07"
-                },
-                "monthly_price": {
-                    "high": "$966.14",
-                    "low": "$929.88"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "25",
-                        "price": "$974.16"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "15",
-                        "price": "$1,013.29"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "13",
-                        "price": "$943.12"
-                    },
-                    "BitSkins": {
-                        "active_offers": "7",
-                        "price": "$1,039.73"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1",
-                        "price": "$1,253.68"
-                    },
-                    "CSFloat": {
-                        "active_offers": "39",
-                        "price": "$950.00"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "17",
-                        "price": "$1,025.64"
-                    },
-                    "DMarket": {
-                        "active_offers": "12",
-                        "price": "$982.03"
-                    },
-                    "Steam": {
-                        "active_offers": "6",
-                        "price": "$1,406.40"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/m9-bayonet-tiger-tooth/minimal-wear",
-                "name": "Minimal Wear",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$959.62",
-                    "low": "$924.66"
-                },
-                "monthly_price": {
-                    "high": "$981.63",
-                    "low": "$900.08"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "3",
-                        "price": "$1,027.74"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Market CSGO": {
-                        "active_offers": "2",
-                        "price": "$1,315.00"
-                    },
-                    "CSFloat": {
-                        "active_offers": "5",
-                        "price": "$1,300.00"
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$979.55"
-                    },
-                    "Steam": {
-                        "active_offers": null,
-                        "price": null
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/m9-bayonet-tiger-tooth/stattrak-factory-new",
-                "name": "Factory New",
-                "is_stattrak": true,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$933.74",
-                    "low": "$925.00"
-                },
-                "monthly_price": {
-                    "high": "$967.74",
-                    "low": "$889.68"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "5",
-                        "price": "$1,002.45"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "3",
-                        "price": "$1,060.00"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "2",
-                        "price": "$1,300.85"
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$1,035.18"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": "13",
-                        "price": "$930.00"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "2",
-                        "price": "$1,132.70"
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$1,019.90"
-                    },
-                    "Steam": {
-                        "active_offers": "2",
-                        "price": "$1,666.00"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/m9-bayonet-tiger-tooth/stattrak-minimal-wear",
-                "name": "Minimal Wear",
-                "is_stattrak": true,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$961.73",
-                    "low": "$858.13"
-                },
-                "monthly_price": {
-                    "high": "$1,116.53",
-                    "low": "$858.13"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": "1",
-                        "price": "$1,599.99"
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$1,116.53"
-                    },
-                    "Steam": {
-                        "active_offers": null,
-                        "price": null
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Covert",
+            "Classified",
             "StatTrak"
         ],
-        "collections": [],
-        "containers": [
-            "Chroma 2 Case",
-            "Chroma 3 Case",
-            "Chroma Case"
-        ],
-        "colors": [
-            "Yellow"
-        ],
-        "summary": {
-            "Category": "Skin",
-            "Type": "Knife",
-            "Weapon": "M9 Bayonet",
-            "Finish": "Tiger Tooth",
-            "Finish Style": "Anodized Multicolored",
-            "Finish Catalog": "409",
-            "Popularity": "99%",
-            "Designer": "Valve",
-            "Released": "January 8th, 2015",
-            "Update": "Full Spectrum"
-        }
-    },
-    {
-        "name": "\u2605 Bloodhound Gloves | Bronzed",
-        "link": "https://csgoskins.gg/items/bloodhound-gloves-bronzed",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/bloodhound-gloves-bronzed/factory-new",
-                "name": "Factory New",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$672.60",
-                    "low": "$672.26"
-                },
-                "monthly_price": {
-                    "high": "$777.00",
-                    "low": "$672.26"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "1",
-                        "price": "$777.00"
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1",
-                        "price": "$777.00"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "1",
-                        "price": "$899.26"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/bloodhound-gloves-bronzed/minimal-wear",
-                "name": "Minimal Wear",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$99.10",
-                    "low": "$96.40"
-                },
-                "monthly_price": {
-                    "high": "$103.21",
-                    "low": "$96.40"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "6",
-                        "price": "$111.65"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "5",
-                        "price": "$100.63"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "6",
-                        "price": "$109.48"
-                    },
-                    "BitSkins": {
-                        "active_offers": "6",
-                        "price": "$119.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "4",
-                        "price": "$138.62"
-                    },
-                    "CSFloat": {
-                        "active_offers": "5",
-                        "price": "$103.99"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "7",
-                        "price": "$106.70"
-                    },
-                    "DMarket": {
-                        "active_offers": "6",
-                        "price": "$101.96"
-                    },
-                    "Steam": {
-                        "active_offers": "14",
-                        "price": "$149.28"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/bloodhound-gloves-bronzed/field-tested",
-                "name": "Field-Tested",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$69.00",
-                    "low": "$67.58"
-                },
-                "monthly_price": {
-                    "high": "$69.00",
-                    "low": "$65.70"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "7",
-                        "price": "$85.51"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "10",
-                        "price": "$74.13"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "28",
-                        "price": "$78.04"
-                    },
-                    "BitSkins": {
-                        "active_offers": "12",
-                        "price": "$71.80"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "13",
-                        "price": "$78.64"
-                    },
-                    "CSFloat": {
-                        "active_offers": "23",
-                        "price": "$69.00"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "9",
-                        "price": "$76.63"
-                    },
-                    "DMarket": {
-                        "active_offers": "16",
-                        "price": "$69.47"
-                    },
-                    "Steam": {
-                        "active_offers": "15",
-                        "price": "$97.75"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/bloodhound-gloves-bronzed/well-worn",
-                "name": "Well-Worn",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$63.02",
-                    "low": "$60.19"
-                },
-                "monthly_price": {
-                    "high": "$63.02",
-                    "low": "$59.68"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "2",
-                        "price": "$69.27"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "3",
-                        "price": "$70.00"
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "3",
-                        "price": "$63.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "2",
-                        "price": "$94.00"
-                    },
-                    "CSFloat": {
-                        "active_offers": "3",
-                        "price": "$67.10"
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "13",
-                        "price": "$64.65"
-                    },
-                    "Steam": {
-                        "active_offers": "4",
-                        "price": "$90.64"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/bloodhound-gloves-bronzed/battle-scarred",
-                "name": "Battle-Scarred",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$62.92",
-                    "low": "$59.91"
-                },
-                "monthly_price": {
-                    "high": "$62.92",
-                    "low": "$57.02"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "2",
-                        "price": "$69.09"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "3",
-                        "price": "$63.89"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "2",
-                        "price": "$71.38"
-                    },
-                    "BitSkins": {
-                        "active_offers": "4",
-                        "price": "$65.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "7",
-                        "price": "$75.52"
-                    },
-                    "CSFloat": {
-                        "active_offers": "2",
-                        "price": "$70.13"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "4",
-                        "price": "$70.52"
-                    },
-                    "DMarket": {
-                        "active_offers": "3",
-                        "price": "$65.45"
-                    },
-                    "Steam": {
-                        "active_offers": "11",
-                        "price": "$84.45"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Extraordinary",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [
-            "Glove Case",
-            "Operation Hydra Case"
-        ],
-        "colors": [
-            "Brown"
-        ],
-        "summary": {
-            "Category": "Skin",
-            "Type": "Gloves",
-            "Weapon": "Bloodhound Gloves",
-            "Finish": "Bronzed",
-            "Finish Catalog": "10008",
-            "Popularity": "95%",
-            "Designer": "Valve",
-            "Released": "November 28th, 2016",
-            "Update": "Brothers In Arms"
-        }
-    },
-    {
-        "name": "Dreams & Nightmares Case",
-        "link": "https://csgoskins.gg/items/dreams-nightmares-case",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/dreams-nightmares-case",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$0.71",
-                    "low": "$0.64"
-                },
-                "monthly_price": {
-                    "high": "$0.71",
-                    "low": "$0.56"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "6.7K",
-                        "price": "$0.92"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "594",
-                        "price": "$0.68"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "3.4K",
-                        "price": "$0.81"
-                    },
-                    "BitSkins": {
-                        "active_offers": "4.2K",
-                        "price": "$0.72"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "678",
-                        "price": "$0.82"
-                    },
-                    "CSFloat": {
-                        "active_offers": "793",
-                        "price": "$0.73"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "6.1K",
-                        "price": "$0.74"
-                    },
-                    "DMarket": {
-                        "active_offers": "183",
-                        "price": "$1.88"
-                    },
-                    "Steam": {
-                        "active_offers": "119.7K",
-                        "price": "$1.06"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Weapon Case",
-            "Type": "Container",
-            "Popularity": "99%",
-            "Designer": "Valve",
-            "Released": "January 20th, 2022",
-            "Update": "Dreams & Nightmares Case"
-        }
-    },
-    {
-        "name": "CS:GO Case Key",
-        "link": "https://csgoskins.gg/items/csgo-case-key",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/csgo-case-key",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$6.41",
-                    "low": "$5.90"
-                },
-                "monthly_price": {
-                    "high": "$6.41",
-                    "low": "$5.23"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "162",
-                        "price": "$7.57"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "1",
-                        "price": "$12.80"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "8",
-                        "price": "$8.13"
-                    },
-                    "BitSkins": {
-                        "active_offers": "18",
-                        "price": "$5.90"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "7",
-                        "price": "$7.26"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "14",
-                        "price": "$5.99"
-                    },
-                    "Steam": {
-                        "active_offers": "302",
-                        "price": "$7.07"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [
-            "CS:GO Weapon Case",
-            "CS:GO Weapon Case 2",
-            "CS:GO Weapon Case 3",
-            "Operation Bravo Case"
-        ],
-        "colors": [],
-        "summary": {
-            "Category": "Key",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "August 14th, 2013",
-            "Update": "The Arms Deal"
-        }
-    },
-    {
-        "name": "Dreams & Nightmares Case Key",
-        "link": "https://csgoskins.gg/items/dreams-nightmares-case-key",
-        "types": [],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [
-            "Dreams & Nightmares Case"
-        ],
-        "colors": [],
-        "summary": {
-            "Category": "Key",
-            "Popularity": "35%",
-            "Designer": "Valve",
-            "Released": "January 20th, 2022",
-            "Update": "Dreams & Nightmares Case"
-        }
-    },
-    {
-        "name": "Sticker | KOI (Holo) | Copenhagen 2024",
-        "link": "https://csgoskins.gg/items/sticker-koi-holo-copenhagen-2024",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/sticker-koi-holo-copenhagen-2024",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$8.90",
-                    "low": "$7.77"
-                },
-                "monthly_price": {
-                    "high": "$10.06",
-                    "low": "$7.77"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "104",
-                        "price": "$10.28"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "15",
-                        "price": "$10.55"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "12",
-                        "price": "$9.76"
-                    },
-                    "BitSkins": {
-                        "active_offers": "9",
-                        "price": "$10.05"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "12",
-                        "price": "$8.86"
-                    },
-                    "CSFloat": {
-                        "active_offers": "82",
-                        "price": "$9.00"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "54",
-                        "price": "$8.16"
-                    },
-                    "DMarket": {
-                        "active_offers": "22",
-                        "price": "$9.36"
-                    },
-                    "Steam": {
-                        "active_offers": "261",
-                        "price": "$10.35"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Exotic",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [
-            "Copenhagen 2024 Contenders Sticker Capsule"
-        ],
-        "colors": [
-            "Blue"
-        ],
-        "summary": {
-            "Category": "Sticker",
-            "Tournament": "2024 PGL Copenhagen",
-            "Team": "KOI",
-            "Film": "Holo",
-            "Popularity": "95%",
-            "Designer": "Valve",
-            "Released": "March 13th, 2024",
-            "Update": "Copenhagen 2024 Stickers"
-        }
-    },
-    {
-        "name": "Paris 2023 Mirage Souvenir Package",
-        "link": "https://csgoskins.gg/items/paris-2023-mirage-souvenir-package",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/paris-2023-mirage-souvenir-package",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$1.74",
-                    "low": "$1.65"
-                },
-                "monthly_price": {
-                    "high": "$1.80",
-                    "low": "$1.63"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "4.6K",
-                        "price": "$1.72"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "160",
-                        "price": "$2.25"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "1.6K",
-                        "price": "$1.78"
-                    },
-                    "BitSkins": {
-                        "active_offers": "1.4K",
-                        "price": "$1.79"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "30",
-                        "price": "$2.38"
-                    },
-                    "CSFloat": {
-                        "active_offers": "662",
-                        "price": "$1.71"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "2.6K",
-                        "price": "$1.82"
-                    },
-                    "DMarket": {
-                        "active_offers": "1.9K",
-                        "price": "$2.78"
-                    },
-                    "Steam": {
-                        "active_offers": "3.6K",
-                        "price": "$2.57"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Souvenir Package",
-            "Type": "Container",
-            "Tournament": "2023 BLAST Paris",
-            "Map": "Mirage",
-            "Popularity": "95%",
-            "Designer": "Valve",
-            "Released": "May 4th, 2023",
-            "Update": "Paris 2023 Stickers"
-        }
-    },
-    {
-        "name": "Anubis Collection Package",
-        "link": "https://csgoskins.gg/items/anubis-collection-package",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/anubis-collection-package",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$1.14",
-                    "low": "$1.04"
-                },
-                "monthly_price": {
-                    "high": "$1.14",
-                    "low": "$0.91"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "4.7K",
-                        "price": "$1.53"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "195",
-                        "price": "$1.42"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "2.1K",
-                        "price": "$1.33"
-                    },
-                    "BitSkins": {
-                        "active_offers": "3.6K",
-                        "price": "$1.26"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "391",
-                        "price": "$1.24"
-                    },
-                    "CSFloat": {
-                        "active_offers": "148",
-                        "price": "$1.23"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "2.4K",
-                        "price": "$1.14"
-                    },
-                    "DMarket": {
-                        "active_offers": "1.7K",
-                        "price": "$1.56"
-                    },
-                    "Steam": {
-                        "active_offers": "4.4K",
-                        "price": "$1.58"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Collection Package",
-            "Type": "Container",
-            "Popularity": "95%",
-            "Designer": "Valve",
-            "Released": "April 24th, 2023",
-            "Update": "Anubis Skins"
-        }
-    },
-    {
-        "name": "Copenhagen 2024 Contenders Sticker Capsule",
-        "link": "https://csgoskins.gg/items/copenhagen-2024-contenders-sticker-capsule",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/copenhagen-2024-contenders-sticker-capsule",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$0.18",
-                    "low": "$0.17"
-                },
-                "monthly_price": {
-                    "high": "$0.18",
-                    "low": "$0.15"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "507",
-                        "price": "$0.27"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "489",
-                        "price": "$0.19"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "3.1K",
-                        "price": "$0.26"
-                    },
-                    "BitSkins": {
-                        "active_offers": "3.8K",
-                        "price": "$0.19"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1K",
-                        "price": "$0.19"
-                    },
-                    "CSFloat": {
-                        "active_offers": "1.2K",
-                        "price": "$0.18"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "3.7K",
-                        "price": "$0.18"
-                    },
-                    "DMarket": {
-                        "active_offers": "7.5K",
-                        "price": "$0.27"
-                    },
-                    "Steam": {
-                        "active_offers": "183.3K",
-                        "price": "$0.24"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Sticker Capsule",
-            "Type": "Container",
-            "Tournament": "2024 PGL Copenhagen",
-            "Popularity": "95%",
-            "Designer": "Valve",
-            "Released": "March 13th, 2024",
-            "Update": "Copenhagen 2024 Stickers"
-        }
-    },
-    {
-        "name": "Copenhagen 2024 Legends Autograph Capsule",
-        "link": "https://csgoskins.gg/items/copenhagen-2024-legends-autograph-capsule",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/copenhagen-2024-legends-autograph-capsule",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$0.17",
-                    "low": "$0.17"
-                },
-                "monthly_price": {
-                    "high": "$0.18",
-                    "low": "$0.16"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "233",
-                        "price": "$0.21"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "172",
-                        "price": "$0.23"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "358",
-                        "price": "$0.48"
-                    },
-                    "BitSkins": {
-                        "active_offers": "4.7K",
-                        "price": "$0.17"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "104",
-                        "price": "$0.24"
-                    },
-                    "CSFloat": {
-                        "active_offers": "349",
-                        "price": "$0.18"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "17.5K",
-                        "price": "$0.17"
-                    },
-                    "DMarket": {
-                        "active_offers": "6.7K",
-                        "price": "$0.30"
-                    },
-                    "Steam": {
-                        "active_offers": "26.8K",
-                        "price": "$0.24"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Autograph Capsule",
-            "Type": "Container",
-            "Tournament": "2024 PGL Copenhagen",
-            "Popularity": "90%",
-            "Designer": "Valve",
-            "Released": "March 13th, 2024",
-            "Update": "Copenhagen 2024 Stickers"
-        }
-    },
-    {
-        "name": "Stockholm 2021 Legends Patch Pack",
-        "link": "https://csgoskins.gg/items/stockholm-2021-legends-patch-pack",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/stockholm-2021-legends-patch-pack",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$3.69",
-                    "low": "$3.68"
-                },
-                "monthly_price": {
-                    "high": "$4.00",
-                    "low": "$3.62"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "138",
-                        "price": "$4.54"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "85",
-                        "price": "$4.09"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "97",
-                        "price": "$3.72"
-                    },
-                    "BitSkins": {
-                        "active_offers": "179",
-                        "price": "$3.69"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "20",
-                        "price": "$3.97"
-                    },
-                    "CSFloat": {
-                        "active_offers": "103",
-                        "price": "$4.20"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "23",
-                        "price": "$4.36"
-                    },
-                    "DMarket": {
-                        "active_offers": "102",
-                        "price": "$4.24"
-                    },
-                    "Steam": {
-                        "active_offers": "628",
-                        "price": "$5.12"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Patch Pack",
-            "Type": "Container",
-            "Tournament": "2021 PGL Stockholm",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "October 21st, 2021",
-            "Update": "2021 PGL Stockholm Stickers"
-        }
-    },
-    {
-        "name": "Community Graffiti Box 1",
-        "link": "https://csgoskins.gg/items/community-graffiti-box-1",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/community-graffiti-box-1",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$0.80",
-                    "low": "$0.80"
-                },
-                "monthly_price": {
-                    "high": "$0.92",
-                    "low": "$0.73"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "2",
-                        "price": "$0.99"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "9",
-                        "price": "$2.03"
-                    },
-                    "BitSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Market CSGO": {
-                        "active_offers": "23",
-                        "price": "$1.07"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "18",
-                        "price": "$0.80"
-                    },
-                    "DMarket": {
-                        "active_offers": "19",
-                        "price": "$1.13"
-                    },
-                    "Steam": {
-                        "active_offers": "77",
-                        "price": "$1.18"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Graffiti Box",
-            "Type": "Container",
-            "Popularity": "70%",
-            "Designer": "Valve",
-            "Released": "October 6th, 2016",
-            "Update": "Make Your Mark"
-        }
-    },
-    {
-        "name": "NIGHTMODE Music Kit Box",
-        "link": "https://csgoskins.gg/items/nightmode-music-kit-box",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/nightmode-music-kit-box",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$4.20",
-                    "low": "$3.79"
-                },
-                "monthly_price": {
-                    "high": "$4.21",
-                    "low": "$3.78"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1",
-                        "price": "$7.67"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "176",
-                        "price": "$3.85"
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "23",
-                        "price": "$5.47"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Music Kit Box",
-            "Type": "Container",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "February 6th, 2024",
-            "Update": "The First Actual CS2 Skins"
-        }
-    },
-    {
-        "name": "Collectible Pins Capsule Series 1",
-        "link": "https://csgoskins.gg/items/collectible-pins-capsule-series-1",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/collectible-pins-capsule-series-1",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$8.43",
-                    "low": "$8.11"
-                },
-                "monthly_price": {
-                    "high": "$9.26",
-                    "low": "$6.78"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "2",
-                        "price": "$10.88"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": "9",
-                        "price": "$10.82"
-                    },
-                    "BitSkins": {
-                        "active_offers": "55",
-                        "price": "$19.91"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "7",
-                        "price": "$11.23"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "12",
-                        "price": "$8.43"
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "30",
-                        "price": "$10.05"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Collectible Capsule",
-            "Type": "Container",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "May 31st, 2016",
-            "Update": "Series 1 \u2013 Unpinned"
-        }
-    },
-    {
-        "name": "Audience Participation Parcel",
-        "link": "https://csgoskins.gg/items/audience-participation-parcel",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/audience-participation-parcel",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$86.63",
-                    "low": "$64.84"
-                },
-                "monthly_price": {
-                    "high": "$106.33",
-                    "low": "$64.62"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "1",
-                        "price": "$250.00"
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$199.99"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1",
-                        "price": "$122.93"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "5",
-                        "price": "$86.63"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Gift",
-            "Popularity": "35%",
-            "Designer": "Valve",
-            "Released": "December 18th, 2013",
-            "Update": "Winter Offensive"
-        }
-    },
-    {
-        "name": "Special Agent Ava | FBI",
-        "link": "https://csgoskins.gg/items/special-agent-ava-fbi",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/special-agent-ava-fbi",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$11.20",
-                    "low": "$10.37"
-                },
-                "monthly_price": {
-                    "high": "$11.52",
-                    "low": "$10.37"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "337",
-                        "price": "$11.08"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "158",
-                        "price": "$11.60"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "55",
-                        "price": "$12.20"
-                    },
-                    "BitSkins": {
-                        "active_offers": "120",
-                        "price": "$11.05"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "87",
-                        "price": "$12.05"
-                    },
-                    "CSFloat": {
-                        "active_offers": "154",
-                        "price": "$11.36"
-                    },
-                    "HaloSkins": {
-                        "active_offers": "117",
-                        "price": "$11.59"
-                    },
-                    "DMarket": {
-                        "active_offers": "118",
-                        "price": "$12.09"
-                    },
-                    "Steam": {
-                        "active_offers": "297",
-                        "price": "$15.67"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Master",
-            "Normal"
-        ],
         "collections": [
-            "Shattered Web Agents"
+            "The Phoenix Collection"
         ],
-        "containers": [],
-        "colors": [],
+        "containers": [
+            "Operation Phoenix Weapon Case"
+        ],
+        "colors": [
+            "Red",
+            "Black"
+        ],
         "summary": {
-            "Category": "Agent",
-            "Side": "Counter-Terrorists",
-            "Unit": "FBI",
-            "Popularity": "95%",
-            "Designer": "Valve",
-            "Released": "November 18th, 2019",
-            "Update": "Operation Shattered Web"
-        }
+            "Category": "Skin",
+            "Type": "Rifle",
+            "Weapon": "AK-47",
+            "Finish": "Redline",
+            "Finish Style": "Custom Paint Job",
+            "Finish Catalog": "282",
+            "Popularity": "99%",
+            "Designer": "emkay",
+            "Workshop": "View Submission",
+            "Released": "February 20th, 2014",
+            "Update": "The Rise of Operation Phoenix"
+        },
+        "icon": "https://cdn.csgoskins.gg/public/uih/products/aHR0cHM6Ly9jb21tdW5pdHkuY2xvdWRmbGFyZS5zdGVhbXN0YXRpYy5jb20vZWNvbm9teS9pbWFnZS8tOWE4MWRsV0x3SjJVVUdjVnNfbnNWdHpkT0VkdFd3S0daWkxRSFR4RFo3STU2S1UwWnd3bzROVVg0b0ZKWkVITGJYSDVBcGVPNFltbGh4WVFrbkNSdkNvMDRERVZseGtLZ3BvdDdIeGZEaGp4c3pKZW1rVjA5LTVscEtLcVB2OU5MUEYyRElBNmNBbjN1dVo4ZGoyMzFlMzgwVnRZbTcwZDQtVUpsVS1aZ21DODFXNmtPYm1nSi0tN1p2WGlTdzBoWExESVVV/auto/auto/85/notrim/686f56dc00eb6a4467041be982e1e1c4.webp"
     },
     {
-        "name": "Music Kit | Knock2, dashstar*",
-        "link": "https://csgoskins.gg/items/music-kit-knock2-dashstar",
+        "name": "Sticker | kennyS | Krakow 2017",
+        "link": "https://csgoskins.gg/items/sticker-kennys-krakow-2017",
         "types": [
             {
-                "link": "https://csgoskins.gg/items/music-kit-knock2-dashstar/normal",
-                "name": "Normal",
-                "is_stattrak": false,
-                "is_souvenir": false,
+                "link": "https://csgoskins.gg/items/sticker-kennys-krakow-2017",
+                "name": null,
+                "is_stattrak": null,
+                "is_souvenir": null,
                 "weeks_price": {
-                    "high": "$7.53",
-                    "low": "$7.01"
+                    "high": 9.2,
+                    "low": 8.9
                 },
                 "monthly_price": {
-                    "high": "$7.94",
-                    "low": "$7.01"
+                    "high": 9.61,
+                    "low": 8.9
+                },
+                "all_time_price": {
+                    "low": 1.53,
+                    "high": 41.38
                 },
                 "markets_data": {
                     "Skinport": {
-                        "active_offers": "126",
-                        "price": "$7.53"
+                        "active_offers": 4,
+                        "price": 12.99
                     },
                     "CS.MONEY": {
-                        "active_offers": "4",
-                        "price": "$8.96"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "22",
-                        "price": "$10.38"
-                    },
-                    "BitSkins": {
-                        "active_offers": "11",
-                        "price": "$8.33"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "114",
-                        "price": "$8.09"
-                    },
-                    "CSFloat": {
                         "active_offers": null,
                         "price": null
                     },
-                    "HaloSkins": {
-                        "active_offers": "220",
-                        "price": "$7.73"
-                    },
-                    "DMarket": {
-                        "active_offers": "93",
-                        "price": "$7.89"
-                    },
-                    "Steam": {
-                        "active_offers": "155",
-                        "price": "$10.86"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/music-kit-knock2-dashstar/stattrak",
-                "name": "StatTrak",
-                "is_stattrak": true,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$13.23",
-                    "low": "$12.93"
-                },
-                "monthly_price": {
-                    "high": "$14.10",
-                    "low": "$12.80"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "80",
-                        "price": "$13.96"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "3",
-                        "price": "$15.83"
-                    },
                     "SkinBaron": {
-                        "active_offers": "6",
-                        "price": "$17.16"
+                        "active_offers": 2,
+                        "price": 18.41
                     },
                     "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$16.60"
+                        "active_offers": 3,
+                        "price": 11.27
                     },
                     "Market CSGO": {
-                        "active_offers": "54",
-                        "price": "$14.82"
+                        "active_offers": 5,
+                        "price": 11.98
                     },
                     "CSFloat": {
-                        "active_offers": null,
-                        "price": null
+                        "active_offers": 4,
+                        "price": 13.33
                     },
                     "HaloSkins": {
-                        "active_offers": "34",
-                        "price": "$14.59"
+                        "active_offers": 11,
+                        "price": 12.44
                     },
                     "DMarket": {
-                        "active_offers": "100",
-                        "price": "$13.79"
+                        "active_offers": 5,
+                        "price": 8.9
                     },
                     "Steam": {
-                        "active_offers": "81",
-                        "price": "$19.55"
+                        "active_offers": 52,
+                        "price": 13.0
                     }
                 }
             }
         ],
         "item_classes": [
             "High Grade",
-            "StatTrak"
-        ],
-        "collections": [],
-        "containers": [
-            "Initiators Music Kit Box",
-            "StatTrak\u2122 Initiators Music Kit Box"
-        ],
-        "colors": [],
-        "summary": {
-            "Category": "Music Kit",
-            "Artist": "Knock2",
-            "Popularity": "95%",
-            "Designer": "Valve",
-            "Released": "August 23rd, 2022",
-            "Update": "Initiators Music Kits"
-        }
-    },
-    {
-        "name": "Operation Breakout All Access Pass",
-        "link": "https://csgoskins.gg/items/operation-breakout-all-access-pass",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/operation-breakout-all-access-pass",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$63.77",
-                    "low": "$63.16"
-                },
-                "monthly_price": {
-                    "high": "$64.89",
-                    "low": "$62.83"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "6",
-                        "price": "$72.54"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": "7",
-                        "price": "$63.77"
-                    },
-                    "BitSkins": {
-                        "active_offers": "8",
-                        "price": "$99.99"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "4",
-                        "price": "$74.51"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "1",
-                        "price": "$96.72"
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "68",
-                        "price": "$74.99"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Pass",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "July 1st, 2014",
-            "Update": "Operation Breakout"
-        }
-    },
-    {
-        "name": "Howl Pin",
-        "link": "https://csgoskins.gg/items/howl-pin",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/howl-pin",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$52.79",
-                    "low": "$50.00"
-                },
-                "monthly_price": {
-                    "high": "$52.79",
-                    "low": "$45.33"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "27",
-                        "price": "$60.60"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "12",
-                        "price": "$60.95"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "14",
-                        "price": "$60.16"
-                    },
-                    "BitSkins": {
-                        "active_offers": "5",
-                        "price": "$59.90"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "6",
-                        "price": "$57.42"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "20",
-                        "price": "$54.52"
-                    },
-                    "DMarket": {
-                        "active_offers": "30",
-                        "price": "$50.67"
-                    },
-                    "Steam": {
-                        "active_offers": "23",
-                        "price": "$73.37"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Extraordinary",
             "Normal"
         ],
         "collections": [],
         "containers": [
-            "Collectible Pins Capsule Series 3"
+            "Krakow 2017 Challengers Autograph Capsule"
         ],
-        "colors": [],
+        "colors": [
+            "Gray"
+        ],
         "summary": {
-            "Category": "Collectible",
-            "Popularity": "90%",
+            "Category": "Sticker",
+            "Tournament": "2017 PGL Krakow",
+            "Team": "G2 Esports",
+            "Player": "kennyS",
+            "Film": "Paper",
+            "Popularity": "35%",
             "Designer": "Valve",
-            "Released": "March 1st, 2018",
-            "Update": "Series 3 pins"
-        }
-    },
-    {
-        "name": "Name Tag",
-        "link": "https://csgoskins.gg/items/name-tag",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/name-tag",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$1.41",
-                    "low": "$1.34"
-                },
-                "monthly_price": {
-                    "high": "$1.41",
-                    "low": "$1.30"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "3.7K",
-                        "price": "$1.61"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "46",
-                        "price": "$1.48"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "773",
-                        "price": "$1.57"
-                    },
-                    "BitSkins": {
-                        "active_offers": "1.1K",
-                        "price": "$1.58"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "94",
-                        "price": "$1.62"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "1.8K",
-                        "price": "$1.41"
-                    },
-                    "DMarket": {
-                        "active_offers": "2.3K",
-                        "price": "$1.95"
-                    },
-                    "Steam": {
-                        "active_offers": "1.4K",
-                        "price": "$1.88"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Tag",
-            "Popularity": "90%",
-            "Designer": "Valve",
-            "Released": "August 29th, 2013",
-            "Update": "Name Tags"
-        }
-    },
-    {
-        "name": "StatTrak\u2122 Swap Tool",
-        "link": "https://csgoskins.gg/items/stattrak-swap-tool",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/stattrak-swap-tool",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$0.31",
-                    "low": "$0.25"
-                },
-                "monthly_price": {
-                    "high": "$0.35",
-                    "low": "$0.25"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "364",
-                        "price": "$0.34"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "149",
-                        "price": "$0.35"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "845",
-                        "price": "$0.33"
-                    },
-                    "BitSkins": {
-                        "active_offers": "1.5K",
-                        "price": "$0.35"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "228",
-                        "price": "$0.35"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "749",
-                        "price": "$0.35"
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "1.8K",
-                        "price": "$0.47"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [],
-        "colors": [],
-        "summary": {
-            "Category": "Tool",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "March 31st, 2015",
-            "Update": "StatTrak Swap"
-        }
-    },
-    {
-        "name": "Sealed Graffiti | Recoil AWP",
-        "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/battle-green",
-                "name": "Battle Green",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$9.00",
-                    "low": "$9.00"
-                },
-                "monthly_price": {
-                    "high": "$20.00",
-                    "low": "$5.51"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1",
-                        "price": "$50.00"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "8",
-                        "price": "$9.00"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/bazooka-pink",
-                "name": "Bazooka Pink",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$8.46",
-                    "low": "$5.75"
-                },
-                "monthly_price": {
-                    "high": "$8.46",
-                    "low": "$4.05"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "1",
-                        "price": "$13.98"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$10.08"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "8",
-                        "price": "$8.46"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/blood-red",
-                "name": "Blood Red",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$26.66",
-                    "low": "$15.03"
-                },
-                "monthly_price": {
-                    "high": "$39.80",
-                    "low": "$12.13"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "3",
-                        "price": "$26.66"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": "1",
-                        "price": "$151.76"
-                    },
-                    "BitSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$26.95"
-                    },
-                    "Steam": {
-                        "active_offers": "12",
-                        "price": "$27.49"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/brick-red",
-                "name": "Brick Red",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$4.51",
-                    "low": "$3.54"
-                },
-                "monthly_price": {
-                    "high": "$9.55",
-                    "low": "$3.54"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "2",
-                        "price": "$3.54"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "9",
-                        "price": "$9.15"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/cash-green",
-                "name": "Cash Green",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$3.04",
-                    "low": "$3.03"
-                },
-                "monthly_price": {
-                    "high": "$5.00",
-                    "low": "$3.03"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "1",
-                        "price": "$3.03"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$8.98"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$5.00"
-                    },
-                    "Steam": {
-                        "active_offers": "16",
-                        "price": "$5.38"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/desert-amber",
-                "name": "Desert Amber",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$10.00",
-                    "low": "$10.00"
-                },
-                "monthly_price": {
-                    "high": "$10.00",
-                    "low": "$10.00"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "2",
-                        "price": "$10.00"
-                    },
-                    "Steam": {
-                        "active_offers": "18",
-                        "price": "$12.99"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/dust-brown",
-                "name": "Dust Brown",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$4.76",
-                    "low": "$3.03"
-                },
-                "monthly_price": {
-                    "high": "$4.76",
-                    "low": "$3.03"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "26",
-                        "price": "$4.76"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/frog-green",
-                "name": "Frog Green",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$7.08",
-                    "low": "$7.02"
-                },
-                "monthly_price": {
-                    "high": "$7.14",
-                    "low": "$4.82"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "1",
-                        "price": "$7.08"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "6",
-                        "price": "$42.56"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/jungle-green",
-                "name": "Jungle Green",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$6.40",
-                    "low": "$6.40"
-                },
-                "monthly_price": {
-                    "high": "$6.40",
-                    "low": "$4.82"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "1",
-                        "price": "$7.13"
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "1",
-                        "price": "$8.42"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "1",
-                        "price": "$9.35"
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "16",
-                        "price": "$6.40"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/monarch-blue",
-                "name": "Monarch Blue",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$4.78",
-                    "low": "$4.78"
-                },
-                "monthly_price": {
-                    "high": "$4.89",
-                    "low": "$4.78"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$10.00"
-                    },
-                    "Steam": {
-                        "active_offers": "12",
-                        "price": "$5.64"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/monster-purple",
-                "name": "Monster Purple",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$6.53",
-                    "low": "$6.53"
-                },
-                "monthly_price": {
-                    "high": "$6.68",
-                    "low": "$6.53"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "3",
-                        "price": "$13.06"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "8",
-                        "price": "$8.83"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/princess-pink",
-                "name": "Princess Pink",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$6.82",
-                    "low": "$4.95"
-                },
-                "monthly_price": {
-                    "high": "$6.82",
-                    "low": "$3.33"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$8.49"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "7",
-                        "price": "$6.82"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/shark-white",
-                "name": "Shark White",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$6.14",
-                    "low": "$4.04"
-                },
-                "monthly_price": {
-                    "high": "$10.00",
-                    "low": "$4.04"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "3",
-                        "price": "$6.14"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$10.00"
-                    },
-                    "Steam": {
-                        "active_offers": "7",
-                        "price": "$10.67"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/swat-blue",
-                "name": "SWAT Blue",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$4.87",
-                    "low": "$4.83"
-                },
-                "monthly_price": {
-                    "high": "$4.87",
-                    "low": "$4.50"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": "1",
-                        "price": "$4.87"
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$8.05"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "8",
-                        "price": "$5.82"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/tiger-orange",
-                "name": "Tiger Orange",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$10.00",
-                    "low": "$10.00"
-                },
-                "monthly_price": {
-                    "high": "$20.00",
-                    "low": "$10.00"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "6",
-                        "price": "$51.41"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/tracer-yellow",
-                "name": "Tracer Yellow",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$5.49",
-                    "low": "$5.48"
-                },
-                "monthly_price": {
-                    "high": "$5.59",
-                    "low": "$5.48"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "1",
-                        "price": "$5.62"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "3",
-                        "price": "$9.64"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "1",
-                        "price": "$7.09"
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$15.00"
-                    },
-                    "Steam": {
-                        "active_offers": "10",
-                        "price": "$8.12"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/violent-violet",
-                "name": "Violent Violet",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$8.16",
-                    "low": "$7.90"
-                },
-                "monthly_price": {
-                    "high": "$8.16",
-                    "low": "$7.77"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "2",
-                        "price": "$12.61"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "17",
-                        "price": "$7.90"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/war-pig-pink",
-                "name": "War Pig Pink",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$5.95",
-                    "low": "$5.95"
-                },
-                "monthly_price": {
-                    "high": "$6.45",
-                    "low": "$5.90"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "1",
-                        "price": "$20.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "15",
-                        "price": "$5.95"
-                    }
-                }
-            },
-            {
-                "link": "https://csgoskins.gg/items/sealed-graffiti-recoil-awp/wire-blue",
-                "name": "Wire Blue",
-                "is_stattrak": false,
-                "is_souvenir": false,
-                "weeks_price": {
-                    "high": "$3.04",
-                    "low": "$3.03"
-                },
-                "monthly_price": {
-                    "high": "$5.71",
-                    "low": "$3.03"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "1",
-                        "price": "$3.03"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "SkinBaron": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$10.00"
-                    },
-                    "Market CSGO": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "DMarket": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "Steam": {
-                        "active_offers": "9",
-                        "price": "$5.64"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Base Grade",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [
-            "CS:GO Graffiti #3 Collection"
-        ],
-        "colors": [],
-        "summary": {
-            "Category": "Graffiti",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "December 3rd, 2020",
-            "Update": "Operation Broken Fang"
-        }
-    },
-    {
-        "name": "Patch | Metal Silver Demon",
-        "link": "https://csgoskins.gg/items/patch-metal-silver-demon",
-        "types": [
-            {
-                "link": "https://csgoskins.gg/items/patch-metal-silver-demon",
-                "name": null,
-                "is_stattrak": null,
-                "is_souvenir": null,
-                "weeks_price": {
-                    "high": "$32.05",
-                    "low": "$28.86"
-                },
-                "monthly_price": {
-                    "high": "$39.63",
-                    "low": "$28.86"
-                },
-                "markets_data": {
-                    "Skinport": {
-                        "active_offers": "24",
-                        "price": "$41.40"
-                    },
-                    "CS.MONEY": {
-                        "active_offers": "4",
-                        "price": "$37.64"
-                    },
-                    "SkinBaron": {
-                        "active_offers": "11",
-                        "price": "$35.43"
-                    },
-                    "BitSkins": {
-                        "active_offers": "2",
-                        "price": "$82.28"
-                    },
-                    "Market CSGO": {
-                        "active_offers": "4",
-                        "price": "$38.93"
-                    },
-                    "CSFloat": {
-                        "active_offers": null,
-                        "price": null
-                    },
-                    "HaloSkins": {
-                        "active_offers": "8",
-                        "price": "$36.88"
-                    },
-                    "DMarket": {
-                        "active_offers": "1",
-                        "price": "$79.00"
-                    },
-                    "Steam": {
-                        "active_offers": "43",
-                        "price": "$43.30"
-                    }
-                }
-            }
-        ],
-        "item_classes": [
-            "Exotic",
-            "Normal"
-        ],
-        "collections": [],
-        "containers": [
-            "Metal Skill Group Patch Collection"
-        ],
-        "colors": [],
-        "summary": {
-            "Category": "Patch",
-            "Popularity": "85%",
-            "Designer": "Valve",
-            "Released": "December 3rd, 2020",
-            "Update": "Operation Broken Fang"
-        }
+            "Released": "July 7th, 2017",
+            "Update": "Krakow 2017 \u2013 Tournament Items"
+        },
+        "icon": "https://cdn.csgoskins.gg/public/uih/products/aHR0cHM6Ly9jb21tdW5pdHkuY2xvdWRmbGFyZS5zdGVhbXN0YXRpYy5jb20vZWNvbm9teS9pbWFnZS8tOWE4MWRsV0x3SjJVVUdjVnNfbnNWdHpkT0VkdFd3S0daWkxRSFR4RFo3STU2S1UwWnd3bzROVVg0b0ZKWkVITGJYUTlRVmNKWThndWxSV1hrM2JTUFBfaDU2RUhFNTlJanRjczdTck1oUXVnUExLSVRzWDZvamt3SWJmeF9Lak5lLUd4amdDdUpFbmlidkZwbzN4MEZYa3FrWnFNR3VsSlpqVkxGRk9FaHpJRkE-/auto/auto/85/notrim/1c75a092a4a05dccae7aaba85a955e7c.webp"
     }
 ]
