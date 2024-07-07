@@ -93,7 +93,7 @@ def parse_response(result_mapping):
 
     sticker_contents = load_stickers_content()
     stickers_ids = load_stickers_ids()
-    weaponts_to_insert, stickers_to_insert = [], []
+    weapons_to_insert, stickers_to_insert = [], []
 
     for key, item in result_mapping['items_list'].items():
         if any(item["name"].startswith(weapon) or item["name"].startswith("StatTrak™ " + weapon) for weapon in all_weapons) and "price" in item:
@@ -104,7 +104,7 @@ def parse_response(result_mapping):
                     break
             exterior = next(x for x in exteriors if x in item["name"])
             name = html.unescape(item["name"].replace("StatTrak™ ", "").replace(f' ({exterior})', ""))
-            weaponts_to_insert.append((
+            weapons_to_insert.append((
                 name, exterior, 'StatTrak™' in item["name"], price,
                 item["price"]["7_days"]['lowest_price'] if "7_days" in item["price"] else 0,
                 item["price"]["7_days"]['highest_price'] if "7_days" in item["price"] else 0,
@@ -139,7 +139,7 @@ def parse_response(result_mapping):
                 item["icon_url"]
             ))
 
-    return  weaponts_to_insert, stickers_to_insert
+    return  weapons_to_insert, stickers_to_insert
 
 def invoke_api():
     driver_class = SeleniumDriver()
@@ -159,11 +159,11 @@ def main(cfg: DictConfig):
         response_api = invoke_api()
         logging.info(f"Got results from API")
 
-        weaponts_to_insert, stickers_to_insert = parse_response(response_api)
+        weapons_to_insert, stickers_to_insert = parse_response(response_api)
         logging.info("Response parsed")
 
         db_client = DBClient()
-        for weapons in split_array(weaponts_to_insert):
+        for weapons in split_array(weapons_to_insert):
             logging.info(f"Updating weapons prices for {len(weapons)} items")
             db_client.update_weapon_prices(weapons)
 
