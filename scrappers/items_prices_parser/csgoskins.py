@@ -314,20 +314,6 @@ def main():
 
         print(json.dumps(weapon_configs, indent=4))
 
-        return
-
-        logging.info("Get items url")
-
-        for url in parse_urls:
-            if driver:
-                logging.info(f"Mocking in progress: {url}")
-                mock_pages(driver, url, pages_mock)
-                url = url.replace(url.split('/')[-1], f"stattrak-{url.split('/')[-1]}")
-                mock_pages(driver, url, pages_mock)
-        logging.info(f"Mocking finished")
-        parsed_items = parse_mock_pages(pages_mock)
-        write_data(parsed_items)
-        # db_client = DBClient()
     except Exception as e:
         logging.error(f"Got exception: {e}")
     finally:
