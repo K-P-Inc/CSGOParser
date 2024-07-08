@@ -215,6 +215,7 @@ def get_item_icon(driver):
     finally:
         return icon
 
+
 def get_price_values(driver, price_values):
     try:
         for period in periods:
@@ -224,11 +225,12 @@ def get_price_values(driver, price_values):
     finally:
         return price_values
 
+
 def fetch_market_data(driver, item_link, price_values):
     time.sleep(1)
     driver.get(item_link)
     prices = get_price_values(driver, price_values)
-    
+
     markets_data = {
         "Skinport": get_market_prices(driver, 'Skinport'),
         "GamerPay": get_market_prices(driver, 'GamerPay'),
@@ -251,8 +253,9 @@ def fetch_market_data(driver, item_link, price_values):
         "BUFF Market": get_market_prices(driver, 'BUFF Market'),
         'SkinBid': get_market_prices(driver, 'SkinBid')
     }
-    
+
     return prices, markets_data
+
 
 def update_item_with_prices(item, prices, markets_data):
     item['markets'] = markets_data
@@ -263,6 +266,7 @@ def update_item_with_prices(item, prices, markets_data):
     item['all_time_low'] = prices['All Time Low']
     item['all_time_high'] = prices['All Time High']
     return item
+
 
 def parse_with_price(driver):
     global_config = []
@@ -296,8 +300,10 @@ def parse_with_price(driver):
         with open(file_to_write, "w") as file:
             json.dump(global_config, file, indent=4)
 
+
 def split_array(array, k=1000):
     return [array[i * k:i * k + k] for i in range(len(array) // k + 1)]
+
 
 def main():
     pages_mock, parse_urls = [], []
