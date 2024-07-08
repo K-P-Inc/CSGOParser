@@ -279,55 +279,77 @@ def get_price_values(driver, price_values):
     finally:
         return price_values
 
+def fetch_market_data(driver, item_link, price_values):
+    time.sleep(1)
+    driver.get(item_link)
+    prices = get_price_values(driver, price_values)
+    
+    markets_data = {
+        "Skinport": get_market_prices(driver, 'Skinport'),
+        "GamerPay": get_market_prices(driver, 'GamerPay'),
+        "Lis Skins": get_market_prices(driver, 'Lis Skins'),
+        "CS.MONEY": get_market_prices(driver, 'CS.MONEY'),
+        "SkinBaron": get_market_prices(driver, 'SkinBaron'),
+        "SkinSwap": get_market_prices(driver, 'SkinSwap'),
+        "BUFF163": get_market_prices(driver, 'BUFF163'),
+        "BitSkins": get_market_prices(driver, 'BitSkins'),
+        "WAXPEER": get_market_prices(driver, 'WAXPEER'),
+        "ShadowPay": get_market_prices(driver, 'ShadowPay'),
+        "Market CSGO": get_market_prices(driver, 'Market CSGO'),
+        "CSFloat": get_market_prices(driver, 'CSFloat'),
+        "HaloSkins": get_market_prices(driver, 'HaloSkins'),
+        "CS.DEALS": get_market_prices(driver, 'CS.DEALS'),
+        "DMarket": get_market_prices(driver, 'DMarket'),
+        "Tradeit.gg": get_market_prices(driver, 'Tradeit.gg'),
+        "Mannco.store": get_market_prices(driver, 'Mannco.store'),
+        "Steam": get_market_prices(driver, 'Steam'),
+        "BUFF Market": get_market_prices(driver, 'BUFF Market'),
+        'SkinBid': get_market_prices(driver, 'SkinBid')
+    }
+    
+    return prices, markets_data
+
+def update_item_with_prices(item, prices, markets_data):
+    item['markets'] = markets_data
+    item['week_low_value'] = prices['7 Day Low']
+    item['week_high_value'] = prices['7 Day High']
+    item['month_low_value'] = prices['30 Day Low']
+    item['month_high_value'] = prices['30 Day High']
+    item['all_time_low'] = prices['All Time Low']
+    item['all_time_high'] = prices['All Time High']
+    return item
+
 def parse(driver):
-    global_weapon_configs = []
-    parsed_items = ['sticker', 'ak-47', 'm4a1-s', 'm4a4', 'awp']
+    global_config = []
+    parsed_items = ['awp', 'sticker', 'ak-47', 'm4a1-s', 'm4a4', 'awp']
     file_to_read = "scrappers/data/global_weapon_configs.json"
     file_to_write = "scrappers/data/parse_items_with_price.json"
 
     with open(file_to_read, 'r') as file:
         items = json.load(file)
 
+    # with open(file_to_write, 'r') as file:
+        # global_config = json.load(file)
+
     try:
-        for item in items[:1000]:
-            for i in parsed_items:
-                price_values = {}
-                if i in item['link'] and 'souvenir' not in item['link']:
-                    for item_types in item.get('types'):
-                        item_link = item_types['link']
-
-                        driver.get(item_link)
-                        icon = get_item_icon(driver)
-                        prices = get_price_values(driver, price_values)
-
-                        markets_data = {
-                                "Skinport": get_market_prices(driver, 'Skinport'),
-                                "CS.MONEY": get_market_prices(driver, 'CS.MONEY'),
-                                "SkinBaron": get_market_prices(driver, 'SkinBaron'),
-                                "BitSkins": get_market_prices(driver, 'BitSkins'),
-                                "Market CSGO": get_market_prices(driver, 'Market CSGO'),
-                                "CSFloat": get_market_prices(driver, 'CSFloat'),
-                                "HaloSkins": get_market_prices(driver, 'HaloSkins'),
-                                "DMarket": get_market_prices(driver, 'DMarket'),
-                                "Steam": get_market_prices(driver, 'Steam'),
-                        }
-
-                        item_types['markets'] = markets_data
-
-                        item_types['week_low_value'] = prices['7 Day Low']
-                        item_types['week_high_value'] = prices['7 Day High']
-                        item_types['month_low_value'] = prices['30 Day Low']
-                        item_types['month_high_value'] = prices['30 Day High']
-                        item_types['all_time_low'] = prices['All Time Low']
-                        item_types['all_time_high'] = prices['All Time High']
-
-                        item_types['icon'] = icon
-
-                        global_weapon_configs.append(item_types)
-    
+        for parsed_item in parsed_items:
+            for item in items:
+                if parsed_item in item['link']:
+                    price_values = {}
+                    print(item['link'])
+                    if 'sticker' in item['link']:
+                        prices, markets_data = fetch_market_data(driver, item['link'], price_values)
+                        updated_item = update_item_with_prices(item, prices, markets_data)
+                        global_config.append(updated_item)
+                    else:
+                        for item_type in item.get('types', []):
+                            if 'souvenir' not in item_type['link']:
+                                prices, markets_data = fetch_market_data(driver, item_type['link'], price_values)
+                                updated_item_type = update_item_with_prices(item_type, prices, markets_data)
+                                global_config.append(updated_item_type)
     finally:
         with open(file_to_write, "w") as file:
-            json.dump(global_weapon_configs, file, indent=4)
+            json.dump(global_config, file, indent=4)
 
 
 
