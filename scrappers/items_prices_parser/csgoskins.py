@@ -114,154 +114,99 @@ def find_items_global_links(driver):
 
 
 def parse_global_weapon_information(driver, url):
-    markets_data = dict()
     time.sleep(1)
-    parsed_items = ['sticker', 'ak-47', 'm4a1-s', 'm4a4', 'awp']
-    сondition = [i for i in parsed_items if i in url and 'souvenir' not in url]
-    if сondition:
-        driver.get(url)
-        driver.implicitly_wait(0.5)
+    driver.get(url)
+    driver.implicitly_wait(1)
 
-        skin_name = driver.find_element(By.XPATH, '//h1[@class="text-2xl sm:text-3xl font-bold"]').text
+    skin_name = driver.find_element(By.XPATH, '//h1[@class="text-2xl sm:text-3xl font-bold"]').text
 
-        types_config, links = [], []
+    types_config = []
+    try:
+        for type_link in driver.find_elements(By.XPATH, f'//a[starts-with(@href, "{url}")]'):
+            type_name = type_link.find_element(By.XPATH, './/div[@class="w-2/3 flex-none"]').text
+            types_config.append({
+                "link": type_link.get_attribute("href"),
+                "name": type_name.replace("StatTrak ", "").replace("Souvenir ", ""),
+                "is_stattrak": type_name.startswith("StatTrak"),
+                "is_souvenir": type_name.startswith("Souvenir"),
+            })
+    except NoSuchElementException:
+        types_config = []
 
-        try:
-            for element in driver.find_elements(By.XPATH, f'//a[starts-with(@href, "{url}")]'):
-                if 'key' not in element.get_attribute('href'):
-                    links.append(element.get_attribute('href'))
-        finally:
-            if len(links) == 0:
-                links.append(url)
+    try:
+        summary_element = driver.find_element(By.XPATH, '//h2[text()="Summary"]')
+        summary_parent_element = summary_element.find_element(By.XPATH, './ancestor::div[@class="mt-12"]/following-sibling::div[@class="shadow-md bg-gray-800 rounded mt-4"]')
+        summary_sub_elements = summary_parent_element.find_elements(By.XPATH, './div[@class="flex px-4 py-2"]')
+        skin_summary = {}
+        for child in summary_sub_elements:
+            key, _, value = child.text.partition("\n")
+            skin_summary[key] = value.replace("\"", "")
+    except NoSuchElementException:
+        skin_summary = {}
 
-        try:
-            for link in links:
-                if link != url:
-                    driver.get(link)
-                logging.info(f'Parse item: {link}')
+    try:
+        item_class_element = driver.find_element(By.XPATH, '//h2[text()="Item Class"]')
+        item_class_parent_element = item_class_element.find_element(By.XPATH, './ancestor::div[@class="mt-12"]/following-sibling::div[@class="flex mt-4"]')
+        item_class_sub_elements = item_class_parent_element.find_elements(By.XPATH, './div[@class="w-1/2"]')
+        item_class_names = [item_class.text for item_class in item_class_sub_elements]
+    except NoSuchElementException:
+        item_class_names = []
 
-                try:
-                    type_name = driver.find_element(By.XPATH, "//*[contains(@class, 'hover:bg-gray-700 bg-gray-700')]//div[1]").text
-                    if type_name:
-                        name = type_name.replace("StatTrak ", "").replace("Souvenir ", "")
-                        is_stattrak = type_name.startswith("StatTrak")
-                        is_souvenir = type_name.startswith("Souvenir")
-                except NoSuchElementException:
-                    name, is_stattrak, is_souvenir = None, None, None
+    try:
+        collections_element = driver.find_element(By.XPATH, '//h2[text()="Collections"]')
+        collections_parent_element = collections_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
+        collections_sub_elements = collections_parent_element.find_elements(By.XPATH, './div[@class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/3 p-4"]')
+        collections_names = [collection_element.text for collection_element in collections_sub_elements]
+    except NoSuchElementException:
+        collections_names = []
 
-                price_values = {}
+    try:
+        containers_element = driver.find_element(By.XPATH, '//h2[text()="Containers"]')
+        containers_parent_element = containers_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
+        containers_sub_elements = containers_parent_element.find_elements(By.XPATH, './div[@class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/3 p-4"]')
+        containers_names = [container_element.text for container_element in containers_sub_elements]
+    except NoSuchElementException:
+        containers_names = []
 
-                for period in periods:
-                    for stat in statistics:
-                        value = float(driver.find_element(By.XPATH, price_statistics_xpath(f'{period} {stat}')).text.replace('$',''))
-                        price_values[f'{period} {stat}'] = value
+    try:
+        colors_element = driver.find_element(By.XPATH, '//h2[text()="Colors"]')
+        colors_parent_element = colors_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
+        colors_sub_elements = colors_parent_element.find_elements(By.XPATH, './div[@class="w-full flex p-4"]/a')
+        colors_names = [color_element.get_attribute('aria-label') for color_element in colors_sub_elements]
+    except NoSuchElementException:
+        colors_names = []
 
-                markets_data = {
-                    "Skinport": get_market_prices(driver, 'Skinport'),
-                    # "GamerPay": get_market_prices(driver, 'GamerPay'),
-                    # "Lis Skins": get_market_prices(driver, 'Lis Skins'),
-                    "CS.MONEY": get_market_prices(driver, 'CS.MONEY'),
-                    "SkinBaron": get_market_prices(driver, 'SkinBaron'),
-                    # "SkinSwap": get_market_prices(driver, 'SkinSwap'),
-                    # "BUFF163": get_market_prices(driver, 'BUFF163'),
-                    "BitSkins": get_market_prices(driver, 'BitSkins'),
-                    # "WAXPEER": get_market_prices(driver, 'WAXPEER'),
-                    # "ShadowPay": get_market_prices(driver, 'ShadowPay'),
-                    "Market CSGO": get_market_prices(driver, 'Market CSGO'),
-                    "CSFloat": get_market_prices(driver, 'CSFloat'),
-                    "HaloSkins": get_market_prices(driver, 'HaloSkins'),
-                    # "CS.DEALS": get_market_prices(driver, 'CS.DEALS'),
-                    "DMarket": get_market_prices(driver, 'DMarket'),
-                    # "Tradeit.gg": get_market_prices(driver, 'Tradeit.gg'),
-                    # "Mannco.store": get_market_prices(driver, 'Mannco.store'),
-                    "Steam": get_market_prices(driver, 'Steam'),
-                    # "BUFF Market": get_market_prices(driver, 'BUFF Market')
-                }
+    return {
+        "name": skin_name,
+        "link": url,
+        "types": types_config,
+        "item_classes": item_class_names,
+        "collections": collections_names,
+        "containers": containers_names,
+        "colors": colors_names,
+        "summary": skin_summary
+    }
 
-                week_low_value = price_values.get('7 Day Low')
-                week_high_value = price_values.get('7 Day High')
-                month_low_value = price_values.get('30 Day Low')
-                month_high_value = price_values.get('30 Day High')
-                all_time_low = price_values.get('All Time Low')
-                all_time_high = price_values.get('All Time High')
 
-                types_config.append({
-                    "link": driver.current_url,
-                    "name": name,
-                    "is_stattrak": is_stattrak,
-                    "is_souvenir": is_souvenir,
-                    "weeks_price": {
-                        "high": week_high_value,
-                        "low": week_low_value 
-                    },
-                    "monthly_price": {
-                        "high": month_high_value,
-                        "low": month_low_value
-                    },
-                    'all_time_price': {
-                        "low": all_time_low,
-                        "high": all_time_high
-                    },
-                    "markets_data": markets_data
-                })
+def find_items_description(driver, items_list):
+    global_weapon_configs = []
+    file_path = "data/global_weapon_configs.json"
 
-        except NoSuchElementException:
-            types_config = []
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            global_weapon_configs = json.load(file)
 
-        try:
-            summary_element = driver.find_element(By.XPATH, '//h2[text()="Summary"]')
-            summary_parent_element = summary_element.find_element(By.XPATH, './ancestor::div[@class="mt-12"]/following-sibling::div[@class="shadow-md bg-gray-800 rounded mt-4"]')
-            summary_sub_elements = summary_parent_element.find_elements(By.XPATH, './div[@class="flex px-4 py-2"]')
-            skin_summary = {}
-            for child in summary_sub_elements:
-                key, _, value = child.text.partition("\n")
-                skin_summary[key] = value.replace("\"", "")
-        except NoSuchElementException:
-            skin_summary = {}
+    if global_weapon_configs:
+        return global_weapon_configs
 
-        try:
-            item_class_element = driver.find_element(By.XPATH, '//h2[text()="Item Class"]')
-            item_class_parent_element = item_class_element.find_element(By.XPATH, './ancestor::div[@class="mt-12"]/following-sibling::div[@class="flex mt-4"]')
-            item_class_sub_elements = item_class_parent_element.find_elements(By.XPATH, './div[@class="w-1/2"]')
-            item_class_names = [item_class.text for item_class in item_class_sub_elements]
-        except NoSuchElementException:
-            item_class_names = []
+    for url in items_list:
+        global_weapon_configs.append(parse_global_weapon_information(driver, url))
 
-        try:
-            collections_element = driver.find_element(By.XPATH, '//h2[text()="Collections"]')
-            collections_parent_element = collections_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
-            collections_sub_elements = collections_parent_element.find_elements(By.XPATH, './div[@class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/3 p-4"]')
-            collections_names = [collection_element.text for collection_element in collections_sub_elements]
-        except NoSuchElementException:
-            collections_names = []
+    with open(file_path, "w") as file:
+        json.dump(global_weapon_configs, file, indent=4)
 
-        try:
-            containers_element = driver.find_element(By.XPATH, '//h2[text()="Containers"]')
-            containers_parent_element = containers_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
-            containers_sub_elements = containers_parent_element.find_elements(By.XPATH, './div[@class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/3 p-4"]')
-            containers_names = [container_element.text for container_element in containers_sub_elements]
-        except NoSuchElementException:
-            containers_names = []
+    return global_weapon_configs
 
-        try:
-            colors_element = driver.find_element(By.XPATH, '//h2[text()="Colors"]')
-            colors_parent_element = colors_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
-            colors_sub_elements = colors_parent_element.find_elements(By.XPATH, './div[@class="w-full flex p-4"]/a')
-            colors_names = [color_element.get_attribute('aria-label') for color_element in colors_sub_elements]
-        except NoSuchElementException:
-            colors_names = []
-
-        return {
-            "name": skin_name,
-            "link": url,
-            "types": types_config,
-            "item_classes": item_class_names,
-            "collections": collections_names,
-            "containers": containers_names,
-            "colors": colors_names,
-            "summary": skin_summary,
-            'icon': icon
-        }
 
 def get_item_icon(driver):
     icon = None
@@ -319,7 +264,7 @@ def update_item_with_prices(item, prices, markets_data):
     item['all_time_high'] = prices['All Time High']
     return item
 
-def parse(driver):
+def parse_with_price(driver):
     global_config = []
     parsed_items = ['sticker', 'ak-47', 'm4a1-s', 'm4a4', 'awp']
     file_to_read = "scrappers/data/global_weapon_configs.json"
@@ -351,119 +296,43 @@ def parse(driver):
         with open(file_to_write, "w") as file:
             json.dump(global_config, file, indent=4)
 
-
-
-def find_items_description(driver, items_list):
-    global_weapon_configs = []
-    # file_path = "scrappers/data/global_weapon_configs.json"
-    file_path = "scrappers/data/parse_items_with_price.json"
-    try:
-        # if os.path.exists(file_path):
-        #     with open(file_path, "r") as file:
-        #         global_weapon_configs = json.load(file)
-
-        # if global_weapon_configs:
-            # return global_weapon_configs
-
-        for url in items_list:
-            global_weapon_configs.append(parse_global_weapon_information(driver, url))
-
-        with open(file_path, "w") as file:
-            json.dump(global_weapon_configs, file, indent=4)
-    except Exception as e:
-        logging.error(f"Got exception: {e}")
-
-    return global_weapon_configs
-
+def split_array(array, k=1000):
+    return [array[i * k:i * k + k] for i in range(len(array) // k + 1)]
 
 def main():
     pages_mock, parse_urls = [], []
-    weapons_to_insert, stickers_to_insert = [], []
-
     try:
         driver = create_driver()
         logging.info(f"Creating driver")
 
-        parse(driver)
+        parse_with_price(driver)
+        return
 
-        # # with open('scrappers/data/items_links_without_quality.json', 'r') as file:
-        #     # items_links_without_quality = json.load(file)
+        get_parse_urls(parse_urls)
+        items_links_without_quality = find_items_global_links(driver)
+        weapon_configs = find_items_description(driver,  items_links_without_quality)
 
-        # items_links_without_quality = [
-        #     "https://csgoskins.gg/items/ak-47-redline",
-        #     "https://csgoskins.gg/items/sticker-kennys-krakow-2017"
-        # ]
+        print(json.dumps(weapon_configs, indent=4))
 
-        # logging.info(f"Get items links")
+        return
 
-        # # items_links_without_quality = find_items_global_links(driver)
+        logging.info("Get items url")
 
-        # weapon_configs = find_items_description(driver,  items_links_without_quality)
-
-        # with open('scrappers/data/parse_items_with_price.json','r') as file:
-        #     weapon_with_prices_file = json.load(file)
-        # logging.info(f"Get items data")
-
-        # for item in weapon_with_prices_file:
-        #     for items_exterior in range(len(item['types'])):
-        #         item_name = item['name']
-        #         avarage_prive = (item['types'][items_exterior]['weeks_price']['high'] + item['types'][items_exterior]['weeks_price']['low']) / 2,
-        #         week_price_low = item['types'][items_exterior]['weeks_price']['low'],
-        #         week_price_high = item['types'][items_exterior]['weeks_price']['high'],
-        #         monthly_price_low = item['types'][items_exterior]['monthly_price']['low'],
-        #         monthly_price_high = item['types'][items_exterior]['monthly_price']['high'],
-        #         all_time_price_low = item['types'][items_exterior]['all_time_price']['low'],
-        #         all_time_price_high = item['types'][items_exterior]['all_time_price']['high'],
-        #         date = datetime.datetime.now(),
-        #         icon = item['icon']
-
-        #         if 'Sticker |' in item['name']:
-        #             stickers_to_insert.append((
-        #                 item_name,
-        #                 avarage_prive,
-        #                 week_price_low,
-        #                 week_price_high,
-        #                 monthly_price_low,
-        #                 monthly_price_high,
-        #                 all_time_price_low,
-        #                 all_time_price_high,
-        #                 date,
-        #                 icon
-        #             ))
-        #         else:
-        #             weapons_to_insert.append((
-        #                 item_name,
-        #                 item['types'][items_exterior]['name'],
-        #                 item['types'][items_exterior]['is_stattrak'],
-        #                 # item['types'][items_exterior]['is_souvenir'],
-        #                 avarage_prive,
-        #                 # TODO: Add markets prices?
-        #                 week_price_low,
-        #                 week_price_high,
-        #                 monthly_price_low,
-        #                 monthly_price_high,
-        #                 all_time_price_low,
-        #                 all_time_price_high,
-        #                 date,
-        #                 icon
-        #             )
-
-        # print(weapons_to_insert, stickers_to_insert)
-
+        for url in parse_urls:
+            if driver:
+                logging.info(f"Mocking in progress: {url}")
+                mock_pages(driver, url, pages_mock)
+                url = url.replace(url.split('/')[-1], f"stattrak-{url.split('/')[-1]}")
+                mock_pages(driver, url, pages_mock)
+        logging.info(f"Mocking finished")
+        parsed_items = parse_mock_pages(pages_mock)
+        write_data(parsed_items)
         # db_client = DBClient()
-        # for weapons in split_array(weapons_to_insert):
-        #     logging.info(f"Updating weapons prices for {len(weapons)} items")
-        #     db_client.update_weapon_prices(weapons)
-
     except Exception as e:
         logging.error(f"Got exception: {e}")
     finally:
         if driver:
             driver.quit()
-
-
-def split_array(array, k=1000):
-    return [array[i * k:i * k + k] for i in range(len(array) // k + 1)]
 
 
 if __name__ == '__main__':
