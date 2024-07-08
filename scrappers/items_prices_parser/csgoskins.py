@@ -266,7 +266,7 @@ def update_item_with_prices(item, prices, markets_data):
 
 def parse_with_price(driver):
     global_config = []
-    parsed_items = ['sticker', 'ak-47', 'm4a1-s', 'm4a4', 'awp']
+    parsed_items = ['sticker-', 'ak-47-', 'm4a1-s-', 'm4a4-', 'awp-']
     file_to_read = "scrappers/data/global_weapon_configs.json"
     file_to_write = "scrappers/data/parse_items_with_price.json"
 
@@ -282,7 +282,7 @@ def parse_with_price(driver):
                 if parsed_item in item['link']:
                     price_values = {}
                     print(item['link'])
-                    if 'sticker' in item['link']:
+                    if 'sticker-' in item['link']:
                         prices, markets_data = fetch_market_data(driver, item['link'], price_values)
                         updated_item = update_item_with_prices(item, prices, markets_data)
                         global_config.append(updated_item)
