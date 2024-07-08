@@ -47,6 +47,24 @@ class DBClient:
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
 
+    def update_skins_profit_by_weapon(self, value):
+        query = f'''
+            WITH cte AS (
+                SELECT skins.skin_id
+                FROM skins
+                JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+                WHERE weapons_prices.name = %s
+                AND weapons_prices.quality = %s
+                AND weapons_prices.is_stattrak = %s
+                ORDER BY skins.skin_id
+                LIMIT 1
+            )
+            UPDATE skins
+            SET profit = 1 - (skins.price + 0.1 * skins.stickers_price) / %s
+            WHERE skin_id IN (SELECT skin_id FROM cte);
+        '''
+        self.execute(query, value)
+
     def insert_skins(self, values):
         placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
         query = f'''
