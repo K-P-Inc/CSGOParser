@@ -1,0 +1,3399 @@
+{
+    "objects": [
+        {
+            "itemId": "29e45558-1ca2-5cf3-91ee-4e36278d0292",
+            "type": "offer",
+            "amount": 1,
+            "classId": "1363818004:469523518",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Vulcan (Field-Tested)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV086jloKOhcj5Nr_Yg2Yf6cR02LmS9tn3ilK1qBVkMGzyIICRdgRvYVCDqwTsyO7n1JTo6M7PwGwj5Hei-fvc4A",
+            "slug": "ak-47-vulcan",
+            "owner": "e0f7f18e-1cfb-457d-b171-621f3d9cfccd",
+            "ownersBlockchainId": "59becdf181e584f7751b70e213fd2f0cd1d6c5667f1f046fe0de8dafc78d5310",
+            "ownerDetails": {
+                "id": "e0f7f18e-1cfb-457d-b171-621f3d9cfccd",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "59becdf181e584f7751b70e213fd2f0cd1d6c5667f1f046fe0de8dafc78d5310"
+            },
+            "status": "active",
+            "discount": 29,
+            "price": {
+                "DMC": "",
+                "USD": "19540"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "27884"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "eb4b4b",
+                "tradable": true,
+                "offerId": "29547c68-3f1c-4e6d-a661-df87c61c03c0",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Vulcan",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199259576844/inventory/#730_2_37891781144",
+                "groupId": "76561199259576844",
+                "withdrawable": true,
+                "linkId": "188dcda9-caf2-562a-9922-da33422a1bbe",
+                "exterior": "field-tested",
+                "quality": "covert",
+                "category": "normal",
+                "tradeLockDuration": 0,
+                "itemType": "rifle",
+                "floatValue": 0.3302699029445648,
+                "floatPartValue": "FT-4",
+                "paintIndex": 302,
+                "paintSeed": 845,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199259576844A37891781144D2515337789022537043",
+                "collection": [
+                    "huntsman"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "664d29caedbb6f689eef5d03",
+                "emissionSerial": "664d29caedbb6f689eef5d03",
+                "sagaAddress": "0x8C8e07d154a544593F1F37eD07BB13EbdbEA6019"
+            },
+            "createdAt": 1719497847,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:52f07c0cd50c8ee828d78fbc903d55c4"
+        },
+        {
+            "itemId": "78d08ed1-14f6-5e66-b07d-c1ad89d24a0d",
+            "type": "offer",
+            "amount": 1,
+            "classId": "480085569:470680114",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Case Hardened (Field-Tested)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhhwszHeDFH6OO7kYSCgvq6YOKFkD1XvZRz2rmYporw3Vfk_RZkMGD6doeUcA86Yg6C-APtyO_v0Ij84sqHVshLpA",
+            "slug": "ak-47-case-hardened",
+            "owner": "c611ec27-367b-4277-b767-08b65ac97bab",
+            "ownersBlockchainId": "375fa687bd967ca6ee33ff532a47aae5467776ce5179a11fa1411a0ffb87938c",
+            "ownerDetails": {
+                "id": "c611ec27-367b-4277-b767-08b65ac97bab",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "375fa687bd967ca6ee33ff532a47aae5467776ce5179a11fa1411a0ffb87938c"
+            },
+            "status": "active",
+            "discount": 32,
+            "price": {
+                "DMC": "",
+                "USD": "19889"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "29397"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "d32ce6",
+                "tradable": false,
+                "offerId": "2145fcae-6c95-4b64-885f-f921692981c6",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Case Hardened",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199501625551/inventory/#730_2_38481158423",
+                "groupId": "76561199501625551",
+                "linkId": "02d519db-64d9-5118-b01c-66d008cbcb5b",
+                "exterior": "field-tested",
+                "quality": "classified",
+                "category": "normal",
+                "tradeLock": 6,
+                "tradeLockDuration": 559673,
+                "stickers": [
+                    {
+                        "name": "Teamwork (Holo)",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/community01/teamwork_holo.07c3f7e260557e781e35ce6390df0b8b1e6c9faa.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.17814408242702484,
+                "floatPartValue": "FT-0",
+                "paintIndex": 44,
+                "paintSeed": 606,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199501625551A38481158423D9263557307936811837",
+                "collection": [
+                    "arms deal"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667c475efe6ee90c75e111ee",
+                "emissionSerial": "667c475efe6ee90c75e111ee",
+                "sagaAddress": "0xA3a58C0710aa7422189D5103fb2d2d09b8A1dd8f"
+            },
+            "createdAt": 1719499042,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:e51336b7d2ba306f98c465707f3267e8"
+        },
+        {
+            "itemId": "362069ca-db3d-5734-b80d-7e97e66ea830",
+            "type": "offer",
+            "amount": 1,
+            "classId": "188530139:310776790",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Case Hardened (Minimal Wear)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhhwszHeDFH6OO6nYeDg7mhYe6Bw24H7cQm3rnFrdj23gHk-BJrMDr3dtDDclQ2YVnQ-AW4lem8m9bi65T-nsCo",
+            "slug": "ak-47-case-hardened",
+            "owner": "4dd8f3a0-c19c-4c87-866d-97f84ceb04b5",
+            "ownersBlockchainId": "d3b728e13129a7ea6347644a056a25902e4988684c555a50c5e940d1da17f7f2",
+            "ownerDetails": {
+                "id": "4dd8f3a0-c19c-4c87-866d-97f84ceb04b5",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "d3b728e13129a7ea6347644a056a25902e4988684c555a50c5e940d1da17f7f2"
+            },
+            "status": "active",
+            "discount": 34,
+            "price": {
+                "DMC": "",
+                "USD": "23279"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "35461"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "d32ce6",
+                "tradable": true,
+                "offerId": "985b269e-1e5a-4e28-9e29-74685c045457",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Case Hardened",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199276465853/inventory/#730_2_38319031078",
+                "groupId": "76561199276465853",
+                "withdrawable": true,
+                "linkId": "f44561d5-c8bb-5bbe-9982-ff6369c8bcbf",
+                "exterior": "minimal wear",
+                "quality": "classified",
+                "category": "normal",
+                "tradeLockDuration": 0,
+                "itemType": "rifle",
+                "floatValue": 0.08306039124727249,
+                "floatPartValue": "MW-1",
+                "paintIndex": 44,
+                "paintSeed": 673,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199276465853A38319031078D13836195562976593173",
+                "collection": [
+                    "arms deal"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "666d01b4fe6ee90c75effa26",
+                "emissionSerial": "666d01b4fe6ee90c75effa26",
+                "sagaAddress": "0xB02c70Ac2b0Daf3661EB486A5537843785CF7820"
+            },
+            "createdAt": 1719498207,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:a5849c4b8a435fe14674690f1ff76d08"
+        },
+        {
+            "itemId": "2a6796af-d41b-55ea-adc7-ec91c4226fa8",
+            "type": "offer",
+            "amount": 1,
+            "classId": "188530139:5721094904",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Inheritance (Factory New)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhh2MzYfi9B6dC3nY60m_7zO6-fzjwHvJEn2OqWotmi3gXt_BVtYD-ncIWcIA85YV-ErwK-ley-18e06oOJlyU3nvbOMA",
+            "slug": "ak-47-inheritance",
+            "owner": "e04ba4f2-ab8a-40af-99d1-2689b0129318",
+            "ownersBlockchainId": "62d731b640bb317c392ae4c6a6771177ef30aea24e266d1d05319044af01e082",
+            "ownerDetails": {
+                "id": "e04ba4f2-ab8a-40af-99d1-2689b0129318",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "62d731b640bb317c392ae4c6a6771177ef30aea24e266d1d05319044af01e082"
+            },
+            "status": "active",
+            "discount": 29,
+            "price": {
+                "DMC": "",
+                "USD": "14535"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "20578"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "7ffb7365-732b-4304-8517-34c1b4603b63",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Inheritance",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199500531118/inventory/#730_2_38443775578",
+                "groupId": "76561199500531118",
+                "linkId": "486ac04d-0721-514b-82b5-8b245084d9ad",
+                "exterior": "factory new",
+                "quality": "covert",
+                "category": "normal",
+                "tradeLock": 3,
+                "tradeLockDuration": 301554,
+                "itemType": "rifle",
+                "floatValue": 0.06699887663125992,
+                "floatPartValue": "FN-6",
+                "paintIndex": 1171,
+                "paintSeed": 903,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199500531118A38443775578D16640379298726988247",
+                "collection": [
+                    "kilowatt"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667894dafe6ee90c75bd9afe",
+                "emissionSerial": "667894dafe6ee90c75bd9afe",
+                "cheapestBySteamAnalyst": true,
+                "sagaAddress": "0x9638709d81682E4a8896fADB983169376FdaBA2a"
+            },
+            "createdAt": 1719239049,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:0d28b84fa7ffa80e6b4c5c24dbf6cd08"
+        },
+        {
+            "itemId": "e49ca173-00ff-53bc-8454-c2eda71a7c92",
+            "type": "offer",
+            "amount": 1,
+            "classId": "480085569:4303491066",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Fuel Injector (Minimal Wear)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV08-jhIWZlP_1IbzUklRd4cJ5nqeX9t2ljQHk_UNkMjjzd4CSIAY8ZFDSqVLtk-u6gce6787KwHdn7CR3-z-DyOy2uCmM",
+            "slug": "ak-47-fuel-injector",
+            "owner": "d337b87e-9530-489c-afcc-c96bad4744b1",
+            "ownersBlockchainId": "06dcbf2c538c4486a3d576238fd8f5d6d2a4ca4fa35d4d658d2ecb5bf489e304",
+            "ownerDetails": {
+                "id": "d337b87e-9530-489c-afcc-c96bad4744b1",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "06dcbf2c538c4486a3d576238fd8f5d6d2a4ca4fa35d4d658d2ecb5bf489e304"
+            },
+            "status": "active",
+            "discount": 29,
+            "price": {
+                "DMC": "",
+                "USD": "18809"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "26812"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "509aba67-00c8-49f8-9445-ea31705af342",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Fuel Injector",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199494406356/inventory/#730_2_38480193317",
+                "groupId": "76561199494406356",
+                "linkId": "0f56df84-1178-53ed-b76e-ad7dcf8eb9d1",
+                "exterior": "minimal wear",
+                "quality": "covert",
+                "category": "normal",
+                "tradeLock": 6,
+                "tradeLockDuration": 575284,
+                "stickers": [
+                    {
+                        "name": "Natus Vincere (Holo) | 2020 RMR",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/rmr2020/navi_holo.c2c98dc1e960ff63d667afe9ecc7210dde5c9f09.png"
+                    },
+                    {
+                        "name": "Natus Vincere (Holo) | 2020 RMR",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/rmr2020/navi_holo.c2c98dc1e960ff63d667afe9ecc7210dde5c9f09.png"
+                    },
+                    {
+                        "name": "Natus Vincere (Holo) | 2020 RMR",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/rmr2020/navi_holo.c2c98dc1e960ff63d667afe9ecc7210dde5c9f09.png"
+                    },
+                    {
+                        "name": "Natus Vincere (Holo) | 2020 RMR",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/rmr2020/navi_holo.c2c98dc1e960ff63d667afe9ecc7210dde5c9f09.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.13322465121746063,
+                "floatPartValue": "MW-4",
+                "paintIndex": 524,
+                "paintSeed": 224,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199494406356A38480193317D12026489804167736703",
+                "collection": [
+                    "wildfire"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667c3a6efe6ee90c75c96af9",
+                "emissionSerial": "667c3a6efe6ee90c75c96af9",
+                "sagaAddress": "0xE89F93a6C379FfDDdAEFA39487e17287F106bffc"
+            },
+            "createdAt": 1719417627,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:84de35b34b6a4c1e69e955ced9362ddc"
+        },
+        {
+            "itemId": "74b64cc4-ce8f-576b-b2d3-ce1894d9695a",
+            "type": "offer",
+            "amount": 1,
+            "classId": "480091870:5341614647",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | Bloodsport (Field-Tested)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV0966m4-PhOf7Ia_um25V4dB8xO2Vp4ij2Q2yqkFrZG_1doeQcAdqaFvU_Va2xee71sS_78_AwSAyvXE8pSGK0jPkXRs",
+            "slug": "ak-47-bloodsport",
+            "owner": "85beb6b3-135e-4a1d-ac1d-65acbf937569",
+            "ownersBlockchainId": "6971eb12ff12710fda29acb92673015a1311e61576c12783751fe31a29d76991",
+            "ownerDetails": {
+                "id": "85beb6b3-135e-4a1d-ac1d-65acbf937569",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "6971eb12ff12710fda29acb92673015a1311e61576c12783751fe31a29d76991"
+            },
+            "status": "active",
+            "discount": 29,
+            "price": {
+                "DMC": "",
+                "USD": "15275"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "21668"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "e857e9c9-2dbb-4c15-8cfa-1e91bfc49871",
+                "isNew": true,
+                "gameId": "a8db",
+                "name": "AK-47 | Bloodsport",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199540756404/inventory/#730_2_38451367550",
+                "groupId": "76561199540756404",
+                "linkId": "ce5ef7bd-421d-5df5-8b31-d11448ad7d43",
+                "exterior": "field-tested",
+                "quality": "covert",
+                "category": "stattrak™",
+                "tradeLock": 4,
+                "tradeLockDuration": 391720,
+                "stickers": [
+                    {
+                        "name": "paiN Gaming (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain_holo.74c3134089ee47980a80d92c80cc102718f1880c.png"
+                    },
+                    {
+                        "name": "paiN Gaming (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain_holo.74c3134089ee47980a80d92c80cc102718f1880c.png"
+                    },
+                    {
+                        "name": "paiN Gaming (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain_holo.74c3134089ee47980a80d92c80cc102718f1880c.png"
+                    },
+                    {
+                        "name": "paiN Gaming (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain_holo.74c3134089ee47980a80d92c80cc102718f1880c.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.19202587008476257,
+                "floatPartValue": "FT-1",
+                "paintIndex": 639,
+                "paintSeed": 51,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199540756404A38451367550D7413145466818537811",
+                "collection": [
+                    "spectrum"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "66798924fe6ee90c75702e26",
+                "emissionSerial": "66798924fe6ee90c75702e26",
+                "sagaAddress": "0x93c0d613c295e4B99C49E7a9Cb693CB616DAcb87"
+            },
+            "createdAt": 1719511880,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:a8b121bf5fe25ff03ed2b01e09d5638a"
+        },
+        {
+            "itemId": "46e53cd9-5cc3-52e3-8e66-d33804a7e7e0",
+            "type": "offer",
+            "amount": 1,
+            "classId": "5839507307:5850365932",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Case Hardened (Well-Worn)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhhwszHeDFH6OO7kYSCgvq6YOKFkD1XvZRz2rmYporw3Vfk_RZkMGD6doeUcA86Yg6C-APtyO_v0Ij84sqHVshLpA",
+            "slug": "ak-47-case-hardened",
+            "owner": "c611ec27-367b-4277-b767-08b65ac97bab",
+            "ownersBlockchainId": "375fa687bd967ca6ee33ff532a47aae5467776ce5179a11fa1411a0ffb87938c",
+            "ownerDetails": {
+                "id": "c611ec27-367b-4277-b767-08b65ac97bab",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "375fa687bd967ca6ee33ff532a47aae5467776ce5179a11fa1411a0ffb87938c"
+            },
+            "status": "active",
+            "discount": 31,
+            "price": {
+                "DMC": "",
+                "USD": "15928"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "23286"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "d32ce6",
+                "tradable": false,
+                "offerId": "8478d7b6-f38c-47c2-82d8-13b70fe352b3",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Case Hardened",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199255228009/inventory/#730_2_38407870977",
+                "groupId": "76561199255228009",
+                "linkId": "5f44887f-be35-5506-a278-a0caaa9f9ba7",
+                "exterior": "well-worn",
+                "quality": "classified",
+                "category": "normal",
+                "tradeLockDuration": 41273,
+                "stickers": [
+                    {
+                        "name": "niko (Holo)  | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/sig_nikodk_holo.b59b99711c61bf240c7862efc7f11fe0a5923f55.png"
+                    },
+                    {
+                        "name": "Grim (Holo) | Antwerp 2022",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/antwerp2022/sig_grim_holo.a340c1cb7205b4ba63f3c78571c9e11bcc65e99c.png"
+                    },
+                    {
+                        "name": "Zyphon (Holo) | Antwerp 2022",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/antwerp2022/sig_zyphon_holo.2af5a16e9e746aa98c6bd79dd7b4090f531a06ff.png"
+                    },
+                    {
+                        "name": "Natus Vincere (Gold) | Antwerp 2022",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/antwerp2022/navi_gold.33124590f6f7478302ec875f0d6079adce7b182d.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.44854873418807983,
+                "floatPartValue": "WW-4",
+                "paintIndex": 44,
+                "paintSeed": 69,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199255228009A38407870977D10000427742281501663",
+                "collection": [
+                    "arms deal"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "66751db7fe6ee90c75b819f9",
+                "emissionSerial": "66751db7fe6ee90c75b819f9",
+                "sagaAddress": "0xA3a58C0710aa7422189D5103fb2d2d09b8A1dd8f"
+            },
+            "createdAt": 1719500457,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:1fc1e41205bd65aa9903457f3fc9d185"
+        },
+        {
+            "itemId": "62c03428-de6b-5d42-844c-c1484899b6b0",
+            "type": "offer",
+            "amount": 1,
+            "classId": "188530139:5707730869",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Case Hardened (Battle-Scarred)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhhwszHeDFH6OO-kYGdjrmiNejVlTtU7ZJz07CZ8Nrw2Qfi_hI5MT_xJdXAIAA2ZFjVrla2kLrum9bi6-_Li6O5",
+            "slug": "ak-47-case-hardened",
+            "owner": "e0f7f18e-1cfb-457d-b171-621f3d9cfccd",
+            "ownersBlockchainId": "59becdf181e584f7751b70e213fd2f0cd1d6c5667f1f046fe0de8dafc78d5310",
+            "ownerDetails": {
+                "id": "e0f7f18e-1cfb-457d-b171-621f3d9cfccd",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "59becdf181e584f7751b70e213fd2f0cd1d6c5667f1f046fe0de8dafc78d5310"
+            },
+            "status": "active",
+            "discount": 32,
+            "price": {
+                "DMC": "",
+                "USD": "14570"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "21496"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "d32ce6",
+                "tradable": true,
+                "offerId": "a1e19c24-8122-4fa8-8dcb-567b51cba963",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Case Hardened",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199281010339/inventory/#730_2_35742863083",
+                "groupId": "76561199281010339",
+                "withdrawable": true,
+                "linkId": "90fb4db9-4531-5a28-92d0-6919b0436097",
+                "exterior": "battle-scarred",
+                "quality": "classified",
+                "category": "normal",
+                "tradeLockDuration": 0,
+                "stickers": [
+                    {
+                        "name": "HellRaisers | Cologne 2014",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cologne2014/hellraisers.dd6f902e44af324317a22d8d50037e442b1420cb.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.6499271988868713,
+                "floatPartValue": "BS-2",
+                "paintIndex": 44,
+                "paintSeed": 60,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199281010339A35742863083D5200004917773240123",
+                "collection": [
+                    "arms deal"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "65c5f2f6b2c803caaa4b6071",
+                "emissionSerial": "65c5f2f6b2c803caaa4b6071",
+                "sagaAddress": "0x8C8e07d154a544593F1F37eD07BB13EbdbEA6019"
+            },
+            "createdAt": 1719499731,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:9f66e3a8e3370a40a098174deadc7723"
+        },
+        {
+            "itemId": "5616b20f-7a66-52e2-b2fa-108830431273",
+            "type": "offer",
+            "amount": 1,
+            "classId": "917329883:2221404942",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | Bloodsport (Factory New)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV0966m4-PhOf7Ia_ummJW4NE_2LyV89Wt0QewqBE6Z2-lcY6UJlRrMF7SqQTvyO7shsK5v5idn3Rn6D5iuyjFoprsug",
+            "slug": "ak-47-bloodsport",
+            "owner": "320fbd2b-a2f1-4f4e-ac89-4a22ed3c2ec0",
+            "ownersBlockchainId": "5a1459a42560afef0be423eecd48ec0ea3e04207bfb2aa0020becc5d8f691e64",
+            "ownerDetails": {
+                "id": "320fbd2b-a2f1-4f4e-ac89-4a22ed3c2ec0",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "5a1459a42560afef0be423eecd48ec0ea3e04207bfb2aa0020becc5d8f691e64"
+            },
+            "status": "active",
+            "discount": 33,
+            "price": {
+                "DMC": "",
+                "USD": "23999"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "36103"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "eb4b4b",
+                "tradable": true,
+                "offerId": "9d72d4cd-2bb6-4c93-a9e1-6d8a0f0c041b",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Bloodsport",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199488938580/inventory/#730_2_38317454880",
+                "groupId": "76561199488938580",
+                "withdrawable": true,
+                "linkId": "3166d711-b10d-5b03-9d63-3c8f1708fb6e",
+                "exterior": "factory new",
+                "quality": "covert",
+                "category": "stattrak™",
+                "tradeLockDuration": 0,
+                "itemType": "rifle",
+                "floatValue": 0.031215380877256393,
+                "floatPartValue": "FN-3",
+                "paintIndex": 639,
+                "paintSeed": 446,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199488938580A38317454880D9972905437265660893",
+                "collection": [
+                    "spectrum"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "666ccb83fe6ee90c7516f3a4",
+                "emissionSerial": "666ccb83fe6ee90c7516f3a4",
+                "sagaAddress": "0x3eFcC7A15D74Fc8A31D334518Cdd31Cbfe429Db8"
+            },
+            "createdAt": 1719345003,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:8e63cdb1bf54725fe951435450e59f9d"
+        },
+        {
+            "itemId": "1cc17af8-75b1-5f0c-8f4c-74889f2316fd",
+            "type": "offer",
+            "amount": 1,
+            "classId": "188530170:5721135825",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | Inheritance (Minimal Wear)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhh2MzYfi9B6dC3nY60m_7zO6-fzjwHvJEn2OqWotmi3gXt_BVtYD-ncIWcIA85YV-ErwK-ley-18e06oOJlyU3nvbOMA",
+            "slug": "ak-47-inheritance",
+            "owner": "8f13c5b7-a997-4eb0-909d-b7d615cb1b21",
+            "ownersBlockchainId": "bb761bf0e456a4515f868f8091bbc099ad4a80f7d5e0dc0f82e7c8561036e046",
+            "ownerDetails": {
+                "id": "8f13c5b7-a997-4eb0-909d-b7d615cb1b21",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "bb761bf0e456a4515f868f8091bbc099ad4a80f7d5e0dc0f82e7c8561036e046"
+            },
+            "status": "active",
+            "discount": 26,
+            "price": {
+                "DMC": "",
+                "USD": "18499"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "25309"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "c119457a-28ff-4e39-ac30-42a27b82da2f",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Inheritance",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199499652902/inventory/#730_2_38419306359",
+                "groupId": "76561199499652902",
+                "linkId": "cbb99d93-e780-52c2-b021-35aa4cb39df8",
+                "exterior": "minimal wear",
+                "quality": "covert",
+                "category": "stattrak™",
+                "tradeLock": 1,
+                "tradeLockDuration": 164057,
+                "itemType": "rifle",
+                "floatValue": 0.11292478442192078,
+                "floatPartValue": "MW-4",
+                "paintIndex": 1171,
+                "paintSeed": 592,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199499652902A38419306359D16350574402562052027",
+                "collection": [
+                    "kilowatt"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667625f4fe6ee90c75389846",
+                "emissionSerial": "667625f4fe6ee90c75389846",
+                "cheapestBySteamAnalyst": true,
+                "sagaAddress": "0xd9e77ba2A57Ec91dB3AD9b358f6cbD63B6747656"
+            },
+            "createdAt": 1719019099,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:d85ba21e2dac441d2d72fe3c4d6daf21"
+        },
+        {
+            "itemId": "ffb48f42-43ca-5619-8701-f2deabc9d6de",
+            "type": "offer",
+            "amount": 1,
+            "classId": "188530170:5368635125",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | Bloodsport (Minimal Wear)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV0966m4-PhOf7Ia_ummJW4NE_2LyV89Wt0QewqBE6Z2-lcY6UJlRrMF7SqQTvyO7shsK5v5idn3Rn6D5iuyjFoprsug",
+            "slug": "ak-47-bloodsport",
+            "owner": "d337b87e-9530-489c-afcc-c96bad4744b1",
+            "ownersBlockchainId": "06dcbf2c538c4486a3d576238fd8f5d6d2a4ca4fa35d4d658d2ecb5bf489e304",
+            "ownerDetails": {
+                "id": "d337b87e-9530-489c-afcc-c96bad4744b1",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "06dcbf2c538c4486a3d576238fd8f5d6d2a4ca4fa35d4d658d2ecb5bf489e304"
+            },
+            "status": "active",
+            "discount": 27,
+            "price": {
+                "DMC": "",
+                "USD": "19145"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "26415"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "3963d354-dca6-4a8e-a0ab-4ba18670b8d7",
+                "isNew": true,
+                "gameId": "a8db",
+                "name": "AK-47 | Bloodsport",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199257831242/inventory/#730_2_38471664445",
+                "groupId": "76561199257831242",
+                "linkId": "d2f9fe5a-7673-527f-a8dc-5a83cc44ddee",
+                "exterior": "minimal wear",
+                "quality": "covert",
+                "category": "stattrak™",
+                "tradeLock": 6,
+                "tradeLockDuration": 563370,
+                "stickers": [
+                    {
+                        "name": "FaZe Clan (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/faze_holo.d1aad737602e645feaf49fb7b97792d3a76e5e13.png"
+                    },
+                    {
+                        "name": "FaZe Clan (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/faze_holo.d1aad737602e645feaf49fb7b97792d3a76e5e13.png"
+                    },
+                    {
+                        "name": "FaZe Clan (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/faze_holo.d1aad737602e645feaf49fb7b97792d3a76e5e13.png"
+                    },
+                    {
+                        "name": "FaZe Clan (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/faze_holo.d1aad737602e645feaf49fb7b97792d3a76e5e13.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.1326734870672226,
+                "floatPartValue": "MW-4",
+                "paintIndex": 639,
+                "paintSeed": 886,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199257831242A38471664445D16458631786149980095",
+                "collection": [
+                    "spectrum"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667bc9ecfe6ee90c758371a3",
+                "emissionSerial": "667bc9ecfe6ee90c758371a3",
+                "sagaAddress": "0xE89F93a6C379FfDDdAEFA39487e17287F106bffc"
+            },
+            "createdAt": 1719513030,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:a56e44cd10027cafd7a97efd78bae4dc"
+        },
+        {
+            "itemId": "7d7dbc2a-c4d3-5a94-bcbb-33a95aec5164",
+            "type": "offer",
+            "amount": 1,
+            "classId": "902705615:5351798935",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | Fuel Injector (Field-Tested)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV08-jhIWZlP_1IbzUklRc7cF4n-SPrNuh3FXjrhBkNW70Io7AdgY_YlzXr1Xvw-a71Je07cifzXdluiYj5mGdwULUSdU1BA",
+            "slug": "ak-47-fuel-injector",
+            "owner": "85beb6b3-135e-4a1d-ac1d-65acbf937569",
+            "ownersBlockchainId": "6971eb12ff12710fda29acb92673015a1311e61576c12783751fe31a29d76991",
+            "ownerDetails": {
+                "id": "85beb6b3-135e-4a1d-ac1d-65acbf937569",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "6971eb12ff12710fda29acb92673015a1311e61576c12783751fe31a29d76991"
+            },
+            "status": "active",
+            "discount": 29,
+            "price": {
+                "DMC": "",
+                "USD": "26199"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "37034"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "942ffa1e-3d23-4996-aa99-5053ca69581c",
+                "isNew": true,
+                "gameId": "a8db",
+                "name": "AK-47 | Fuel Injector",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199262164097/inventory/#730_2_38461171088",
+                "groupId": "76561199262164097",
+                "linkId": "033b20dd-b4d3-5c01-b0d6-ad72393d13aa",
+                "exterior": "field-tested",
+                "quality": "covert",
+                "category": "stattrak™",
+                "tradeLock": 6,
+                "tradeLockDuration": 527005,
+                "stickers": [
+                    {
+                        "name": "Natus Vincere (Glitter) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/navi_glitter.d378cf7976d4d4614c61cd99f70c097c25cb0de7.png"
+                    },
+                    {
+                        "name": "Natus Vincere (Glitter) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/navi_glitter.d378cf7976d4d4614c61cd99f70c097c25cb0de7.png"
+                    },
+                    {
+                        "name": "Natus Vincere (Glitter) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/navi_glitter.d378cf7976d4d4614c61cd99f70c097c25cb0de7.png"
+                    },
+                    {
+                        "name": "Natus Vincere (Glitter) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/navi_glitter.d378cf7976d4d4614c61cd99f70c097c25cb0de7.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.31099218130111694,
+                "floatPartValue": "FT-4",
+                "paintIndex": 524,
+                "paintSeed": 634,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199262164097A38461171088D13863848280022844223",
+                "collection": [
+                    "wildfire"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667abe46fe6ee90c7543783b",
+                "emissionSerial": "667abe46fe6ee90c7543783b",
+                "sagaAddress": "0x93c0d613c295e4B99C49E7a9Cb693CB616DAcb87"
+            },
+            "createdAt": 1719462670,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:d3c14097b4c6037050a5e3b7db304acd"
+        },
+        {
+            "itemId": "0febf68a-5ac1-5348-a583-814b7b4392af",
+            "type": "offer",
+            "amount": 1,
+            "classId": "480085569:5973249229",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Case Hardened (Factory New)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhhwszHeDFH6OO6nYeDg7mhYe6Bw24H7cQm3rnFrdj23gHk-BJrMDr3dtDDclQ2YVnQ-AW4lem8m9bi65T-nsCo",
+            "slug": "ak-47-case-hardened",
+            "owner": "1c01ab27-2c1a-4cb9-ab0e-bd66bfc0dc10",
+            "ownersBlockchainId": "ce0f7852793bfa2a817494116efe657db726f0e4c95380b013cb79fbfe4f1673",
+            "ownerDetails": {
+                "id": "1c01ab27-2c1a-4cb9-ab0e-bd66bfc0dc10",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "ce0f7852793bfa2a817494116efe657db726f0e4c95380b013cb79fbfe4f1673"
+            },
+            "status": "active",
+            "discount": 25,
+            "price": {
+                "DMC": "",
+                "USD": "33267"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "44539"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "d32ce6",
+                "tradable": true,
+                "offerId": "6529c652-72b8-4fb7-9344-d35461f04f4c",
+                "isNew": true,
+                "gameId": "a8db",
+                "name": "AK-47 | Case Hardened",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199497578113/inventory/#730_2_38279504678",
+                "groupId": "76561199497578113",
+                "withdrawable": true,
+                "linkId": "e624c28e-7fdf-56ea-a1c6-a587cd790275",
+                "exterior": "factory new",
+                "quality": "classified",
+                "category": "normal",
+                "tradeLockDuration": 0,
+                "stickers": [
+                    {
+                        "name": "adamS | Copenhagen 2024",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/sig_adams.bb4a01b5f2ad1fa4e277a9305070e43c3c35acb3.png"
+                    },
+                    {
+                        "name": "JUST | Copenhagen 2024",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/sig_just.b62673ecce8fd1085fbb3b70643d622ee0de9620.png"
+                    },
+                    {
+                        "name": "mopoz | Copenhagen 2024",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/sig_mopoz.e18fbbb5b0c6350b7708d0cb5c82f15e2d7c4581.png"
+                    },
+                    {
+                        "name": "mopoz | Copenhagen 2024",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/sig_mopoz.e18fbbb5b0c6350b7708d0cb5c82f15e2d7c4581.png"
+                    },
+                    {
+                        "name": "mopoz | Copenhagen 2024",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/sig_mopoz.e18fbbb5b0c6350b7708d0cb5c82f15e2d7c4581.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.02569754794239998,
+                "floatPartValue": "FN-2",
+                "paintIndex": 44,
+                "paintSeed": 459,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199497578113A38279504678D9395118015489647517",
+                "collection": [
+                    "arms deal"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "6669b328fe6ee90c75ae9181",
+                "emissionSerial": "6669b328fe6ee90c75ae9181",
+                "sagaAddress": "0x230c5FFB9C8D7CB418e1432ba70E9BF1F2c5BBDc"
+            },
+            "createdAt": 1719516604,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:a0089aa1d25592b5054c12d5ca133dce"
+        },
+        {
+            "itemId": "c4d999e0-f511-5796-bb07-7cff8c96ce55",
+            "type": "offer",
+            "amount": 1,
+            "classId": "480085569:5561796917",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Asiimov (Factory New)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV092lnYmGmOHLP7LWnn8f7ZAn0-2UrNytiwK2_hY4MmD7doaVcwU4YFqD-QTrleq80J-8vp-anGwj5HfQSpUJNw",
+            "slug": "ak-47-asiimov",
+            "owner": "19424b09-c4b3-4d33-bed7-b30e914177c3",
+            "ownersBlockchainId": "3ffd16fb6d03c93cf70a42b96e5439eee8b0a00ea0c1fea3f3037264ad787815",
+            "ownerDetails": {
+                "id": "19424b09-c4b3-4d33-bed7-b30e914177c3",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "3ffd16fb6d03c93cf70a42b96e5439eee8b0a00ea0c1fea3f3037264ad787815"
+            },
+            "status": "active",
+            "discount": 29,
+            "price": {
+                "DMC": "",
+                "USD": "16143"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "22808"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "eb4b4b",
+                "tradable": true,
+                "offerId": "29213c82-b86e-4bdb-b2e7-abaadab992c0",
+                "isNew": true,
+                "gameId": "a8db",
+                "name": "AK-47 | Asiimov",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199528343885/inventory/#730_2_37967078271",
+                "groupId": "76561199528343885",
+                "withdrawable": true,
+                "linkId": "0fb8380c-d952-5100-bd72-8eba31118002",
+                "exterior": "factory new",
+                "quality": "covert",
+                "category": "normal",
+                "tradeLockDuration": 0,
+                "stickers": [
+                    {
+                        "name": "Complexity Gaming (Glitter) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/cplx_glitter.f4db0746de7e445f730dad322948760524854101.png"
+                    },
+                    {
+                        "name": "Complexity Gaming (Glitter) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/cplx_glitter.f4db0746de7e445f730dad322948760524854101.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.06846470385789871,
+                "floatPartValue": "FN-6",
+                "paintIndex": 801,
+                "paintSeed": 669,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199528343885A37967078271D7388268336933119835",
+                "collection": [
+                    "danger zone"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "665192caedbb6f689ef05e73",
+                "emissionSerial": "665192caedbb6f689ef05e73",
+                "sagaAddress": "0xD6AD7A93a1D9936c2170A7a5bdC77e98EE023e1B"
+            },
+            "createdAt": 1719516751,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:b9d96e8ce1d160b9a6581974ffc51185"
+        },
+        {
+            "itemId": "dae621c6-4b24-505e-bd1b-cc57c91a7dea",
+            "type": "offer",
+            "amount": 1,
+            "classId": "1302480030:5990039612",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | The Empress (Factory New)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV09m7hJKOhOTLP7LWnn8f6pQn2L2Wptr0jlew-EJlN2-hINKcelM9aQ3VrAPsx-a5jJ-_78-bmmwj5HcHDHHAjQ",
+            "slug": "ak-47-the-empress",
+            "owner": "01c5fbdb-9bb3-462a-813d-5b539bb6a086",
+            "ownersBlockchainId": "e37e8acc4d4bebd1bd3f24e065f2438cb32b00a298d744f68e831d343743dec8",
+            "ownerDetails": {
+                "id": "01c5fbdb-9bb3-462a-813d-5b539bb6a086",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "e37e8acc4d4bebd1bd3f24e065f2438cb32b00a298d744f68e831d343743dec8"
+            },
+            "status": "active",
+            "discount": 26,
+            "price": {
+                "DMC": "",
+                "USD": "27599"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "37592"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "8dc5f044-c18c-4100-94e3-d80fc41a1cf2",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | The Empress",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199276581275/inventory/#730_2_38394180928",
+                "groupId": "76561199276581275",
+                "linkId": "f16b0e53-25f1-5e0c-a459-377f0b7a0fd8",
+                "exterior": "factory new",
+                "quality": "covert",
+                "category": "stattrak™",
+                "tradeLockDuration": 41263,
+                "stickers": [
+                    {
+                        "name": "Run CT, Run",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/spring2022/run_ct_run_paper.758bb03108e689eef8b639c486f8fb9dff30ddec.png"
+                    },
+                    {
+                        "name": "Run CT, Run",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/spring2022/run_ct_run_paper.758bb03108e689eef8b639c486f8fb9dff30ddec.png"
+                    },
+                    {
+                        "name": "Run CT, Run",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/spring2022/run_ct_run_paper.758bb03108e689eef8b639c486f8fb9dff30ddec.png"
+                    },
+                    {
+                        "name": "Run CT, Run",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/spring2022/run_ct_run_paper.758bb03108e689eef8b639c486f8fb9dff30ddec.png"
+                    },
+                    {
+                        "name": "Run CT, Run",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/spring2022/run_ct_run_paper.758bb03108e689eef8b639c486f8fb9dff30ddec.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.06764815002679825,
+                "floatPartValue": "FN-6",
+                "paintIndex": 675,
+                "paintSeed": 76,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199276581275A38394180928D2804879194841172407",
+                "collection": [
+                    "spectrum 2"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "6673e9f5fe6ee90c75d7e6f1",
+                "emissionSerial": "6673e9f5fe6ee90c75d7e6f1",
+                "cheapestBySteamAnalyst": true,
+                "sagaAddress": "0x56f3DA192A1d8ba22c22868710243d7A4442182F"
+            },
+            "createdAt": 1719502985,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:fabb1531f5492213e31c0f75db8be646"
+        },
+        {
+            "itemId": "0de10510-9525-5cd7-b173-2a23ddd4a21a",
+            "type": "offer",
+            "amount": 1,
+            "classId": "188530170:643749338",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | Wasteland Rebel (Minimal Wear)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszcYzRA-cizq4GAw6DLP7LWnn8fu8Ak2ryRrI7x3Vfh_0JpajvzJYaRcgA_NQmF_FXtwuvuh8C1u5WfwWwj5He1t1lC7w",
+            "slug": "ak-47-wasteland-rebel",
+            "owner": "7d670994-5f3b-4533-b2de-6d67cc86221c",
+            "ownersBlockchainId": "c50abe4d30f906a3f382fe81c3e50a412ae0f9604ae2939bab7d9d42769d13b7",
+            "ownerDetails": {
+                "id": "7d670994-5f3b-4533-b2de-6d67cc86221c",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "c50abe4d30f906a3f382fe81c3e50a412ae0f9604ae2939bab7d9d42769d13b7"
+            },
+            "status": "active",
+            "discount": 12,
+            "price": {
+                "DMC": "",
+                "USD": "13545"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "15454"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "eb4b4b",
+                "tradable": true,
+                "offerId": "c5362d21-e5ec-4e57-ab05-137e3c52af66",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Wasteland Rebel",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199277678610/inventory/#730_2_37868501629",
+                "groupId": "76561199277678610",
+                "withdrawable": true,
+                "linkId": "060513b1-1cc8-5652-b78f-a2a1f4bb5206",
+                "exterior": "minimal wear",
+                "quality": "covert",
+                "category": "stattrak™",
+                "tradeLockDuration": 0,
+                "stickers": [
+                    {
+                        "name": "Nice Shot",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/stickers2/nice_shot.4add4763002f46459787556366e66fb16f4fdbe0.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.13606227934360504,
+                "floatPartValue": "MW-4",
+                "paintIndex": 380,
+                "paintSeed": 347,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199277678610A37868501629D14268037946666967933",
+                "collection": [
+                    "vanguard"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "664b541cedbb6f689ef20f1e",
+                "emissionSerial": "664b541cedbb6f689ef20f1e",
+                "sagaAddress": "0xFe3F426F7416260a8De6847eC2670B828a9aA7F5"
+            },
+            "createdAt": 1718047249,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:629573a32676d34642613858f70358a5"
+        },
+        {
+            "itemId": "e218ffa9-4f48-5547-b196-35d6b6e7c619",
+            "type": "offer",
+            "amount": 1,
+            "classId": "1363820758:5831049752",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "StatTrak™ AK-47 | Case Hardened (Battle-Scarred)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhhwszHeDFH6OO-kYGdjrmiNejVlTtU7ZJz07CZ8Nrw2Qfi_hI5MT_xJdXAIAA2ZFjVrla2kLrum9bi6-_Li6O5",
+            "slug": "ak-47-case-hardened",
+            "owner": "e0f7f18e-1cfb-457d-b171-621f3d9cfccd",
+            "ownersBlockchainId": "59becdf181e584f7751b70e213fd2f0cd1d6c5667f1f046fe0de8dafc78d5310",
+            "ownerDetails": {
+                "id": "e0f7f18e-1cfb-457d-b171-621f3d9cfccd",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "59becdf181e584f7751b70e213fd2f0cd1d6c5667f1f046fe0de8dafc78d5310"
+            },
+            "status": "active",
+            "discount": 25,
+            "price": {
+                "DMC": "",
+                "USD": "27300"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "36589"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "cf6a32",
+                "backgroundColor": "d32ce6",
+                "tradable": true,
+                "offerId": "92c87b79-047c-487c-9ad3-382e5e67d57e",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Case Hardened",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199300087008/inventory/#730_2_37322994957",
+                "groupId": "76561199300087008",
+                "withdrawable": true,
+                "linkId": "fcf33123-1741-57df-802b-707b03a839be",
+                "exterior": "battle-scarred",
+                "quality": "classified",
+                "category": "stattrak™",
+                "tradeLockDuration": 0,
+                "stickers": [
+                    {
+                        "name": "Tamara (Holo)",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/pinups_capsule/tamara_holo.fb8c008930cac1e694b9eeb22106cf86ca1b60ea.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.6707612872123718,
+                "floatPartValue": "BS-2",
+                "paintIndex": 44,
+                "paintSeed": 609,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199300087008A37322994957D3228590571044768727",
+                "collection": [
+                    "arms deal"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "662c61c77b49ee74d760ceb5",
+                "emissionSerial": "662c61c77b49ee74d760ceb5",
+                "cheapestBySteamAnalyst": true,
+                "sagaAddress": "0x8C8e07d154a544593F1F37eD07BB13EbdbEA6019"
+            },
+            "createdAt": 1719496455,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:481e949dc0e895d59b0ee52dfee660cc"
+        },
+        {
+            "itemId": "8d634d31-a3da-5a84-bd29-2b2f8aa2ef4f",
+            "type": "offer",
+            "amount": 1,
+            "classId": "5836849713:5939755569",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Bloodsport (Field-Tested)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV0966m4-PhOf7Ia_um25V4dB8xO2Vp4ij2Q2yqkFrZG_1doeQcAdqaFvU_Va2xee71sS_78_AwSAyvXE8pSGK0jPkXRs",
+            "slug": "ak-47-bloodsport",
+            "owner": "93a19048-cb6d-4188-be33-ae7d533febd3",
+            "ownersBlockchainId": "65c224cb00ae564ab49f558c87048bff96ced6caab028a53f66e64cfffa1fa3f",
+            "ownerDetails": {
+                "id": "93a19048-cb6d-4188-be33-ae7d533febd3",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "65c224cb00ae564ab49f558c87048bff96ced6caab028a53f66e64cfffa1fa3f"
+            },
+            "status": "active",
+            "discount": 30,
+            "price": {
+                "DMC": "",
+                "USD": "8120"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "11676"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "93c43e7a-30fa-4d85-bc57-7918142e1719",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Bloodsport",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199487759134/inventory/#730_2_38447353564",
+                "groupId": "76561199487759134",
+                "linkId": "5a3a7240-eb0a-51a6-b496-7f0bc21ca5cf",
+                "exterior": "field-tested",
+                "quality": "covert",
+                "category": "normal",
+                "tradeLock": 4,
+                "tradeLockDuration": 387071,
+                "stickers": [
+                    {
+                        "name": "Drug War Veteran",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/community02/drugwarveteran.0c71ffa7ea95f6f742c2b46d18cc3abdad01bc03.png"
+                    },
+                    {
+                        "name": "paiN Gaming (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain_holo.74c3134089ee47980a80d92c80cc102718f1880c.png"
+                    },
+                    {
+                        "name": "SAW (Holo) | Copenhagen 2024",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cph2024/saw_holo.e8bb9e281cea9825b3143286ec54bacf1d71a203.png"
+                    },
+                    {
+                        "name": "G2 Esports (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/g2_holo.1156690861b3f8bcb6e7d0d851a4230bd7329dbc.png"
+                    },
+                    {
+                        "name": "paiN Gaming (Holo) | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain_holo.74c3134089ee47980a80d92c80cc102718f1880c.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.3684307336807251,
+                "floatPartValue": "FT-4",
+                "paintIndex": 639,
+                "paintSeed": 745,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199487759134A38447353564D5476977921707747707",
+                "collection": [
+                    "spectrum"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667924f3fe6ee90c7543b2c3",
+                "emissionSerial": "667924f3fe6ee90c7543b2c3",
+                "sagaAddress": "0xDfdAD36dD3c4262Bc468b9924163d9FDEd4f5893"
+            },
+            "createdAt": 1719348176,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:97acbe4864024c6a2e6da075e15e2568"
+        },
+        {
+            "itemId": "5992d611-458b-5e63-9880-703f6a27b822",
+            "type": "offer",
+            "amount": 1,
+            "classId": "188530139:6009591691",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Inheritance (Minimal Wear)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhh2MzYfi9B6dC3nY60m_7zO6-fzjwHvJEn2OqWotmi3gXt_BVtYD-ncIWcIA85YV-ErwK-ley-18e06oOJlyU3nvbOMA",
+            "slug": "ak-47-inheritance",
+            "owner": "8f13c5b7-a997-4eb0-909d-b7d615cb1b21",
+            "ownersBlockchainId": "bb761bf0e456a4515f868f8091bbc099ad4a80f7d5e0dc0f82e7c8561036e046",
+            "ownerDetails": {
+                "id": "8f13c5b7-a997-4eb0-909d-b7d615cb1b21",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "bb761bf0e456a4515f868f8091bbc099ad4a80f7d5e0dc0f82e7c8561036e046"
+            },
+            "status": "active",
+            "discount": 28,
+            "price": {
+                "DMC": "",
+                "USD": "8456"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "11832"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "b5766ca7-a9d1-41fd-94a6-1a2e721f62ab",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Inheritance",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199265957105/inventory/#730_2_38415402304",
+                "groupId": "76561199265957105",
+                "linkId": "e301bac5-7b81-5dd9-9976-312bae2d8e95",
+                "exterior": "minimal wear",
+                "quality": "covert",
+                "category": "normal",
+                "tradeLock": 1,
+                "tradeLockDuration": 143147,
+                "stickers": [
+                    {
+                        "name": "Drug War Veteran",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/community02/drugwarveteran.0c71ffa7ea95f6f742c2b46d18cc3abdad01bc03.png"
+                    },
+                    {
+                        "name": "paiN Gaming | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain.3fe53218bdfc8cdc0df217a7a3522145ab5ae6d4.png"
+                    },
+                    {
+                        "name": "paiN Gaming | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain.3fe53218bdfc8cdc0df217a7a3522145ab5ae6d4.png"
+                    },
+                    {
+                        "name": "paiN Gaming | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain.3fe53218bdfc8cdc0df217a7a3522145ab5ae6d4.png"
+                    },
+                    {
+                        "name": "paiN Gaming | Paris 2023",
+                        "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/pain.3fe53218bdfc8cdc0df217a7a3522145ab5ae6d4.png"
+                    }
+                ],
+                "itemType": "rifle",
+                "floatValue": 0.14625385403633118,
+                "floatPartValue": "MW-4",
+                "paintIndex": 1171,
+                "paintSeed": 497,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199265957105A38415402304D2507990430910538687",
+                "collection": [
+                    "kilowatt"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "6675b8abfe6ee90c751f0c89",
+                "emissionSerial": "6675b8abfe6ee90c751f0c89",
+                "cheapestBySteamAnalyst": true,
+                "sagaAddress": "0xd9e77ba2A57Ec91dB3AD9b358f6cbD63B6747656"
+            },
+            "createdAt": 1718991114,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:1ddc0f702293b5de5a4f4dca34ba1a8a"
+        },
+        {
+            "itemId": "bfecb148-2ae0-5f94-ae93-7a4cfe9b82dc",
+            "type": "offer",
+            "amount": 1,
+            "classId": "5835912105:6002600012",
+            "gameId": "a8db",
+            "gameType": "steam",
+            "inMarket": true,
+            "lockStatus": false,
+            "title": "AK-47 | Bloodsport (Minimal Wear)",
+            "description": "",
+            "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV0966m4-PhOf7Ia_ummJW4NE_2LyV89Wt0QewqBE6Z2-lcY6UJlRrMF7SqQTvyO7shsK5v5idn3Rn6D5iuyjFoprsug",
+            "slug": "ak-47-bloodsport",
+            "owner": "8f13c5b7-a997-4eb0-909d-b7d615cb1b21",
+            "ownersBlockchainId": "bb761bf0e456a4515f868f8091bbc099ad4a80f7d5e0dc0f82e7c8561036e046",
+            "ownerDetails": {
+                "id": "8f13c5b7-a997-4eb0-909d-b7d615cb1b21",
+                "avatar": "https://s3.amazonaws.com/dmarket-images-stage/3a043a13-6f4d-4d15-8257-be01a4bf4138.jpg",
+                "wallet": "bb761bf0e456a4515f868f8091bbc099ad4a80f7d5e0dc0f82e7c8561036e046"
+            },
+            "status": "active",
+            "discount": 29,
+            "price": {
+                "DMC": "",
+                "USD": "9118"
+            },
+            "instantPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "exchangePrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "instantTargetId": "",
+            "suggestedPrice": {
+                "DMC": "",
+                "USD": "12877"
+            },
+            "recommendedPrice": {
+                "offerPrice": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d3": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7": {
+                    "DMC": "",
+                    "USD": ""
+                },
+                "d7Plus": {
+                    "DMC": "",
+                    "USD": ""
+                }
+            },
+            "extra": {
+                "nameColor": "d2d2d2",
+                "backgroundColor": "eb4b4b",
+                "tradable": false,
+                "offerId": "75f547c7-39cd-4926-a6fe-56d51084f3cc",
+                "isNew": false,
+                "gameId": "a8db",
+                "name": "AK-47 | Bloodsport",
+                "categoryPath": "rifle/ak-47",
+                "viewAtSteam": "https://steamcommunity.com/profiles/76561199497906553/inventory/#730_2_38460285490",
+                "groupId": "76561199497906553",
+                "linkId": "da649902-090c-5651-b8e1-816b68dfda81",
+                "exterior": "minimal wear",
+                "quality": "covert",
+                "category": "normal",
+                "tradeLock": 5,
+                "tradeLockDuration": 509802,
+                "itemType": "rifle",
+                "floatValue": 0.08101814985275269,
+                "floatPartValue": "MW-1",
+                "paintIndex": 639,
+                "paintSeed": 347,
+                "inspectInGame": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199497906553A38460285490D11592447970597308913",
+                "collection": [
+                    "spectrum"
+                ],
+                "saleRestricted": false,
+                "inGameAssetID": "667aa94efe6ee90c75ad7db3",
+                "emissionSerial": "667aa94efe6ee90c75ad7db3",
+                "sagaAddress": "0xd9e77ba2A57Ec91dB3AD9b358f6cbD63B6747656"
+            },
+            "createdAt": 1719314816,
+            "deliveryStats": {
+                "rate": "",
+                "time": ""
+            },
+            "fees": {
+                "f2f": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                },
+                "dmarket": {
+                    "sell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "instantSell": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    },
+                    "exchange": {
+                        "default": {
+                            "percentage": "",
+                            "minFee": {
+                                "DMC": "",
+                                "USD": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "discountPrice": {
+                "DMC": "",
+                "USD": ""
+            },
+            "productId": "a8db:bed33f779896126477cce64aa4655e56"
+        }
+    ]
+}

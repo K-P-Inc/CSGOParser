@@ -27,10 +27,10 @@ function renderSection(title: string, rows : Array<{ label: string, value: numbe
       <div className="rounded border border-primary-500 px-4" />
       {rows.map((row, index) => (
         <div className="flex justify-between w-full" key={index}>
-          <p className={index === 0 ? "text-grey" : "small-regular text-grey"}>
+          <p className={"small-regular text-grey"}>
             {row.label}
           </p>
-          <p className={index === 0 ? "text-light-1" : "small-regular text-light-1"}>
+          <p className={"small-regular text-light-1"}>
             {typeof row.value === 'number' ? `$${row.value.toFixed(2)}` : row.value}
           </p>
         </div>
@@ -53,9 +53,15 @@ export default function ItemCard({ item }: { item: SkinItem }) {
     let newWindow = window.open(item.market === "cs-money" ? item.link.split("&unique_id")[0] : item.link, "_blank");
   }
 
+  const openInspectLink = () => {
+    if (item.in_game_link) {
+      window.open(item.in_game_link, "_blank")
+    }
+  }
+
   return (
     <AlertDialog>
-      <AlertDialogContent className="space-y-4">
+      <AlertDialogContent className="space-y-4 max-w-[650px]">
         <div className="flex justify-between w-full">
           <div className="space-y-1">
             <p className="item-card-popup_title text-left text-light-1">
@@ -67,19 +73,25 @@ export default function ItemCard({ item }: { item: SkinItem }) {
           </div>
           <AlertDialogCancel>X</AlertDialogCancel>
         </div>
-        <div className="flex justify-center w-100 items-center space-x-4">
-          <div className="flex items-center justify-center flex-col space-y-4" style={{ width: "60%" }}>
+        <div className="flex justify-center w-100 items-center space-x-4" style={{ position: 'relative' }}>
+          <div className="flex items-center justify-center flex-col space-y-4" style={{ width: "70%" }}>
             <div className="item-card-popup_image flex items-center justify-center w-full">
               <img
+                style={{ zIndex: 2 }}
                 src={item.image}
                 alt="post image"
-                width={240}
+                width={380}
               />
             </div>
-            <div className="flex justify-center items-center w-full px-4 text-[12px] text-grey">
+            <div className="flex justify-center items-center w-full px-4 text-[12px] space-x-8 text-grey">
               <button onClick={openSteamLink}>
                 Open on Steam
               </button>
+              {item.in_game_link &&
+                <button onClick={openInspectLink}>
+                  Inspect in game
+                </button>
+              }
             </div>
             <div className="rounded border border-dark-4 px-4 w-full"/>
             <div className="flex items-center justify-center w-full">
@@ -92,12 +104,12 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                           key={stickerIndex}
                           src={icon}
                           alt={`Sticker ${stickerIndex + 1}`}
-                          className="h-[36px] hover:h-[42px] w-[45px] hover:w-[56px] object-cover hover:my-[-3px] mx-[5.5px] hover:mx-[0px] transition-all duration-100 ease-in"
+                          className="h-[56px] hover:h-[62px] w-[65px] hover:w-[76px] object-cover hover:my-[-3px] mx-[5.5px] hover:mx-[0px] transition-all duration-100 ease-in"
                         />
                       </HoverCardTrigger>
                       <HoverCardContent className="space-y-2">
                         <p className="small-regular text-center text-light-1">
-                          Sticker | {stc_instance?.name}
+                          {stc_instance?.name}
                         </p>
                         <div className="flex justify-between w-full">
                           <p className="small-regular text-grey">
@@ -107,20 +119,32 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                             {`$${stc_instance?.price.toFixed(2)}`}
                           </p>
                         </div>
+                        <div className="flex justify-between w-full">
+                          <p className="small-regular text-grey">
+                            Wear
+                          </p>
+                          <p className="small-regular text-light-1">
+                            {`${((item.stickers_wears[stickerIndex] ?? 0)) * 100}%`}
+                          </p>
+                        </div>
                       </HoverCardContent>
                     </HoverCard>
                   );
               })}
             </div>
           </div>
-          <div className="space-y-4" style={{ width: "40%" }}>
+          <div className="space-y-4" style={{ width: "30%" }}>
             {renderSection("Prices", [
               renderRow("Steam", item.steam_price),
               renderRow("Market", item.market_price)
             ])}
             {renderSection("Stickers", [
-              renderRow("Pattern", item.stickers_patern),
+              renderRow("Combo", item.stickers_patern),
               renderRow("Total", item.stickers_price),
+            ])}
+            {renderSection("Info", [
+              renderRow("Pattern", item.pattern_template?.toString() ?? '-'),
+              renderRow("Float", item.item_float?.toFixed(6) ?? '-'),
             ])}
             <div className="flex gap-1">
               <p className="body-bold text-light-1">

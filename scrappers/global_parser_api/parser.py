@@ -27,7 +27,7 @@ def parse_item(
 
     logging.info(f'Parsing weapon {display_name} (found {len(items_list)})')
     for i in items_list:
-        key_price, item_price, item_link, stickers_keys = market_class.parse_item(i)
+        key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed = market_class.parse_item(i)
         parsed_urls.append(item_link)
 
         if len(stickers_keys) == 0 or key_price not in weapons_prices:
@@ -68,6 +68,12 @@ def parse_item(
         stickers_names_string = ', '.join([sticker["name"] for sticker in matched_stickers])
         future_profit_percentages = (sticker_overprice + actually_price - item_price) / item_price * 100
 
+        stickers_variants = ['Glitter', 'Holo', 'Foil', 'Gold']
+        stickers_distinct_variants = list(set(
+            next((value for value in stickers_variants if f'({value.lower()})' in sticker["name"].lower()), "Paper")
+            for sticker in matched_stickers
+        ))
+
         if future_profit_percentages > weapon_config.profit_threshold and sticker_sum > weapon_config.sticker_sum:
             found_items.append((
                 market_class.DB_ENUM_NAME,
@@ -75,7 +81,8 @@ def parse_item(
                 sticker_sum, item_price,
                 future_profit_percentages,
                 weapon_uuid, sticker_patern, num_stickers, len(matched_stickers), False,
-                [sticker["id"] for sticker in matched_stickers]
+                [sticker["id"] for sticker in matched_stickers],
+                stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants
             ))
             logging.info(
                 f'Found new item:\n\n'

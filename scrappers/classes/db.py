@@ -66,10 +66,12 @@ class DBClient:
         self.execute(query, value)
 
     def insert_skins(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
         query = f'''
             INSERT INTO skins(
-                market, link, stickers_price, price, profit, skin_id, stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers
+                market, link, stickers_price, price, profit, skin_id,
+                stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers,
+                stickers_wears, item_float, in_game_link, pattern_template, order_type, stickers_distinct_variants
             ) VALUES {placeholders}
             ON CONFLICT (link) DO UPDATE SET
                 stickers_price = EXCLUDED.stickers_price,
@@ -113,6 +115,12 @@ class DBClient:
             weapons = cursor.fetchall()
             return weapons
 
+    def delete_old_skins(self, market, weapon_uuids):
+        with self.db.cursor() as cursor:
+            cursor.execute(f'''
+                DELETE FROM skins
+                WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
+            ''', [market, *weapon_uuids])
 
     def update_skins_as_sold(self, market, parsed_urls, weapon_uuids):
         with self.db.cursor() as cursor:

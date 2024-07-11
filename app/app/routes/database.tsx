@@ -75,10 +75,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const sticker_types = getParamArray<StickersType>(request.url, "sticker_types");
   const market_types = getParamArray<ShopType>(request.url, "market_types");
   const page = parseInt(url.searchParams.get("page") || "0");
-  const postgresClient = new RDSClient();
 
-  const filters = [];
-  const args = [];
+  let stickers_filters = [];
+  let filters = [];
+  let args = [];
 
   if (categories.includes("StatTrak™")) {
     const categories_filters = {
@@ -96,8 +96,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   if (stickers_patterns.length > 0) {
     filters.push(stickers_patterns.map(stickers_patern => `skins.stickers_patern = '${stickers_patern}'`).join(` OR `));
   }
+
   if (sticker_types.length > 0) {
-    filters.push(sticker_types.map(sticker_type => `LOWER(t.name) LIKE LOWER('%(${sticker_type})%')`).join(` OR `));
+    filters.push(`skins.stickers_distinct_variants <@ ARRAY[${sticker_types.map(value => `'${value}'`).join(`,`)}]::csgo_stickers_variant[]`)
   }
 
   if (search.length > 0) {
@@ -132,7 +133,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     );
   }
 
-  filters.push(`(COALESCE(stickers_total_price, 0) * 0.1 + weapons_prices.price - skins.price) / skins.price * 100.0 > 10`);
   filters.push(`skins.is_sold = FALSE`);
 
   const filterCondition = filters.length ? `WHERE ${filters.map(value => `(${value})`).join(' AND ')}` : '';
@@ -162,51 +162,43 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const query = `
-    SELECT *
-    FROM (
-      SELECT *,
-            array_length(stickers, 1) AS stickers_count,
-            (SELECT COUNT(DISTINCT sticker_id) 
-              FROM unnest(stickers) AS sticker_id) AS distinct_stickers_count,
-            json_array_length(stickers_array) AS stickers_array_count
-      FROM (
-        WITH sticker_prices AS (
-        SELECT
-          skins.id AS skin_id,
-          SUM(COALESCE(stickers.price, 0)) AS stickers_total_price
-        FROM skins
-        LEFT JOIN stickers ON stickers.id = ANY(skins.stickers)
-        GROUP BY skins.id
-      )
-        SELECT DISTINCT ON (skins.id)
-          weapons_prices.name,
-          skins.market,
-          weapons_prices.is_stattrak,
-          weapons_prices.quality,
-          skins.price AS market_price,
-          weapons_prices.price AS steam_price,
-          weapons_prices.icon_url,
-          COALESCE(sticker_prices.stickers_total_price, 0) AS stickers_price,
-          skins.stickers_patern,
-          skins.created_at,
-          skins.link,
-          skins.stickers,
-          array_to_json(array_agg(row_to_json(t)) OVER (PARTITION BY skins.id)) AS stickers_array,
-          (COALESCE(sticker_prices.stickers_total_price, 0) * 0.1 + weapons_prices.price - skins.price) / skins.price * 100.0 AS profit
-        FROM skins
-        INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
-        LEFT JOIN sticker_prices ON skins.id = sticker_prices.skin_id
-        LEFT JOIN stickers t ON t.id = ANY (skins.stickers)
-        ${filterCondition}
-      ) AS subquery
-    ) AS final_query
-    WHERE distinct_stickers_count = stickers_array_count
+    SELECT
+      weapons_prices.name,
+      skins.market,
+      skins.stickers_distinct_variants,
+      skins.stickers_wears,
+      skins.order_type,
+      skins.item_float,
+      skins.pattern_template,
+      skins.in_game_link,
+      weapons_prices.is_stattrak,
+      weapons_prices.quality,
+      skins.price AS market_price,
+      weapons_prices.price AS steam_price,
+      weapons_prices.icon_url,
+      skins.stickers_patern,
+      skins.created_at,
+      skins.stickers_price,
+      skins.link,
+      skins.stickers,
+      skins.stickers_price,
+      skins.profit
+    FROM skins
+    INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+    ${filterCondition}
     ${orderBy}
     LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
   `;
 
-  let filtered_items: Promise<SkinItem[]> = postgresClient.query(query, args)
-    .then((items: any[] | undefined) => {
+  console.log(query)
+
+  const skinsClient = new RDSClient();
+  const stickersClient = new RDSClient();
+
+  let filtered_items: Promise<SkinItem[]> = Promise.all([skinsClient.query(query, args), stickersClient.query('SELECT * FROM stickers')])
+    .then((responses: any[]) => {
+      const [items, stickersMap] = responses
+
       return items
         ? items.map((row: any) => ({
           name: `${row["is_stattrak"] ? "StatTrak™ " : ""}${row["name"]}`,
@@ -220,15 +212,20 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           image: `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
           profit: row["profit"],
           link: `${row["link"]}`,
-          stickers_instances: row["stickers_array"],
+          stickers_instances: stickersMap.filter((x: any) => row["stickers"].includes(x["id"])),
           stickers_icons: row["stickers"].map((stc: string) => {
-            const stc_instance = row["stickers_array"].find((ins: any) => ins["id"] === stc)
+            const stc_instance = stickersMap.find((ins: any) => ins["id"] === stc)
             return `https://community.akamai.steamstatic.com/economy/image/${stc_instance["icon_url"]}`
           }),
           stickers_price: row["stickers"].map((stc: string) => {
-            const stc_instance = row["stickers_array"].find((ins: any) => ins["id"] === stc)
+            const stc_instance = stickersMap.find((ins: any) => ins["id"] === stc)
             return stc_instance["price"];
-          }).reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0)
+          }).reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0),
+          stickers_wears: row["stickers_wears"],
+          order_type: row["order_type"],
+          item_float: row["item_float"],
+          pattern_template: row["pattern_template"],
+          in_game_link: row["in_game_link"]
         }))
         : []
     });

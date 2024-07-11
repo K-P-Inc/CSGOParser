@@ -24,6 +24,14 @@ CREATE TYPE csgo_skin_quality AS ENUM (
     'Battle-Scarred'
 );
 
+CREATE TYPE csgo_stickers_variant AS ENUM (
+    'Paper',
+    'Glitter',
+    'Holo',
+    'Foil',
+    'Gold'
+);
+
 CREATE TABLE IF NOT EXISTS weapons_prices (
   id uuid DEFAULT uuid_generate_v4(),
   name TEXT,
@@ -51,6 +59,11 @@ CREATE TYPE weapon_stickers_patern AS ENUM (
     'other'
 );
 
+CREATE TYPE csgo_order_type AS ENUM (
+    'auction',
+    'fixed'
+);
+
 CREATE TYPE market_type AS ENUM (
     'market-csgo',
     'skinbid',
@@ -75,7 +88,12 @@ CREATE TABLE IF NOT EXISTS skins (
   stickers_patern public.weapon_stickers_patern null,
   amount_of_stickers_distinct integer null,
   amount_of_stickers integer null,
-  stickers uuid[] null,
+  stickers uuid[] default ARRAY[]::uuid[],
+  stickers_wears double precision[] default ARRAY[]::double precision[],
+  order_type csgo_order_type default 'fixed'::csgo_order_type,
+  stickers_distinct_variants csgo_stickers_variant[] default ARRAY[]::csgo_stickers_variant[],
+  item_float double precision null,
+  pattern_template double precision null,
   created_at timestamp with time zone null default now(),
   is_out_dated boolean null default false,
   in_game_link text null default ''::text,
@@ -86,3 +104,7 @@ CREATE TABLE IF NOT EXISTS skins (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS skins_link_index ON skins(link);
+CREATE INDEX IF NOT EXISTS skins_idx_market ON skins(market);
+CREATE INDEX IF NOT EXISTS skins_idx_price ON skins(price);
+CREATE INDEX IF NOT EXISTS skins_idx_profit ON skins(profit);
+CREATE INDEX IF NOT EXISTS skins_idx_created_at ON skins(created_at);

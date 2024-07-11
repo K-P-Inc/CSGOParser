@@ -3,7 +3,7 @@ import {
     NavLink,
     useLocation,
 } from "@remix-run/react"
-import { AccountIcon, LogoIcon, InventoryIcon, WatchlistIcon, SettingsIcon, LogoutIcon } from "~/assets/images";
+import { AccountIcon, LogoIcon, InventoryIcon, WatchlistIcon, SettingsIcon, LogoutIcon, FullLogoIcon } from "~/assets/images";
 import React from "react";
 import { SupabaseClient } from "@supabase/auth-helpers-remix";
 import { Button } from "./ui/button";
@@ -25,7 +25,7 @@ function TopBar({ supabase } : BarProperties) {
             <div className="flex-between py-4 px-5">
                 <Link to="/" className="flex gap-3 items-center">
                 <img
-                    src={LogoIcon}
+                    src={FullLogoIcon}
                     alt="logo"
                     width={130}
                     height={325}
@@ -67,15 +67,14 @@ function Bottombar () {
 
 function LeftLayout({ supabase } : BarProperties) {
     const location = useLocation()
-
     return (
         <nav className="leftsidebar">
             <div className="flex flex-col gap-11">
                 <Link to="/" className="flex gap-3 items-center">
                 <img
-                    src={LogoIcon}
+                    src={FullLogoIcon}
                     alt="logo"
-                    width={170}
+                    width={222}
                     height={36}
                 />
                 </Link>

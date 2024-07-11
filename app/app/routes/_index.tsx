@@ -48,13 +48,6 @@ const data = [
 ];
 
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
-
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const response = new Response();

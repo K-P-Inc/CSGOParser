@@ -23,6 +23,11 @@ export interface SkinItem {
     link: string;
     stickers_instances: Sticker[];
     stickers_icons: string[];
+    stickers_wears: number[] | null[];
+    order_type: string;
+    item_float: number | null;
+    pattern_template: number | null;
+    in_game_link: string | null
 }
 
 export type INavLink = {

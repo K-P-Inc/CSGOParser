@@ -23,7 +23,7 @@ Sentry.init({
   tracesSampleRate: 1
 })
 
-const ABORT_DELAY = 5_000;
+const ABORT_DELAY = 15_000;
 
 export default function handleRequest(
   request: Request,
