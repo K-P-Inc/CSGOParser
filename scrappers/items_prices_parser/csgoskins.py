@@ -4,6 +4,7 @@ import datetime
 import os
 import requests
 import time
+from dotenv import load_dotenv
 from classes import DBClient
 from urllib.parse import urlparse, quote
 from selenium import webdriver
@@ -64,7 +65,7 @@ class Driver(webdriver.Chrome):
         options.add_argument('--disable-extensions')
         # Отключает использование GPU для ускорения отрисовки страницы. Может быть полезно в виртуальных средах.
         options.add_argument('--disable-gpu')
-        # # Запускает браузер в безопасном режиме, отключая некоторые функции безопасности.
+        # Запускает браузер в безопасном режиме, отключая некоторые функции безопасности.
         options.add_argument('--no-sandbox')
 
         super().__init__(options=options, **kwargs)
@@ -316,6 +317,7 @@ def get_item_image_url(item_name):
 
     return images_urls[item_name].get('image')
 
+
 def parse_with_price_and_update_profits(items, driver):
     global_config = []
     parsed_items = ['ak-47-', 'm4a1-s-', 'm4a4-', 'awp-']
@@ -365,4 +367,5 @@ def main():
 
 
 if __name__ == '__main__':
+    load_dotenv()
     main()
