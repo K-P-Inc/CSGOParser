@@ -25,10 +25,10 @@ class DBClient:
             self.db.commit()
 
     def update_weapon_prices(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for x in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for x in values])
         query = f'''
             INSERT INTO weapons_prices(
-                name, quality, is_stattrak, price,
+                name, quality, is_stattrak, price, market_prices,
                 price_week_low, price_week_high,
                 price_month_low, price_month_high,
                 price_all_time_low, price_all_time_high, parsing_time, icon_url

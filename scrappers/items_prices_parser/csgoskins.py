@@ -4,7 +4,7 @@ import datetime
 import os
 import requests
 import time
-from scrappers.classes.db import DBClient
+from classes import DBClient
 from urllib.parse import urlparse, quote
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -292,6 +292,7 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type):
         updated_item_type["name"],
         updated_item_type["is_stattrak"],
         updated_item_type["price"],
+        updated_item_type['markets_data'],
         updated_item_type['week_low_value'],
         updated_item_type['week_high_value'],
         updated_item_type['month_low_value'],
@@ -299,7 +300,7 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type):
         updated_item_type['all_time_low'],
         updated_item_type['all_time_high'],
         datetime.datetime.now(),
-        get_item_image_url(updated_item["name"])
+        get_item_image_url(f'{updated_item["name"]} | ({updated_item_type["name"]})')
     )])
     db_client.update_skins_profit_by_weapon((
         updated_item["name"],
@@ -359,9 +360,9 @@ def main():
     except Exception as e:
         logging.error(f"Got exception: {e}")
     finally:
-        # if driver:
-            # driver.quit()
-        pass
+        if driver:
+            driver.quit()
+
 
 if __name__ == '__main__':
     main()
