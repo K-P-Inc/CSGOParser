@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS stickers (
     name TEXT,
     key TEXT,
     price FLOAT,
+    market_prices JSON,
     rare TEXT,
     type TEXT,
     collection TEXT,

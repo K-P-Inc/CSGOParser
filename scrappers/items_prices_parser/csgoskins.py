@@ -4,7 +4,7 @@ import datetime
 import os
 import requests
 import time
-from classes import DBClient
+from scrappers.classes.db import DBClient
 from urllib.parse import urlparse, quote
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -222,6 +222,7 @@ def get_item_icon(driver):
     finally:
         return icon
 
+
 def get_price_values(driver, price_values):
     try:
         for period in periods:
@@ -230,6 +231,7 @@ def get_price_values(driver, price_values):
                 price_values[f'{period} {stat}'] = value
     finally:
         return price_values
+
 
 def fetch_market_data(driver, item_link, price_values):
     time.sleep(1)
@@ -253,7 +255,7 @@ def try_to_get_price_from_steam_api(market_hash_name):
             return float(price[1:])
         return -1
     except:
-        return -1 
+        return -1
 
 
 def update_item_with_prices(item, prices, markets_data, name):
@@ -297,7 +299,7 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type):
         updated_item_type['all_time_low'],
         updated_item_type['all_time_high'],
         datetime.datetime.now(),
-        ""
+        get_item_image_url(updated_item["name"])
     )])
     db_client.update_skins_profit_by_weapon((
         updated_item["name"],
@@ -306,6 +308,12 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type):
         updated_item_type['price']
     ))
 
+
+def get_item_image_url(item_name):
+    with open('scrappers/data/cs2_skins_images.json', 'r') as file:
+        images_urls = json.load(file)
+
+    return images_urls[item_name].get('image')
 
 def parse_with_price_and_update_profits(items, driver):
     global_config = []
@@ -328,12 +336,13 @@ def parse_with_price_and_update_profits(items, driver):
                             updated_item_type = update_item_with_prices(item_type, prices, markets_data, f'{item["name"]} ({item_type["name"]})')
                             update_weapon_price_in_and_skins(item, updated_item_type)
 
-
     with open(file_to_write, "w") as file:
         json.dump(global_config, file, indent=4)
 
+
 def split_array(array, k=1000):
     return [array[i * k:i * k + k] for i in range(len(array) // k + 1)]
+
 
 def main():
     try:
@@ -345,14 +354,14 @@ def main():
 
         parse_with_price_and_update_profits(weapon_configs[:2000], driver)
 
-        # print(json.dumps(weapon_configs, indent=4))
+        print(json.dumps(weapon_configs, indent=4))
 
     except Exception as e:
         logging.error(f"Got exception: {e}")
     finally:
-        if driver:
-            driver.quit()
-
+        # if driver:
+            # driver.quit()
+        pass
 
 if __name__ == '__main__':
     main()

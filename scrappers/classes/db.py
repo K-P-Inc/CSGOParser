@@ -89,7 +89,7 @@ class DBClient:
         query = f'''
             INSERT INTO stickers(classid, name, key, price, type, rare, collection, icon_url)
             VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
-            ON CONFLICT (name) 
+            ON CONFLICT (name)
             DO UPDATE SET price = EXCLUDED.price, classid = EXCLUDED.classid
         '''
         flat_values = [val for row in values for val in row]
@@ -118,12 +118,12 @@ class DBClient:
         with self.db.cursor() as cursor:
             if len(parsed_urls) > 0:
                 cursor.execute(f'''
-                    UPDATE skins SET is_sold = True 
+                    UPDATE skins SET is_sold = True
                     WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
                 ''', [*parsed_urls, market, *weapon_uuids])
             else:
                 cursor.execute(f'''
-                    UPDATE skins SET is_sold = True 
+                    UPDATE skins SET is_sold = True
                     WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
                 ''', [market, *weapon_uuids])
 
