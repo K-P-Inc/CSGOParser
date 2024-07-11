@@ -311,7 +311,7 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type):
 
 
 def get_item_image_url(item_name):
-    with open('scrappers/data/cs2_skins_images.json', 'r') as file:
+    with open('data/cs2_skins_images.json', 'r') as file:
         images_urls = json.load(file)
 
     return images_urls[item_name].get('image')
