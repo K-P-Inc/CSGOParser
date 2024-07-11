@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS weapons_prices (
   quality csgo_skin_quality,
   is_stattrak BOOLEAN,
   price FLOAT,
+  market_prices JSON,
   price_week_low FLOAT,
   price_week_high FLOAT,
   price_month_low FLOAT,
