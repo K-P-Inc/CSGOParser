@@ -124,7 +124,7 @@ def find_items_global_links(driver):
 def parse_global_weapon_information(driver, url):
     time.sleep(1)
     driver.get(url)
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(0.5)
 
     skin_name = driver.find_element(By.XPATH, '//h1[@class="text-2xl sm:text-3xl font-bold"]').text
 
@@ -337,8 +337,6 @@ def parse_with_price_and_update_profits(items, driver):
                         for item_type in item.get('types', []):
                             if 'souvenir' not in item_type['link']:
                                 prices, markets_data = fetch_market_data(driver, item_type['link'], price_values)
-                                # print(type(markets_data), markets_data)
-                                # return
                                 updated_item_type = update_item_with_prices(item_type, prices, markets_data, f'{item["name"]} ({item_type["name"]})')
                                 update_weapon_price_in_and_skins(item, updated_item_type, markets_data)
     finally:
@@ -360,7 +358,7 @@ def main():
 
         parse_with_price_and_update_profits(weapon_configs[:2000], driver)
 
-        # print(json.dumps(weapon_configs, indent=4))
+        print(json.dumps(weapon_configs, indent=4))
 
     except Exception as e:
         logging.error(f"Got exception: {e}")
