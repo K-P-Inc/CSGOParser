@@ -82,7 +82,7 @@ def create_driver():
 
 
 def find_items_for_parsing_without_quality(driver, url, page):
-    time.sleep(2)
+    time.sleep(1)
     driver.get(f'{url}&page={page}')
     links = driver.find_elements(By.XPATH, '//a[starts-with(@href, "https://csgoskins.gg/items/")]')
 
@@ -286,14 +286,14 @@ def update_item_with_prices(item, prices, markets_data, name):
     return item
 
 
-def update_weapon_price_in_and_skins(updated_item, updated_item_type):
+def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_data):
     db_client = DBClient()
     db_client.update_weapon_prices([(
         updated_item["name"],
         updated_item_type["name"],
         updated_item_type["is_stattrak"],
         updated_item_type["price"],
-        updated_item_type['markets_data'],
+        json.dumps(markets_data),
         updated_item_type['week_low_value'],
         updated_item_type['week_high_value'],
         updated_item_type['month_low_value'],
@@ -301,7 +301,7 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type):
         updated_item_type['all_time_low'],
         updated_item_type['all_time_high'],
         datetime.datetime.now(),
-        get_item_image_url(f'{updated_item["name"]} | ({updated_item_type["name"]})')
+        get_item_image_url(f'{updated_item["name"]} ({updated_item_type["name"]})')
     )])
     db_client.update_skins_profit_by_weapon((
         updated_item["name"],
@@ -323,24 +323,27 @@ def parse_with_price_and_update_profits(items, driver):
     parsed_items = ['ak-47-', 'm4a1-s-', 'm4a4-', 'awp-']
     file_to_write = "data/parse_items_with_price.json"
 
-    for parsed_item in parsed_items:
-        for item in items:
-            if parsed_item in item['link']:
-                price_values = {}
-                print(item['link'])
-                if 'sticker-' in item['link']:
-                    prices, markets_data = fetch_market_data(driver, item['link'], price_values)
-                    updated_item = update_item_with_prices(item, prices, markets_data, item["name"])
-                    global_config.append(updated_item)
-                else:
-                    for item_type in item.get('types', []):
-                        if 'souvenir' not in item_type['link']:
-                            prices, markets_data = fetch_market_data(driver, item_type['link'], price_values)
-                            updated_item_type = update_item_with_prices(item_type, prices, markets_data, f'{item["name"]} ({item_type["name"]})')
-                            update_weapon_price_in_and_skins(item, updated_item_type)
-
-    with open(file_to_write, "w") as file:
-        json.dump(global_config, file, indent=4)
+    try:
+        for parsed_item in parsed_items:
+            for item in items:
+                if parsed_item in item['link']:
+                    price_values = {}
+                    print(item['link'])
+                    if 'sticker-' in item['link']:
+                        prices, markets_data = fetch_market_data(driver, item['link'], price_values)
+                        updated_item = update_item_with_prices(item, prices, markets_data, item["name"])
+                        global_config.append(updated_item)
+                    else:
+                        for item_type in item.get('types', []):
+                            if 'souvenir' not in item_type['link']:
+                                prices, markets_data = fetch_market_data(driver, item_type['link'], price_values)
+                                # print(type(markets_data), markets_data)
+                                # return
+                                updated_item_type = update_item_with_prices(item_type, prices, markets_data, f'{item["name"]} ({item_type["name"]})')
+                                update_weapon_price_in_and_skins(item, updated_item_type, markets_data)
+    finally:
+        with open(file_to_write, "w") as file:
+            json.dump(global_config, file, indent=4)
 
 
 def split_array(array, k=1000):
@@ -357,7 +360,7 @@ def main():
 
         parse_with_price_and_update_profits(weapon_configs[:2000], driver)
 
-        print(json.dumps(weapon_configs, indent=4))
+        # print(json.dumps(weapon_configs, indent=4))
 
     except Exception as e:
         logging.error(f"Got exception: {e}")

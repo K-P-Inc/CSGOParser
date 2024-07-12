@@ -10,14 +10,19 @@ class DBClient:
         host = os.environ.get("POSTGRES_HOST")
         port = os.environ.get("POSTGRES_PORT")
         logging.info("Connecting to database")
-        self.db = pg8000.connect(
-            host=host,
-            database=database,
-            user=user,
-            password=password,
-            port=port
-        )
-        logging.info("Connected to database")
+
+        try:
+            logging.info("Connecting to database")
+            self.db = pg8000.connect(
+                host=host,
+                database=database,
+                user=user,
+                password=password,
+                port=port
+            )
+            logging.info("Connected to database")
+        except Exception as e:
+            logging.error(f"Failed to connect to database: {e}")
 
     def execute(self, query, params) -> None:
         with self.db.cursor() as cursor:
@@ -25,7 +30,7 @@ class DBClient:
             self.db.commit()
 
     def update_weapon_prices(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for x in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
         query = f'''
             INSERT INTO weapons_prices(
                 name, quality, is_stattrak, price, market_prices,
@@ -35,6 +40,7 @@ class DBClient:
             ) VALUES {placeholders}
             ON CONFLICT (name, quality, is_stattrak) DO UPDATE SET
                 price = EXCLUDED.price,
+                market_prices = EXCLUDED.market_prices,
                 price_week_low = EXCLUDED.price_week_low,
                 price_week_high = EXCLUDED.price_week_high,
                 price_month_low = EXCLUDED.price_month_low,
