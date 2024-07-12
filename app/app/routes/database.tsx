@@ -207,7 +207,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           market_price: row["market_price"],
           steam_price: row["steam_price"],
           stickers_patern: row["stickers_patern"],
-          image: `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
+          image: row["icon_url"].startsWith("https://steamcommunity-a.akamaihd.net/economy/image/-") ? row["icon_url"] : `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
           profit: row["profit"],
           link: `${row["link"]}`,
           stickers_instances: stickersMap.filter((x: any) => row["stickers"].includes(x["id"])),
