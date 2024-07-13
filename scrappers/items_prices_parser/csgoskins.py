@@ -347,7 +347,7 @@ def get_item_image_url(item_name, image_url = None):
 
 
 def parse_with_price_and_update_profits(items, driver):
-    parsed_items = ['sticker-']#['ak-47-', 'm4a1-s-', 'm4a4-', 'awp-', 'sticker-']
+    parsed_items = ['ak-47-', 'm4a1-s-', 'm4a4-', 'awp-', 'sticker-']
     try:
         for parsed_item in parsed_items:
             for item in items:
