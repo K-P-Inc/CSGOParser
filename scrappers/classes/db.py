@@ -71,6 +71,7 @@ class DBClient:
         self.execute(query, value)
 
     def update_skins_profit_by_stickers(self, value):
+        # TODO: Make querry for upd profit after stickers price update
         return
         query = f''''''
         self.execute(query, value)

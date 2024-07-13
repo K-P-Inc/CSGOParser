@@ -9,6 +9,7 @@ from omegaconf import DictConfig
 from dotenv import load_dotenv
 from pathlib import Path
 from utils import repo_path
+from utils.data import load_data_json
 from classes import DBClient, SeleniumDriver
 from urllib.parse import urlparse, quote
 from selenium import webdriver
@@ -32,7 +33,6 @@ def alt_xpath(alt):
 
 
 def active_offers_xpath(driver, alt):
-    # logging.info(f"{alt}: Getting active offers")
     try:
         active_offers_xpath = "//*[contains(text(), 'active offers')]//..//..//*[2]"
         active_offers_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{active_offers_xpath}").text
@@ -43,7 +43,6 @@ def active_offers_xpath(driver, alt):
 
 
 def price_offers_xpath(driver, alt):
-    # logging.info(f"{alt}: Getting price offers")
     try:
         price_from = "//*[text() = 'from']//..//..//*[2]"
         price_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{price_from}").text.replace('$','')
@@ -63,31 +62,6 @@ def price_statistics_xpath(period):
     return f"//*[@class = 'order-[24]']//*[@class = 'flex px-4 py-2']//*[contains(text(), '{period}')]//../*[2]"
 
 
-class Driver(webdriver.Chrome):
-    def __init__(self, **kwargs):
-        options = webdriver.ChromeOptions()
-
-        # Отключает расширения браузера.
-        options.add_argument('--disable-extensions')
-        # Отключает использование GPU для ускорения отрисовки страницы. Может быть полезно в виртуальных средах.
-        options.add_argument('--disable-gpu')
-        # Запускает браузер в безопасном режиме, отключая некоторые функции безопасности.
-        options.add_argument('--no-sandbox')
-
-        super().__init__(options=options, **kwargs)
-
-
-def create_driver():
-    logging.info("Create debug driver")
-    try:
-        driver = Driver()
-        driver.implicitly_wait(0.1)
-        return driver
-    except Exception as e:
-        logging.error(f"Got exception: {e}")
-        return None
-
-
 def find_items_for_parsing_without_quality(driver, url, page):
     logging.info(f"Parsing page: {page}")
     time.sleep(1)
@@ -105,17 +79,12 @@ def find_items_for_parsing_without_quality(driver, url, page):
     return set(correct_links)
 
 
-def load_items_links_without_quality_config():
-    with open(os.path.join(repo_path(), 'data', 'items_links_without_quality.json'), 'r') as f:
-        return json.loads(f.read())
-
-
 def find_items_global_links(driver):
     items_links_without_quality = []
     file_path = "data/items_links_without_quality.json"
 
     logging.info('Getting items_links_without_quality')
-    items_links_without_quality = load_items_links_without_quality_config()
+    items_links_without_quality = load_data_json('items_links_without_quality.json')
 
     if items_links_without_quality:
         logging.info('Return items_links_without_quality links from config')
@@ -219,18 +188,13 @@ def parse_global_weapon_information(driver, url):
     }
 
 
-def load_items_global_config():
-    with open(os.path.join(repo_path(), 'data', 'global_weapon_configs.json'), 'r') as f:
-        return json.loads(f.read())
-
-
 def find_items_description(driver, items_list):
     logging.info('Parse items descriptions')
     global_weapon_configs = []
     file_path = "data/global_weapon_configs.json"
 
     logging.info('Getting global_weapon_configs')
-    global_weapon_configs = load_items_global_config()
+    global_weapon_configs = load_data_json('global_weapon_configs.json')
 
     if global_weapon_configs:
         return global_weapon_configs
@@ -371,19 +335,9 @@ def update_sticker_price(updated_item, markets_data):
     # ))
 
 
-def load_csgo_skins_images_config():
-    with open(os.path.join(repo_path(), 'data', 'csgo_skins_images.json'), 'r') as f:
-        return json.loads(f.read())
-
-
-def load_cs2_skins_images_config():
-    with open(os.path.join(repo_path(), 'data', 'cs2_skins_images.json'), 'r') as f:
-        return json.loads(f.read())
-
-
 def get_item_image_url(item_name, image_url = None):
     logging.info(f"{item_name}: Getting image url for")
-    file = load_csgo_skins_images_config() if 'Sticker |' in item_name else load_cs2_skins_images_config()
+    file = load_data_json('csgo_skins_images.json') if 'Sticker |' in item_name else load_data_json('cs2_skins_images.json')
 
     return file[item_name] if 'Sticker |' in item_name else file[item_name].get('image')
 
