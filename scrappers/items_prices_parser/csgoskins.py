@@ -2,9 +2,13 @@ import json
 import logging
 import datetime
 import os
+import hydra
 import requests
 import time
+from omegaconf import DictConfig
 from dotenv import load_dotenv
+from pathlib import Path
+from utils import repo_path
 from classes import DBClient, SeleniumDriver
 from urllib.parse import urlparse, quote
 from selenium import webdriver
@@ -77,7 +81,7 @@ def create_driver():
         driver.implicitly_wait(0.1)
         return driver
     except Exception as e:
-        print(f"Failed to create WebDriver: {e}")
+        logging.error(f"Got exception: {e}")
         return None
 
 
@@ -303,12 +307,12 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_da
         datetime.datetime.now(),
         get_item_image_url(f'{updated_item["name"]} ({updated_item_type["name"]})')
     )])
-    db_client.update_skins_profit_by_weapon((
-        updated_item["name"],
-        updated_item_type["name"],
-        updated_item_type["is_stattrak"],
-        updated_item_type['price']
-    ))
+    # db_client.update_skins_profit_by_weapon((
+    #     updated_item["name"],
+    #     updated_item_type["name"],
+    #     updated_item_type["is_stattrak"],
+    #     updated_item_type['price']
+    # ))
 
 
 def update_sticker_price(updated_item, markets_data):
@@ -328,10 +332,10 @@ def update_sticker_price(updated_item, markets_data):
         updated_item['item_classes'][0], # rare
         updated_item['summary']['Category'], # type
     )], parser='csgoskins')
-    db_client.update_skins_profit_by_stickers((
-        updated_item["name"],
-        updated_item['price']
-    ))
+    # db_client.update_skins_profit_by_stickers((
+    #     updated_item["name"],
+    #     updated_item['price']
+    # ))
 
 
 def get_item_image_url(item_name, image_url = None):
@@ -357,7 +361,7 @@ def parse_with_price_and_update_profits(items, driver):
             for item in items:
                 if parsed_item in item['link']:
                     price_values = {}
-                    print(item['link'])
+                    logging.info(f"Parse item: {item['link']}")
                     if 'sticker-' in item['link']:
                         prices, markets_data = fetch_market_data(driver, item['link'], price_values)
                         updated_item = update_item_with_prices(item, prices, markets_data, item["name"])
@@ -376,7 +380,8 @@ def split_array(array, k=1000):
     return [array[i * k:i * k + k] for i in range(len(array) // k + 1)]
 
 
-def main():
+@hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name='items_prices_parser')
+def main(cfg: DictConfig):
     try:
         driver_class = SeleniumDriver()
         driver = driver_class.driver
