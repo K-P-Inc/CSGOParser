@@ -32,6 +32,7 @@ def alt_xpath(alt):
 
 
 def active_offers_xpath(driver, alt):
+    logging.info("Getting active offers")
     try:
         active_offers_xpath = "//*[contains(text(), 'active offers')]//..//..//*[2]"
         active_offers_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{active_offers_xpath}").text
@@ -42,6 +43,7 @@ def active_offers_xpath(driver, alt):
 
 
 def price_offers_xpath(driver, alt):
+    logging.info("Getting price offers")
     try:
         price_from = "//*[text() = 'from']//..//..//*[2]"
         price_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{price_from}").text.replace('$','')
@@ -52,6 +54,7 @@ def price_offers_xpath(driver, alt):
 
 
 def get_market_prices(driver, alts):
+    logging.info("Getting market active prices and offers")
     for alt in alts:
         if alt_xpath(alt):
             return {'active_offers': active_offers_xpath(driver, alt), 'price': price_offers_xpath(driver, alt)}
@@ -76,6 +79,7 @@ class Driver(webdriver.Chrome):
 
 
 def create_driver():
+    logging.info("Create debug driver")
     try:
         driver = Driver()
         driver.implicitly_wait(0.1)
@@ -86,6 +90,7 @@ def create_driver():
 
 
 def find_items_for_parsing_without_quality(driver, url, page):
+    logging.info(f"Parse {page}")
     time.sleep(1)
     driver.get(f'{url}&page={page}')
     links = driver.find_elements(By.XPATH, '//a[starts-with(@href, "https://csgoskins.gg/items/")]')
@@ -108,12 +113,15 @@ def find_items_global_links(driver):
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
             items_links_without_quality = json.load(file)
+    logging.info('Get items_links_without_quality links')
 
     if items_links_without_quality:
+        logging.info('Return items_links_without_quality links from config')
         return items_links_without_quality
 
     pages = 212
     for page in range(1, pages + 1):
+        logging.info('Parse all items links to config')
         links = find_items_for_parsing_without_quality(driver, 'https://csgoskins.gg/?order=lowest_price', page)
 
         for link in links:
@@ -122,17 +130,21 @@ def find_items_global_links(driver):
     with open(file_path, "w") as file:
         json.dump(items_links_without_quality, file, indent=4)
 
+    logging.info('Return parsed items_links_without_quality links')
     return items_links_without_quality
 
 
 def parse_global_weapon_information(driver, url):
+    logging.info(f"Parse item {url}")
     time.sleep(1)
     driver.get(url)
     driver.implicitly_wait(0.5)
 
+    logging.info('Geting skin name')
     skin_name = driver.find_element(By.XPATH, '//h1[@class="text-2xl sm:text-3xl font-bold"]').text
 
     types_config = []
+    logging.info('Geting skin types')
     try:
         for type_link in driver.find_elements(By.XPATH, f'//a[starts-with(@href, "{url}")]'):
             type_name = type_link.find_element(By.XPATH, './/div[@class="w-2/3 flex-none"]').text
@@ -145,6 +157,7 @@ def parse_global_weapon_information(driver, url):
     except NoSuchElementException:
         types_config = []
 
+    logging.info('Geting skin summary')
     try:
         summary_element = driver.find_element(By.XPATH, '//h2[text()="Summary"]')
         summary_parent_element = summary_element.find_element(By.XPATH, './ancestor::div[@class="mt-12"]/following-sibling::div[@class="shadow-md bg-gray-800 rounded mt-4"]')
@@ -156,6 +169,7 @@ def parse_global_weapon_information(driver, url):
     except NoSuchElementException:
         skin_summary = {}
 
+    logging.info('Geting skin class/rarity')
     try:
         item_class_element = driver.find_element(By.XPATH, '//h2[text()="Item Class"]')
         item_class_parent_element = item_class_element.find_element(By.XPATH, './ancestor::div[@class="mt-12"]/following-sibling::div[@class="flex mt-4"]')
@@ -164,6 +178,7 @@ def parse_global_weapon_information(driver, url):
     except NoSuchElementException:
         item_class_names = []
 
+    logging.info('Geting skin collections')
     try:
         collections_element = driver.find_element(By.XPATH, '//h2[text()="Collections"]')
         collections_parent_element = collections_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
@@ -172,6 +187,7 @@ def parse_global_weapon_information(driver, url):
     except NoSuchElementException:
         collections_names = []
 
+    logging.info('Geting skin containers')
     try:
         containers_element = driver.find_element(By.XPATH, '//h2[text()="Containers"]')
         containers_parent_element = containers_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
@@ -180,6 +196,7 @@ def parse_global_weapon_information(driver, url):
     except NoSuchElementException:
         containers_names = []
 
+    logging.info('Geting skin colors')
     try:
         colors_element = driver.find_element(By.XPATH, '//h2[text()="Colors"]')
         colors_parent_element = colors_element.find_element(By.XPATH, './ancestor::div[@class="mt-12 mb-6"]/following-sibling::div[@class="flex -mx-4 flex-wrap"]')
@@ -201,6 +218,7 @@ def parse_global_weapon_information(driver, url):
 
 
 def find_items_description(driver, items_list):
+    logging.info('Parse items descriptions')
     global_weapon_configs = []
     file_path = "data/global_weapon_configs.json"
 
@@ -221,6 +239,7 @@ def find_items_description(driver, items_list):
 
 
 def get_item_icon(driver):
+    logging.info("Getting item icon")
     icon = None
     try:
         icon = driver.find_element(By.XPATH, "//img[@id = 'main-image']").get_attribute('src')
@@ -229,6 +248,7 @@ def get_item_icon(driver):
 
 
 def get_price_values(driver, price_values):
+    logging.info("Get price values")
     try:
         for period in periods:
             for stat in statistics:
@@ -239,6 +259,7 @@ def get_price_values(driver, price_values):
 
 
 def fetch_market_data(driver, item_link, price_values):
+    logging.info("Getting market data")
     time.sleep(1)
     driver.get(item_link)
     prices = get_price_values(driver, price_values)
@@ -248,6 +269,7 @@ def fetch_market_data(driver, item_link, price_values):
 
 
 def try_to_get_price_from_steam_api(market_hash_name):
+    logging.info(f"Trying to get price for {market_hash_name} from Steam API")
     try:
         url = f"http://steamcommunity.com/market/priceoverview/?appid=730&market_hash_name={quote(market_hash_name)}&currency=1"
 
@@ -264,6 +286,7 @@ def try_to_get_price_from_steam_api(market_hash_name):
 
 
 def update_item_with_prices(item, prices, markets_data, name):
+    logging.info("Get stable price for item")
     price = -1
     for market_name, market_value in markets_data.items():
         if market_name == "Steam":
@@ -291,6 +314,7 @@ def update_item_with_prices(item, prices, markets_data, name):
 
 
 def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_data):
+    logging.info("Update weapon price in db")
     db_client = DBClient()
     db_client.update_weapon_prices([(
         updated_item["name"],
@@ -316,6 +340,7 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_da
 
 
 def update_sticker_price(updated_item, markets_data):
+    logging.info("Update sticker price in db")
     db_client = DBClient()
     db_client.update_stickers_prices([(
         updated_item['name'].replace('Sticker | ',''),
@@ -339,6 +364,7 @@ def update_sticker_price(updated_item, markets_data):
 
 
 def get_item_image_url(item_name, image_url = None):
+    logging.info(f"Getting image url for {item_name}")
     file_path = 'data/csgo_skins_images.json'  if 'Sticker |' in item_name else 'data/cs2_skins_images.json'
 
     try:
