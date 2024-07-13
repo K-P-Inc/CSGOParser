@@ -1,7 +1,6 @@
 import json
 import logging
 import datetime
-import os
 import hydra
 import requests
 import time
@@ -12,7 +11,6 @@ from utils import repo_path
 from utils.data import load_data_json
 from classes import DBClient, SeleniumDriver
 from urllib.parse import urlparse, quote
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
@@ -285,7 +283,6 @@ def update_item_with_prices(item, prices, markets_data, name):
 
 def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_data):
     logging.info(f'{updated_item["name"]}: Update weapon price in db')
-    # db_client = DBClient()
     DBClient().update_weapon_prices([(
         updated_item["name"],
         updated_item_type["name"],
@@ -302,7 +299,7 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_da
         get_item_image_url(f'{updated_item["name"]} ({updated_item_type["name"]})'),
         updated_item['item_classes'][0] # rare
     )])
-    # db_client.update_skins_profit_by_weapon((
+    # DBClient().update_skins_profit_by_weapon((
     #     updated_item["name"],
     #     updated_item_type["name"],
     #     updated_item_type["is_stattrak"],
@@ -312,7 +309,6 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_da
 
 def update_sticker_price(updated_item, markets_data):
     logging.info("Update sticker price in db")
-    # db_client = DBClient()
     DBClient().update_stickers_prices([(
         updated_item['name'].replace('Sticker | ',''),
         updated_item["price"],
@@ -329,7 +325,7 @@ def update_sticker_price(updated_item, markets_data):
         updated_item['summary']['Film'], # type
         updated_item['summary']['Update'] # collection
     )], parser='csgoskins')
-    # db_client.update_skins_profit_by_stickers((
+    # DBClient().update_skins_profit_by_stickers((
     #     updated_item["name"],
     #     updated_item['price']
     # ))
