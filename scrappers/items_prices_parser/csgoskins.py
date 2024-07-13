@@ -5,7 +5,7 @@ import os
 import requests
 import time
 from dotenv import load_dotenv
-from classes import DBClient
+from classes import DBClient, SeleniumDriver
 from urllib.parse import urlparse, quote
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -378,7 +378,8 @@ def split_array(array, k=1000):
 
 def main():
     try:
-        driver = create_driver()
+        driver_class = SeleniumDriver()
+        driver = driver_class.driver
         logging.info(f"Creating driver")
 
         items_links_without_quality = find_items_global_links(driver)
