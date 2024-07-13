@@ -328,6 +328,10 @@ def update_sticker_price(updated_item, markets_data):
         updated_item['item_classes'][0], # rare
         updated_item['summary']['Category'], # type
     )], parser='csgoskins')
+    db_client.update_skins_profit_by_stickers((
+        updated_item["name"],
+        updated_item['price']
+    ))
 
 
 def get_item_image_url(item_name, image_url = None):

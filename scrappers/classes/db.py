@@ -71,6 +71,11 @@ class DBClient:
         '''
         self.execute(query, value)
 
+    def update_skins_profit_by_stickers(self, value):
+        return
+        query = f''''''
+        self.execute(query, value)
+
     def insert_skins(self, values):
         placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
         query = f'''
