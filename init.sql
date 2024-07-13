@@ -7,9 +7,16 @@ CREATE TABLE IF NOT EXISTS stickers (
     key TEXT,
     price FLOAT,
     market_prices JSON,
+    price_week_low FLOAT,
+    price_week_high FLOAT,
+    price_month_low FLOAT,
+    price_month_high FLOAT,
+    price_all_time_low FLOAT,
+    price_all_time_high FLOAT,
     rare TEXT,
     type TEXT,
     collection TEXT,
+    parsing_time TIMESTAMP DEFAULT NOW(),
     icon_url TEXT,
     PRIMARY KEY (id)
 );

@@ -93,13 +93,32 @@ class DBClient:
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
 
-    def update_stickers_prices(self, values):
-        query = f'''
-            INSERT INTO stickers(classid, name, key, price, type, rare, collection, icon_url)
-            VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
-            ON CONFLICT (name)
-            DO UPDATE SET price = EXCLUDED.price, classid = EXCLUDED.classid
-        '''
+    def update_stickers_prices(self, values, parser=None):
+        if parser == 'csgoskins':
+            query = f'''
+                INSERT INTO stickers(name, price, icon_url, market_prices, price_week_low, price_week_high, price_month_low,
+                price_month_high, price_all_time_low, price_all_time_high, parsing_time, rare, type)
+                VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
+                ON CONFLICT (name)
+                DO UPDATE SET price = EXCLUDED.price,
+                market_prices = EXCLUDED.market_prices,
+                price_week_low = EXCLUDED.price_week_low,
+                price_week_high = EXCLUDED.price_week_high,
+                price_month_low = EXCLUDED.price_month_low,
+                price_month_high = EXCLUDED.price_month_high,
+                price_all_time_low = EXCLUDED.price_all_time_low,
+                price_all_time_high = EXCLUDED.price_all_time_high,
+                parsing_time = EXCLUDED.parsing_time,
+                rare = EXCLUDED.rare,
+                type = EXCLUDED.type
+            '''
+        else:
+            query = f'''
+                INSERT INTO stickers(classid, name, key, price, type, rare, collection, icon_url, market_prices)
+                VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
+                ON CONFLICT (name)
+                DO UPDATE SET price = EXCLUDED.price, classid = EXCLUDED.classid, market_prices = EXCLUDED.market_prices
+            '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
 

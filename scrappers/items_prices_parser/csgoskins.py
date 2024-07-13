@@ -311,18 +311,43 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_da
     ))
 
 
-def get_item_image_url(item_name):
-    with open('data/cs2_skins_images.json', 'r') as file:
-        images_urls = json.load(file)
+def update_sticker_price(updated_item, markets_data):
+    db_client = DBClient()
+    db_client.update_stickers_prices([(
+        updated_item['name'].replace('Sticker | ',''),
+        updated_item["price"],
+        get_item_image_url(updated_item['name']),
+        json.dumps(markets_data),
+        updated_item['week_low_value'],
+        updated_item['week_high_value'],
+        updated_item['month_low_value'],
+        updated_item['month_high_value'],
+        updated_item['all_time_low'],
+        updated_item['all_time_high'],
+        datetime.datetime.now(),
+        updated_item['item_classes'][0], # rare
+        updated_item['summary']['Category'], # type
+    )], parser='csgoskins')
 
-    return images_urls[item_name].get('image')
+
+def get_item_image_url(item_name, image_url = None):
+    file_path = 'data/csgo_skins_images.json'  if 'Sticker |' in item_name else 'data/cs2_skins_images.json'
+
+    try:
+        with open(file_path, 'r') as file:
+            images_urls = json.load(file)
+
+        image_url = images_urls[item_name] if 'Sticker |' in item_name else images_urls[item_name].get('image')
+
+    except Exception as e:
+        logging.error(f"Got exception: {e}")
+
+    finally:
+        return image_url
 
 
 def parse_with_price_and_update_profits(items, driver):
-    global_config = []
-    parsed_items = ['ak-47-', 'm4a1-s-', 'm4a4-', 'awp-']
-    file_to_write = "data/parse_items_with_price.json"
-
+    parsed_items = ['sticker-']#['ak-47-', 'm4a1-s-', 'm4a4-', 'awp-', 'sticker-']
     try:
         for parsed_item in parsed_items:
             for item in items:
@@ -332,16 +357,15 @@ def parse_with_price_and_update_profits(items, driver):
                     if 'sticker-' in item['link']:
                         prices, markets_data = fetch_market_data(driver, item['link'], price_values)
                         updated_item = update_item_with_prices(item, prices, markets_data, item["name"])
-                        global_config.append(updated_item)
+                        update_sticker_price(updated_item, markets_data)
                     else:
                         for item_type in item.get('types', []):
                             if 'souvenir' not in item_type['link']:
                                 prices, markets_data = fetch_market_data(driver, item_type['link'], price_values)
                                 updated_item_type = update_item_with_prices(item_type, prices, markets_data, f'{item["name"]} ({item_type["name"]})')
                                 update_weapon_price_in_and_skins(item, updated_item_type, markets_data)
-    finally:
-        with open(file_to_write, "w") as file:
-            json.dump(global_config, file, indent=4)
+    except Exception as e:
+        logging.error(f"Got exception: {e}")
 
 
 def split_array(array, k=1000):
@@ -356,9 +380,7 @@ def main():
         items_links_without_quality = find_items_global_links(driver)
         weapon_configs = find_items_description(driver,  items_links_without_quality)
 
-        parse_with_price_and_update_profits(weapon_configs[:2000], driver)
-
-        print(json.dumps(weapon_configs, indent=4))
+        parse_with_price_and_update_profits(weapon_configs, driver)
 
     except Exception as e:
         logging.error(f"Got exception: {e}")
