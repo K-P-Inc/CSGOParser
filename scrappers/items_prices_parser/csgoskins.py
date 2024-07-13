@@ -32,7 +32,7 @@ def alt_xpath(alt):
 
 
 def active_offers_xpath(driver, alt):
-    logging.info(f"{alt}: Getting active offers")
+    # logging.info(f"{alt}: Getting active offers")
     try:
         active_offers_xpath = "//*[contains(text(), 'active offers')]//..//..//*[2]"
         active_offers_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{active_offers_xpath}").text
@@ -43,7 +43,7 @@ def active_offers_xpath(driver, alt):
 
 
 def price_offers_xpath(driver, alt):
-    logging.info(f"{alt}: Getting price offers")
+    # logging.info(f"{alt}: Getting price offers")
     try:
         price_from = "//*[text() = 'from']//..//..//*[2]"
         price_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{price_from}").text.replace('$','')
