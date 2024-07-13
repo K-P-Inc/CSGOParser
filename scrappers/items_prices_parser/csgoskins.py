@@ -106,14 +106,17 @@ def find_items_for_parsing_without_quality(driver, url, page):
     return set(correct_links)
 
 
+def load_items_links_without_quality_config():
+    with open(os.path.join(repo_path(), 'data', 'items_links_without_quality.json'), 'r') as f:
+        return json.loads(f.read())
+
+
 def find_items_global_links(driver):
     items_links_without_quality = []
     file_path = "data/items_links_without_quality.json"
 
-    if os.path.exists(file_path):
-        with open(file_path, "r") as file:
-            items_links_without_quality = json.load(file)
-    logging.info('Get items_links_without_quality links')
+    logging.info('Getting items_links_without_quality')
+    items_links_without_quality = load_items_links_without_quality_config()
 
     if items_links_without_quality:
         logging.info('Return items_links_without_quality links from config')
@@ -217,14 +220,18 @@ def parse_global_weapon_information(driver, url):
     }
 
 
+def load_items_global_config():
+    with open(os.path.join(repo_path(), 'data', 'global_weapon_configs.json'), 'r') as f:
+        return json.loads(f.read())
+
+
 def find_items_description(driver, items_list):
     logging.info('Parse items descriptions')
     global_weapon_configs = []
     file_path = "data/global_weapon_configs.json"
 
-    if os.path.exists(file_path):
-        with open(file_path, "r") as file:
-            global_weapon_configs = json.load(file)
+    logging.info('Getting global_weapon_configs')
+    global_weapon_configs = load_items_global_config()
 
     if global_weapon_configs:
         return global_weapon_configs
@@ -363,21 +370,21 @@ def update_sticker_price(updated_item, markets_data):
     # ))
 
 
+def load_csgo_skins_images_config():
+    with open(os.path.join(repo_path(), 'data', 'csgo_skins_images.json'), 'r') as f:
+        return json.loads(f.read())
+
+
+def load_cs2_skins_images_config():
+    with open(os.path.join(repo_path(), 'data', 'cs2_skins_images.json'), 'r') as f:
+        return json.loads(f.read())
+
+
 def get_item_image_url(item_name, image_url = None):
     logging.info(f"Getting image url for {item_name}")
-    file_path = 'data/csgo_skins_images.json'  if 'Sticker |' in item_name else 'data/cs2_skins_images.json'
+    file = load_csgo_skins_images_config() if 'Sticker |' in item_name else load_cs2_skins_images_config()
 
-    try:
-        with open(file_path, 'r') as file:
-            images_urls = json.load(file)
-
-        image_url = images_urls[item_name] if 'Sticker |' in item_name else images_urls[item_name].get('image')
-
-    except Exception as e:
-        logging.error(f"Got exception: {e}")
-
-    finally:
-        return image_url
+    return file[item_name] if 'Sticker |' in item_name else file[item_name].get('image')
 
 
 def parse_with_price_and_update_profits(items, driver):
