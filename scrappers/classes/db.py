@@ -9,6 +9,9 @@ class DBClient:
         password = os.environ.get("POSTGRES_PASSWORD")
         host = os.environ.get("POSTGRES_HOST")
         port = os.environ.get("POSTGRES_PORT")
+
+        # logging.info(f"\nDatabase: {database}\nUser: {user}\nPassword: {password}\nHost: {host}\nPort: {port}\n")
+
         logging.info("Connecting to database")
         self.db = pg8000.connect(
             host=host,
@@ -25,16 +28,16 @@ class DBClient:
             self.db.commit()
 
     def update_weapon_prices(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for x in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
         query = f'''
             INSERT INTO weapons_prices(
-                name, quality, is_stattrak, price,
-                price_week_low, price_week_high,
-                price_month_low, price_month_high,
-                price_all_time_low, price_all_time_high, parsing_time, icon_url
+                name, quality, is_stattrak, price, market_prices,
+                price_week_low, price_week_high, price_month_low, price_month_high, price_all_time_low,
+                price_all_time_high, parsing_time, icon_url, rare
             ) VALUES {placeholders}
             ON CONFLICT (name, quality, is_stattrak) DO UPDATE SET
                 price = EXCLUDED.price,
+                market_prices = EXCLUDED.market_prices,
                 price_week_low = EXCLUDED.price_week_low,
                 price_week_high = EXCLUDED.price_week_high,
                 price_month_low = EXCLUDED.price_month_low,
@@ -42,10 +45,36 @@ class DBClient:
                 price_all_time_low = EXCLUDED.price_all_time_low,
                 price_all_time_high = EXCLUDED.price_all_time_high,
                 parsing_time = EXCLUDED.parsing_time,
-                icon_url = EXCLUDED.icon_url
+                icon_url = EXCLUDED.icon_url,
+                rare = EXCLUDED.rare
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
+        logging.info("Updated weapon prices in db")
+
+    def update_skins_profit_by_weapon(self, value):
+        query = f'''
+            WITH cte AS (
+                SELECT skins.skin_id
+                FROM skins
+                JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+                WHERE weapons_prices.name = %s
+                AND weapons_prices.quality = %s
+                AND weapons_prices.is_stattrak = %s
+                ORDER BY skins.skin_id
+                LIMIT 1
+            )
+            UPDATE skins
+            SET profit = 1 - (skins.price + 0.1 * skins.stickers_price) / %s
+            WHERE skin_id IN (SELECT skin_id FROM cte);
+        '''
+        self.execute(query, value)
+
+    def update_skins_profit_by_stickers(self, value):
+        # TODO: Make querry for upd profit after stickers price update
+        return
+        query = f''''''
+        self.execute(query, value)
 
     def insert_skins(self, values):
         placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
@@ -69,15 +98,36 @@ class DBClient:
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
 
-    def update_stickers_prices(self, values):
-        query = f'''
-            INSERT INTO stickers(classid, name, key, price, type, rare, collection, icon_url)
-            VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
-            ON CONFLICT (name) 
-            DO UPDATE SET price = EXCLUDED.price, classid = EXCLUDED.classid
-        '''
+    def update_stickers_prices(self, values, parser=None):
+        if parser == 'csgoskins':
+            query = f'''
+                INSERT INTO stickers(name, price, icon_url, market_prices, price_week_low, price_week_high, price_month_low,
+                price_month_high, price_all_time_low, price_all_time_high, parsing_time, rare, type, collection)
+                VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
+                ON CONFLICT (name)
+                DO UPDATE SET price = EXCLUDED.price,
+                market_prices = EXCLUDED.market_prices,
+                price_week_low = EXCLUDED.price_week_low,
+                price_week_high = EXCLUDED.price_week_high,
+                price_month_low = EXCLUDED.price_month_low,
+                price_month_high = EXCLUDED.price_month_high,
+                price_all_time_low = EXCLUDED.price_all_time_low,
+                price_all_time_high = EXCLUDED.price_all_time_high,
+                parsing_time = EXCLUDED.parsing_time,
+                rare = EXCLUDED.rare,
+                type = EXCLUDED.type,
+                collection = EXCLUDED.collection
+            '''
+        else:
+            query = f'''
+                INSERT INTO stickers(classid, name, key, price, type, rare, collection, icon_url, market_prices)
+                VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
+                ON CONFLICT (name)
+                DO UPDATE SET price = EXCLUDED.price, classid = EXCLUDED.classid, market_prices = EXCLUDED.market_prices
+            '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
+        logging.info("Updated sticker prices in db")
 
     def get_all_stickers(self):
         with self.db.cursor() as cursor:
@@ -108,12 +158,12 @@ class DBClient:
         with self.db.cursor() as cursor:
             if len(parsed_urls) > 0:
                 cursor.execute(f'''
-                    UPDATE skins SET is_sold = True 
+                    UPDATE skins SET is_sold = True
                     WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
                 ''', [*parsed_urls, market, *weapon_uuids])
             else:
                 cursor.execute(f'''
-                    UPDATE skins SET is_sold = True 
+                    UPDATE skins SET is_sold = True
                     WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
                 ''', [market, *weapon_uuids])
 

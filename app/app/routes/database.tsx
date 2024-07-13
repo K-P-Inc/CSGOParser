@@ -246,7 +246,7 @@ export default function Index() {
   const {
     items, weapon_types, sort_by, search, categories,
     min_price, max_price, stickers_patterns, sticker_types,
-    market_types, wears, page 
+    market_types, wears, page
   } = useLoaderData<typeof loader>();
   const [skins, setSkins] = useState<SkinItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
