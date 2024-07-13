@@ -335,7 +335,8 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_da
         updated_item_type['all_time_low'],
         updated_item_type['all_time_high'],
         datetime.datetime.now(),
-        get_item_image_url(f'{updated_item["name"]} ({updated_item_type["name"]})')
+        get_item_image_url(f'{updated_item["name"]} ({updated_item_type["name"]})'),
+        updated_item['item_classes'][0] # rare
     )])
     # db_client.update_skins_profit_by_weapon((
     #     updated_item["name"],
@@ -361,7 +362,8 @@ def update_sticker_price(updated_item, markets_data):
         updated_item['all_time_high'],
         datetime.datetime.now(),
         updated_item['item_classes'][0], # rare
-        updated_item['summary']['Category'], # type
+        updated_item['summary']['Film'], # type
+        updated_item['summary']['Update'] # collection
     )], parser='csgoskins')
     # db_client.update_skins_profit_by_stickers((
     #     updated_item["name"],
@@ -397,12 +399,14 @@ def parse_with_price_and_update_profits(items, driver):
                     if 'sticker-' in item['link']:
                         prices, markets_data = fetch_market_data(driver, item['link'], price_values)
                         updated_item = update_item_with_prices(item, prices, markets_data, item["name"])
+                        logging.info(f'{updated_item}')
                         update_sticker_price(updated_item, markets_data)
                     else:
                         for item_type in item.get('types', []):
                             if 'souvenir' not in item_type['link']:
                                 prices, markets_data = fetch_market_data(driver, item_type['link'], price_values)
                                 updated_item_type = update_item_with_prices(item_type, prices, markets_data, f'{item["name"]} ({item_type["name"]})')
+                                logging.info(f'{item}')
                                 update_weapon_price_in_and_skins(item, updated_item_type, markets_data)
     except Exception as e:
         logging.error(f"Got exception: {e}")

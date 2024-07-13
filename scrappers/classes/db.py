@@ -35,13 +35,12 @@ class DBClient:
 
     def update_weapon_prices(self, values):
         try:
-            placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
+            placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
             query = f'''
                 INSERT INTO weapons_prices(
                     name, quality, is_stattrak, price, market_prices,
-                    price_week_low, price_week_high,
-                    price_month_low, price_month_high,
-                    price_all_time_low, price_all_time_high, parsing_time, icon_url
+                    price_week_low, price_week_high, price_month_low, price_month_high, price_all_time_low,
+                    price_all_time_high, parsing_time, icon_url, rare
                 ) VALUES {placeholders}
                 ON CONFLICT (name, quality, is_stattrak) DO UPDATE SET
                     price = EXCLUDED.price,
@@ -53,7 +52,8 @@ class DBClient:
                     price_all_time_low = EXCLUDED.price_all_time_low,
                     price_all_time_high = EXCLUDED.price_all_time_high,
                     parsing_time = EXCLUDED.parsing_time,
-                    icon_url = EXCLUDED.icon_url
+                    icon_url = EXCLUDED.icon_url,
+                    rare = EXCLUDED.rare
             '''
             flat_values = [val for row in values for val in row]
             self.execute(query, flat_values)
@@ -111,8 +111,8 @@ class DBClient:
             if parser == 'csgoskins':
                 query = f'''
                     INSERT INTO stickers(name, price, icon_url, market_prices, price_week_low, price_week_high, price_month_low,
-                    price_month_high, price_all_time_low, price_all_time_high, parsing_time, rare, type)
-                    VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
+                    price_month_high, price_all_time_low, price_all_time_high, parsing_time, rare, type, collection)
+                    VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
                     ON CONFLICT (name)
                     DO UPDATE SET price = EXCLUDED.price,
                     market_prices = EXCLUDED.market_prices,
@@ -124,7 +124,8 @@ class DBClient:
                     price_all_time_high = EXCLUDED.price_all_time_high,
                     parsing_time = EXCLUDED.parsing_time,
                     rare = EXCLUDED.rare,
-                    type = EXCLUDED.type
+                    type = EXCLUDED.type,
+                    collection = EXCLUDED.collection
                 '''
             else:
                 query = f'''
