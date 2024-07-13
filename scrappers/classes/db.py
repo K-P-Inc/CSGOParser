@@ -9,7 +9,8 @@ class DBClient:
         password = os.environ.get("POSTGRES_PASSWORD")
         host = os.environ.get("POSTGRES_HOST")
         port = os.environ.get("POSTGRES_PORT")
-        logging.info("Connecting to database")
+
+        # logging.info(f"\nDatabase: {database}\nUser: {user}\nPassword: {password}\nHost: {host}\nPort: {port}\n")
 
         try:
             logging.info("Connecting to database")
