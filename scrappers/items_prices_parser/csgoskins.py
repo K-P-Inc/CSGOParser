@@ -107,7 +107,7 @@ def parse_global_weapon_information(driver, url):
     logging.info(f"Parse item {url}")
     time.sleep(1)
     driver.get(url)
-    driver.implicitly_wait(0.5)
+    driver.implicitly_wait(0.1)
 
     logging.info('Geting skin name')
     skin_name = driver.find_element(By.XPATH, '//h1[@class="text-2xl sm:text-3xl font-bold"]').text
@@ -220,8 +220,10 @@ def get_price_values(driver, price_values):
     try:
         for period in periods:
             for stat in statistics:
-                value = float(driver.find_element(By.XPATH, price_statistics_xpath(f'{period} {stat}')).text.replace('$',''))
-                price_values[f'{period} {stat}'] = value
+                value = driver.find_element(By.XPATH, price_statistics_xpath(f'{period} {stat}')).text.replace('$','')
+                price_values[f'{period} {stat}'] = float(value) if ',' not in value else float(value.replace(',',''))
+    except Exception as e:
+        logging.error(f"Got exception: {e}")
     finally:
         return price_values
 
