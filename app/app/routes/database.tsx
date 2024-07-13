@@ -189,12 +189,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
   `;
 
-  console.log(query)
-
-  const skinsClient = new RDSClient();
-  const stickersClient = new RDSClient();
-
-  let filtered_items: Promise<SkinItem[]> = Promise.all([skinsClient.query(query, args), stickersClient.query('SELECT * FROM stickers')])
+  let filtered_items: Promise<SkinItem[]> = Promise.all([(new RDSClient()).query(query, args), (new RDSClient()).query('SELECT * FROM stickers')])
     .then((responses: any[]) => {
       const [items, stickersMap] = responses
 
