@@ -25,9 +25,12 @@ class DBClient:
             logging.error(f"Failed to connect to database: {e}")
 
     def execute(self, query, params) -> None:
-        with self.db.cursor() as cursor:
-            cursor.execute(query, params)
-            self.db.commit()
+        try:
+            with self.db.cursor() as cursor:
+                cursor.execute(query, params)
+                self.db.commit()
+        except Exception as e:
+            logging.error(f"Failed to execute query: {e}")
 
     def update_weapon_prices(self, values):
         try:

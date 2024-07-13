@@ -32,7 +32,7 @@ def alt_xpath(alt):
 
 
 def active_offers_xpath(driver, alt):
-    logging.info("Getting active offers")
+    logging.info(f"{alt}: Getting active offers")
     try:
         active_offers_xpath = "//*[contains(text(), 'active offers')]//..//..//*[2]"
         active_offers_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{active_offers_xpath}").text
@@ -43,7 +43,7 @@ def active_offers_xpath(driver, alt):
 
 
 def price_offers_xpath(driver, alt):
-    logging.info("Getting price offers")
+    logging.info(f"{alt}: Getting price offers")
     try:
         price_from = "//*[text() = 'from']//..//..//*[2]"
         price_text = driver.find_element(By.XPATH, f"{alt_xpath(alt)}{price_from}").text.replace('$','')
@@ -54,7 +54,6 @@ def price_offers_xpath(driver, alt):
 
 
 def get_market_prices(driver, alts):
-    logging.info("Getting market active prices and offers")
     for alt in alts:
         if alt_xpath(alt):
             return {'active_offers': active_offers_xpath(driver, alt), 'price': price_offers_xpath(driver, alt)}
@@ -90,7 +89,7 @@ def create_driver():
 
 
 def find_items_for_parsing_without_quality(driver, url, page):
-    logging.info(f"Parse {page}")
+    logging.info(f"Parsing page: {page}")
     time.sleep(1)
     driver.get(f'{url}&page={page}')
     links = driver.find_elements(By.XPATH, '//a[starts-with(@href, "https://csgoskins.gg/items/")]')
@@ -266,7 +265,7 @@ def get_price_values(driver, price_values):
 
 
 def fetch_market_data(driver, item_link, price_values):
-    logging.info("Getting market data")
+    logging.info("Getting market active prices and offers")
     time.sleep(1)
     driver.get(item_link)
     prices = get_price_values(driver, price_values)
@@ -321,9 +320,9 @@ def update_item_with_prices(item, prices, markets_data, name):
 
 
 def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_data):
-    logging.info("Update weapon price in db")
-    db_client = DBClient()
-    db_client.update_weapon_prices([(
+    logging.info(f'{updated_item["name"]}: Update weapon price in db')
+    # db_client = DBClient()
+    DBClient().update_weapon_prices([(
         updated_item["name"],
         updated_item_type["name"],
         updated_item_type["is_stattrak"],
@@ -348,8 +347,8 @@ def update_weapon_price_in_and_skins(updated_item, updated_item_type, markets_da
 
 def update_sticker_price(updated_item, markets_data):
     logging.info("Update sticker price in db")
-    db_client = DBClient()
-    db_client.update_stickers_prices([(
+    # db_client = DBClient()
+    DBClient().update_stickers_prices([(
         updated_item['name'].replace('Sticker | ',''),
         updated_item["price"],
         get_item_image_url(updated_item['name']),
@@ -381,7 +380,7 @@ def load_cs2_skins_images_config():
 
 
 def get_item_image_url(item_name, image_url = None):
-    logging.info(f"Getting image url for {item_name}")
+    logging.info(f"{item_name}: Getting image url for")
     file = load_csgo_skins_images_config() if 'Sticker |' in item_name else load_cs2_skins_images_config()
 
     return file[item_name] if 'Sticker |' in item_name else file[item_name].get('image')
