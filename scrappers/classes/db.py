@@ -45,8 +45,6 @@ class DBClient:
                 price_all_time_low = EXCLUDED.price_all_time_low,
                 price_all_time_high = EXCLUDED.price_all_time_high,
                 parsing_time = EXCLUDED.parsing_time,
-                icon_url = EXCLUDED.icon_url,
-                rare = EXCLUDED.rare
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
