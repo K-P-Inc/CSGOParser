@@ -13,7 +13,7 @@ from scrappers.classes import (
     WhiteMarketHelper, GamerPayHelper
 )
 
-MarketClass = Union[CSMoneyHelper, MarketCSGOHelper, SkinbidHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, SkinportHelper]
+MarketClass = Union[CSMoneyHelper, MarketCSGOHelper, SkinbidHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, SkinportHelper, GamerPayHelper]
 
 class MarketData:
     def __init__(self,
