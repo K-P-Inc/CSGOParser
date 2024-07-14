@@ -15,10 +15,11 @@ import bitskinsIcon from "./svg/bitskins_icon.svg"
 import haloskinIcon from "./svg/haloskins_icon.svg"
 import skinbaronIcon from "./svg/skin-baron_icon.svg"
 import whiteMarketIcon from "./svg/white-market_icon.svg"
+import gamerPayIcon from "./svg/gamer-pay_icon.svg"
 
 export {
     logo as LogoIcon, account as AccountIcon, settings as SettingsIcon, watchlist as WatchlistIcon, inventory as InventoryIcon, logout as LogoutIcon,
     marketCsgoIcon as MarketCsgoIcon, skinbidIcon as SkinbidIcon, csmoneyIcon as CsmoneyIcon, skinportIcon as SkinportIcon, csfloatIcon as CsfloatIcon,
     dmarketicon as DmarketIcon, bitskinsIcon as BitskinsIcon, haloskinIcon as HaloSkinsIcon, skinbaronIcon as SkinBaronIcon, whiteMarketIcon as WhiteMarketIcon,
-    fulllogo as FullLogoIcon
+    fulllogo as FullLogoIcon, gamerPayIcon as GamerPayIcon
 }

@@ -78,7 +78,7 @@ class CSMoneyHelper(BaseHelper):
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"] if sticker] if "stickers" in item else []
 
         stickers_wears = [
-            (round(float(sticker["wear"] / 100), 2) if "wear" in sticker else None) 
+            (round(float(sticker["wear"] / 100), 2) if "wear" in sticker else None)
             for sticker in item["stickers"] if sticker
         ] if "stickers" in item else []
 
@@ -240,7 +240,7 @@ class SkinportHelper(BaseHelper):
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         if page_number > self.MAX_PAGE_NUMBER:
             return []
- 
+
         url = f"https://skinport.com/api/browse/730?search={quote(type)}%20%7C%20{quote(name)}&stattrak={int(is_stattrak)}&souvenir=0&stickers=1&sort=price&order=asc&pricelt={max_price * 100.0 / self.rates['USD']}&skip={page_number}"
         ua = UserAgent()
         user_agent = ua.random
@@ -464,7 +464,7 @@ class DmarketHelper(BaseHelper):
         try:
             response_json = json.loads(response.text)
             if response_json and len(response_json["objects"]) >= 0:
-                self.cursor = response_json["cursor"] if "cursor" in response_json else None 
+                self.cursor = response_json["cursor"] if "cursor" in response_json else None
                 return response_json["objects"]
 
             self.cursor = None
@@ -666,3 +666,38 @@ class SkinbaronHelper(BaseHelper):
             return None
 
 
+class GamerPayHelper(BaseHelper):
+    DB_ENUM_NAME = 'gamerpay'
+    MAX_ITEMS_PER_PAGE = 40
+    REQUEST_TIMEOUT = 3
+
+
+    def parse_item(self, item):
+        item_json = item[0]
+        key_price = item_json.get('marketHashName')
+        item_price = item_json.get('price')
+        item_link = f"https://gamerpay.gg/item/{item_json.get('id')}"
+        stickers_keys = [sticker.get('name') for sticker in item_json.get('stickers')]
+        stickers_wears = [sticker.get('wear') if sticker.get('wear') is not None else 0 for sticker in item_json.get('stickers')]
+        item_float = item_json.get('floatValue')
+        item_in_game_link = item_json.get('inspectLink')
+        pattern_template = item_json.get('paintSeed')
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
+
+    def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
+        ua = UserAgent()
+        user_agent = ua.random
+        headers = {
+            'User-Agent': user_agent
+        }
+
+        url = f"https://api.gamerpay.gg/feed?page={page_number}&query={name}&subtype={type}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price}"
+        response = requests.request("GET", url, headers=headers, data={})
+        try:
+            if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
+                return json.loads(response.text)["items"]
+            return None
+        except:
+            return None

@@ -9,7 +9,7 @@ from omegaconf import DictConfig
 from dotenv import load_dotenv
 from classes import DBClient
 from utils import repo_path, get_stickers_dict, get_weapons_array_by_type
-from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper, SkinportHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, WhiteMarketHelper, SkinbaronHelper
+from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper, SkinportHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, WhiteMarketHelper, SkinbaronHelper, GamerPayHelper
 
 
 def parse_item(
@@ -142,8 +142,8 @@ def run_action(parsed_items, market_class, weapon_config):
 
             if market_class.PARSE_WITH_QUALITY == False:
                 uuids_for_update = [
-                    weapons_prices[f"{display_name} ({key_price})"]["uuid"] 
-                    for key_price in types 
+                    weapons_prices[f"{display_name} ({key_price})"]["uuid"]
+                    for key_price in types
                     if f"{display_name} ({key_price})" in weapons_prices
                 ]
             else:
@@ -183,6 +183,8 @@ def market_factory(market_type):
         return WhiteMarketHelper()
     elif market_type == "skinbaron":
         return SkinbaronHelper()
+    elif market_type == "gamerpay":
+        return GamerPayHelper()
     else:
         raise Exception('Unknown market type: {0}'.format(market_type))
 
