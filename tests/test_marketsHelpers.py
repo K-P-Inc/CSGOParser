@@ -60,7 +60,7 @@ markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_c
     # SkinportHelper(),
     # SkinbaronHelper(),
     # WhiteMarketHelper(),
-    # GamerPayHelper()
+    GamerPayHelper()
 ]]
 
 validators_asserts = [pytest.param(func, id=id) for (func, id) in [

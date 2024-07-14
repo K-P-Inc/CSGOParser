@@ -673,15 +673,14 @@ class GamerPayHelper(BaseHelper):
 
 
     def parse_item(self, item):
-        item_json = item[0]
-        key_price = item_json.get('marketHashName')
-        item_price = item_json.get('price')
-        item_link = f"https://gamerpay.gg/item/{item_json.get('id')}"
-        stickers_keys = [sticker.get('name') for sticker in item_json.get('stickers')]
-        stickers_wears = [sticker.get('wear') if sticker.get('wear') is not None else 0 for sticker in item_json.get('stickers')]
-        item_float = item_json.get('floatValue')
-        item_in_game_link = item_json.get('inspectLink')
-        pattern_template = item_json.get('paintSeed')
+        key_price = item.get('marketHashName')
+        item_price = item.get('price')
+        item_link = f"https://gamerpay.gg/item/{item.get('id')}"
+        stickers_keys = [sticker.get('name') for sticker in item.get('stickers')]
+        stickers_wears = [sticker.get('wear') if sticker.get('wear') is not None else 0 for sticker in item.get('stickers')]
+        item_float = item.get('floatValue')
+        item_in_game_link = item.get('inspectLink')
+        pattern_template = item.get('paintSeed')
         is_buy_type_fixed = 'fixed'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
@@ -693,7 +692,7 @@ class GamerPayHelper(BaseHelper):
             'User-Agent': user_agent
         }
 
-        url = f"https://api.gamerpay.gg/feed?page={page_number}&query={name}&subtype={type}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price}"
+        url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(name)}&subtype={quote(type)}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price}"
         response = requests.request("GET", url, headers=headers, data={})
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
