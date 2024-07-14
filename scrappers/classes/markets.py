@@ -676,8 +676,8 @@ class GamerPayHelper(BaseHelper):
         key_price = item.get('marketHashName')
         item_price = item.get('price')
         item_link = f"https://gamerpay.gg/item/{item.get('id')}"
-        stickers_keys = [sticker.get('name') for sticker in item.get('stickers')]
-        stickers_wears = [sticker.get('wear') if sticker.get('wear') is not None else 0 for sticker in item.get('stickers')]
+        stickers_keys = [sticker.get('name') for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
+        stickers_wears = [sticker.get('wear') if sticker.get('wear') is not None else 0 for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
         item_float = item.get('floatValue')
         item_in_game_link = item.get('inspectLink')
         pattern_template = item.get('paintSeed')
