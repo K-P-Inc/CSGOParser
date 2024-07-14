@@ -206,15 +206,6 @@ def find_items_description(driver, items_list):
     return global_weapon_configs
 
 
-def get_item_icon(driver):
-    logging.info("Getting item icon")
-    icon = None
-    try:
-        icon = driver.find_element(By.XPATH, "//img[@id = 'main-image']").get_attribute('src')
-    finally:
-        return icon
-
-
 def get_price_values(driver, price_values):
     logging.info("Get price values")
     try:
