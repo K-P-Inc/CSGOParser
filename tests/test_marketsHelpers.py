@@ -10,10 +10,10 @@ from scrappers.classes import (
     CSFloatHelper, BitskinsHelper,
     HaloskinsHelper, DmarketHelper,
     SkinportHelper, SkinbaronHelper,
-    WhiteMarketHelper
+    WhiteMarketHelper, GamerPayHelper
 )
 
-MarketClass = Union[CSMoneyHelper, MarketCSGOHelper, SkinbidHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, SkinportHelper]
+MarketClass = Union[CSMoneyHelper, MarketCSGOHelper, SkinbidHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, SkinportHelper, GamerPayHelper]
 
 class MarketData:
     def __init__(self,
@@ -59,7 +59,8 @@ markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_c
     DmarketHelper(),
     # SkinportHelper(),
     # SkinbaronHelper(),
-    # WhiteMarketHelper()
+    # WhiteMarketHelper(),
+    GamerPayHelper()
 ]]
 
 validators_asserts = [pytest.param(func, id=id) for (func, id) in [

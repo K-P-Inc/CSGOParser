@@ -9,6 +9,7 @@ COPY classes/ /app/classes/
 COPY utils/ /app/utils/
 COPY scripts/wait-for-it.sh /app/wait-for-it.sh
 COPY requirements.txt /app/
+COPY data/stickers_content.json /app/data/
 
 # Install dependencies
 RUN chmod +x /app/wait-for-it.sh

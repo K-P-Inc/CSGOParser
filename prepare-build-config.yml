@@ -15,6 +15,7 @@
       - csfloat
       - skinport
       - skinbaron
+      - gamerpay
 
     market_types_one_network_only:
       - white-market

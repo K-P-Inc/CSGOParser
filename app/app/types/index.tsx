@@ -98,7 +98,7 @@ export type OutletContext = {
 
 export type WearType = "Factory New" | "Minimal Wear" | "Field-Tested" | "Well-Worn" | "Battle-Scarred";
 export type WeaponType = "AK-47" | "M4A4" | "M4A1-S" | "AWP";
-export type ShopType = "bitskins.com" | "cs.money" | "csfloat.com" | "dmarket.com" | "haloskins.com" | "market.csgo.com" | "skinbid.com" | "skinport.com" | "white.market" | "skinbaron.de";
+export type ShopType = "bitskins.com" | "cs.money" | "csfloat.com" | "dmarket.com" | "haloskins.com" | "market.csgo.com" | "skinbid.com" | "skinport.com" | "white.market" | "skinbaron.de" | "gamerpay.gg";
 export type StickersPattern = "5-equal" | "4-equal" | "3-equal" | "2-equal" | "other";
 export type StickersType = "Gold" | "Foil" | "Holo" | "Glitter";
 export type SortType = "newest" | "oldest" | "profit_high_to_low" | "profit_low_to_high" | "price_high_to_low" | "price_low_to_high";

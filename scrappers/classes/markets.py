@@ -3,6 +3,7 @@ import json
 import time
 import logging
 from urllib.parse import quote, urlencode
+from utils.data import load_data_json
 from fake_useragent import UserAgent
 from selenium.webdriver.common.by import By
 from .redis import RedisClient
@@ -78,7 +79,7 @@ class CSMoneyHelper(BaseHelper):
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"] if sticker] if "stickers" in item else []
 
         stickers_wears = [
-            (round(float(sticker["wear"] / 100), 2) if "wear" in sticker else None) 
+            (round(float(sticker["wear"] / 100), 2) if "wear" in sticker else None)
             for sticker in item["stickers"] if sticker
         ] if "stickers" in item else []
 
@@ -240,7 +241,7 @@ class SkinportHelper(BaseHelper):
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         if page_number > self.MAX_PAGE_NUMBER:
             return []
- 
+
         url = f"https://skinport.com/api/browse/730?search={quote(type)}%20%7C%20{quote(name)}&stattrak={int(is_stattrak)}&souvenir=0&stickers=1&sort=price&order=asc&pricelt={max_price * 100.0 / self.rates['USD']}&skip={page_number}"
         ua = UserAgent()
         user_agent = ua.random
@@ -464,7 +465,7 @@ class DmarketHelper(BaseHelper):
         try:
             response_json = json.loads(response.text)
             if response_json and len(response_json["objects"]) >= 0:
-                self.cursor = response_json["cursor"] if "cursor" in response_json else None 
+                self.cursor = response_json["cursor"] if "cursor" in response_json else None
                 return response_json["objects"]
 
             self.cursor = None
@@ -666,3 +667,74 @@ class SkinbaronHelper(BaseHelper):
             return None
 
 
+class GamerPayHelper(BaseHelper):
+    DB_ENUM_NAME = 'gamerpay'
+    MAX_ITEMS_PER_PAGE = 40
+    REQUEST_TIMEOUT = 2
+
+    def __init__(self):
+        super().__init__()
+        self.stickers_data = load_data_json('stickers_content.json')
+        self.currencies = self.load_currencies_config()
+        self.usd_currency = next(filter(lambda x: x["code"] == "USD", self.currencies))["rate"]
+
+    def load_currencies_config(self):
+        ua = UserAgent()
+        user_agent = ua.random
+        headers = {
+            'User-Agent': user_agent
+        }
+
+        response = requests.request("GET", "https://api.gamerpay.gg/currencies", headers=headers)
+
+        return json.loads(response.text)
+
+    def fetch_stickers_by_link(self, sticker):
+        sticker_image_url = sticker.get('imageURL')
+
+        if sticker_image_url is None:
+            logging.debug('Phantom sticker')
+            return None
+
+        logging.debug(f"Fetching sticker: {sticker_image_url}")
+        sticker_key = sticker_image_url.replace('https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/', '').split('.')[0]
+
+        if sticker_key in self.stickers_data:
+            return self.stickers_data[sticker_key].get('name')
+        else:
+            return None
+
+    def parse_item(self, item):
+        key_price = item.get('marketHashName')
+        item_price = round(item.get('price') / 100.0 * self.usd_currency, 2)
+        item_link = f"https://gamerpay.gg/item/{item.get('id')}"
+        stickers_keys = [
+            sticker.get('name') if sticker.get('name') != None else self.fetch_stickers_by_link(sticker)
+            for sticker in item.get('stickers')
+        ] if len(item.get('stickers')) > 0 else []
+        # stickers_keys = [sticker.get('name') for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
+
+        stickers_wears = [sticker.get('wear') if sticker.get('wear') is not None else 0 for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
+        item_float = item.get('floatValue')
+        item_in_game_link = item.get('inspectLink')
+        pattern_template = item.get('paintseed')
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
+
+    def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
+        ua = UserAgent()
+        user_agent = ua.random
+        headers = {
+            'User-Agent': user_agent
+        }
+
+        url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(f'{type} | {name}')}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price * 100}"
+        logging.info(f"URL: {url}")
+        response = requests.request("GET", url, headers=headers, data={})
+        try:
+            if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
+                return json.loads(response.text)["items"]
+            return None
+        except:
+            return None

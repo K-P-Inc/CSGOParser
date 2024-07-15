@@ -17,7 +17,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card"
-import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon } from "~/assets/images";
+import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon, GamerPayIcon } from "~/assets/images";
 import { Button } from "../ui/button";
 
 function renderSection(title: string, rows : Array<{ label: string, value: number | string }>) {
@@ -185,7 +185,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
             style={{ zIndex: 1, position: 'absolute' }}
             loading="lazy"
             src={
-              item.market === "skinbid" ? SkinbidIcon 
+              item.market === "skinbid" ? SkinbidIcon
                 : item.market === "cs-money" ? CsmoneyIcon
                  : item.market === "market-csgo" ? MarketCsgoIcon
                   : item.market === "skinport" ? SkinportIcon
@@ -195,7 +195,8 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                           : item.market === "haloskins" ? HaloSkinsIcon
                             : item.market === "skinbaron" ? SkinBaronIcon
                               : item.market === "white-market" ? WhiteMarketIcon
-                                : ""
+                                : item.market === "gamerpay" ? GamerPayIcon
+                                  : ""
             }
             alt="post image"
             className="post-card_market_img"

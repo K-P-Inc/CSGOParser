@@ -4790,43 +4790,85 @@
   "sugarface/boris": {
     "name": "Boris"
   },
+  "sugarface_capsule/boris": {
+    "name": "Boris"
+  },
   "sugarface/max": {
+    "name": "Max"
+  },
+  "sugarface_capsule/max": {
     "name": "Max"
   },
   "sugarface/stan": {
     "name": "Stan"
   },
+  "sugarface_capsule/stan": {
+    "name": "Stan"
+  },
   "sugarface/jack": {
+    "name": "Jack"
+  },
+  "sugarface_capsule/jack": {
     "name": "Jack"
   },
   "sugarface/perry": {
     "name": "Perry"
   },
+  "sugarface_capsule/perry": {
+    "name": "Perry"
+  },
   "sugarface/viggo": {
+    "name": "Viggo"
+  },
+  "sugarface_capsule/viggo": {
     "name": "Viggo"
   },
   "sugarface/joan": {
     "name": "Joan"
   },
+  "sugarface_capsule/joan": {
+    "name": "Joan"
+  },
   "sugarface/boris_holo": {
+    "name": "Boris (Holo)"
+  },
+  "sugarface_capsule/boris_holo": {
     "name": "Boris (Holo)"
   },
   "sugarface/max_holo": {
     "name": "Max (Holo)"
   },
+  "sugarface_capsule/max_holo": {
+    "name": "Max (Holo)"
+  },
   "sugarface/stan_holo": {
+    "name": "Stan (Holo)"
+  },
+  "sugarface_capsule/stan_holo": {
     "name": "Stan (Holo)"
   },
   "sugarface/jack_holo": {
     "name": "Jack (Holo)"
   },
+  "sugarface_capsule/jack_holo": {
+    "name": "Jack (Holo)"
+  },
   "sugarface/perry_holo": {
+    "name": "Perry (Holo)"
+  },
+  "sugarface_capsule/perry_holo": {
     "name": "Perry (Holo)"
   },
   "sugarface/viggo_holo": {
     "name": "Viggo (Holo)"
   },
+  "sugarface_capsule/viggo_holo": {
+    "name": "Viggo (Holo)"
+  },
   "sugarface/joan_holo": {
+    "name": "Joan (Holo)"
+  },
+  "sugarface_capsule/joan_holo": {
     "name": "Joan (Holo)"
   },
   "bestiary/basilisk": {
@@ -11732,106 +11774,211 @@
   "feral/predators_baited_glossy": {
     "name": "Baited"
   },
+  "feral_predators/baited_glossy": {
+    "name": "Baited"
+  },
   "feral/predators_baited_holo": {
+    "name": "Baited (Holo)"
+  },
+  "feral_predators/baited_holo": {
     "name": "Baited (Holo)"
   },
   "feral/predators_bite_me_glossy": {
     "name": "Bite Me"
   },
+  "feral_predators/bite_me_glossy": {
+    "name": "Bite Me"
+  },
   "feral/predators_bite_me_foil": {
+    "name": "Bite Me (Foil)"
+  },
+  "feral_predators/bite_me_foil": {
     "name": "Bite Me (Foil)"
   },
   "feral/predators_cluck_glossy": {
     "name": "Cluck"
   },
+  "feral_predators/cluck_glossy": {
+    "name": "Cluck"
+  },
   "feral/predators_cluck_holo": {
+    "name": "Cluck (Holo)"
+  },
+  "feral_predators/cluck_holo": {
     "name": "Cluck (Holo)"
   },
   "feral/predators_first_blood_glossy": {
     "name": "First Blood"
   },
+  "feral_predators/first_blood_glossy": {
+    "name": "First Blood"
+  },
   "feral/predators_first_blood_holo": {
+    "name": "First Blood (Holo)"
+  },
+  "feral_predators/first_blood_holo": {
     "name": "First Blood (Holo)"
   },
   "feral/predators_free_hugs_glossy": {
     "name": "Free Hugs"
   },
+  "feral_predators/free_hugs_glossy": {
+    "name": "Free Hugs"
+  },
   "feral/predators_free_hugs_holo": {
+    "name": "Free Hugs (Holo)"
+  },
+  "feral_predators/free_hugs_holo": {
     "name": "Free Hugs (Holo)"
   },
   "feral/predators_lurker_glossy": {
     "name": "Lurker"
   },
+  "feral_predators/lurker_glossy": {
+    "name": "Lurker"
+  },
   "feral/predators_lurker_foil": {
+    "name": "Lurker (Foil)"
+  },
+  "feral_predators/lurker_foil": {
     "name": "Lurker (Foil)"
   },
   "feral/predators_one_sting_glossy": {
     "name": "One Sting"
   },
+  "feral_predators/one_sting_glossy": {
+    "name": "One Sting"
+  },
   "feral/predators_one_sting_holo": {
+    "name": "One Sting (Holo)"
+  },
+  "feral_predators/one_sting_holo": {
     "name": "One Sting (Holo)"
   },
   "feral/predators_scavenger_glossy": {
     "name": "Scavenger"
   },
+  "feral_predators/scavenger_glossy": {
+    "name": "Scavenger"
+  },
   "feral/predators_scavenger_holo": {
+    "name": "Scavenger (Holo)"
+  },
+  "feral_predators/scavenger_holo": {
     "name": "Scavenger (Holo)"
   },
   "feral/predators_toxic_glossy": {
     "name": "Toxic"
   },
+  "feral_predators/toxic_glossy": {
+    "name": "Toxic"
+  },
   "feral/predators_toxic_foil": {
+    "name": "Toxic (Foil)"
+  },
+  "feral_predators/toxic_foil": {
     "name": "Toxic (Foil)"
   },
   "chicken/capsule_BigClucks_pack01": {
     "name": "Big Clucks"
   },
+  "chicken_capsule/BigClucks_pack01": {
+    "name": "Big Clucks"
+  },
   "chicken/capsule_BoneHead_pack01": {
+    "name": "Bonehead"
+  },
+  "chicken_capsule/BoneHead_pack01": {
     "name": "Bonehead"
   },
   "chicken/capsule_BukAWP_pack01": {
     "name": "BukAWP"
   },
+  "chicken_capsule/BukAWP_pack01": {
+    "name": "BukAWP"
+  },
   "chicken/capsule_DoubleDip_pack01": {
+    "name": "Double Dip"
+  },
+  "chicken_capsule/DoubleDip_pack01": {
     "name": "Double Dip"
   },
   "chicken/capsule_FowlPlay_pack01": {
     "name": "Fowl Play"
   },
+  "chicken_capsule/FowlPlay_pack01": {
+    "name": "Fowl Play"
+  },
   "chicken/capsule_HeadsUp_pack01": {
+    "name": "Heads Up"
+  },
+  "chicken_capsule/HeadsUp_pack01": {
     "name": "Heads Up"
   },
   "chicken/capsule_HotWings_pack01": {
     "name": "Hot Wings"
   },
+  "chicken_capsule/HotWings_pack01": {
+    "name": "Hot Wings"
+  },
   "chicken/capsule_NestEgg_pack01": {
+    "name": "Nest Egg"
+  },
+  "chicken_capsule/NestEgg_pack01": {
     "name": "Nest Egg"
   },
   "chicken/capsule_RoostyBoosty_pack01": {
     "name": "Roosty Boosty"
   },
+  "chicken_capsule/RoostyBoosty_pack01": {
+    "name": "Roosty Boosty"
+  },
   "chicken/capsule_WhatWhat_pack01": {
+    "name": "What What"
+  },
+  "chicken_capsule/WhatWhat_pack01": {
     "name": "What What"
   },
   "chicken/capsule_bonehead_holo": {
     "name": "Bonehead (Holo)"
   },
+  "chicken_capsule/bonehead_holo": {
+    "name": "Bonehead (Holo)"
+  },
   "chicken/capsule_doubledip_holo": {
+    "name": "Double Dip (Holo)"
+  },
+  "chicken_capsule/doubledip_holo": {
     "name": "Double Dip (Holo)"
   },
   "chicken/capsule_fowlplay_holo": {
     "name": "Fowl Play (Holo)"
   },
+  "chicken_capsule/fowlplay_holo": {
+    "name": "Fowl Play (Holo)"
+  },
   "chicken/capsule_hotwings_holo": {
+    "name": "Hot Wings (Holo)"
+  },
+  "chicken_capsule/hotwings_holo": {
     "name": "Hot Wings (Holo)"
   },
   "chicken/capsule_nestegg_holo": {
     "name": "Nest Egg (Holo)"
   },
+  "chicken_capsule/nestegg_holo": {
+    "name": "Nest Egg (Holo)"
+  },
   "chicken/capsule_bigclucks_foil": {
     "name": "Big Clucks (Foil)"
   },
+  "chicken_capsule/bigclucks_foil": {
+    "name": "Big Clucks (Foil)"
+  },
   "chicken/capsule_roostyboosty_foil": {
+    "name": "Roosty Boosty (Foil)"
+  },
+  "chicken_capsule/roostyboosty_foil": {
     "name": "Roosty Boosty (Foil)"
   },
   "spray/std2_1g": {
@@ -13400,28 +13547,55 @@
   "shattered/web_counter_tech": {
     "name": "Counter-Tech"
   },
+  "shattered_web/counter_tech": {
+    "name": "Counter-Tech"
+  },
   "shattered/web_gold_web": {
+    "name": "Gold Web"
+  },
+  "shattered_web/gold_web": {
     "name": "Gold Web"
   },
   "shattered/web_mastermind": {
     "name": "Mastermind"
   },
+  "shattered_web/mastermind": {
+    "name": "Mastermind"
+  },
   "shattered/web_shattered_web": {
+    "name": "Shattered Web"
+  },
+  "shattered_web/shattered_web": {
     "name": "Shattered Web"
   },
   "shattered/web_terrorist_tech_m9": {
     "name": "Terrorist-Tech"
   },
+  "shattered_web/terrorist_tech_m9": {
+    "name": "Terrorist-Tech"
+  },
   "shattered/web_web_stuck": {
+    "name": "Web Stuck"
+  },
+  "shattered_web/web_stuck": {
     "name": "Web Stuck"
   },
   "shattered/web_mastermind_holo": {
     "name": "Mastermind (Holo)"
   },
+  "shattered_web/mastermind_holo": {
+    "name": "Mastermind (Holo)"
+  },
   "shattered/web_web_stuck_holo": {
     "name": "Web Stuck (Holo)"
   },
+  "shattered_web/web_stuck_holo": {
+    "name": "Web Stuck (Holo)"
+  },
   "shattered/web_gold_web_normal": {
+    "name": "Gold Web (Foil)"
+  },
+  "shattered_web/gold_web_normal": {
     "name": "Gold Web (Foil)"
   },
   "cs20/anniversary_pixel_holo": {
@@ -13913,49 +14087,97 @@
   "broken/fang_ancient_beast": {
     "name": "Ancient Beast"
   },
+  "broken_fang/ancient_beast": {
+    "name": "Ancient Beast"
+  },
   "broken/fang_ancient_marauder": {
+    "name": "Ancient Marauder"
+  },
+  "broken_fang/ancient_marauder": {
     "name": "Ancient Marauder"
   },
   "broken/fang_ancient_protector": {
     "name": "Ancient Protector"
   },
+  "broken_fang/ancient_protector": {
+    "name": "Ancient Protector"
+  },
   "broken/fang_badge_of_service": {
+    "name": "Badge of Service"
+  },
+  "broken_fang/badge_of_service": {
     "name": "Badge of Service"
   },
   "broken/fang_battle_scarred": {
     "name": "Battle Scarred"
   },
+  "broken_fang/battle_scarred": {
+    "name": "Battle Scarred"
+  },
   "broken/fang_broken_fang": {
+    "name": "Broken Fang"
+  },
+  "broken_fang/broken_fang": {
     "name": "Broken Fang"
   },
   "broken/fang_coiled_strike": {
     "name": "Coiled Strike"
   },
+  "broken_fang/coiled_strike": {
+    "name": "Coiled Strike"
+  },
   "broken/fang_enemy_spotted": {
+    "name": "Enemy Spotted"
+  },
+  "broken_fang/enemy_spotted": {
     "name": "Enemy Spotted"
   },
   "broken/fang_stalking_prey": {
     "name": "Stalking Prey"
   },
+  "broken_fang/stalking_prey": {
+    "name": "Stalking Prey"
+  },
   "broken/fang_stone_scales": {
+    "name": "Stone Scales"
+  },
+  "broken_fang/stone_scales": {
     "name": "Stone Scales"
   },
   "broken/fang_battle_scarred_holo": {
     "name": "Battle Scarred (Holo)"
   },
+  "broken_fang/battle_scarred_holo": {
+    "name": "Battle Scarred (Holo)"
+  },
   "broken/fang_broken_fang_holo": {
+    "name": "Broken Fang (Holo)"
+  },
+  "broken_fang/broken_fang_holo": {
     "name": "Broken Fang (Holo)"
   },
   "broken/fang_coiled_strike_holo": {
     "name": "Coiled Strike (Holo)"
   },
+  "broken_fang/coiled_strike_holo": {
+    "name": "Coiled Strike (Holo)"
+  },
   "broken/fang_enemy_spotted_holo": {
+    "name": "Enemy Spotted (Holo)"
+  },
+  "broken_fang/enemy_spotted_holo": {
     "name": "Enemy Spotted (Holo)"
   },
   "broken/fang_ancient_beast_foil": {
     "name": "Ancient Beast (Foil)"
   },
+  "broken_fang/ancient_beast_foil": {
+    "name": "Ancient Beast (Foil)"
+  },
   "broken/fang_stone_scales_foil": {
+    "name": "Stone Scales (Foil)"
+  },
+  "broken_fang/stone_scales_foil": {
     "name": "Stone Scales (Foil)"
   },
   "patch/globalelite2": {
