@@ -30,6 +30,9 @@ class RedisClient:
         logging.debug(f"Retrieved hash values for key: {key}: {hash_values}")
         return hash_values
 
+    def delete(self, key):
+        self.r.delete(key)
+
     def exists(self, key):
         logging.info(f"Checking existence of key: {key}")
         existence = self.r.exists(key)

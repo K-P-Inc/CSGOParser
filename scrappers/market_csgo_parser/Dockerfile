@@ -14,4 +14,5 @@ COPY requirements.txt /app/
 RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
+ENV DOCKER_RUN "a"
 ENTRYPOINT ["./wait-for-it.sh", "-t", "20", "seleniarm-hub:4444", "--", "./wait-for-it.sh", "-t", "20", "db:5432", "--", "python3", "-m", "market_csgo_parser.parser"]

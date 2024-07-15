@@ -14,4 +14,5 @@ COPY requirements.txt /app/
 RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
+ENV DOCKER_RUN "a"
 ENTRYPOINT ["python3", "-m", "global_parser_api.parser"]
