@@ -225,7 +225,8 @@ export function ShopSelector({
     "skinbid.com",
     "skinport.com",
     "white.market",
-    "skinbaron.de"
+    "skinbaron.de",
+    "gamerpay.gg"
   ] as ShopType[]);
 
   return (

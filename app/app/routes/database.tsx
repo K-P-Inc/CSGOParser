@@ -123,7 +123,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       "skinport.com": "skinport",
       "white.market": "white-market",
       "skinbaron.de": "skinbaron",
-      "gamerpay": 'gamerpay',
+      "gamerpay.gg": 'gamerpay',
     }
 
     filters.push(

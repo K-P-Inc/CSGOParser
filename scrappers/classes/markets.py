@@ -670,25 +670,43 @@ class SkinbaronHelper(BaseHelper):
 class GamerPayHelper(BaseHelper):
     DB_ENUM_NAME = 'gamerpay'
     MAX_ITEMS_PER_PAGE = 40
-    REQUEST_TIMEOUT = 1
+    REQUEST_TIMEOUT = 2
+
+    def __init__(self):
+        super().__init__()
+        self.stickers_data = load_data_json('stickers_content.json')
+        self.currencies = self.load_currencies_config()
+        self.usd_currency = next(filter(lambda x: x["code"] == "USD", self.currencies))["rate"]
+
+    def load_currencies_config(self):
+        ua = UserAgent()
+        user_agent = ua.random
+        headers = {
+            'User-Agent': user_agent
+        }
+
+        response = requests.request("GET", "https://api.gamerpay.gg/currencies", headers=headers)
+
+        return json.loads(response.text)
 
     def fetch_stickers_by_link(self, sticker):
         sticker_image_url = sticker.get('imageURL')
 
         if sticker_image_url is None:
-            logging.info('Phantom sticker')
+            logging.debug('Phantom sticker')
             return None
 
-        logging.info(f"Fetching sticker: {sticker_image_url}")
+        logging.debug(f"Fetching sticker: {sticker_image_url}")
         sticker_key = sticker_image_url.replace('https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/', '').split('.')[0]
-        stickers_data = load_data_json('stickers_content.json')
-        sticker_name = stickers_data[sticker_key].get('name')
 
-        return sticker_name
+        if sticker_key in self.stickers_data:
+            return self.stickers_data[sticker_key].get('name')
+        else:
+            return None
 
     def parse_item(self, item):
         key_price = item.get('marketHashName')
-        item_price = item.get('price')
+        item_price = round(item.get('price') / 100.0 * self.usd_currency, 2)
         item_link = f"https://gamerpay.gg/item/{item.get('id')}"
         stickers_keys = [
             sticker.get('name') if sticker.get('name') != None else self.fetch_stickers_by_link(sticker)
@@ -711,7 +729,7 @@ class GamerPayHelper(BaseHelper):
             'User-Agent': user_agent
         }
 
-        url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(f'{type} | {name}')}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price}"
+        url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(f'{type} | {name}')}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price * 100}"
         logging.info(f"URL: {url}")
         response = requests.request("GET", url, headers=headers, data={})
         try:
