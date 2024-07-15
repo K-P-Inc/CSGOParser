@@ -58,6 +58,7 @@ class DBClient:
             SET profit = 1 - (skins.price + 0.1 * skins.stickers_price) / wp.price
             FROM weapons_prices wp
             WHERE skins.skin_id = wp.id AND is_sold = False AND wp.name LIKE '{value}%%';
+            UNLOCK TABLE skins IN EXCLUSIVE MODE;
             COMMIT;
         '''
         self.execute(query, ())
@@ -92,6 +93,7 @@ class DBClient:
                 profit = (ss.total_price * 0.1 + ss.steam_price - skins.price) / skins.price * 100.0
             FROM stickers_subquery ss
             WHERE skins.id = ss.skin_id;
+            UNLOCK TABLE skins IN EXCLUSIVE MODE;
             COMMIT;
         '''
         self.execute(query, ())
