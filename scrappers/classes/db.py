@@ -52,27 +52,49 @@ class DBClient:
 
     def update_skins_profit_by_weapon(self, value):
         query = f'''
-            WITH cte AS (
-                SELECT skins.skin_id
-                FROM skins
-                JOIN weapons_prices ON skins.skin_id = weapons_prices.id
-                WHERE weapons_prices.name = %s
-                AND weapons_prices.quality = %s
-                AND weapons_prices.is_stattrak = %s
-                ORDER BY skins.skin_id
-                LIMIT 1
+            BEGIN;
+            LOCK TABLE skins IN EXCLUSIVE MODE;
+            UPDATE skins
+            SET profit = 1 - (skins.price + 0.1 * skins.stickers_price) / wp.price
+            FROM weapons_prices wp
+            WHERE skins.skin_id = wp.id AND is_sold = False AND wp.name LIKE '{value}%%';
+            COMMIT;
+        '''
+        self.execute(query, ())
+
+    def update_skins_profit_by_stickers(self):
+        query = f'''
+            BEGIN;
+            LOCK TABLE skins IN EXCLUSIVE MODE;
+            WITH stickers_subquery AS (
+                SELECT
+                    sc.skin_id,
+                    wp.price as steam_price,
+                    SUM(st.price * sc.count_stickers) as total_price  
+                FROM (
+                    SELECT
+                        s.id as skin_id,
+                        s.skin_id as weapon_id, 
+                        st.id as sticker_id,
+                        COUNT(*) as count_stickers
+                    FROM skins s
+                    CROSS JOIN unnest(s.stickers) AS st(id)
+                    WHERE s.is_sold = False
+                    GROUP BY s.id, s.skin_id, st.id
+                ) AS sc
+                INNER JOIN stickers st ON st.id = sc.sticker_id
+                INNER JOIN weapons_prices wp ON wp.id = sc.weapon_id
+                GROUP BY sc.skin_id, wp.price
             )
             UPDATE skins
-            SET profit = 1 - (skins.price + 0.1 * skins.stickers_price) / %s
-            WHERE skin_id IN (SELECT skin_id FROM cte);
+            SET
+                stickers_price = ss.total_price,
+                profit = (ss.total_price * 0.1 + ss.steam_price - skins.price) / skins.price * 100.0
+            FROM stickers_subquery ss
+            WHERE skins.id = ss.skin_id;
+            COMMIT;
         '''
-        self.execute(query, value)
-
-    def update_skins_profit_by_stickers(self, value):
-        # TODO: Make querry for upd profit after stickers price update
-        return
-        query = f''''''
-        self.execute(query, value)
+        self.execute(query, ())
 
     def insert_skins(self, values):
         placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])

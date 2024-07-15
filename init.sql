@@ -115,5 +115,6 @@ CREATE TABLE IF NOT EXISTS skins (
 CREATE UNIQUE INDEX IF NOT EXISTS skins_link_index ON skins(link);
 CREATE INDEX IF NOT EXISTS skins_idx_market ON skins(market);
 CREATE INDEX IF NOT EXISTS skins_idx_price ON skins(price);
-CREATE INDEX IF NOT EXISTS skins_idx_profit ON skins(profit);
 CREATE INDEX IF NOT EXISTS skins_idx_created_at ON skins(created_at);
+CREATE INDEX IF NOT EXISTS skins_idx_stickers_distinct_variants ON skins(stickers_distinct_variants);
+CREATE INDEX IF NOT EXISTS skins_idx_stickers_patern ON skins(stickers_patern);
