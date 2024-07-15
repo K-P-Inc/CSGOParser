@@ -108,12 +108,7 @@ class DBClient:
                 stickers_price = EXCLUDED.stickers_price,
                 price = EXCLUDED.price,
                 profit = EXCLUDED.profit,
-                skin_id = EXCLUDED.skin_id,
-                stickers_patern = EXCLUDED.stickers_patern,
-                amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
-                amount_of_stickers = EXCLUDED.amount_of_stickers,
                 is_sold = EXCLUDED.is_sold,
-                stickers = EXCLUDED.stickers
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
@@ -179,12 +174,12 @@ class DBClient:
             if len(parsed_urls) > 0:
                 cursor.execute(f'''
                     UPDATE skins SET is_sold = True
-                    WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
+                    WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
                 ''', [*parsed_urls, market, *weapon_uuids])
             else:
                 cursor.execute(f'''
                     UPDATE skins SET is_sold = True
-                    WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
+                    WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
                 ''', [market, *weapon_uuids])
 
 

@@ -295,7 +295,11 @@ class CSFloatHelper(BaseHelper):
         response = requests.request("GET", url)
 
         try:
-            if json.loads(response.text) and len(json.loads(response.text)) >= 0:
+            if json.loads(response.text) and json.loads(response.text) == json.loads('{"code":20,"message":"too many requests, try again later"}'):
+                logging.inf("Parser was blocked")
+                time.sleep(300)
+                return None
+            elif json.loads(response.text) and len(json.loads(response.text)) >= 0:
                 return json.loads(response.text)
             return None
         except:
@@ -730,7 +734,6 @@ class GamerPayHelper(BaseHelper):
         }
 
         url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(f'{type} | {name}')}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price * 100}"
-        logging.info(f"URL: {url}")
         response = requests.request("GET", url, headers=headers, data={})
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
