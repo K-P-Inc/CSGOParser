@@ -44,7 +44,7 @@ class DBClient:
                 price_month_high = EXCLUDED.price_month_high,
                 price_all_time_low = EXCLUDED.price_all_time_low,
                 price_all_time_high = EXCLUDED.price_all_time_high,
-                parsing_time = EXCLUDED.parsing_time,
+                parsing_time = EXCLUDED.parsing_time
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
@@ -108,7 +108,7 @@ class DBClient:
                 stickers_price = EXCLUDED.stickers_price,
                 price = EXCLUDED.price,
                 profit = EXCLUDED.profit,
-                is_sold = EXCLUDED.is_sold,
+                is_sold = EXCLUDED.is_sold
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
