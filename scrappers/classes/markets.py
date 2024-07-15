@@ -3,6 +3,7 @@ import json
 import time
 import logging
 from urllib.parse import quote, urlencode
+from utils.data import load_data_json
 from fake_useragent import UserAgent
 from selenium.webdriver.common.by import By
 from .redis import RedisClient
@@ -671,16 +672,28 @@ class GamerPayHelper(BaseHelper):
     MAX_ITEMS_PER_PAGE = 40
     REQUEST_TIMEOUT = 3
 
+    def fetch_stickers_by_link(self, sticker_image_url):
+        logging.info(f"Fetching sticker: {sticker_image_url}")
+        sticker_key = sticker_image_url.replace('https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/', '').split('.')[0]
+        stickers_data = load_data_json('stickers_content.json')
+        sticker_name = stickers_data[sticker_key].get('name')
+
+        return sticker_name
 
     def parse_item(self, item):
         key_price = item.get('marketHashName')
         item_price = item.get('price')
         item_link = f"https://gamerpay.gg/item/{item.get('id')}"
-        stickers_keys = [sticker.get('name') for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
+        stickers_keys = [
+            sticker.get('name') if sticker.get('name') != None else self.fetch_stickers_by_link(sticker.get('imageURL'))
+            for sticker in item.get('stickers')
+        ] if len(item.get('stickers')) > 0 else []
+        # stickers_keys = [sticker.get('name') for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
+
         stickers_wears = [sticker.get('wear') if sticker.get('wear') is not None else 0 for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
         item_float = item.get('floatValue')
         item_in_game_link = item.get('inspectLink')
-        pattern_template = item.get('paintSeed')
+        pattern_template = item.get('paintseed')
         is_buy_type_fixed = 'fixed'
 
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
