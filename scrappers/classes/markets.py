@@ -670,7 +670,7 @@ class SkinbaronHelper(BaseHelper):
 class GamerPayHelper(BaseHelper):
     DB_ENUM_NAME = 'gamerpay'
     MAX_ITEMS_PER_PAGE = 40
-    REQUEST_TIMEOUT = 3
+    REQUEST_TIMEOUT = 1
 
     def fetch_stickers_by_link(self, sticker):
         sticker_image_url = sticker.get('imageURL')
