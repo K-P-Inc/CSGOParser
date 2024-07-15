@@ -692,7 +692,8 @@ class GamerPayHelper(BaseHelper):
             'User-Agent': user_agent
         }
 
-        url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(name)}&subtype={quote(type)}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price}"
+        url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(f'{type} | {name}')}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price}"
+        logging.info(f"URL: {url}")
         response = requests.request("GET", url, headers=headers, data={})
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
