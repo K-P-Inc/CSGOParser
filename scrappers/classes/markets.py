@@ -3,7 +3,7 @@ import json
 import time
 import logging
 from urllib.parse import quote, urlencode
-from utils import load_data_json
+from utils.data import load_data_json
 from fake_useragent import UserAgent
 from selenium.webdriver.common.by import By
 from .redis import RedisClient
