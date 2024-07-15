@@ -672,7 +672,13 @@ class GamerPayHelper(BaseHelper):
     MAX_ITEMS_PER_PAGE = 40
     REQUEST_TIMEOUT = 3
 
-    def fetch_stickers_by_link(self, sticker_image_url):
+    def fetch_stickers_by_link(self, sticker):
+        sticker_image_url = sticker.get('imageURL')
+
+        if sticker_image_url is None:
+            logging.info('Phantom sticker')
+            return None
+
         logging.info(f"Fetching sticker: {sticker_image_url}")
         sticker_key = sticker_image_url.replace('https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/', '').split('.')[0]
         stickers_data = load_data_json('stickers_content.json')
@@ -685,7 +691,7 @@ class GamerPayHelper(BaseHelper):
         item_price = item.get('price')
         item_link = f"https://gamerpay.gg/item/{item.get('id')}"
         stickers_keys = [
-            sticker.get('name') if sticker.get('name') != None else self.fetch_stickers_by_link(sticker.get('imageURL'))
+            sticker.get('name') if sticker.get('name') != None else self.fetch_stickers_by_link(sticker)
             for sticker in item.get('stickers')
         ] if len(item.get('stickers')) > 0 else []
         # stickers_keys = [sticker.get('name') for sticker in item.get('stickers')] if len(item.get('stickers')) > 0 else []
