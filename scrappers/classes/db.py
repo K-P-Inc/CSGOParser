@@ -173,15 +173,14 @@ class DBClient:
         with self.db.cursor() as cursor:
             if len(parsed_urls) > 0:
                 cursor.execute(f'''
-                    UPDATE skins SET is_sold = True
+                    DELETE FROM skins
                     WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
                 ''', [*parsed_urls, market, *weapon_uuids])
             else:
                 cursor.execute(f'''
-                    UPDATE skins SET is_sold = True
+                    DELETE FROM skins
                     WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
                 ''', [market, *weapon_uuids])
-
 
     def parse_items_without_link(self):
         items_id, item_links, csgo_links = [], [], []
