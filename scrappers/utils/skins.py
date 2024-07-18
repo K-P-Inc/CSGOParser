@@ -31,7 +31,7 @@ def get_weapons_array_by_type(weapon_config, parsed_items, with_quality=False):
                     "name": f"{weapon[0].split(' | ')[1]} ({weapon[2]})" if with_quality else weapon[0].split(' | ')[1]
                 }
             if weapons_db_list:
-                redis_client.set(redis_key, json.dumps(weapons_prices), ex=6 * 3600)
+                redis_client.set(redis_key, json.dumps(weapons_prices), ex=60)
 
         weapons = sorted(list(set([
             (weapon_config.type, value["name"], value["is_stattrak"])
@@ -72,7 +72,7 @@ def get_stickers_dict():
                     "id": str(sticker[3])
                 }
             if stickers_dict:
-                redis_client.set(redis_key, json.dumps(stickers_dict), ex=6 * 3600)
+                redis_client.set(redis_key, json.dumps(stickers_dict), ex=60)
 
         logging.info(f'Fetched {len(stickers_dict)} stickers')
         time.sleep(1)

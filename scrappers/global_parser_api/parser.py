@@ -66,7 +66,7 @@ def parse_item(
         sticker_sum = sum([sticker["price"] for sticker in matched_stickers])
         sticker_overprice = sticker_sum * 0.1
         stickers_names_string = ', '.join([sticker["name"] for sticker in matched_stickers])
-        future_profit_percentages = (sticker_overprice + actually_price - item_price) / item_price * 100
+        future_profit_percentages = (sticker_overprice + actually_price - item_price) / (sticker_overprice + actually_price) * 100
 
         stickers_variants = ['Glitter', 'Holo', 'Foil', 'Gold']
         stickers_distinct_variants = list(set(
@@ -113,7 +113,6 @@ def run_action(parsed_items, market_class, weapon_config):
 
     try:
         weapons, weapons_prices = get_weapons_array_by_type(weapon_config, parsed_items, with_quality=market_class.PARSE_WITH_QUALITY)
-        stickers_dict = get_stickers_dict()
 
         for weapon_type, weapon_name, weapon_is_stattrak in weapons:
             page_number = 0
@@ -124,15 +123,19 @@ def run_action(parsed_items, market_class, weapon_config):
                 logging.info(f'Trying to find {display_name} on {page_number + 1} page {market_class.PARSE_WITH_QUALITY}')
                 items_list = market_class.do_request(weapon_type, weapon_name, weapon_is_stattrak, weapon_config["max_steam_item_price"], page_number)
                 if items_list != None:
+                    stickers_dict = get_stickers_dict()
+                    _, updated_prices = get_weapons_array_by_type(weapon_config, parsed_items, with_quality=market_class.PARSE_WITH_QUALITY)
                     parsed_urls_iter = parse_item(
                         market_class=market_class,
                         db_client=db_client,
                         items_list=items_list, display_name=display_name,
-                        weapon_config=weapon_config, weapons_prices=weapons_prices,
+                        weapon_config=weapon_config, weapons_prices=updated_prices,
                         stickers_dict=stickers_dict
                     )
                     for url in parsed_urls_iter:
                         parsed_urls.append(url)
+
+                    weapons_prices = updated_prices
 
                 if items_list != None and len(items_list) == market_class.MAX_ITEMS_PER_PAGE:
                     page_number += 1

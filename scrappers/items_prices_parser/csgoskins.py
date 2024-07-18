@@ -330,17 +330,24 @@ def try_to_get_price_from_steam_api(market_hash_name):
 def update_item_with_prices(item, prices, markets_data):
     logging.info("Get stable price for item")
     price = -1
-    for market_name, market_value in markets_data.items():
-        if market_name == "Steam" and market_value["price"] != None:
-            price = market_value["price"]
-            logging.info(f"Steam price found: {price}")
-            break
+
+    # for market_name, market_value in markets_data.items():
+    #     if market_name == "Steam" and market_value["price"] != None:
+    #         price = market_value["price"]
+    #         logging.info(f"Steam price found: {price}")
+    #         break
 
     if price == -1 and '7 Day low' in prices:
         if prices['7 Day Low'] <= 1300:
             price = prices['7 Day Low'] / 0.7
         else:
             price = prices['7 Day Low']
+
+    if price == -1 and '30 Day Low' in prices:
+        if prices['30 Day Low'] <= 1300:
+            price = prices['30 Day Low'] / 0.7
+        else:
+            price = prices['30 Day Low']
 
     item["price"] = price
     item['markets'] = markets_data

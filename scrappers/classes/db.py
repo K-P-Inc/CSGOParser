@@ -55,7 +55,7 @@ class DBClient:
             BEGIN;
             LOCK TABLE skins IN EXCLUSIVE MODE;
             UPDATE skins
-            SET profit = 1 - (skins.price + 0.1 * skins.stickers_price) / wp.price
+            SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
             FROM weapons_prices wp
             WHERE skins.skin_id = wp.id AND is_sold = False AND wp.name LIKE '{value}%%';
             COMMIT;
@@ -74,7 +74,7 @@ class DBClient:
                 FROM (
                     SELECT
                         s.id as skin_id,
-                        s.skin_id as weapon_id, 
+                        s.skin_id as weapon_id,
                         st.id as sticker_id,
                         COUNT(*) as count_stickers
                     FROM skins s
@@ -89,7 +89,7 @@ class DBClient:
             UPDATE skins
             SET
                 stickers_price = ss.total_price,
-                profit = (ss.total_price * 0.1 + ss.steam_price - skins.price) / skins.price * 100.0
+                profit = (ss.total_price * 0.1 + ss.steam_price - skins.price) / (ss.total_price * 0.1 + ss.steam_price) * 100.0
             FROM stickers_subquery ss
             WHERE skins.id = ss.skin_id;
             COMMIT;
