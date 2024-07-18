@@ -21,6 +21,7 @@ const config = {
         'primary-500': '#877EFF',
         'primary-600': '#5D5FEF',
         'secondary-500': '#FFB620',
+        'secondary-600': '#8a5e06',
         'off-white': '#D0DFFF',
         'red': '#FF5A5A',
         'green': '#00FF7F',

@@ -347,7 +347,7 @@ export default function Index() {
             }}
             loading={isLoading}
           >
-            <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", display: "grid" }}>
+            <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
               {skins.map((item: SkinItem) => (
                 <ItemCard item={item} key={item.link} />
               ))}

@@ -628,7 +628,7 @@ class SkinbaronHelper(BaseHelper):
         market_csgo_item_link = f'https://skinbaron.de{item["offerLink"]}'
         stickers_keys = [sticker["localizedName"].strip() for sticker in item["singleOffer"]["stickers"]] if "stickers" in item["singleOffer"] else []
         stickers_wears = [None for _ in item["singleOffer"]["stickers"]] if "stickers" in item["singleOffer"] else []
-        item_float = item.get('singleOffer', {}).get('wearPercent')
+        item_float = item.get('singleOffer', {}).get('wearPercent') / 100.0
         item_in_game_link = item.get('singleOffer', {}).get('inspectLink')
         pattern_template = None
 

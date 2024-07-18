@@ -108,7 +108,7 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #09090a;
+    background: rgba(0, 0, 0, 0.0);
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -241,16 +241,16 @@
 
   /* Post Card */
   .post-card {
-    @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 hover:border-primary-500 py-2 min-w-[170px] min-h-[225px] hover:from-primary-500 hover:to-dark-3;
+    @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 hover:border-primary-500 py-2 min-w-[210px] min-h-[325px] hover:from-primary-500 hover:to-dark-3;
   }
 
 
   .post-card_img {
-    @apply h-[100px] hover:h-[110px] w-auto rounded-[24px] object-cover mt-[-10px] hover:mt-[-5px] hover:mb-[-5px] hover:mx-[-5px] transition-all duration-100 ease-in;
+    @apply h-[120px] hover:h-[130px] w-auto rounded-[24px] object-cover mt-[-10px] hover:mt-[-5px] hover:mb-[-5px] hover:mx-[-5px] transition-all duration-100 ease-in;
   }
 
   .post-card:hover .post-card_img {
-    @apply h-[110px] mt-[-15px] mb-[-5px] mx-[-5px];
+    @apply h-[130px] mt-[-15px] mb-[-5px] mx-[-5px];
   }
 
   .post-card_market_img {
@@ -262,12 +262,12 @@
   }
 
   .skeleton-post-card {
-    @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 py-2 min-w-[170px] min-h-[225px];
+    @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 py-2 min-w-[210px] min-h-[325px];
     overflow: hidden
   }
 
   .skeleton-post-card_img {
-    @apply h-[100px] w-auto rounded-[24px] object-cover mt-[-10px] transition-all duration-100 ease-in;
+    @apply h-[120px] w-auto rounded-[24px] object-cover mt-[-10px] transition-all duration-100 ease-in;
     filter: drop-shadow(0px 200px 0 theme("colors.dark-4"));
     transform: translateY(-200px);
   }
