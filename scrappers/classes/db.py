@@ -52,20 +52,22 @@ class DBClient:
 
     def update_skins_profit_by_weapon(self, value):
         query = f'''
-            BEGIN;
-            LOCK TABLE skins IN EXCLUSIVE MODE;
+            WITH locked_skins AS (
+                SELECT skins.skin_id
+                FROM skins
+                JOIN weapons_prices wp ON skins.skin_id = wp.id
+                WHERE is_sold = False AND wp.name LIKE '{value}%%'
+                FOR UPDATE
+            )
             UPDATE skins
             SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
             FROM weapons_prices wp
             WHERE skins.skin_id = wp.id AND is_sold = False AND wp.name LIKE '{value}%%';
-            COMMIT;
         '''
         self.execute(query, ())
 
     def update_skins_profit_by_stickers(self):
         query = f'''
-            BEGIN;
-            LOCK TABLE skins IN EXCLUSIVE MODE;
             WITH stickers_subquery AS (
                 SELECT
                     sc.skin_id,
@@ -81,6 +83,7 @@ class DBClient:
                     CROSS JOIN unnest(s.stickers) AS st(id)
                     WHERE s.is_sold = False
                     GROUP BY s.id, s.skin_id, st.id
+                    FOR UPDATE
                 ) AS sc
                 INNER JOIN stickers st ON st.id = sc.sticker_id
                 INNER JOIN weapons_prices wp ON wp.id = sc.weapon_id
@@ -92,7 +95,6 @@ class DBClient:
                 profit = (ss.total_price * 0.1 + ss.steam_price - skins.price) / (ss.total_price * 0.1 + ss.steam_price) * 100.0
             FROM stickers_subquery ss
             WHERE skins.id = ss.skin_id;
-            COMMIT;
         '''
         self.execute(query, ())
 
