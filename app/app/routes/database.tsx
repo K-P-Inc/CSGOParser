@@ -124,6 +124,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       "white.market": "white-market",
       "skinbaron.de": "skinbaron",
       "gamerpay.gg": 'gamerpay',
+      "waxpeer.com": 'waxpeer'
     }
 
     filters.push(

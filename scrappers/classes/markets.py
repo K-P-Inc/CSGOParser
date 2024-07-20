@@ -741,3 +741,46 @@ class GamerPayHelper(BaseHelper):
             return None
         except:
             return None
+
+
+class WaxPeerHelper(BaseHelper):
+    DB_ENUM_NAME = 'waxpeer'
+    MAX_ITEMS_PER_PAGE = 50
+    REQUEST_TIMEOUT = 2
+
+
+    def get_paint_seed(self, item_link):
+        response = requests.get(item_link)
+
+        return response.text.split('<span class="light">Paint index</span>', 1)[1][:20].replace('<span>','').replace('</span>', '').split('<')[0]
+
+    def parse_item(self, item):
+        key_price = item.get('name')
+        item_price = item.get('price') / 1000
+
+        item_with_quality = item.get('steam_price').get('img').replace('https://images.waxpeer.com/i/730-', '').replace('.webp', '')
+        item_id = item.get("item_id")
+        item_link = f'https://waxpeer.com/{item_with_quality}/item/{item_id}'
+
+        inspect_item = item.get('inspect_item')
+
+        stickers_array = inspect_item.get('stickers') if inspect_item != None else []
+        stickers_keys = [sticker.get('name').replace('Sticker | ', '') for sticker in stickers_array] if len(stickers_array) > 0 else []
+        stickers_wears = [sticker.get('wear') for sticker in stickers_array] if len(stickers_array) > 0 else []
+
+        item_float = item.get('float')
+        item_in_game_link = None
+        pattern_template = None # Nget_paint_seed(item_link)
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
+
+    def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
+        url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * self.MAX_ITEMS_PER_PAGE}"
+        response = requests.request("GET", url, data={})
+        try:
+            if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
+                return json.loads(response.text)["items"]
+            return None
+        except:
+            return None

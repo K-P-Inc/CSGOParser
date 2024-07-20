@@ -105,7 +105,7 @@ export function GenericSelector<T extends string>({
         </DropdownMenuContent>
       </DropdownMenu>
       {selectedItems.length > 0 &&
-        <Button className="w-[30px]" size="right" onClick={(e: any) => { 
+        <Button className="w-[30px]" size="right" onClick={(e: any) => {
           e.preventDefault();
           setIsOpen(false);
           setSelectedItems([]);
@@ -226,7 +226,8 @@ export function ShopSelector({
     "skinport.com",
     "white.market",
     "skinbaron.de",
-    "gamerpay.gg"
+    "gamerpay.gg",
+    "waxpeer.com"
   ] as ShopType[]);
 
   return (
@@ -346,7 +347,7 @@ export function StickersCategorySelector({
         </DropdownMenuContent>
       </DropdownMenu>
       {(selectedStickersPatterns.length > 0 || selectedStickersTypes.length > 0) &&
-        <Button className="w-[30px]" size="right" onClick={(e: any) => { 
+        <Button className="w-[30px]" size="right" onClick={(e: any) => {
           e.preventDefault();
           setIsOpen(false);
           setSelectedStickersPatterns([]);

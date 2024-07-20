@@ -17,7 +17,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card"
-import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon, GamerPayIcon } from "~/assets/images";
+import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon, GamerPayIcon, WaxPeerIcon } from "~/assets/images";
 import { Button } from "../ui/button";
 import { useState } from "react";
 
@@ -212,7 +212,8 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                             : item.market === "skinbaron" ? SkinBaronIcon
                               : item.market === "white-market" ? WhiteMarketIcon
                                 : item.market === "gamerpay" ? GamerPayIcon
-                                  : ""
+                                  : item.market === 'waxpeer' ? WaxPeerIcon
+                                    : ""
             }
             alt="post image"
             className="post-card_market_img"
@@ -258,7 +259,7 @@ export default function ItemCard({ item }: { item: SkinItem }) {
               </div>
               <Button
                 onClick={(e: any) => {
-                  e.stopPropagation(); 
+                  e.stopPropagation();
                   openMarketLink()
                 }}
                 className="w-full rounded border border-dark-4 bg-dark-4 hover:border-primary-500 hover:bg-primary-500 transition h-[30px] text-[12px]"
