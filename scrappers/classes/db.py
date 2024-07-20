@@ -53,7 +53,7 @@ class DBClient:
     def update_skins_profit_by_weapon(self, value):
         query = f'''
             WITH locked_skins AS (
-                SELECT skins.skin_id
+                SELECT *
                 FROM skins
                 JOIN weapons_prices wp ON skins.skin_id = wp.id
                 WHERE is_sold = False AND wp.name LIKE '{value}%%'
@@ -78,6 +78,8 @@ class DBClient:
                         s.id as skin_id,
                         s.skin_id as weapon_id,
                         st.id as sticker_id,
+                        s.stickers_price as locked_stickers_price,
+                        s.profit as profit,
                         COUNT(*) as count_stickers
                     FROM skins s
                     CROSS JOIN unnest(s.stickers) AS st(id)
