@@ -61,8 +61,8 @@ class DBClient:
             )
             UPDATE skins
             SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
-            FROM weapons_prices wp
-            WHERE skins.skin_id = wp.id AND is_sold = False AND wp.name LIKE '{value}%%';
+            FROM weapons_prices wp, locked_skins ls
+            WHERE skins.skin_id = ls.skin_id AND skins.skin_id = wp.id;
         '''
         self.execute(query, ())
 
