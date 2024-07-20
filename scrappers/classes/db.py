@@ -10,9 +10,9 @@ class DBClient:
         host = os.environ.get("POSTGRES_HOST")
         port = os.environ.get("POSTGRES_PORT")
 
-        # logging.info(f"\nDatabase: {database}\nUser: {user}\nPassword: {password}\nHost: {host}\nPort: {port}\n")
+        # logging.debug(f"\nDatabase: {database}\nUser: {user}\nPassword: {password}\nHost: {host}\nPort: {port}\n")
 
-        logging.info("Connecting to database")
+        logging.debug("Connecting to database")
         self.db = pg8000.connect(
             host=host,
             database=database,
@@ -20,7 +20,7 @@ class DBClient:
             password=password,
             port=port
         )
-        logging.info("Connected to database")
+        logging.debug("Connected to database")
 
     def execute(self, query, params) -> None:
         with self.db.cursor() as cursor:
@@ -48,12 +48,12 @@ class DBClient:
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
-        logging.info("Updated weapon prices in db")
+        logging.debug("Updated weapon prices in db")
 
     def update_skins_profit_by_weapon(self, value):
         query = f'''
             WITH locked_skins AS (
-                SELECT skins.skin_id
+                SELECT *
                 FROM skins
                 JOIN weapons_prices wp ON skins.skin_id = wp.id
                 WHERE is_sold = False AND wp.name LIKE '{value}%%'
@@ -61,8 +61,8 @@ class DBClient:
             )
             UPDATE skins
             SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
-            FROM weapons_prices wp
-            WHERE skins.skin_id = wp.id AND is_sold = False AND wp.name LIKE '{value}%%';
+            FROM weapons_prices wp, locked_skins ls
+            WHERE skins.skin_id = ls.skin_id AND skins.skin_id = wp.id;
         '''
         self.execute(query, ())
 
@@ -78,6 +78,8 @@ class DBClient:
                         s.id as skin_id,
                         s.skin_id as weapon_id,
                         st.id as sticker_id,
+                        s.stickers_price as locked_stickers_price,
+                        s.profit as profit,
                         COUNT(*) as count_stickers
                     FROM skins s
                     CROSS JOIN unnest(s.stickers) AS st(id)
@@ -144,7 +146,7 @@ class DBClient:
             '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
-        logging.info("Updated sticker prices in db")
+        logging.debug("Updated sticker prices in db")
 
     def get_all_stickers(self):
         with self.db.cursor() as cursor:
@@ -206,4 +208,4 @@ class DBClient:
     def __del__(self) -> None:
         if self.db:
             self.db.close()
-            logging.info("Database connection closed")
+            logging.debug("Database connection closed")

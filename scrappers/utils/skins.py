@@ -4,14 +4,12 @@ import json
 from classes.db import DBClient
 from classes.redis import RedisClient
 
-def get_weapons_array_by_type(weapon_config, parsed_items, with_quality=False):
-    db_client = DBClient()
-    redis_client = RedisClient()
+def get_weapons_array_by_type(db_client, redis_client, weapon_config, parsed_items, with_quality=False):
     weapons = []
     weapons_prices = {}
 
     while len(weapons) == 0:
-        logging.info(f'Getting skins from database, already parsed {parsed_items}')
+        logging.debug(f'Getting skins from database, already parsed {parsed_items}')
         redis_key = f"{weapon_config.type}_weapons_prices{'_with_quality' if with_quality else ''}"
 
         if redis_client.exists(redis_key):
@@ -41,22 +39,20 @@ def get_weapons_array_by_type(weapon_config, parsed_items, with_quality=False):
         if len(weapons) > parsed_items:
             weapons = weapons[parsed_items:]
         else:
-            logging.info(f'All items parsed, reseting parsed items counter')
+            logging.debug(f'All items parsed, reseting parsed items counter')
             parsed_items = 0
 
-        logging.info(f'Fetched {len(weapons)} skins from database')
+        logging.debug(f'Fetched {len(weapons)} skins from database')
         time.sleep(1)
 
     return weapons, weapons_prices
 
-def get_stickers_dict():
-    db_client = DBClient()
-    redis_client = RedisClient()
+def get_stickers_dict(db_client, redis_client):
     redis_key = "stickers_dict"
 
     stickers_dict = {}
     while len(stickers_dict) == 0:
-        logging.info('Getting stickers from database for keys')
+        logging.debug('Getting stickers from database for keys')
 
         if redis_client.exists(redis_key):
             stickers_dict_str_json = redis_client.get(redis_key)
@@ -74,7 +70,7 @@ def get_stickers_dict():
             if stickers_dict:
                 redis_client.set(redis_key, json.dumps(stickers_dict), ex=60)
 
-        logging.info(f'Fetched {len(stickers_dict)} stickers')
+        logging.debug(f'Fetched {len(stickers_dict)} stickers')
         time.sleep(1)
 
     return stickers_dict
