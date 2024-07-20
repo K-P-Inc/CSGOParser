@@ -7,7 +7,7 @@ import threading
 from pathlib import Path
 from omegaconf import DictConfig
 from dotenv import load_dotenv
-from classes import DBClient
+from classes import DBClient, RedisClient
 from utils import repo_path, get_stickers_dict, get_weapons_array_by_type
 from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper, SkinportHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, WhiteMarketHelper, SkinbaronHelper, GamerPayHelper
 
@@ -103,6 +103,7 @@ def parse_item(
 
 def run_action(parsed_items, market_class, weapon_config):
     db_client = DBClient()
+    redis_client = RedisClient()
     types = [
         'Factory New',
         'Minimal Wear',
@@ -112,7 +113,7 @@ def run_action(parsed_items, market_class, weapon_config):
     ]
 
     try:
-        weapons, weapons_prices = get_weapons_array_by_type(weapon_config, parsed_items, with_quality=market_class.PARSE_WITH_QUALITY)
+        weapons, weapons_prices = get_weapons_array_by_type(db_client, redis_client, weapon_config, parsed_items, with_quality=market_class.PARSE_WITH_QUALITY)
 
         for weapon_type, weapon_name, weapon_is_stattrak in weapons:
             page_number = 0
@@ -123,8 +124,8 @@ def run_action(parsed_items, market_class, weapon_config):
                 logging.info(f'Trying to find {display_name} on {page_number + 1} page {market_class.PARSE_WITH_QUALITY}')
                 items_list = market_class.do_request(weapon_type, weapon_name, weapon_is_stattrak, weapon_config["max_steam_item_price"], page_number)
                 if items_list != None:
-                    stickers_dict = get_stickers_dict()
-                    _, updated_prices = get_weapons_array_by_type(weapon_config, parsed_items, with_quality=market_class.PARSE_WITH_QUALITY)
+                    stickers_dict = get_stickers_dict(db_client, redis_client)
+                    _, updated_prices = get_weapons_array_by_type(db_client, redis_client, weapon_config, parsed_items, with_quality=market_class.PARSE_WITH_QUALITY)
                     parsed_urls_iter = parse_item(
                         market_class=market_class,
                         db_client=db_client,

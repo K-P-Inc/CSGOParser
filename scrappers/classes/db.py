@@ -10,9 +10,9 @@ class DBClient:
         host = os.environ.get("POSTGRES_HOST")
         port = os.environ.get("POSTGRES_PORT")
 
-        # logging.info(f"\nDatabase: {database}\nUser: {user}\nPassword: {password}\nHost: {host}\nPort: {port}\n")
+        # logging.debug(f"\nDatabase: {database}\nUser: {user}\nPassword: {password}\nHost: {host}\nPort: {port}\n")
 
-        logging.info("Connecting to database")
+        logging.debug("Connecting to database")
         self.db = pg8000.connect(
             host=host,
             database=database,
@@ -20,7 +20,7 @@ class DBClient:
             password=password,
             port=port
         )
-        logging.info("Connected to database")
+        logging.debug("Connected to database")
 
     def execute(self, query, params) -> None:
         with self.db.cursor() as cursor:
@@ -48,7 +48,7 @@ class DBClient:
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
-        logging.info("Updated weapon prices in db")
+        logging.debug("Updated weapon prices in db")
 
     def update_skins_profit_by_weapon(self, value):
         query = f'''
@@ -144,7 +144,7 @@ class DBClient:
             '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
-        logging.info("Updated sticker prices in db")
+        logging.debug("Updated sticker prices in db")
 
     def get_all_stickers(self):
         with self.db.cursor() as cursor:
@@ -206,4 +206,4 @@ class DBClient:
     def __del__(self) -> None:
         if self.db:
             self.db.close()
-            logging.info("Database connection closed")
+            logging.debug("Database connection closed")
