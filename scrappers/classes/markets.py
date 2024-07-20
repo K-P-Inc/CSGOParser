@@ -741,3 +741,51 @@ class GamerPayHelper(BaseHelper):
             return None
         except:
             return None
+
+
+class WaxPeerHelper(BaseHelper):
+    DB_ENUM_NAME = 'waxpeer'
+    MAX_ITEMS_PER_PAGE = 50
+    REQUEST_TIMEOUT = 2
+
+
+    def get_paint_seed(self, item_with_quality, item_id):
+        ''' template:
+        stattrack = f'{stattrak}-' if item.get("stat_trak") else ''
+        item_with_quality = f'{stattrack}{item.get("type")}-{item.get("market_name")}-{item.get("full_ex")}'
+        item_id = item.get("item_id")
+        pattern_template = get_paint_seed(item_with_quality, item_id)
+        '''
+
+        url = f'https://waxpeer.com/{item_with_quality}/item/{item_id}'
+        response = requests.get(url)
+
+        return response.text.split('<span class="light">Paint index</span>', 1)[1][:20].replace('<span>','').replace('</span>', '').split('<')[0]
+
+    def parse_item(self, item):
+        item_json = item[0]
+        key_price = item_json.get('name')
+        item_price = item_json.get('price') / 1000
+        item_link = None
+        inspect_item = item_json.get('inspect_item')
+        stickers_array = inspect_item.get('stickers')
+        stickers_keys = [sticker.get('name') for sticker in stickers_array] if stickers_array else []
+        stickers_wears = [sticker.get('wear') for sticker in stickers_array] if stickers_array else []
+        item_float = inspect_item.get('floatvalue')
+        item_in_game_link = None
+        pattern_template = None # Need to parse items page get_paint_seed(item_with_quality, item_id)
+        is_buy_type_fixed = 'fixed'
+
+        return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
+
+    def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
+        stickers_count = [1, 2, 3, 4, 5]
+        for sticker_count in stickers_count:
+            url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&sticker_count={sticker_count}&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * 50}"
+            response = requests.request("GET", url, data={})
+            try:
+                if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
+                    return json.loads(response.text)["items"]
+                return None
+            except:
+                return None

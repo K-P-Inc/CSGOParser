@@ -1,0 +1,307 @@
+[
+    {
+        "item_id": "38578146597",
+        "brand": "rifle",
+        "image": "https://steamcommunity-a.akamaihd.net/economy/image/class/730/6029822537/200fx125f",
+        "full_ex": "Field-Tested",
+        "type": "AK-47",
+        "price": 22300,
+        "game": "csgo",
+        "exterior": "FT",
+        "name": "AK-47 | Redline (Field-Tested)",
+        "market_name": "Redline",
+        "by": "2435797e-3b87-4748-987d-49399f00da3a",
+        "stat_trak": false,
+        "float": 0.27784210443496704,
+        "steam_price_number": 24030,
+        "phase": null,
+        "auto": false,
+        "popular": true,
+        "steam_price": {
+            "name": "AK-47 | Redline (Field-Tested)",
+            "item_id": "34814241708",
+            "average": 24030,
+            "current": 24860,
+            "img": "https://images.waxpeer.com/i/730-ak-47-redline-field-tested.webp",
+            "game_id": 730,
+            "popular": true,
+            "lowest_price": 19139,
+            "highest_offer": 20720,
+            "type": "Rifle",
+            "rarity_color": "#D32CE6",
+            "rarity": "Classified",
+            "ru_name": "AK-47 | \u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043b\u0438\u043d\u0438\u044f (\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u043b\u0435\u0432\u044b\u0445 \u0438\u0441\u043f\u044b\u0442\u0430\u043d\u0438\u0439)",
+            "ch_name": "AK-47 | \u7ea2\u7ebf (\u4e45\u7ecf\u6c99\u573a)",
+            "api_count": 166,
+            "localized_name": "AK-47 | Redline (Field-Tested)"
+        },
+        "inspect_item": {
+            "origin": 8,
+            "floatvalue": 0.27784210443496704,
+            "imageurl": "http://media.steampowered.com/apps/730/icons/econ/default_generated/weapon_ak47_cu_ak47_cobra_light_large.7494bfdf4855fd4e6a2dbd983ed0a243c80ef830.png",
+            "weapon_type": "AK-47",
+            "front": null,
+            "back": null,
+            "full_screenshot": null,
+            "stickers": [
+                {
+                    "id": "20649712019",
+                    "wear": 0,
+                    "name": "Sticker | G2 Esports | Paris 2023",
+                    "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/paris2023/g2.60d669ff4959b900f6152f501cbc771e6e551ca1.png",
+                    "slot": 0,
+                    "steam_price": {
+                        "average": 30,
+                        "img": "https://images.waxpeer.com/i/730-sticker-g2-esports-paris-2023.webp",
+                        "type": "Sticker",
+                        "localized_name": "Sticker | G2 Esports | Paris 2023"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "item_id": "36679163862",
+        "brand": "rifle",
+        "image": "https://steamcommunity-a.akamaihd.net/economy/image/class/730/550937011/200fx125f",
+        "full_ex": "Field-Tested",
+        "type": "AK-47",
+        "price": 41710,
+        "game": "csgo",
+        "exterior": "FT",
+        "name": "AK-47 | Redline (Field-Tested)",
+        "market_name": "Redline",
+        "by": "fa931337-2d21-429f-ac66-3a95570ed8b2",
+        "stat_trak": false,
+        "float": 0.3347313404083252,
+        "steam_price_number": 24030,
+        "phase": null,
+        "auto": true,
+        "popular": true,
+        "steam_price": {
+            "name": "AK-47 | Redline (Field-Tested)",
+            "item_id": "34814241708",
+            "average": 24030,
+            "current": 24860,
+            "img": "https://images.waxpeer.com/i/730-ak-47-redline-field-tested.webp",
+            "game_id": 730,
+            "popular": true,
+            "lowest_price": 19139,
+            "highest_offer": 20720,
+            "type": "Rifle",
+            "rarity_color": "#D32CE6",
+            "rarity": "Classified",
+            "ru_name": "AK-47 | \u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043b\u0438\u043d\u0438\u044f (\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u043b\u0435\u0432\u044b\u0445 \u0438\u0441\u043f\u044b\u0442\u0430\u043d\u0438\u0439)",
+            "ch_name": "AK-47 | \u7ea2\u7ebf (\u4e45\u7ecf\u6c99\u573a)",
+            "api_count": 166,
+            "localized_name": "AK-47 | Redline (Field-Tested)"
+        },
+        "inspect_item": {
+            "origin": 8,
+            "floatvalue": 0.3347313404083252,
+            "imageurl": "http://media.steampowered.com/apps/730/icons/econ/default_generated/weapon_ak47_cu_ak47_cobra_light_large.7494bfdf4855fd4e6a2dbd983ed0a243c80ef830.png",
+            "weapon_type": "AK-47",
+            "front": "https://images.waxpeer.com/screenshot/items/36679163862_front_auto_1715604737257.webp",
+            "back": "https://images.waxpeer.com/screenshot/items/36679163862_back_auto_1715604737257.webp",
+            "full_screenshot": null,
+            "stickers": [
+                {
+                    "id": "19670354359",
+                    "wear": 0,
+                    "name": "Sticker | London Conspiracy (Holo) | Cologne 2014",
+                    "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/cologne2014/londonconspiracy_holo.e6d437983b45120961e18fa11090f0b450511360.png",
+                    "slot": 1,
+                    "steam_price": {
+                        "average": 184360,
+                        "img": "https://images.waxpeer.com/i/730-sticker-london-conspiracy-holo-cologne-2014.webp",
+                        "type": "Sticker",
+                        "localized_name": "Sticker | London Conspiracy (Holo) | Cologne 2014"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "item_id": "38684909171",
+        "brand": "rifle",
+        "image": "https://steamcommunity-a.akamaihd.net/economy/image/class/730/6042997463/200fx125f",
+        "full_ex": "Field-Tested",
+        "type": "AK-47",
+        "price": 21400,
+        "game": "csgo",
+        "exterior": "FT",
+        "name": "AK-47 | Redline (Field-Tested)",
+        "market_name": "Redline",
+        "by": "96a6c1c5-cd67-41f0-88a1-05fa01794767",
+        "stat_trak": false,
+        "float": 0.2698467969894409,
+        "steam_price_number": 24030,
+        "phase": null,
+        "auto": false,
+        "popular": true,
+        "steam_price": {
+            "name": "AK-47 | Redline (Field-Tested)",
+            "item_id": "34814241708",
+            "average": 24030,
+            "current": 24860,
+            "img": "https://images.waxpeer.com/i/730-ak-47-redline-field-tested.webp",
+            "game_id": 730,
+            "popular": true,
+            "lowest_price": 19139,
+            "highest_offer": 20720,
+            "type": "Rifle",
+            "rarity_color": "#D32CE6",
+            "rarity": "Classified",
+            "ru_name": "AK-47 | \u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043b\u0438\u043d\u0438\u044f (\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u043b\u0435\u0432\u044b\u0445 \u0438\u0441\u043f\u044b\u0442\u0430\u043d\u0438\u0439)",
+            "ch_name": "AK-47 | \u7ea2\u7ebf (\u4e45\u7ecf\u6c99\u573a)",
+            "api_count": 166,
+            "localized_name": "AK-47 | Redline (Field-Tested)"
+        },
+        "inspect_item": {
+            "origin": 4,
+            "floatvalue": 0.2698467969894409,
+            "imageurl": "http://media.steampowered.com/apps/730/icons/econ/default_generated/weapon_ak47_cu_ak47_cobra_light_large.7494bfdf4855fd4e6a2dbd983ed0a243c80ef830.png",
+            "weapon_type": "AK-47",
+            "front": null,
+            "back": null,
+            "full_screenshot": null,
+            "stickers": [
+                {
+                    "id": "20762315961",
+                    "wear": 0,
+                    "name": "Sticker | Battle Scarred",
+                    "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/broken_fang/battle_scarred.908796a30fca4d99e12816888da22bed96f359fc.png",
+                    "slot": 0,
+                    "steam_price": {
+                        "average": 4460,
+                        "img": "https://images.waxpeer.com/i/730-sticker-battle-scarred.webp",
+                        "type": "Sticker",
+                        "localized_name": "Sticker | Battle Scarred"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "item_id": "38693531508",
+        "brand": "rifle",
+        "image": "https://steamcommunity-a.akamaihd.net/economy/image/class/730/6030963349/200fx125f",
+        "full_ex": "Field-Tested",
+        "type": "AK-47",
+        "price": 20533,
+        "game": "csgo",
+        "exterior": "FT",
+        "name": "AK-47 | Redline (Field-Tested)",
+        "market_name": "Redline",
+        "by": "4e56af1d-8deb-4b9f-b829-1e89b0d4c3fa",
+        "stat_trak": false,
+        "float": 0.3631030321121216,
+        "steam_price_number": 24030,
+        "phase": null,
+        "auto": true,
+        "popular": false,
+        "steam_price": {
+            "name": "AK-47 | Redline (Field-Tested)",
+            "item_id": "34814241708",
+            "average": 24030,
+            "current": 24860,
+            "img": "https://images.waxpeer.com/i/730-ak-47-redline-field-tested.webp",
+            "game_id": 730,
+            "popular": true,
+            "lowest_price": 19139,
+            "highest_offer": 20720,
+            "type": "Rifle",
+            "rarity_color": "#D32CE6",
+            "rarity": "Classified",
+            "ru_name": "AK-47 | \u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043b\u0438\u043d\u0438\u044f (\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u043b\u0435\u0432\u044b\u0445 \u0438\u0441\u043f\u044b\u0442\u0430\u043d\u0438\u0439)",
+            "ch_name": "AK-47 | \u7ea2\u7ebf (\u4e45\u7ecf\u6c99\u573a)",
+            "api_count": 166,
+            "localized_name": "AK-47 | Redline (Field-Tested)"
+        },
+        "inspect_item": {
+            "origin": 4,
+            "floatvalue": 0.3631030321121216,
+            "imageurl": "http://media.steampowered.com/apps/730/icons/econ/default_generated/weapon_ak47_cu_ak47_cobra_light_large.7494bfdf4855fd4e6a2dbd983ed0a243c80ef830.png",
+            "weapon_type": "AK-47",
+            "front": "https://images.waxpeer.com/screenshot/items/38693531508_front_auto_1721462703590.webp",
+            "back": "https://images.waxpeer.com/screenshot/items/38693531508_back_auto_1721462703590.webp",
+            "full_screenshot": null,
+            "stickers": [
+                {
+                    "id": "20772544905",
+                    "wear": 0,
+                    "name": "Sticker | Combine Helmet",
+                    "image": "https://images.waxpeer.com/i/730-sticker-combine-helmet.webp",
+                    "slot": 3,
+                    "steam_price": {
+                        "average": 270,
+                        "img": "https://images.waxpeer.com/i/730-sticker-combine-helmet.webp",
+                        "type": "Sticker",
+                        "localized_name": "Sticker | Combine Helmet"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "item_id": "38648492035",
+        "brand": "rifle",
+        "image": "https://steamcommunity-a.akamaihd.net/economy/image/class/730/6038726862/200fx125f",
+        "full_ex": "Well-Worn",
+        "type": "AK-47",
+        "price": 17130,
+        "game": "csgo",
+        "exterior": "WW",
+        "name": "AK-47 | Redline (Well-Worn)",
+        "market_name": "Redline",
+        "by": "211eced6-3e63-4831-8c5e-8833206fa07c",
+        "stat_trak": false,
+        "float": 0.3900575041770935,
+        "steam_price_number": 17520,
+        "phase": null,
+        "auto": true,
+        "popular": true,
+        "steam_price": {
+            "name": "AK-47 | Redline (Well-Worn)",
+            "item_id": "34822106156",
+            "average": 17520,
+            "current": 18280,
+            "img": "https://images.waxpeer.com/i/730-ak-47-redline-well-worn.webp",
+            "game_id": 730,
+            "popular": true,
+            "lowest_price": 15769,
+            "highest_offer": 15206,
+            "type": "Rifle",
+            "rarity_color": "#D32CE6",
+            "rarity": "Classified",
+            "ru_name": "AK-47 | \u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043b\u0438\u043d\u0438\u044f (\u041f\u043e\u043d\u043e\u0448\u0435\u043d\u043d\u043e\u0435)",
+            "ch_name": "AK-47 | \u7ea2\u7ebf (\u7834\u635f\u4e0d\u582a)",
+            "api_count": 24,
+            "localized_name": "AK-47 | Redline (Well-Worn)"
+        },
+        "inspect_item": {
+            "origin": 8,
+            "floatvalue": 0.3900575041770935,
+            "imageurl": "http://media.steampowered.com/apps/730/icons/econ/default_generated/weapon_ak47_cu_ak47_cobra_light_large.7494bfdf4855fd4e6a2dbd983ed0a243c80ef830.png",
+            "weapon_type": "AK-47",
+            "front": null,
+            "back": null,
+            "full_screenshot": null,
+            "stickers": [
+                {
+                    "id": "20765396987",
+                    "wear": 0,
+                    "name": "Sticker | Battle Scarred (Holo)",
+                    "image": "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/broken_fang/battle_scarred_holo.c750322c63efc7d935471b8b34da575ca6210162.png",
+                    "slot": 3,
+                    "steam_price": {
+                        "average": 9360,
+                        "img": "https://images.waxpeer.com/i/730-sticker-battle-scarred-holo.webp",
+                        "type": "Sticker",
+                        "localized_name": "Sticker | Battle Scarred (Holo)"
+                    }
+                }
+            ]
+        }
+    }
+]

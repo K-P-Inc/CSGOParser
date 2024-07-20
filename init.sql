@@ -84,7 +84,8 @@ CREATE TYPE market_type AS ENUM (
     'haloskins',
     'csmiddler',
     'white-market',
-    'gamerpay'
+    'gamerpay',
+    'waxpeer'
 );
 
 CREATE TABLE IF NOT EXISTS skins (

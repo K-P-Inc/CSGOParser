@@ -16,6 +16,7 @@
       - skinport
       - skinbaron
       - gamerpay
+      - waxpeer
 
     market_types_one_network_only:
       - white-market
