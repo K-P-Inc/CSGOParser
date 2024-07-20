@@ -57,7 +57,7 @@ class DBClient:
                 FROM skins
                 JOIN weapons_prices wp ON skins.skin_id = wp.id
                 WHERE is_sold = False AND wp.name LIKE '{value}%%'
-                FOR UPDATE
+                FOR UPDATE SKIP LOCKED
             )
             UPDATE skins
             SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
@@ -83,7 +83,7 @@ class DBClient:
                     CROSS JOIN unnest(s.stickers) AS st(id)
                     WHERE s.is_sold = False
                     GROUP BY s.id, s.skin_id, st.id
-                    FOR UPDATE
+                    FOR UPDATE SKIP LOCKED
                 ) AS sc
                 INNER JOIN stickers st ON st.id = sc.sticker_id
                 INNER JOIN weapons_prices wp ON wp.id = sc.weapon_id
