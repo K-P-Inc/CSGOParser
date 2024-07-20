@@ -763,10 +763,12 @@ class WaxPeerHelper(BaseHelper):
         item_link = f'https://waxpeer.com/{item_with_quality}/item/{item_id}'
 
         inspect_item = item.get('inspect_item')
-        stickers_array = inspect_item.get('stickers')
-        stickers_keys = [sticker.get('name') for sticker in stickers_array] if stickers_array else []
-        stickers_wears = [sticker.get('wear') for sticker in stickers_array] if stickers_array else []
-        item_float = inspect_item.get('floatvalue')
+
+        stickers_array = inspect_item.get('stickers') if inspect_item != None else []
+        stickers_keys = [sticker.get('name').replace('Sticker | ', '') for sticker in stickers_array] if len(stickers_array) > 0 else []
+        stickers_wears = [sticker.get('wear') for sticker in stickers_array] if len(stickers_array) > 0 else []
+
+        item_float = item.get('float')
         item_in_game_link = None
         pattern_template = None # Nget_paint_seed(item_link)
         is_buy_type_fixed = 'fixed'
@@ -774,13 +776,11 @@ class WaxPeerHelper(BaseHelper):
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
-        stickers_count = [1, 2, 3, 4, 5]
-        for sticker_count in stickers_count:
-            url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&sticker_count={sticker_count}&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * 50}"
-            response = requests.request("GET", url, data={})
-            try:
-                if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
-                    return json.loads(response.text)["items"]
-                return None
-            except:
-                return None
+        url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * self.MAX_ITEMS_PER_PAGE}"
+        response = requests.request("GET", url, data={})
+        try:
+            if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
+                return json.loads(response.text)["items"]
+            return None
+        except:
+            return None
