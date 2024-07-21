@@ -33,6 +33,7 @@
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.0",
+    "embla-carousel-autoplay": "^7.1.0",
     "embla-carousel-react": "^8.1.6",
     "isbot": "^3.6.8",
     "lucide-react": "^0.303.0",

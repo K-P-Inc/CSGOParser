@@ -17,9 +17,10 @@ import { Pagination } from 'swiper/modules';
 import { SkinItem } from "~/types"
 import { RDSClient } from "~/models/postgres.server";
 import { Await, Link, useLoaderData } from "@remix-run/react";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { loader as DBLoader } from "~/routes/database"
 import SkeletonItemCard from "~/components/shared/SkeletonItemCard";
+import Autoplay from "embla-carousel-autoplay"
 
 const previewExamples = [
   {
@@ -151,25 +152,45 @@ export const links: LinksFunction = () => {
     as: "image",
   }));
 
-  return [imageUrls, {
+  return [...imageUrls, {
     rel: "stylesheet",
     href: "https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css",
   }]
 };
 
 export const loader = async (x: LoaderFunctionArgs) => {
-  const dbClient = new RDSClient()
-  const items = await DBLoader(x);
+  const url = new URL(x.request.url);
+  // Add or modify query parameters
+  url.searchParams.append('sort_by', 'profit_high_to_low');
+  url.searchParams.append('stickers_patterns', '4-equal,5-equal');
+  url.searchParams.append('sticker_types', 'Foil,Holo,Gold');
+  url.searchParams.append('min_price', '20');
+  url.searchParams.append('max_price', '200');
+
+  const items = DBLoader(({ ...x, request: { ...x.request, url: url.toString() }})).then((response) => response.data.items);
 
   return defer({
-    items: items.data.items,
-    totalItems: 217322
+    items: items,
+    totalItems: 250321
   });
 }
 
+
 export default function Index() {
   const { items, totalItems } = useLoaderData<typeof loader>();
-  const [ordersType, setOrdersType] = useState<string>("BEST DEALS");
+  const [liveSkins, setLiveSkins] = useState<SkinItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const autoplay = useRef(Autoplay({ delay: 2000 }));
+
+  useEffect(() => {
+    const updateSkins = async () => {
+      const newSkins = await items;
+      setLiveSkins(newSkins);
+      setIsLoading(false);
+    };
+
+    updateSkins();
+  }, [items]);
 
   return (
     <div className="base-element flex flex-1 flex-co">
@@ -195,7 +216,7 @@ export default function Index() {
           </div>
           <div className="mt-12 justify-center flex-container max-w-[600px]">
             {previewExamples.map((example, index) => (
-              <div className="flex-item glassmorph md:transform3D max-w-[200px]" key={index}>
+              <div className="flex-item glassmorph transform3D max-w-[200px]" key={index}>
                 <ItemCard onlyPreview={true} item={example as SkinItem}/>
               </div>
             ))}
@@ -225,7 +246,7 @@ export default function Index() {
               </div>
               <div className="w-full sm:w-1/2 lg:w-1/4 p-4 h-full">
                 <div className="px-6 py-10 bg-dark-2 rounded-lg">
-                  <h3 className="text-2xl font-bold mb-2 text-primary-500">11</h3>
+                  <h3 className="text-2xl font-bold mb-2 text-primary-500">12</h3>
                   <p>Unique markets</p>
                 </div>
               </div>
@@ -235,43 +256,25 @@ export default function Index() {
 
         <div className="flex flex-col items-center justify-center space-y-2 mt-12">
           <h2 className="text-3xl font-bold mb-6 text-white">LIVE ORDERS</h2>
-          <Carousel className="w-full max-w-[220px] sm:max-w-[440px] md:max-w-[440px] lg:max-w-[660px] xl:max-w-[900px] 2xl:max-w-[1140px] carousel-shadow border-primary-600 border-2 rounded-md p-2"
+          <Carousel
+            plugins={[autoplay.current] as any}
+            className="w-full max-w-[220px] sm:max-w-[440px] md:max-w-[440px] lg:max-w-[660px] xl:max-w-[900px] 2xl:max-w-[1140px] carousel-shadow border-primary-600 border-2 rounded-md p-2"
           >
-            {/* <div className="space-x-2 w-full mb-2 items-start flex px-1">
-              <div className="space-x-2 w-full mb-2 items-start flex">
-                <Button variant={ordersType === "BEST DEALS" ?  "primary" : "default"} onClick={() => setOrdersType("BEST DEALS")}>
-                  BEST DEALS
-                </Button>
-                <Button variant={ordersType === "NEWEST DEALS" ?  "primary" : "default"} onClick={() => setOrdersType("NEWEST DEALS")}>
-                  NEWEST DEALS
-                </Button>
-              </div>
-              <Link to="/database">
-                <Button variant={"primary"} className="text-sm p-4">
-                  EXPLORE MORE
-                </Button>
-              </Link>
-            </div> */}
             <CarouselContent className="-ml-1">
-              <Suspense
-                fallback={[...Array(10).keys()].map(value => (
-                  <CarouselItem key={value} className="pl-1 basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
-                    <div className="p-1">
-                      <SkeletonItemCard/>
-                    </div>
-                  </CarouselItem>
-                ))}
-              >
-                <Await resolve={items}>
-                  {(resolvedItems) => resolvedItems.map((example, index) => (
-                    <CarouselItem key={index} className="pl-1 basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
-                      <div className="p-1">
-                        <ItemCard item={example as SkinItem}/>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </Await>
-              </Suspense>
+              {isLoading && [...Array(10).keys()].map(value => (
+                <CarouselItem key={value} className="pl-1 basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
+                  <div className="p-1">
+                    <SkeletonItemCard/>
+                  </div>
+                </CarouselItem>
+              ))}
+              {!isLoading && liveSkins.map((example, index) => (
+                <CarouselItem key={index} className="pl-1 basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
+                  <div className="p-1">
+                    <ItemCard item={example as SkinItem}/>
+                  </div>
+                </CarouselItem>
+              ))}
             </CarouselContent>
             <CarouselPrevious />
             <CarouselNext />
