@@ -5,6 +5,7 @@ export default {
   assetsBuildDirectory: "public/build",
   publicPath: "/build/",
   serverBuildPath: "build/index.js",
+  serverDependenciesToBundle:  ['swiper', 'swiper/react', 'swiper/react/swiper-react.js', 'ssr-window','ssr-window/ssr-window.esm.js','dom7'],
   tailwind: true,
   postcss: true,
 };

@@ -52,28 +52,22 @@ class DBClient:
 
     def update_skins_profit_by_weapon(self, value):
         query = f'''
-            BEGIN;
-            LOCK TABLE skins IN SHARE MODE;
             WITH locked_skins AS (
-                SELECT skins.skin_id, skins.stickers_price, skins.price, wp.price AS wp_price
+                SELECT *, skins.id as item_id
                 FROM skins
                 JOIN weapons_prices wp ON skins.skin_id = wp.id
-                WHERE skins.is_sold = False AND wp.name LIKE '{value}%%'
-                FOR UPDATE
+                WHERE skins.is_sold = False AND wp.name LIKE '{value}%'
+                FOR UPDATE SKIP LOCKED
             )
             UPDATE skins
-            SET profit = (ls.stickers_price * 0.1 + ls.wp_price - ls.price) / (ls.stickers_price * 0.1 + ls.wp_price) * 100.0
-            FROM locked_skins ls
-            WHERE skins.skin_id = ls.skin_id;
-            COMMIT;
+            SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
+            FROM weapons_prices wp, locked_skins as ls
+            WHERE skins.skin_id = wp.id AND ls.item_id = skins.id
         '''
         self.execute(query, ())
 
     def update_skins_profit_by_stickers(self):
         query = f'''
-            BEGIN;
-            LOCK TABLE skins IN SHARE MODE;
-
             UPDATE skins
             SET
                 stickers_price = ss.total_price,
@@ -88,21 +82,17 @@ class DBClient:
                         s.id as skin_id,
                         s.skin_id as weapon_id,
                         st.id as sticker_id,
-                        s.stickers_price as locked_stickers_price,
-                        s.profit as profit,
                         COUNT(*) as count_stickers
-                    FROM skins s
+                    FROM (SELECT * FROM skins FOR UPDATE SKIP LOCKED) as s
                     CROSS JOIN unnest(s.stickers) AS st(id)
                     WHERE s.is_sold = False
                     GROUP BY s.id, s.skin_id, st.id
-                    FOR UPDATE
                 ) AS sc
                 INNER JOIN stickers st ON st.id = sc.sticker_id
                 INNER JOIN weapons_prices wp ON wp.id = sc.weapon_id
                 GROUP BY sc.skin_id, wp.price
             ) AS ss
             WHERE skins.id = ss.skin_id;
-            COMMIT;
         '''
         self.execute(query, ())
 

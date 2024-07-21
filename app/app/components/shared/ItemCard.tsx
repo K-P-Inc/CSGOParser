@@ -44,7 +44,7 @@ function renderRow(label: string, value: number | string) {
   return { label, value };
 }
 
-export default function ItemCard({ item }: { item: SkinItem }) {
+export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem, onlyPreview?: boolean }) {
   const [scrollTop, setScrollTop] = useState<number>(0);
   const openSteamLink = () => {
     const itemname = `${item.name} (${item.quality})`
@@ -52,7 +52,9 @@ export default function ItemCard({ item }: { item: SkinItem }) {
   }
 
   const openMarketLink = () => {
-    let newWindow = window.open(item.market === "cs-money" ? item.link.split("&unique_id")[0] : item.link, "_blank");
+    if (!onlyPreview) {
+      let newWindow = window.open(item.market === "cs-money" ? item.link.split("&unique_id")[0] : item.link, "_blank");
+    }
   }
 
   const openInspectLink = () => {
@@ -257,15 +259,29 @@ export default function ItemCard({ item }: { item: SkinItem }) {
                   )}
                 </div>
               </div>
-              <Button
-                onClick={(e: any) => {
-                  e.stopPropagation();
-                  openMarketLink()
-                }}
-                className="w-full rounded border border-dark-4 bg-dark-4 hover:border-primary-500 hover:bg-primary-500 transition h-[30px] text-[12px]"
-              >
-                {`Buy on ${item.market}`.toUpperCase().replace('-', '.')}
-              </Button>
+              <div className="w-full h-[30px]">
+                {onlyPreview ? (
+                  <div
+                    onClick={(e: any) => {
+                      e.stopPropagation();
+                      openMarketLink()
+                    }}
+                    className="w-full rounded border flex items-center justify-center border-dark-4 bg-dark-4 hover:border-primary-500 hover:bg-primary-500 transition h-[30px] text-[12px]"
+                  >
+                    {`Buy on ${item.market}`.toUpperCase().replace('-', '.')}
+                  </div>
+                ) : (
+                  <Button
+                    onClick={(e: any) => {
+                      e.stopPropagation();
+                      openMarketLink()
+                    }}
+                    className="w-full rounded border border-dark-4 bg-dark-4 hover:border-primary-500 hover:bg-primary-500 transition h-[30px] text-[12px]"
+                  >
+                    {`Buy on ${item.market}`.toUpperCase().replace('-', '.')}
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
