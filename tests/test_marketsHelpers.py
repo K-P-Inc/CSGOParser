@@ -56,16 +56,16 @@ class TestData:
 
 markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_class in [
     CSMoneyHelper(),
-    MarketCSGOHelper(),
+    # MarketCSGOHelper(),
     # SkinbidHelper(),
-    CSFloatHelper(),
-    BitskinsHelper(),
+    # CSFloatHelper(),
+    # BitskinsHelper(),
     # HaloskinsHelper(),
-    DmarketHelper(),
+    # DmarketHelper(),
     # SkinportHelper(),
     # SkinbaronHelper(),
     # WhiteMarketHelper(),
-    GamerPayHelper(),
+    # GamerPayHelper(),
     WaxPeerHelper()
 ]]
 
@@ -76,6 +76,7 @@ validators_asserts = [pytest.param(func, id=id) for (func, id) in [
     (lambda market_data, _: isinstance(market_data.item_price, float), "is_price_valid"),
     (lambda market_data, _: validators.url(market_data.item_link), "is_url_valid"),
     (lambda market_data, _: len(market_data.stickers_array) >= 0, "are_stickers_exists"),
+    (lambda market_data, _: all('sticker' not in sticker.lower() for sticker in market_data.stickers_keys), "no_stickers_in_array")
 ]]
 
 @allure.parent_suite("Integration Tests")

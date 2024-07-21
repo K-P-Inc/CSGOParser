@@ -765,7 +765,8 @@ class WaxPeerHelper(BaseHelper):
         inspect_item = item.get('inspect_item')
 
         stickers_array = inspect_item.get('stickers') if inspect_item != None else []
-        stickers_keys = [sticker.get('name').replace('Sticker | ', '') for sticker in stickers_array] if len(stickers_array) > 0 else []
+        # stickers_keys = [sticker.get('name').replace('Sticker | ', '') for sticker in stickers_array] if len(stickers_array) > 0 else []
+        stickers_keys = [sticker.get('name') for sticker in stickers_array] if len(stickers_array) > 0 else []
         stickers_wears = [sticker.get('wear') for sticker in stickers_array] if len(stickers_array) > 0 else []
 
         item_float = item.get('float')
