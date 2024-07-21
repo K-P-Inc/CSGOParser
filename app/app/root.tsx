@@ -11,6 +11,7 @@ import {
   useLoaderData,
   useRouteError,
   useLocation,
+  Link,
 } from "@remix-run/react";
 import { createSupabaseServerClient } from "~/supabase.server";
 import { createBrowserClient } from "@supabase/auth-helpers-remix";
@@ -24,6 +25,8 @@ import { getSteamUserData } from "~/models/steam.api";
 import { loadUser, updateUser } from "~/models/supabase.api";
 import { getMarketCSGOBalance } from "~/models/market.csgo.api";
 import { initGA, logPageView, initGTM, logGTMEvent } from './utils/analytics';
+import { Button } from "~/components/ui/button";
+import { FullLogoIcon } from "~/assets/images";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -121,11 +124,51 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({ env }, { headers: response.headers });
 };
 
-export const ErrorBoundary = () => {
+export function ErrorBoundary() {
   const error = useRouteError();
-  captureRemixErrorBoundaryError(error);
-  return <div>Something went wrong</div>;
-};
+  console.error(error);
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="mailru-domain" content="7s8VkUFnpzKSr4oy" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Layout>
+        <div className="flex flex-col pt-16 pb-12"
+              style={{ backgroundColor: "212429", flex: "0 0 100%", height: "100%", justifyContent: "center", display: "flex" }}
+        >
+        <div className="flex flex-col mt-16 mb-12" style={{ backgroundColor: "212429" }}>
+            <main className="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center px-4 sm:px-6 lg:px-8">
+              <div className="py-16">
+                <div className="text-center">
+                  <h2 className="text-9xl font-bold text-primary-500">404</h2>
+                  <p className="text-xl text-white">
+                    Sorry, we couldn’t find the page you’re looking for.
+                  </p>
+                  <div className="mt-6">
+                  <Link to="/" className="text-xl font-medium text-primaryGreen">
+                      Go back home
+                      <span aria-hidden="true"> &rarr;</span>
+                  </Link>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+        </Layout>
+        <Toaster />
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
+  );
+}
 
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
