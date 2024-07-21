@@ -36,7 +36,7 @@ class MarketData:
         self.is_buy_type_fixed = is_buy_type_fixed
 
     def __str__(self):
-        return f"MarketData(key_price='{self.key_price}', item_price={self.item_price}, item_link='{self.item_link}', stickers_array={self.stickers_array}), stickers_keys={self.stickers_keys}"
+        return f"MarketData(key_price='{self.key_price}', item_price={self.item_price}, item_link='{self.item_link}', stickers_array={self.stickers_array})"
 
 class TestData:
     __test__ = False  # Ignoring class for pytest
