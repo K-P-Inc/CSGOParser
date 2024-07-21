@@ -6,7 +6,7 @@
 
 ## Настройка Docker Compose
 
-В файле `docker-compose.global_worker.build.yml.jw` убедитесь, что включена маскировка IP:
+В файле `docker-compose.global_worker.build.yml.j2` убедитесь, что включена маскировка IP:
 
 ``` yaml
 com.docker.network.bridge.enable_ip_masquerade:  "true"
