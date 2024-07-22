@@ -400,7 +400,7 @@ class HaloskinsHelper(BaseHelper):
         item_link = f'https://www.haloskins.com/market/{item_id}?id={item["id"]}'
         asset_info = item.get("assetInfo", {})
 
-        stickers_keys = [sticker["enName"] for sticker in asset_info.get("stickers", [])]
+        stickers_keys = [sticker.get("name", sticker.get("enName", "")) for sticker in asset_info.get("stickers", [])]
         stickers_wears = [sticker.get("wear") for sticker in asset_info.get("stickers", [])]
         item_float = asset_info.get("wear")
 
