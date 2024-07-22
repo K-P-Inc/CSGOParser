@@ -331,11 +331,11 @@ def update_item_with_prices(item, prices, markets_data):
     logging.info("Get stable price for item")
     price = -1
 
-    # for market_name, market_value in markets_data.items():
-    #     if market_name == "Steam" and market_value["price"] != None:
-    #         price = market_value["price"]
-    #         logging.info(f"Steam price found: {price}")
-    #         break
+    for market_name, market_value in markets_data.items():
+        if market_name == "Steam" and market_value["price"] != None and market_value["price"] < 100.0:
+            price = market_value["price"]
+            logging.info(f"Steam price found: {price}")
+            break
 
     if price == -1 and '7 Day low' in prices:
         if prices['7 Day Low'] <= 1300:
@@ -365,7 +365,7 @@ def get_item_image_url(item_name, image_url = None):
     logging.info(f"{item_name}: Getting image url for")
     file = load_data_json('csgo_skins_images.json') if 'Sticker |' in item_name else load_data_json('cs2_skins_images.json')
 
-    return file[item_name] if 'Sticker |' in item_name else file[item_name].get('image')
+    return file.get(item_name, None) if 'Sticker |' in item_name else file[item_name].get('image', None)
 
 
 def parse_with_price_and_update_profits(items):
@@ -393,11 +393,11 @@ def parse_with_price_and_update_profits(items):
                             if 'sticker-' in item['link']:
                                 prices, markets_data = fetch_market_data(item['link'], price_values)
                                 updated_item = update_item_with_prices(item, prices, markets_data)
-                                if updated_item["price"] != -1:
+                                image_url = get_item_image_url(updated_item['name']),
+                                if updated_item["price"] != -1 and image_url:
                                     items_for_insert.append((
                                         updated_item['name'].replace('Sticker | ',''),
                                         updated_item["price"],
-                                        get_item_image_url(updated_item['name']),
                                         json.dumps(markets_data),
                                         updated_item['week_low_value'],
                                         updated_item['week_high_value'],
@@ -416,7 +416,8 @@ def parse_with_price_and_update_profits(items):
                                     if 'souvenir' not in item_type['link']:
                                         prices, markets_data = fetch_market_data(item_type['link'], price_values)
                                         updated_item_type = update_item_with_prices(item_type, prices, markets_data)
-                                        if updated_item_type["price"] != -1:
+                                        image_url = get_item_image_url(f'{item["name"]} ({updated_item_type["name"]})')
+                                        if updated_item_type["price"] != -1 and image_url:
                                             items_for_insert.append((
                                                 item["name"],
                                                 updated_item_type["name"],

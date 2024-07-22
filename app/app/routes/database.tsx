@@ -76,7 +76,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const page = parseInt(url.searchParams.get("page") || "0");
 
   let stickers_filters = [];
-  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`];
+  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`, `is_sold = False`];
   let args = [];
 
   if (categories.length > 0) {
@@ -190,7 +190,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
   `;
 
-  let filtered_items: Promise<SkinItem[]> = Promise.all([(new RDSClient()).query(query, args), (new RDSClient()).query('SELECT * FROM stickers')])
+  const rdsClient = new RDSClient();
+
+  let promises = {
+    items: rdsClient.query(query, args),
+    stickers: rdsClient.query('SELECT * FROM stickers')
+  }
+
+  Promise.allSettled(Object.values(promises)).finally(async () => {
+    await rdsClient.destroy();
+  });
+
+  let filtered_items: Promise<SkinItem[]> = Promise.all(Object.values(promises))
     .then((responses: any[]) => {
       const [items, stickersMap] = responses
 

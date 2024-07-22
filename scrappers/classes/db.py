@@ -170,17 +170,16 @@ class DBClient:
             ''', [market, *weapon_uuids])
 
     def update_skins_as_sold(self, market, parsed_urls, weapon_uuids):
-        with self.db.cursor() as cursor:
-            if len(parsed_urls) > 0:
-                cursor.execute(f'''
-                    DELETE FROM skins
-                    WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
-                ''', [*parsed_urls, market, *weapon_uuids])
-            else:
-                cursor.execute(f'''
-                    DELETE FROM skins
-                    WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
-                ''', [market, *weapon_uuids])
+        if len(parsed_urls) > 0:
+            self.execute(f'''
+                UPDATE skins SET is_sold = True
+                WHERE link NOT IN ({",".join(len(parsed_urls) * ["%s"])}) AND market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
+            ''', [*parsed_urls, market, *weapon_uuids])
+        else:
+            self.execute(f'''
+                UPDATE skins SET is_sold = True
+                WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
+            ''', [market, *weapon_uuids])
 
     def parse_items_without_link(self):
         items_id, item_links, csgo_links = [], [], []

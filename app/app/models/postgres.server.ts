@@ -39,8 +39,6 @@ export class RDSClient {
     }
     const result = await RDSClient.makeQuery(this.client, query, queryArgs);
 
-    await this.destroy();
-
     return result;
   }
 

@@ -13,3 +13,4 @@ requests
 redis
 fake_useragent
 lxml
+prometheus_client

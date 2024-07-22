@@ -142,13 +142,10 @@ export const links: LinksFunction = () => {
     if (example.stickers_icons) {
       urls.push(...example.stickers_icons);
     }
-    if (example.stickers_instances) {
-      urls.push(...example.stickers_instances.map((sticker: any) => sticker.icon_url));
-    }
     return urls;
   }, []).map((url: string) => ({
     rel: "preload",
-    href: "url",
+    href: url,
     as: "image",
   }));
 
