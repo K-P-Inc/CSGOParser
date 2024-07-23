@@ -424,7 +424,6 @@ def parse_with_price_and_update_profits(items):
                                                 updated_item_type["name"],
                                                 updated_item_type["is_stattrak"],
                                                 updated_item_type["price"],
-                                                image_url,
                                                 json.dumps(markets_data),
                                                 updated_item_type['week_low_value'],
                                                 updated_item_type['week_high_value'],
