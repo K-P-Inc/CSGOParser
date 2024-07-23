@@ -390,7 +390,7 @@ def parse_with_price_and_update_profits(items):
                         if parsed_item in item['link']:
                             price_values = {}
                             logging.info(f"Parse item: {item['link']}")
-                            if 'sticker-' in item['link']:
+                            if 'sticker-' in item['link'] and item['name'].startswith('Sticker | '):
                                 prices, markets_data = fetch_market_data(item['link'], price_values)
                                 updated_item = update_item_with_prices(item, prices, markets_data)
                                 image_url = get_item_image_url(updated_item['name']),
@@ -398,6 +398,7 @@ def parse_with_price_and_update_profits(items):
                                     items_for_insert.append((
                                         updated_item['name'].replace('Sticker | ',''),
                                         updated_item["price"],
+                                        image_url,
                                         json.dumps(markets_data),
                                         updated_item['week_low_value'],
                                         updated_item['week_high_value'],
@@ -423,6 +424,7 @@ def parse_with_price_and_update_profits(items):
                                                 updated_item_type["name"],
                                                 updated_item_type["is_stattrak"],
                                                 updated_item_type["price"],
+                                                image_url,
                                                 json.dumps(markets_data),
                                                 updated_item_type['week_low_value'],
                                                 updated_item_type['week_high_value'],
@@ -431,7 +433,7 @@ def parse_with_price_and_update_profits(items):
                                                 updated_item_type['all_time_low'],
                                                 updated_item_type['all_time_high'],
                                                 datetime.datetime.now(),
-                                                get_item_image_url(f'{item["name"]} ({updated_item_type["name"]})'),
+                                                image_url,
                                                 item['item_classes'][0] # rare
                                             ))
 
