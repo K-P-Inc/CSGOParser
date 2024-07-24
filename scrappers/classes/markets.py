@@ -279,7 +279,7 @@ class CSFloatHelper(BaseHelper):
         item_price = float(item["price"]) / 100.0
         item_link = f'https://csfloat.com/item/{item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item_json["stickers"]] if "stickers" in item_json else []
-        stickers_wears = [None for _ in item_json["stickers"]] if "stickers" in item_json else []
+        stickers_wears = [sticker.get('wear') for sticker in item_json["stickers"]] if "stickers" in item_json else []
         item_float = item_json.get('float_value')
 
         item_in_game_link = item_json.get('inspect_link')
