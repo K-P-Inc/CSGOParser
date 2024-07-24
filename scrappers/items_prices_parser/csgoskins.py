@@ -442,16 +442,22 @@ def parse_with_price_and_update_profits(items):
                     logging.error(f"Failed to parse item {item['link']}: {e}")
 
             if name == 'Sticker':
-                for stickers in split_array(items_for_insert, k=200):
-                    logging.info(f"Updating stickers prices for {len(list(set(stickers)))} items")
-                    DBClient().update_stickers_prices(list(set(stickers)), parser='csgoskins')
+                try:
+                    for stickers in split_array(items_for_insert, k=200):
+                        logging.info(f"Updating stickers prices for {len(list(set(stickers)))} items")
+                        DBClient().update_stickers_prices(list(set(stickers)), parser='csgoskins')
+                except Exception as e:
+                    pass
 
                 DBClient().update_skins_profit_by_stickers()
                 logging.info(f"Updated stickers profits")
             else:
-                for weapons in split_array(items_for_insert, k=200):
-                    logging.info(f"Updating weapon prices for {len(list(set(weapons)))} items")
-                    DBClient().update_weapon_prices(list(set(weapons)))
+                try:
+                    for weapons in split_array(items_for_insert, k=200):
+                        logging.info(f"Updating weapon prices for {len(list(set(weapons)))} items")
+                        DBClient().update_weapon_prices(list(set(weapons)))
+                except Exception as e:
+                    pass
                 DBClient().update_skins_profit_by_weapon(name)
 
             items_for_insert.clear()
