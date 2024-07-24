@@ -108,7 +108,18 @@ class DBClient:
                 stickers_price = EXCLUDED.stickers_price,
                 price = EXCLUDED.price,
                 profit = EXCLUDED.profit,
-                is_sold = EXCLUDED.is_sold
+                skin_id = EXCLUDED.skin_id,
+                stickers_patern = EXCLUDED.stickers_patern,
+                amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
+                amount_of_stickers = EXCLUDED.amount_of_stickers,
+                is_sold = EXCLUDED.is_sold,
+                stickers = EXCLUDED.stickers,
+                stickers_wears = EXCLUDED.stickers_wears,
+                item_float = EXCLUDED.item_float,
+                in_game_link = EXCLUDED.in_game_link,
+                pattern_template = EXCLUDED.pattern_template,
+                order_type = EXCLUDED.order_type,
+                stickers_distinct_variants = EXCLUDED.stickers_distinct_variants
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)

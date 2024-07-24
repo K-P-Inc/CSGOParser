@@ -33,7 +33,7 @@ class SkinbidHelper(BaseHelper):
         item_json = item["items"][0]["item"]
         key_price = item_json["fullName"]
         # TODO: Here we got EUR price, do we change it to USD?
-        item_price = float(item["auction"]["startBid"] if item['auction']['sellType'] == 'FIXED_PRICE' and item["currentHighestBid"] != 0.0 else item["currentHighestBid"])
+        item_price = float(item["auction"]["startBid"] if item['auction']['sellType'] == 'FIXED_PRICE' or item["currentHighestBid"] != 0.0 else item["currentHighestBid"])
         item_link = f'https://skinbid.com/market/{item["auction"]["auctionHash"]}'
         stickers_keys = [sticker["name"] for sticker in item_json.get("stickers", [])]
         stickers_wears = [(round(float(sticker["wear"]), 2) if "wear" in sticker else None) for sticker in item_json.get("stickers", [])]

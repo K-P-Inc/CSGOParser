@@ -82,6 +82,8 @@ weapons:
 
 hydra:
   job_logging:
+    root:
+      level: INFO
     formatters:
       simple:
         format: '[%(asctime)s] [%(threadName)-12s] [%(levelname)-7s] %(message)-100s # [%(module)s(%(funcName)s):%(lineno)d]'
