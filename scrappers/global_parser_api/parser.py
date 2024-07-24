@@ -7,6 +7,7 @@ import threading
 from pathlib import Path
 from omegaconf import DictConfig
 from dotenv import load_dotenv
+# from prometheus_client import start_http_server
 from classes import DBClient, RedisClient
 from utils import repo_path, get_stickers_dict, get_weapons_array_by_type
 from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper, SkinportHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, WhiteMarketHelper, SkinbaronHelper, GamerPayHelper, WaxPeerHelper
@@ -230,4 +231,5 @@ def main(cfg: DictConfig):
 
 if __name__ == "__main__":
     load_dotenv()
+    # start_http_server(8080)
     main()
