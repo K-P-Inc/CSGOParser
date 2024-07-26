@@ -76,7 +76,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:description",
-      content: "Best platform to find rarest and most profitable CS2 stickers combos on the markets",
+      content: "Discover and buy rarest CS:GO and CS2 weapons with best floats, patterns and stickers combos at SKINHUB.PRO - your go-to marketplace for skins"
     },
     {
       property: "og:site_name",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:type",
-      content: "website",
+      content: "service",
     },
     {
       property: "og:image",
@@ -109,6 +109,42 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:card",
       content: "summary_large_image"
+    },
+    {
+      name: 'og:date',
+      content: '2024-05-16'
+    },
+    {
+      name: 'og:coverage',
+      content: 'world'
+    },
+    {
+      name: 'og:source',
+      content: 'https://skinhub.pro'
+    },
+    {
+      name: 'og:provenance',
+      content: 'https://skinhub.pro'
+    },
+    {
+      name: 'og:rights_holder',
+      content: 'https://skinhub.pro'
+    },
+    {
+      name: "og:subject",
+      content: "Explore and purchase the finest CS:GO and CS2 skins on SKINHUB.PRO, your premier analytics platform for skin trading with momental search of all skins on 12 markets at the same time."
+    },
+    {
+      name: "og:items_key_words",
+      content: 'AWP, AK-47, M4A4, M4A1-S'
+    },
+    {
+      name: 'og:markets_key_words',
+      content: 'cs.money, bitskins, dmarket, steam, csfloat, haloskins, market, market.csgo, skinbid, skinport, white.market, skinbaron, gamerpay, waxpeer'
+    },
+    {
+      name: 'og:search_key_words',
+      content: 'CSGO, CS2, skins, skin, skinhub, weapon, knife, finishes, custom, virtual, trade, inventory, collection, gun, camouflage, pattern, design, rarity, value'
     }
   ];
 };
