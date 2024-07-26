@@ -79,6 +79,10 @@ export const meta: MetaFunction = () => {
       content: "Discover and buy rarest CS:GO and CS2 weapons with best floats, patterns and stickers combos at SKINHUB.PRO - your go-to marketplace for skins"
     },
     {
+      property: "description",
+      content: "Discover and buy rarest CS:GO and CS2 weapons with best floats, patterns and stickers combos at SKINHUB.PRO - your go-to marketplace for skins"
+    },
+    {
       property: "og:site_name",
       content: "SKINHUB.PRO",
     },

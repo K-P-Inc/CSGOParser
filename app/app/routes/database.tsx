@@ -317,54 +317,71 @@ export default function Index() {
     updateSkins();
   }, [items]);
 
-
+  const metaTags = [
+    { title: "SKINHUB.PRO | Find the rarest CS2 items in the web | Skin Database" },
+    { name: "description", content: "In SKINHUB.PRO database you can search any skin you want at all markets at the same time." },
+  ];
   return (
-    <div className="flex flex-1">
-      <div className="home-container">
-        <div className="home-posts">
-          <h2 className="h3-bold md:h2-bold text-left w-full">Markets items</h2>
-          <MarketFilter
-            submit={(target: any) => {
-              submit(target, { replace: true });
-              setSkins([]);
-              setIsLoading(true);
-            }}
-            wears={wears as WearType[]}
-            weapons={weapon_types as WeaponType[]}
-            shops={market_types as ShopType[]}
-            search={search}
-            categories={categories}
-            stickersPatterns={stickers_patterns as StickersPattern[]}
-            stickersTypes={sticker_types as StickersType[]}
-            min_price={min_price}
-            max_price={max_price}
-            sort_by={sort_by}
-          />
-          <InfiniteScroller
-            loadNext={() => {
-              if (isLoading || skinsRef.current.length % MAX_PAGE_ITEMS !== 0) { return };
-              setIsLoading(true);
-              const newPage = pageRef.current + 1;
-              pageRef.current = newPage;
+    <html lang="en">
+    <head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="mailru-domain" content="7s8VkUFnpzKSr4oy" />
+    {metaTags.map((tag, index) => (
+      tag.title ? (
+        <title key={index}>{tag.title}</title>
+      ) : (
+        <meta key={index} name={tag.name} content={tag.content} />
+      )
+    ))}
+    </head>
+      <div className="flex flex-1">
+        <div className="home-container">
+          <div className="home-posts">
+            <h1 className="h3-bold md:h2-bold text-left w-full">Markets items</h1>
+            <MarketFilter
+              submit={(target: any) => {
+                submit(target, { replace: true });
+                setSkins([]);
+                setIsLoading(true);
+              }}
+              wears={wears as WearType[]}
+              weapons={weapon_types as WeaponType[]}
+              shops={market_types as ShopType[]}
+              search={search}
+              categories={categories}
+              stickersPatterns={stickers_patterns as StickersPattern[]}
+              stickersTypes={sticker_types as StickersType[]}
+              min_price={min_price}
+              max_price={max_price}
+              sort_by={sort_by}
+            />
+            <InfiniteScroller
+              loadNext={() => {
+                if (isLoading || skinsRef.current.length % MAX_PAGE_ITEMS !== 0) { return };
+                setIsLoading(true);
+                const newPage = pageRef.current + 1;
+                pageRef.current = newPage;
 
-              const query = new URLSearchParams(window.location.search);
-              query.set("page", newPage.toString());
+                const query = new URLSearchParams(window.location.search);
+                query.set("page", newPage.toString());
 
-              fetcher.load(`?${query.toString()}`);
-            }}
-            loading={isLoading}
-          >
-            <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
-              {skins.map((item: SkinItem) => (
-                <ItemCard item={item} key={item.link} />
-              ))}
-              {isLoading &&
-                [...Array(MAX_PAGE_ITEMS).keys()].map((i) => <div className="w-full" key={i}><SkeletonItemCard/></div>)
-              }
-            </div>
-          </InfiniteScroller>
+                fetcher.load(`?${query.toString()}`);
+              }}
+              loading={isLoading}
+            >
+              <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
+                {skins.map((item: SkinItem) => (
+                  <ItemCard item={item} key={item.link} />
+                ))}
+                {isLoading &&
+                  [...Array(MAX_PAGE_ITEMS).keys()].map((i) => <div className="w-full" key={i}><SkeletonItemCard/></div>)
+                }
+              </div>
+            </InfiniteScroller>
+          </div>
         </div>
       </div>
-    </div>
+    </html>
   );
 }
