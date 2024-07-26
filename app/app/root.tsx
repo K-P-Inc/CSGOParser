@@ -163,12 +163,23 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export function ErrorBoundary() {
   const error = useRouteError();
   console.error(error);
+  const metaTags = [
+    { title: "404 Not Found | SKINHUB.PRO" },
+    { name: "description", content: "The page you are looking for does not exist. Return to the homepage or explore other parts of SKINHUB.PRO." },
+  ];
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="mailru-domain" content="7s8VkUFnpzKSr4oy" />
+        {metaTags.map((tag, index) => (
+          tag.title ? (
+            <title key={index}>{tag.title}</title>
+          ) : (
+            <meta key={index} name={tag.name} content={tag.content} />
+          )
+        ))}
         <Meta />
         <Links />
       </head>
