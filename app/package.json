@@ -44,6 +44,7 @@
     "recharts": "^2.12.7",
     "remix-hook-form": "^4.0.0",
     "remix-validated-form": "^5.1.5",
+    "sitemap": "^8.0.0",
     "swiper": "^11.1.5",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
