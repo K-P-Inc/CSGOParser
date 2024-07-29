@@ -136,7 +136,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "og:subject",
-      content: "Explore and purchase the finest CS:GO and CS2 skins on SKINHUB.PRO, your premier analytics platform for skin trading with momental search of all skins on 12 markets at the same time."
+      content: "Explore and purchase the finest CS:GO and CS2 skins on SKINHUB.PRO, your premier analytics platform for skin trading with momental search of all skins on across multiple markets at the same time."
     },
     {
       name: "og:items_key_words",
