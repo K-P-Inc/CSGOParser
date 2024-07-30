@@ -1,0 +1,90 @@
+[
+    {
+        "id": 0,
+        "saleId": 47013294,
+        "shortId": "IEWUBH7CA7T",
+        "productId": 31064081,
+        "assetId": 344192128,
+        "itemId": 161814,
+        "appid": 730,
+        "steamid": "76561199546940834",
+        "url": "awp-chrome-cannon-field-tested",
+        "family": "Chrome Cannon",
+        "family_localized": "Chrome Cannon",
+        "name": "Chrome Cannon",
+        "title": "AWP",
+        "text": "Field-Tested Covert Sniper Rifle",
+        "marketName": "AWP | Chrome Cannon (Field-Tested)",
+        "marketHashName": "AWP | Chrome Cannon (Field-Tested)",
+        "color": "#D2D2D2",
+        "bgColor": null,
+        "image": "-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAZ3w8zcdDBS6c6zkL-GkvP9JrafkDlV68R1jOzF9o2t3wTn8kA6amH3INWUdQ82Zg2B-le8leu61pO674OJlyUtUMGtDQ",
+        "classid": "5721088416",
+        "assetid": "38915047489",
+        "lock": "2024-08-06T07:00:00.000Z",
+        "version": "default",
+        "versionType": "default",
+        "stackAble": false,
+        "suggestedPrice": 4772,
+        "salePrice": 5500,
+        "currency": "USD",
+        "saleStatus": "listed",
+        "saleType": "public",
+        "category": "Rifle",
+        "category_localized": "Rifle",
+        "subCategory": "AWP",
+        "subCategory_localized": "AWP",
+        "pattern": 359,
+        "finish": 1170,
+        "customName": null,
+        "wear": 0.3506072163581848,
+        "link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199546940834A38915047489D469587036685234825",
+        "type": "Covert Sniper Rifle",
+        "exterior": "Field-Tested",
+        "quality": "Normal",
+        "rarity": "Covert",
+        "rarity_localized": "Covert",
+        "rarityColor": "#eb4b4b",
+        "collection": "The Kilowatt Collection",
+        "collection_localized": "The Kilowatt Collection",
+        "stickers": [],
+        "canHaveScreenshots": true,
+        "screenshots": [
+            "playside",
+            "backside",
+            "inspect",
+            "hold",
+            "reload",
+            "image"
+        ],
+        "souvenir": false,
+        "stattrak": false,
+        "tags": [
+            {
+                "name": "Normal",
+                "name_localized": "Normal"
+            },
+            {
+                "name": "Field-Tested",
+                "name_localized": "Field-Tested"
+            },
+            {
+                "name": "Sniper Rifle",
+                "name_localized": "Sniper Rifle"
+            },
+            {
+                "name": "Covert",
+                "name_localized": "Covert"
+            },
+            {
+                "name": "AWP",
+                "name_localized": "AWP"
+            },
+            {
+                "name": "The Kilowatt Collection",
+                "name_localized": "The Kilowatt Collection"
+            }
+        ],
+        "ownItem": false
+    }
+]
