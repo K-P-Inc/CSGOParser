@@ -1,10 +1,7 @@
-import websocket
 import json
-import time
-
+import logging
 from ws import WSClient
 
-# https://github.com/DrewStewart7/CSGO-Market-Tracker/blob/main/main.py
 
 parser_items = ['AK-47', 'M4A4', 'AWP', 'M4A1-S']
 price_rate = 100.0
@@ -38,12 +35,13 @@ def on_message(ws, main_message):
 
                     if item_listed_marker in main_message:
                         print(f"Listed: {key_price}, {item_price}, {item_link}, {stickers_keys}, {stickers_wears}, {item_float}, {item_in_game_link}, {pattern_template}, {is_buy_type_fixed}")
+                        logging.info(f"Item listed: {key_price}, {item_price}, {item_link}, {stickers_keys}, {stickers_wears}, {item_float}, {item_in_game_link}, {pattern_template}, {is_buy_type_fixed}")
 
                     elif item_sold_marker in main_message:
                         print(f"Sold: {key_price}, {item_price}, {item_link}, {stickers_keys}, {stickers_wears}, {item_float}, {item_in_game_link}, {pattern_template}, {is_buy_type_fixed}")
+                        logging.info(f"Item listed: {key_price}, {item_price}, {item_link}, {stickers_keys}, {stickers_wears}, {item_float}, {item_in_game_link}, {pattern_template}, {is_buy_type_fixed}")
+
 
 if __name__ == "__main__":
-    while True:
-        client = WSClient(on_message)
-        client.run()
-        time.sleep(1)  # Небольшая задержка перед повторным подключением
+    client = WSClient(on_message)
+    client.run()

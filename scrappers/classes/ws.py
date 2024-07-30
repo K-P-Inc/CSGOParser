@@ -1,29 +1,44 @@
 import websocket
-import time
-
+import threading
+import logging
 
 class WSClient:
-    def __init__(self, on_message):
+    def __init__(self, on_message, currency='USD'):
+        websocket.enableTrace(False) # Websocket logs
+        self.currency = currency
         self.on_message = on_message
+        self.skinport_wss = "wss://skinport.com/socket.io/?EIO=4&transport=websocket"
+        self.ws = None
+
+    def on_error(self, ws, error):
+        logging.error(f"Error: {error}")
+
+    def on_close(self, ws, close_status_code, close_msg):
+        logging.info("Connection closed, attempting to reconnect...")
+        self.reconnect()
+
+    def on_open(self, ws):
+        logging.info("Connection opened")
+        ws.send("40")
+        timer = threading.Timer(1, self.send_initial_message, [ws])
+        timer.start()
+
+    def send_initial_message(self, ws):
+        ws.send(f'42["saleFeedJoin",{{"appid":730,"currency":"{self.currency}","locale":"en"}}]')
+
+    def reconnect(self):
+        logging.info("Reconnecting...")
+        self.connect()
+
+    def connect(self):
         self.ws = websocket.WebSocketApp(
-            "wss://skinport.com/socket.io/?EIO=4&transport=websocket",
+            self.skinport_wss,
             on_message=self.on_message,
             on_error=self.on_error,
             on_close=self.on_close
         )
-
-    def on_error(self, ws, error):
-        print(f"Error: {error}")
-
-    def on_close(self, ws, close_status_code, close_msg):
-        print("Connection closed")
-
-    def on_open(self, ws):
-        print("Connection opened")
-        ws.send("40")
-        time.sleep(1)
-        ws.send('42["saleFeedJoin",{"appid":730,"currency":"USD","locale":"en"}]')
+        self.ws.on_open = self.on_open
+        self.ws.run_forever(ping_interval=30, ping_timeout=10)
 
     def run(self):
-        self.ws.on_open = self.on_open
-        self.ws.run_forever()
+        self.connect()
