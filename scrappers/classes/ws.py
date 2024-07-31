@@ -3,11 +3,11 @@ import threading
 import logging
 
 class WSClient:
-    def __init__(self, on_message, currency='USD'):
+    def __init__(self, on_message, wss_route, currency='USD'):
         websocket.enableTrace(False) # Websocket logs
         self.currency = currency
         self.on_message = on_message
-        self.skinport_wss = "wss://skinport.com/socket.io/?EIO=4&transport=websocket"
+        self.wss_route = wss_route
         self.ws = None
 
     def on_error(self, ws, error):
@@ -32,7 +32,7 @@ class WSClient:
 
     def connect(self):
         self.ws = websocket.WebSocketApp(
-            self.skinport_wss,
+            self.wss_route,
             on_message=self.on_message,
             on_error=self.on_error,
             on_close=self.on_close

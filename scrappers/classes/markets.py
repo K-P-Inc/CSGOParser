@@ -202,7 +202,7 @@ class SkinportHelper(BaseHelper):
         pattern_template = item.get('pattern')
 
         is_buy_type_fixed = 'fixed'
-
+        print(key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed)
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def get_cookies(self, type):
@@ -266,6 +266,26 @@ class SkinportHelper(BaseHelper):
         except:
             self.force_update = False
             return None
+
+
+    def parse_item_wss(self, ws, main_message):
+        item_listed_marker = '"saleFeed",{"eventType":"listed"'
+        item_sold_marker = '"saleFeed",{"eventType":"sold"'
+        parser_items = ['AK-47', 'M4A4', 'AWP', 'M4A1-S']
+
+        if item_listed_marker in main_message or item_sold_marker in main_message:
+            message = main_message.replace("42", "", 1)
+            message = json.loads(message)
+            sales = message[1]["sales"]
+
+            for item in sales:
+                for i in parser_items:
+                    if i in item['marketHashName']:
+                        if item_listed_marker in main_message:
+                            self.parse_item(item)
+                        elif item_sold_marker in main_message:
+                            # Delete from database
+                            print(f"Delete: {item['marketHashName']}")
 
 class CSFloatHelper(BaseHelper):
     DB_ENUM_NAME = 'csfloat'
