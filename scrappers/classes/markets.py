@@ -268,7 +268,7 @@ class SkinportHelper(BaseHelper):
             return None
 
 
-    def parse_item_wss(self, ws, main_message):
+    def parse_item_wss(self, main_message):
         item_listed_marker = '"saleFeed",{"eventType":"listed"'
         item_sold_marker = '"saleFeed",{"eventType":"sold"'
         parser_items = ['AK-47', 'M4A4', 'AWP', 'M4A1-S']
@@ -282,10 +282,12 @@ class SkinportHelper(BaseHelper):
                 for i in parser_items:
                     if i in item['marketHashName']:
                         if item_listed_marker in main_message:
-                            self.parse_item(item)
+                            # TODO: Maybe need to return type of message sold/listed
+                            return self.parse_item(item)
                         elif item_sold_marker in main_message:
                             # Delete from database
                             print(f"Delete: {item['marketHashName']}")
+
 
 class CSFloatHelper(BaseHelper):
     DB_ENUM_NAME = 'csfloat'

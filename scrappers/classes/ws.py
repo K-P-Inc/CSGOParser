@@ -3,11 +3,13 @@ import threading
 import logging
 
 class WSClient:
-    def __init__(self, on_message, wss_route, currency='USD'):
+    def __init__(self, on_message, wss_route, currency='USD', game_id=730, locale='en'):
         websocket.enableTrace(False) # Websocket logs
         self.currency = currency
         self.on_message = on_message
         self.wss_route = wss_route
+        self.game_id = game_id
+        self.locale = locale
         self.ws = None
 
     def on_error(self, ws, error):
@@ -24,7 +26,7 @@ class WSClient:
         timer.start()
 
     def send_initial_message(self, ws):
-        ws.send(f'42["saleFeedJoin",{{"appid":730,"currency":"{self.currency}","locale":"en"}}]')
+        ws.send(f'42["saleFeedJoin",{{"appid":{self.game_id},"currency":"{self.currency}","locale":"{self.locale}"}}]')
 
     def reconnect(self):
         logging.info("Reconnecting...")
