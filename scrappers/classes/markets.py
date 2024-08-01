@@ -208,7 +208,7 @@ class SkinportHelper(BaseHelper):
     def get_cookies(self, type):
         redis_key = f"{type}_skinport_cookies"
         if self.redis_client.exists(redis_key) and not self.force_update:
-            logging.info(f"Found cookies in redis for {type}")
+            logging.debug(f"Found cookies in redis for {type}")
             cookies_json = self.redis_client.get(redis_key)
             return json.loads(cookies_json)
         else:
@@ -223,7 +223,7 @@ class SkinportHelper(BaseHelper):
             time.sleep(5)
 
             # Get all cookies
-            logging.info("Getting cookies from skinport")
+            logging.debug("Getting cookies from skinport")
             cookies = driver.get_cookies()
 
             # Print the cookies
@@ -231,7 +231,7 @@ class SkinportHelper(BaseHelper):
                 if cookie["name"] not in cookies_json:
                     cookies_json[cookie["name"]] = cookie["value"]
 
-            logging.info("Cookies from skinport: {}".format(cookies_json))
+            logging.debug("Cookies from skinport: {}".format(cookies_json))
             self.redis_client.set(redis_key, json.dumps(cookies_json), ex=3600)
             self.force_update = False
 
@@ -296,7 +296,7 @@ class CSFloatHelper(BaseHelper):
 
         try:
             if json.loads(response.text) and json.loads(response.text) == json.loads('{"code":20,"message":"too many requests, try again later"}'):
-                logging.inf("Parser was blocked")
+                logging.info("Parser was blocked")
                 time.sleep(300)
                 return None
             elif json.loads(response.text) and len(json.loads(response.text)) >= 0:
@@ -364,7 +364,7 @@ class HaloskinsHelper(BaseHelper):
 
         redis_key = f"{type}_haloskins_cookies_{id}"
         if self.redis_client.exists(redis_key):
-            logging.info(f"Found cookies in redis for {redis_key}")
+            logging.debug(f"Found cookies in redis for {redis_key}")
             cookies_json = self.redis_client.get(redis_key)
             self.items_ids_json[id] = json.loads(cookies_json)
         else:
@@ -379,13 +379,13 @@ class HaloskinsHelper(BaseHelper):
                 "quality": "strange" if is_stattrak else "normal"
             })
             response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload)
-            logging.info(response.text)
+            logging.debug(response.text)
             mapping = {}
 
             for value in json.loads(response.text)["data"]["list"]:
                 mapping[value["itemName"]] = value["itemId"]
 
-            logging.info("Updaing haloskins mapping: {}".format(mapping))
+            logging.debug("Updaing haloskins mapping: {}".format(mapping))
             self.redis_client.set(redis_key, json.dumps(mapping), ex=3600)
             self.items_ids_json[id] = mapping
 
@@ -517,7 +517,7 @@ class WhiteMarketHelper(BaseHelper):
     def get_cookies(self, type):
         redis_key = f"{type}_white_market_cookies"
         if self.redis_client.exists(redis_key) and not self.force_update:
-            logging.info(f"Found cookies in redis for {type}")
+            logging.debug(f"Found cookies in redis for {type}")
             cookies_json = self.redis_client.get(redis_key)
             return json.loads(cookies_json)
         else:
@@ -533,14 +533,14 @@ class WhiteMarketHelper(BaseHelper):
                 time.sleep(3)  # adjust sleep time if needed
                 driver.implicitly_wait(10)
                 driver.find_element(By.XPATH, "//button[text()='Accept all']").click()
-                logging.info("Button 'accept cookies' clicked successfully.")
+                logging.debug("Button 'accept cookies' clicked successfully.")
             except Exception as e:
                 logging.error(f"An error occurred: {e}")
 
             time.sleep(5)
 
             # Get all cookies
-            logging.info("Getting cookies from white.market")
+            logging.debug("Getting cookies from white.market")
             cookies = driver.get_cookies()
 
             # Print the cookies
@@ -548,7 +548,7 @@ class WhiteMarketHelper(BaseHelper):
                 if cookie["name"] not in cookies_json:
                     cookies_json[cookie["name"]] = cookie["value"]
 
-            logging.info("Cookies from white.market: {}".format(cookies_json))
+            logging.debug("Cookies from white.market: {}".format(cookies_json))
             self.redis_client.set(redis_key, json.dumps(cookies_json), ex=3600)
             self.force_update = False
 
@@ -608,7 +608,7 @@ class WhiteMarketHelper(BaseHelper):
             response = requests.request("POST", url, headers=headers, data=payload)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
-                logging.info(f'Current cursor {self.get_cursor(type, name, is_stattrak)}, new {respone_json["data"]["market_list"]["pageInfo"]["endCursor"]}')
+                logging.debug(f'Current cursor {self.get_cursor(type, name, is_stattrak)}, new {respone_json["data"]["market_list"]["pagedebug"]["endCursor"]}')
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
                 return respone_json["data"]["market_list"]["edges"]
             return None

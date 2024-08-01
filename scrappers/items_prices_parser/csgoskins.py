@@ -332,7 +332,7 @@ def update_item_with_prices(item, prices, markets_data):
     price = -1
 
     for market_name, market_value in markets_data.items():
-        if market_name == "Steam" and market_value["price"] != None and market_value["price"] < 100.0:
+        if market_name == "Steam" and market_value["price"] != None and market_value["price"] < 500.0:
             price = market_value["price"]
             logging.info(f"Steam price found: {price}")
             break
