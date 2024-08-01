@@ -12,8 +12,6 @@ jobs:
   tests:
     name: Run tests
     runs-on: ubuntu-latest
-    container:
-      image: lucasalt/act_base:latest
     steps:
       - uses: actions/checkout@v3
 
@@ -41,8 +39,6 @@ jobs:
   build:
     needs: tests
     runs-on: ubuntu-latest
-    container:
-      image: lucasalt/act_base:latest
     strategy:
       matrix:
         build_type: ["global_worker", "worker", "dashboard", "infrastructure"]
@@ -93,8 +89,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
     name: Run remote deploy script
     runs-on: ubuntu-latest
-    container:
-      image: lucasalt/act_base:latest
     needs: build
     steps:
       - uses: actions/checkout@v3
