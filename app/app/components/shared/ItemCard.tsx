@@ -235,7 +235,7 @@ export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem
                   )}
                 </div>
                 <div className="flex gap-1 text-grey tiny-medium">
-                  Suggested price: ${(item.stickers_price * 0.1 + item.steam_price).toFixed(2)}
+                  Suggested price: ${(item.stickers_overprice + item.steam_price).toFixed(2)}
                 </div>
               </div>
               <div className="text-left text-light-1">
