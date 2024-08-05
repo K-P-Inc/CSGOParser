@@ -24,6 +24,8 @@ export interface SkinItem {
     stickers_instances: Sticker[];
     stickers_icons: string[];
     stickers_wears: number[] | null[];
+    stickers_overprice: number;
+    profit_based_on: "steam" | "buff";
     order_type: string;
     item_float: number | null;
     pattern_template: number | null;

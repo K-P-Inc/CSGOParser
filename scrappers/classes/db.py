@@ -140,10 +140,10 @@ class DBClient:
 
     @retry
     def insert_skins(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,CAST(%s AS uuid[]),CAST(%s AS double precision[]),%s,%s,%s,%s,CAST(%s AS csgo_stickers_variant[]))" for _ in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,CAST(%s AS uuid[]),CAST(%s AS double precision[]),%s,%s,%s,%s,CAST(%s AS csgo_stickers_variant[]))" for _ in values])
         query = f'''
             INSERT INTO skins(
-                market, link, stickers_price, price, profit, profit_buff, skin_id,
+                market, link, stickers_price, price, profit, profit_buff, stickers_overprice, skin_id,
                 stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers,
                 stickers_wears, item_float, in_game_link, pattern_template, order_type, stickers_distinct_variants
             ) VALUES {placeholders}
@@ -152,6 +152,7 @@ class DBClient:
                 price = EXCLUDED.price,
                 profit = EXCLUDED.profit,
                 profit_buff = EXCLUDED.profit_buff,
+                stickers_overprice = EXCLUDED.stickers_overprice,
                 skin_id = EXCLUDED.skin_id,
                 stickers_patern = EXCLUDED.stickers_patern,
                 amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,

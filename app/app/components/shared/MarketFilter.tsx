@@ -27,6 +27,7 @@ import {
 import { SubmitFunction } from "@remix-run/react"
 import { Input } from "../ui/input"
 import { WearType, StickersPattern, StickersType, WeaponType, ShopType, CategoryType } from "~/types"
+import { Switch } from "../ui/switch"
 
 type ShortNameMap<T extends string> = { [key in T]: string };
 
@@ -531,6 +532,73 @@ export function SortSelector(
   )
 }
 
+export function ProfitBasedSwitcher(
+  { profitBased, setProfitBased } :
+  { profitBased: string, setProfitBased: React.Dispatch<React.SetStateAction<string>> }
+) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedNewProfitBased, setNewSelectedProfitBased] = useState<string>(profitBased);
+
+  return (
+    <div className="flex">
+      <DropdownMenu open={isOpen} onOpenChange={(open) => {
+        if (open) {
+          setNewSelectedProfitBased(profitBased);
+        }
+        setIsOpen(open);
+      }}>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant={isOpen || profitBased !== 'steam' ? "active" : "default"}
+            size={profitBased !== 'steam' ? "left" : "default"}
+          >
+            {(profitBased === 'steam')
+              ? `Profit`
+              : `Profit based on BUFF prices`
+            }
+            {(profitBased === 'steam') && (
+              <ChevronDown
+                className="ml-2 h-4 w-4 opacity-50"
+              />
+            )}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Profit based on</DropdownMenuLabel>
+          <DropdownMenuSeparator className="mb-2" />
+          <div className="flex gap-2 mx-2 pt-2 mb-4 items-center justify-center">
+            <small className="ml-1">Steam</small>
+            <Switch
+              checked={selectedNewProfitBased === "buff"}
+              onCheckedChange={(checked) => setNewSelectedProfitBased(checked ? "buff" : "steam")}
+              aria-readonly
+            />
+            <small className="ml-1">BUFF</small>
+          </div>
+          <div className="flex justify-end gap-4 mt-4">
+            <Button variant="secondary" onClick={() => {
+              setProfitBased('steam');
+            }}>Clear</Button>
+            <Button variant="secondary" onClick={() => {
+              setProfitBased(selectedNewProfitBased);
+              setIsOpen(false);
+            }}>Apply</Button>
+          </div>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {(profitBased !== "steam") &&
+        <Button className="w-[30px]" size="right" onClick={(e: any) => {
+          e.preventDefault();
+          setIsOpen(false);
+          setProfitBased("steam");
+        }}>
+          <X className="h-4 w-4" />
+        </Button>
+      }
+    </div>
+  )
+}
+
 interface MarketFilterParams {
   submit: SubmitFunction,
   wears: WearType[],
@@ -540,13 +608,14 @@ interface MarketFilterParams {
   stickersTypes: StickersType[],
   categories: CategoryType[],
   search: string;
+  profit_based: string;
   min_price: number | undefined;
   max_price: number | undefined;
   sort_by: string | undefined
 }
 
 export function MarketFilter(
-  { wears, weapons, shops, stickersPatterns, stickersTypes, categories, search, min_price, max_price, sort_by, submit } :
+  { wears, weapons, shops, stickersPatterns, stickersTypes, categories, search, min_price, max_price, sort_by, profit_based, submit } :
   MarketFilterParams
 ) {
   const [selectedWears, setSelectedWears] = useState<WearType[]>(wears);
@@ -555,6 +624,7 @@ export function MarketFilter(
   const [selectedStickersPatterns, setSelectedStickersPatterns] = useState<StickersPattern[]>(stickersPatterns);
   const [selectedStickersTypes, setSelectedStickersTypes] = useState<StickersType[]>(stickersTypes);
   const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>(categories);
+  const [selectedProfitBased, setSelectedProfitBased] = useState<string>(profit_based);
   const [selectedMinPrice, setSelectedMinPrice] = useState<number | undefined>(min_price);
   const [selectedMaxPrice, setSelectedMaxPrice] = useState<number | undefined>(max_price);
   const [searchName, setSearchName] = useState<string>(search);
@@ -564,7 +634,7 @@ export function MarketFilter(
     if (
       wears !== selectedWears || weapons !== selectedWeapons || shops !== selectedShops || sort_by !== sortType ||
       selectedStickersPatterns != stickersPatterns || selectedStickersTypes != stickersTypes || searchName !== search ||
-      categories !== selectedCategories || min_price !== selectedMinPrice || max_price !== selectedMaxPrice
+      categories !== selectedCategories || min_price !== selectedMinPrice || max_price !== selectedMaxPrice || selectedProfitBased !== profit_based
     ) {
       const formData = new FormData(undefined);
 
@@ -599,11 +669,13 @@ export function MarketFilter(
         formData.set("max_price", selectedMaxPrice.toFixed(2));
       }
 
+      formData.set("profit_based", selectedProfitBased);
+
       submit(formData);
     }
   }, [
     selectedWeapons, selectedWears, selectedShops, selectedStickersPatterns, selectedStickersTypes,
-    searchName, selectedCategories, sortType, selectedMinPrice, selectedMaxPrice
+    searchName, selectedCategories, sortType, selectedMinPrice, selectedMaxPrice, selectedProfitBased
   ])
 
   return (
@@ -621,6 +693,7 @@ export function MarketFilter(
         />
         <CategorySelector selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
         <ShopSelector selectedShops={selectedShops} setSelectedShops={setSelectedShops} />
+        <ProfitBasedSwitcher profitBased={selectedProfitBased} setProfitBased={setSelectedProfitBased}/>
       </div>
       <div className="flex flex-wrap w-full flex-1 items-center gap-x-3 gap-y-3">
         <SearchNameInput searchName={searchName} setSearchName={setSearchName}/>

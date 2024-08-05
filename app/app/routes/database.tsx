@@ -73,10 +73,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stickers_patterns = getParamArray<StickersPattern>(request.url, "stickers_patterns");
   const sticker_types = getParamArray<StickersType>(request.url, "sticker_types");
   const market_types = getParamArray<ShopType>(request.url, "market_types");
+  const profit_based: string = url.searchParams.get("profit_based") ?? "steam";
   const page = parseInt(url.searchParams.get("page") || "0");
 
   let stickers_filters = [];
-  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`, `is_sold = False`];
+  let filters = [`skins.stickers_price > 20`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`, `is_sold = False`];
   let args = [];
 
   if (categories.length > 0) {
@@ -147,10 +148,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       orderBy = 'ORDER BY created_at ASC';
       break;
     case 'profit_high_to_low':
-      orderBy = 'ORDER BY profit DESC';
+      orderBy = `ORDER BY ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`} DESC`;
       break;
     case 'profit_low_to_high':
-      orderBy = 'ORDER BY profit ASC';
+      orderBy = `ORDER BY ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`} ASC`;
       break;
     case 'price_high_to_low':
       orderBy = 'ORDER BY market_price DESC';
@@ -182,7 +183,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       skins.stickers_price,
       skins.link,
       skins.stickers,
-      skins.profit
+      skins.stickers_overprice,
+      ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`}
     FROM skins
     INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
     ${filterCondition}
@@ -210,8 +212,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           market_price: row["market_price"],
           steam_price: row["steam_price"],
           stickers_patern: row["stickers_patern"],
+          stickers_overprice: row["stickers_overprice"],
           image: row["icon_url"].startsWith("https://steamcommunity-a.akamaihd.net/economy/image/-") ? row["icon_url"] : `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
-          profit: row["profit"],
+          profit: row[profit_based === 'buff' ? `profit_buff` : "profit"],
           link: `${row["link"]}`,
           stickers_instances: stickersMap.filter((x: any) => row["stickers"].includes(x["id"])),
           stickers_icons: row["stickers"].map((stc: string) => {
@@ -226,7 +229,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           order_type: row["order_type"],
           item_float: row["item_float"],
           pattern_template: row["pattern_template"],
-          in_game_link: row["in_game_link"]
+          in_game_link: row["in_game_link"],
+          profit_based_on: profit_based
         }))
         : []
 
@@ -245,6 +249,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     sticker_types: sticker_types,
     market_types: market_types,
     wears: wears,
+    profit_based: profit_based,
     page: page
   });
 }
@@ -254,7 +259,7 @@ export default function Index() {
   const {
     items, weapon_types, sort_by, search, categories,
     min_price, max_price, stickers_patterns, sticker_types,
-    market_types, wears, page
+    market_types, wears, profit_based, page
   } = useLoaderData<typeof loader>();
   const [skins, setSkins] = useState<SkinItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -265,7 +270,6 @@ export default function Index() {
   const preloadImages = (newItems: SkinItem[]) => {
     let imageLinks = new Set<string>();
 
-    console.log(newItems);
     newItems.forEach((item: SkinItem) => {
       if (item.image) {
         imageLinks.add(item.image);
@@ -338,6 +342,7 @@ export default function Index() {
             min_price={min_price}
             max_price={max_price}
             sort_by={sort_by}
+            profit_based={profit_based}
           />
           <InfiniteScroller
             loadNext={() => {

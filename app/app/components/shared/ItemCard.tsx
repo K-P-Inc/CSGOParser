@@ -154,7 +154,7 @@ export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem
             </div>
             <div className="space-y-4" style={{ width: "33%" }}>
               {renderSection("Prices", [
-                renderRow("Steam", item.steam_price),
+                renderRow(item.profit_based_on === "steam" ? "Steam" : "BUFF", item.steam_price),
                 renderRow("Market", item.market_price)
               ])}
               {renderSection("Stickers", [
@@ -169,9 +169,9 @@ export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem
                 <p className="text-light-1">
                   ${parseFloat(item.market_price.toString()).toFixed(2)}
                 </p>
-                {item.market_price - (item.stickers_price * 0.1 + item.steam_price) < 0
-                  ? <p className="text-green">-${((item.stickers_price * 0.1 + item.steam_price) - item.market_price).toFixed(2)}</p>
-                  : <p className="text-secondary-500">+${(item.market_price - (item.stickers_price * 0.1 + item.steam_price)).toFixed(2)}</p>
+                {item.market_price - (item.stickers_overprice + item.steam_price) < 0
+                  ? <p className="text-green">-${((item.stickers_overprice + item.steam_price) - item.market_price).toFixed(2)}</p>
+                  : <p className="text-secondary-500">+${(item.market_price - (item.stickers_overprice + item.steam_price)).toFixed(2)}</p>
                 }
               </div>
                 <Button
