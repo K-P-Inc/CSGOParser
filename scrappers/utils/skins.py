@@ -89,7 +89,7 @@ def calculate_weapon_real_price(item_price, weapon_key_price, matched_stickers, 
         2 : 1,
         3 : 2,
         4 : 4,
-        5 : 6
+        5 : 4
     }
 
     stickers_overprice = 0
