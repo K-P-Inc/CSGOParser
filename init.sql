@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS skins (
   stickers_price double precision null,
   price double precision null,
   profit double precision null,
+  profit_buff double precision null,
   skin_id uuid not null,
   stickers_patern public.weapon_stickers_patern null,
   amount_of_stickers_distinct integer null,
@@ -119,4 +120,5 @@ CREATE INDEX IF NOT EXISTS skins_idx_price ON skins(price);
 CREATE INDEX IF NOT EXISTS skins_idx_created_at ON skins(created_at);
 CREATE INDEX IF NOT EXISTS skins_idx_stickers_distinct_variants ON skins USING gin(stickers_distinct_variants);
 CREATE INDEX IF NOT EXISTS skins_idx_profit ON skins(profit);
+CREATE INDEX IF NOT EXISTS skins_idx_profit_buff ON skins(profit_buff);
 CREATE INDEX IF NOT EXISTS skins_idx_stickers_patern ON skins(stickers_patern);

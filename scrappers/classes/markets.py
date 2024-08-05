@@ -605,10 +605,10 @@ class WhiteMarketHelper(BaseHelper):
         }
 
         try:
-            response = requests.request("POST", url, headers=headers, data=payload)
+            response = requests.request("GET", url, headers=headers, data=payload)
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
-                logging.debug(f'Current cursor {self.get_cursor(type, name, is_stattrak)}, new {respone_json["data"]["market_list"]["pagedebug"]["endCursor"]}')
+                logging.debug(f'Current cursor {self.get_cursor(type, name, is_stattrak)}, new {respone_json["data"]["market_list"]["pageInfo"]["endCursor"]}')
                 self.save_cursor(type, name, is_stattrak, respone_json["data"]["market_list"]["pageInfo"]["endCursor"])
                 return respone_json["data"]["market_list"]["edges"]
             return None

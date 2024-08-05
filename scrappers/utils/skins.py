@@ -74,3 +74,70 @@ def get_stickers_dict(db_client, redis_client):
         time.sleep(1)
 
     return stickers_dict
+
+
+def calculate_weapon_real_price(item_price, weapon_key_price, matched_stickers, wears_stickers, stickers_dict, weapons_dict):
+    stickers_pattern_coef = {
+        1 : 0.005,
+        2 : 0.01,
+        3 : 0.05,
+        4 : 0.1,
+        5 : 0.1,
+    }
+    stickers_price_coef = {
+        1 : 0.5,
+        2 : 1,
+        3 : 2,
+        4 : 4,
+        5 : 6,
+    }
+
+    stickers_overprice = 0
+
+    sticker_count = {}
+    valid_sticker_count = {}
+    for index, sticker in enumerate(matched_stickers):
+        key = sticker["name"]
+
+        if key in sticker_count:
+            sticker_count[key] += 1
+        else:
+            sticker_count[key] = 1
+
+        if wears_stickers[index] == 0 or not wears_stickers[index]:
+            if key in valid_sticker_count:
+                valid_sticker_count[key] += 1
+            else:
+                valid_sticker_count[key] = 1
+
+    num_stickers = len(sticker_count)
+
+    stickers_pattern = 'other'
+    if num_stickers == 1 and max(sticker_count.values()) == 5:
+        stickers_pattern = '5-equal'
+    elif num_stickers in [1, 2] and max(sticker_count.values()) == 4:
+        stickers_pattern = '4-equal'
+    elif max(sticker_count.values()) == 3:
+        stickers_pattern = '3-equal'
+    elif sorted(sticker_count.values()) == [2, 2] or sorted(sticker_count.values()) == 2:
+        stickers_pattern = '2-equal'
+    elif max(sticker_count.values()) == 2:
+        stickers_pattern = '2-equal'
+    else:
+        stickers_pattern = 'other'
+
+    for key, amount in valid_sticker_count.items():
+        integer_part = str(stickers_dict[key]["price"]).split('.')[0]
+
+        # Find the number of digits in the integer part
+        num_digits = max(len(integer_part), 5)
+
+        stickers_overprice += stickers_dict[key]["price"] * stickers_pattern_coef[amount] * stickers_price_coef[num_digits]
+
+    actually_price_steam = weapons_dict[weapon_key_price]["price"]
+    future_profit_percentages_steam = (stickers_overprice + actually_price_steam - item_price) / (stickers_overprice + actually_price_steam) * 100
+
+    actually_price_buff = weapons_dict[weapon_key_price]["price"] * 0.7 if weapons_dict[weapon_key_price]["price"] < 1500 else weapons_dict[weapon_key_price]["price"] 
+    future_profit_percentages_buff = (stickers_overprice + actually_price_buff - item_price) / (stickers_overprice + actually_price_buff) * 100
+
+    return stickers_pattern, round(stickers_overprice, 2), future_profit_percentages_steam, future_profit_percentages_buff

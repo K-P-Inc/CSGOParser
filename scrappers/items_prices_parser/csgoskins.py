@@ -449,8 +449,8 @@ def parse_with_price_and_update_profits(items):
                 except Exception as e:
                     pass
 
-                DBClient().update_skins_profit_by_stickers()
-                logging.info(f"Updated stickers profits")
+                # DBClient().update_skins_profit_by_stickers()
+                # logging.info(f"Updated stickers profits")
             else:
                 try:
                     for weapons in split_array(items_for_insert, k=200):
@@ -458,7 +458,7 @@ def parse_with_price_and_update_profits(items):
                         DBClient().update_weapon_prices(list(set(weapons)))
                 except Exception as e:
                     pass
-                DBClient().update_skins_profit_by_weapon(name)
+                # DBClient().update_skins_profit_by_weapon(name)
 
             items_for_insert.clear()
     except Exception as e:
