@@ -101,7 +101,7 @@ class DBClient:
                 FOR UPDATE SKIP LOCKED
             )
             UPDATE skins
-            SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
+            SET profit = (skins.stickers_overprice + wp.price - skins.price) / (skins.stickers_overprice + wp.price) * 100.0, profit_buff = (skins.stickers_overprice + wp.price / 0.7 - skins.price) / (skins.stickers_overprice + wp.price / 0.7) * 100.0
             FROM weapons_prices wp, locked_skins as ls
             WHERE skins.skin_id = wp.id AND ls.item_id = skins.id
         '''

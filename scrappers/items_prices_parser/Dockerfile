@@ -23,4 +23,4 @@ RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
 ENV DOCKER_RUN "a"
-CMD ["sh", "-c", "while :; do python -m items_prices_parser.csgoskins; sleep 86400; done"]
+CMD ["sh", "-c", "while :; do python -m items_prices_parser.csgoskins; sleep 3600; done"]
