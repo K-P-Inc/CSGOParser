@@ -210,7 +210,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           is_stattrak: row["is_stattrak"],
           quality: `${row["quality"]}`,
           market_price: row["market_price"],
-          steam_price: row["steam_price"] * (profit_based === 'buff' ? 0.7 : 1),
+          steam_price: row["steam_price"] * (profit_based === 'buff' ? 0.65 : 1),
           stickers_patern: row["stickers_patern"],
           stickers_overprice: row["stickers_overprice"],
           image: row["icon_url"].startsWith("https://steamcommunity-a.akamaihd.net/economy/image/-") ? row["icon_url"] : `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,

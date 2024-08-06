@@ -337,15 +337,15 @@ def update_item_with_prices(item, prices, markets_data):
             logging.info(f"Steam price found: {price}")
             break
 
-    if price == -1 and '7 Day low' in prices:
+    if price == -1 and '7 Day low' in price:
         if prices['7 Day Low'] <= 1300:
-            price = prices['7 Day Low'] / 0.7
+            price = prices['7 Day Low'] / 0.65
         else:
             price = prices['7 Day Low']
 
     if price == -1 and '30 Day Low' in prices:
         if prices['30 Day Low'] <= 1300:
-            price = prices['30 Day Low'] / 0.7
+            price = prices['30 Day Low'] / 0.65
         else:
             price = prices['30 Day Low']
 

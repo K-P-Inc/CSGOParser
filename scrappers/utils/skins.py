@@ -137,7 +137,7 @@ def calculate_weapon_real_price(item_price, weapon_key_price, matched_stickers, 
     actually_price_steam = weapons_dict[weapon_key_price]["price"]
     future_profit_percentages_steam = (stickers_overprice + actually_price_steam - item_price) / (stickers_overprice + actually_price_steam) * 100
 
-    actually_price_buff = weapons_dict[weapon_key_price]["price"] * 0.7 if weapons_dict[weapon_key_price]["price"] < 1500 else weapons_dict[weapon_key_price]["price"] 
+    actually_price_buff = weapons_dict[weapon_key_price]["price"] * 0.65 if weapons_dict[weapon_key_price]["price"] < 1500 else weapons_dict[weapon_key_price]["price"] 
     future_profit_percentages_buff = (stickers_overprice + actually_price_buff - item_price) / (stickers_overprice + actually_price_buff) * 100
 
     return stickers_pattern, round(stickers_overprice, 2), future_profit_percentages_steam, future_profit_percentages_buff
