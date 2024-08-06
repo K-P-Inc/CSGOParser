@@ -463,7 +463,7 @@ class DmarketHelper(BaseHelper):
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
-        url = f"https://api.dmarket.com/exchange/v1/market/items?side=market&orderBy=personal&orderDir=desc&title={quote(fullname)}&priceFrom=0&priceTo={max_price * 100}&treeFilters=cheapestBySteamAnalyst%5B%5D=true,StickersCombo_CountFrom%5B%5D=1,category_0%5B%5D={'stattrak_tm' if is_stattrak else 'not_stattrak_tm'}&gameId=a8db&types=dmarket&limit=100&currency=USD&platform=browser&isLoggedIn=false{f'&cursor={self.cursor}' if self.cursor else ''}"
+        url = f"https://api.dmarket.com/exchange/v1/market/items?side=market&orderBy=personal&orderDir=desc&title={quote(fullname)}&priceFrom=0&priceTo={max_price * 100}&treeFilters=StickersCombo_CountFrom[]=1,category_0[]={'stattrak_tm' if is_stattrak else 'not_stattrak_tm'}&gameId=a8db&types=dmarket&limit=100&currency=USD&platform=browser&isLoggedIn=false{f'&cursor={self.cursor}' if self.cursor else ''}"
         response = requests.request("GET", url)
 
         try:
