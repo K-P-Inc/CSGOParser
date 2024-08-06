@@ -56,7 +56,7 @@ class DBClient:
         logging.debug("Connected to database")
 
     @retry
-    def execute(self, query, params) -> None:
+    def execute(self, query, params=[]) -> None:
         with self.db.cursor() as cursor:
             try:
                 cursor.execute(query, params)
