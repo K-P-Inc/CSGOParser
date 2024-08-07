@@ -78,7 +78,7 @@ def get_stickers_dict(db_client, redis_client):
 
 def calculate_weapon_real_price(item_price, weapon_key_price, matched_stickers, wears_stickers, stickers_dict, weapons_dict):
     stickers_pattern_coef = {
-        1 : 0.001,
+        1 : 0.005,
         2 : 0.01,
         3 : 0.05,
         4 : 0.1,
@@ -132,7 +132,7 @@ def calculate_weapon_real_price(item_price, weapon_key_price, matched_stickers, 
         # Find the number of digits in the integer part
         num_digits = min(len(integer_part), 5)
 
-        stickers_overprice += stickers_dict[key]["price"] * stickers_pattern_coef[amount] * stickers_price_coef[num_digits]
+        stickers_overprice += stickers_dict[key]["price"] * stickers_pattern_coef[amount] * stickers_price_coef[num_digits] * amount
 
     actually_price_steam = weapons_dict[weapon_key_price]["price"]
     future_profit_percentages_steam = (stickers_overprice + actually_price_steam - item_price) / (stickers_overprice + actually_price_steam) * 100
