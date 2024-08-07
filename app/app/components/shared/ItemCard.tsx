@@ -20,6 +20,9 @@ import {
 import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon, GamerPayIcon, WaxPeerIcon } from "~/assets/images";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { Toggle } from "../ui/toggle";
+import { HeartFilled } from '@ant-design/icons';
+import Cookies from 'universal-cookie';
 
 function renderSection(title: string, rows : Array<{ label: string, value: number | string }>) {
   return (
@@ -44,8 +47,18 @@ function renderRow(label: string, value: number | string) {
   return { label, value };
 }
 
-export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem, onlyPreview?: boolean }) {
+export default function ItemCard({ item, onlyPreview = false, defaultOpen = false }: { item: SkinItem, onlyPreview?: boolean, defaultOpen?: boolean }) {
   const [scrollTop, setScrollTop] = useState<number>(0);
+  const cookies = new Cookies();
+  const isLikedItem = () => {
+    const likedItemsString: string = cookies.get("liked_items") || "";
+    let likedItemsArray: string[] = likedItemsString.split(',');
+
+    return likedItemsArray.find((id: string) => item.id === id) !== undefined
+  };
+
+  const [isLiked, setIsLiked] = useState<boolean>(isLikedItem());
+  
   const openSteamLink = () => {
     const itemname = `${item.name} (${item.quality})`
     window.open(`https://steamcommunity.com/market/listings/730/${encodeURIComponent(itemname)}`, "_blank")
@@ -63,8 +76,26 @@ export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem
     }
   }
 
+  const copyDirectLink = () => {
+    navigator.clipboard.writeText(`${window.location.origin}/database?direct_item_id=${item.id}`)
+  }
+
+  const changeLikedItemsCookie = (value: boolean) => {
+    const likedItemsString: string = cookies.get("liked_items") || "";
+    let likedItemsArray: string[] = likedItemsString.split(',');
+
+    if (value && !likedItemsArray.find((id: string) => id === item.id)) {
+      likedItemsArray.push(item.id)
+    } else {
+      likedItemsArray.filter((id: string) => id !== item.id)
+    }
+
+    setIsLiked(value);
+    cookies.set('liked_items', likedItemsArray.filter((id: string) => id.length > 0).join(','));
+  };
+
   return (
-    <AlertDialog>
+    <AlertDialog defaultOpen={defaultOpen}>
       <AlertDialogContent className="space-y-4 max-w-[800px] p-0 pt-6">
         <div className="flex justify-between w-full px-6">
           <div className="space-y-1">
@@ -93,9 +124,12 @@ export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem
                   loading="lazy"
                 />
               </div>
-              <div className="flex justify-center items-center w-full px-4 text-[12px] space-x-8 text-grey">
+              <div className="flex justify-center items-center w-full px-4 text-[12px] space-x-10 text-grey">
                 <button onClick={openSteamLink}>
                   Open on Steam
+                </button>
+                <button onClick={copyDirectLink}>
+                  Copy direct link
                 </button>
                 {item.in_game_link &&
                   <button onClick={openInspectLink}>
@@ -238,26 +272,36 @@ export default function ItemCard({ item, onlyPreview = false }: { item: SkinItem
                   Suggested price: ${(item.stickers_overprice + item.steam_price).toFixed(2)}
                 </div>
               </div>
-              <div className="text-left text-light-1">
-                <p className="tiny-medium">
-                  {item.name.split('|')[0]}
-                </p>
-                <p className="text-[14px]">
-                  {item.name.split('|')[1]}
-                </p>
-                <div className="flex space-x-1 text-sm text-grey">
-                  <p className="text-grey">
-                    {item.quality.split(item.quality.includes(" ") ? " " : "-").map(sl => sl[0]).join('')}
+              <div className="flex justify-between items-center w-full">
+                <div className="text-left text-light-1">
+                  <p className="tiny-medium">
+                    {item.name.split('|')[0]}
                   </p>
-                  {item.item_float && (
-                    <>
-                      <p>/</p>
-                      <p className="text-grey">
-                        {item.item_float?.toFixed(6)}
-                      </p>
-                    </>
-                  )}
+                  <p className="text-[12px]">
+                    {item.name.split('|')[1]}
+                  </p>
+                  <div className="flex space-x-1 text-sm text-grey">
+                    <p className="text-grey">
+                      {item.quality.split(item.quality.includes(" ") ? " " : "-").map(sl => sl[0]).join('')}
+                    </p>
+                    {item.item_float && (
+                      <>
+                        <p>/</p>
+                        <p className="text-grey">
+                          {item.item_float?.toFixed(6)}
+                        </p>
+                      </>
+                    )}
+                  </div>
                 </div>
+                <Toggle
+                  pressed={isLiked}
+                  className={`h-8 px-2 post-card_liked ${isLiked ? 'visible' : 'invisible'}`}
+                  onClick={(e: any) => e.stopPropagation()}
+                  onPressedChange={(value: boolean) => changeLikedItemsCookie(value)}
+                >
+                  <HeartFilled style={{ fontSize: '20px' }}/>
+                </Toggle>
               </div>
               <div className="w-full h-[30px]">
                 {onlyPreview ? (

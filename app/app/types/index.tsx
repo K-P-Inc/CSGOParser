@@ -9,6 +9,7 @@ export interface Sticker {
 }
 
 export interface SkinItem {
+    id: string;
     name: string;
     market: string;
     type: string;

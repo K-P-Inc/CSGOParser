@@ -28,6 +28,8 @@ import { SubmitFunction } from "@remix-run/react"
 import { Input } from "../ui/input"
 import { WearType, StickersPattern, StickersType, WeaponType, ShopType, CategoryType } from "~/types"
 import { Switch } from "../ui/switch"
+import { Toggle } from "../ui/toggle"
+import { HeartFilled } from '@ant-design/icons';
 
 type ShortNameMap<T extends string> = { [key in T]: string };
 
@@ -532,6 +534,21 @@ export function SortSelector(
   )
 }
 
+export function OnlyLikedToggle(
+  { toggleOn, setToggleOn } :
+  { toggleOn: boolean, setToggleOn: React.Dispatch<React.SetStateAction<boolean>> }
+) {
+  return (
+    <Toggle
+      className="bg-background border border-input"
+      pressed={toggleOn}
+      onPressedChange={(value: boolean) => setToggleOn(value)}
+    >
+      <HeartFilled style={{ fontSize: '20px' }}/>
+    </Toggle>
+  )
+}
+
 export function ProfitBasedSwitcher(
   { profitBased, setProfitBased } :
   { profitBased: string, setProfitBased: React.Dispatch<React.SetStateAction<string>> }
@@ -611,11 +628,12 @@ interface MarketFilterParams {
   profit_based: string;
   min_price: number | undefined;
   max_price: number | undefined;
-  sort_by: string | undefined
+  sort_by: string | undefined;
+  only_liked_items: boolean
 }
 
 export function MarketFilter(
-  { wears, weapons, shops, stickersPatterns, stickersTypes, categories, search, min_price, max_price, sort_by, profit_based, submit } :
+  { wears, weapons, shops, stickersPatterns, stickersTypes, categories, search, min_price, max_price, sort_by, profit_based, only_liked_items, submit } :
   MarketFilterParams
 ) {
   const [selectedWears, setSelectedWears] = useState<WearType[]>(wears);
@@ -628,13 +646,15 @@ export function MarketFilter(
   const [selectedMinPrice, setSelectedMinPrice] = useState<number | undefined>(min_price);
   const [selectedMaxPrice, setSelectedMaxPrice] = useState<number | undefined>(max_price);
   const [searchName, setSearchName] = useState<string>(search);
+  const [toggleOn, setToggleOn] = useState<boolean>(only_liked_items);
   const [sortType, setSortType] = useState<string | undefined>(sort_by)
 
   useEffect(() => {
     if (
       wears !== selectedWears || weapons !== selectedWeapons || shops !== selectedShops || sort_by !== sortType ||
       selectedStickersPatterns != stickersPatterns || selectedStickersTypes != stickersTypes || searchName !== search ||
-      categories !== selectedCategories || min_price !== selectedMinPrice || max_price !== selectedMaxPrice || selectedProfitBased !== profit_based
+      categories !== selectedCategories || min_price !== selectedMinPrice || max_price !== selectedMaxPrice ||
+      selectedProfitBased !== profit_based || only_liked_items !== toggleOn
     ) {
       const formData = new FormData(undefined);
 
@@ -668,6 +688,9 @@ export function MarketFilter(
       if (selectedMaxPrice !== undefined) {
         formData.set("max_price", selectedMaxPrice.toFixed(2));
       }
+      if (toggleOn) {
+        formData.set("only_liked_items", "1");
+      }
 
       formData.set("profit_based", selectedProfitBased);
 
@@ -675,7 +698,8 @@ export function MarketFilter(
     }
   }, [
     selectedWeapons, selectedWears, selectedShops, selectedStickersPatterns, selectedStickersTypes,
-    searchName, selectedCategories, sortType, selectedMinPrice, selectedMaxPrice, selectedProfitBased
+    searchName, selectedCategories, sortType, selectedMinPrice, selectedMaxPrice, selectedProfitBased,
+    toggleOn
   ])
 
   return (
@@ -698,6 +722,7 @@ export function MarketFilter(
       <div className="flex flex-wrap w-full flex-1 items-center gap-x-3 gap-y-3">
         <SearchNameInput searchName={searchName} setSearchName={setSearchName}/>
         <SortSelector sortBy={sortType} setSortBy={setSortType}/>
+        <OnlyLikedToggle toggleOn={toggleOn} setToggleOn={setToggleOn}/>
       </div>
     </div>
   )
