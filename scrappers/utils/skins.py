@@ -132,7 +132,7 @@ def calculate_weapon_real_price(item_price, weapon_key_price, matched_stickers, 
         # Find the number of digits in the integer part
         num_digits = min(len(integer_part), 5)
 
-        stickers_overprice += stickers_dict[key]["price"] * stickers_pattern_coef[amount] * stickers_price_coef[num_digits] * amount
+        stickers_overprice += stickers_dict[key]["price"] * stickers_pattern_coef[amount] * stickers_price_coef[num_digits]
 
     actually_price_steam = weapons_dict[weapon_key_price]["price"]
     future_profit_percentages_steam = (stickers_overprice + actually_price_steam - item_price) / (stickers_overprice + actually_price_steam) * 100
