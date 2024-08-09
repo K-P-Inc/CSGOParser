@@ -497,7 +497,7 @@ class WhiteMarketHelper(BaseHelper):
         stickers_keys = [sticker.replace("Sticker | ", "") for sticker in node_json["item"]["stickerTitles"]]
         stickers_wears = [None for _ in node_json["item"]["stickerTitles"]]
         item_float = node_json.get('float')
-        item_in_game_link = node_json.get('link')
+        item_in_game_link = node_json['item'].get('link')
         pattern_template = node_json['item'].get('paintSeed')
 
         is_buy_type_fixed = 'fixed'
