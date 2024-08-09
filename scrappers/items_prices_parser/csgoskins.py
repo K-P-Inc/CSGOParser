@@ -332,20 +332,20 @@ def update_item_with_prices(item, prices, markets_data):
     price = -1
 
     for market_name, market_value in markets_data.items():
-        if market_name == "Steam" and market_value["price"] != None and market_value["price"] < 100.0:
+        if market_name == "Steam" and market_value["price"] != None and market_value["price"] < 50.0:
             price = market_value["price"]
             logging.info(f"Steam price found: {price}")
             break
 
-    if price == -1 and '7 Day low' in prices:
+    if price == -1 and '7 Day Low' in prices:
         if prices['7 Day Low'] <= 1300:
-            price = prices['7 Day Low'] / 0.7
+            price = prices['7 Day Low'] / 0.65
         else:
             price = prices['7 Day Low']
 
     if price == -1 and '30 Day Low' in prices:
         if prices['30 Day Low'] <= 1300:
-            price = prices['30 Day Low'] / 0.7
+            price = prices['30 Day Low'] / 0.65
         else:
             price = prices['30 Day Low']
 
@@ -407,7 +407,7 @@ def parse_with_price_and_update_profits(items):
                                         updated_item['all_time_low'],
                                         updated_item['all_time_high'],
                                         datetime.datetime.now(),
-                                        updated_item['item_classes'][0],
+                                        updated_item['item_classes'][0] if len(item['item_classes']) > 0 else "",
                                         updated_item['summary']['Film'],
                                         updated_item['summary']['Update']
                                     ))
@@ -433,7 +433,7 @@ def parse_with_price_and_update_profits(items):
                                                 updated_item_type['all_time_high'],
                                                 datetime.datetime.now(),
                                                 image_url,
-                                                item['item_classes'][0] # rare
+                                                item['item_classes'][0] if len(item['item_classes']) > 0 else ""
                                             ))
 
                                     amount_of_parsed_items += 1
@@ -449,8 +449,8 @@ def parse_with_price_and_update_profits(items):
                 except Exception as e:
                     pass
 
-                DBClient().update_skins_profit_by_stickers()
-                logging.info(f"Updated stickers profits")
+                # DBClient().update_skins_profit_by_stickers()
+                # logging.info(f"Updated stickers profits")
             else:
                 try:
                     for weapons in split_array(items_for_insert, k=200):
@@ -458,7 +458,7 @@ def parse_with_price_and_update_profits(items):
                         DBClient().update_weapon_prices(list(set(weapons)))
                 except Exception as e:
                     pass
-                DBClient().update_skins_profit_by_weapon(name)
+                DBClient().update_skins_profit_by_weapon(weapons)
 
             items_for_insert.clear()
     except Exception as e:

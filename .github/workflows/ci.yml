@@ -55,6 +55,9 @@ jobs:
     name: Build, test and publish app Docker images (${{ matrix.build_type }})
     steps:
       - uses: actions/checkout@v3
+      - uses: KengoTODA/actions-setup-docker-compose@v1
+        with:
+          version: '2.14.2'
 
       - name: Drop ansible vault password to file
         run: echo "${{ env.ANSIBLE_VAULT_PASSWORD }}" > ${{ env.ANSIBLE_VAULT_PASSWORD_FILE }}
@@ -67,7 +70,6 @@ jobs:
           BUILD_TYPE: ${{ matrix.build_type }}
         run: |
           ansible-playbook prepare-build-config.yml
-
       - name: Build the docker-compose services
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}

@@ -10,6 +10,7 @@ import { Button } from "~/components/ui/button";
 import SkeletonItemCard from '~/components/shared/SkeletonItemCard';
 import { MarketFilter } from '~/components/shared/MarketFilter';
 import { WearType, StickersPattern, StickersType, WeaponType, ShopType, SortType, CategoryType } from "~/types"
+import Cookies from 'universal-cookie';
 
 const MAX_PAGE_ITEMS = 100;
 
@@ -73,65 +74,85 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stickers_patterns = getParamArray<StickersPattern>(request.url, "stickers_patterns");
   const sticker_types = getParamArray<StickersType>(request.url, "sticker_types");
   const market_types = getParamArray<ShopType>(request.url, "market_types");
+  const profit_based: string = url.searchParams.get("profit_based") ?? "steam";
+  const direct_item_id: string | null = url.searchParams.get("direct_item_id");
+  const only_liked_items: boolean = url.searchParams.get("only_liked_items") ? true : false;
   const page = parseInt(url.searchParams.get("page") || "0");
+  const cookieHeader = request.headers.get("Cookie");
+  const cookies = new Cookies(cookieHeader);
+  const likedItemsArray = cookies.get("liked_items") ? cookies.get("liked_items").split(",") : [];
 
   let stickers_filters = [];
   let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`, `is_sold = False`];
   let args = [];
 
-  if (categories.length > 0) {
-    const categories_filters = {
-      "StatTrak™": `weapons_prices.is_stattrak = TRUE`,
-      "Normal": `weapons_prices.is_stattrak = FALSE`
-    };
-    filters.push(categories.map(category => categories_filters[category]).join(` OR `));
-  }
-  if (wears.length > 0) {
-    filters.push(wears.map(quality => `weapons_prices.quality = '${quality}'`).join(` OR `));
-  }
-  if (weapon_types.length > 0) {
-    filters.push(weapon_types.map(weapon_type => `LOWER(weapons_prices.name) LIKE LOWER('%${weapon_type}%')`).join(` OR `));
-  }
-  if (stickers_patterns.length > 0) {
-    filters.push(stickers_patterns.map(stickers_patern => `skins.stickers_patern = '${stickers_patern}'`).join(` OR `));
-  }
-
-  if (sticker_types.length > 0) {
-    filters.push(`skins.stickers_distinct_variants <@ ARRAY[${sticker_types.map(value => `'${value}'`).join(`,`)}]::csgo_stickers_variant[]`)
-  }
-
-  if (search.length > 0) {
-    filters.push(`LOWER(weapons_prices.name) LIKE LOWER($1)`)
-    args.push(`%${search}%`)
-  }
-  if (min_price !== undefined) {
-    filters.push(`skins.price >= ${min_price}`)
-  }
-  if (max_price !== undefined) {
-    filters.push(`skins.price <= ${max_price}`)
-  }
-
-  if (market_types.length > 0) {
-    const market_keys = {
-      "bitskins.com": "bitskins",
-      "cs.money": "cs-money",
-      "csfloat.com": "csfloat",
-      "dmarket.com": "dmarket",
-      "haloskins.com": "haloskins",
-      "market.csgo.com": "market-csgo",
-      "skinbid.com": "skinbid",
-      "skinport.com": "skinport",
-      "white.market": "white-market",
-      "skinbaron.de": "skinbaron",
-      "gamerpay.gg": 'gamerpay',
-      "waxpeer.com": 'waxpeer'
+  if (only_liked_items) {
+    if (likedItemsArray.length > 0) {
+      filters.push(likedItemsArray.map((item: string, index: number) => `skins.id = $${index + 1}`).join(` OR `));
+      likedItemsArray.forEach((item: string) => args.push(item));
+    } else {
+      filters.push(`skins.id = null`);
+    }
+  } else {
+    if (categories.length > 0) {
+      const categories_filters = {
+        "StatTrak™": `weapons_prices.is_stattrak = TRUE`,
+        "Normal": `weapons_prices.is_stattrak = FALSE`
+      };
+      filters.push(categories.map(category => categories_filters[category]).join(` OR `));
+    }
+    if (wears.length > 0) {
+      filters.push(wears.map(quality => `weapons_prices.quality = '${quality}'`).join(` OR `));
+    }
+    if (weapon_types.length > 0) {
+      filters.push(weapon_types.map(weapon_type => `LOWER(weapons_prices.name) LIKE LOWER('%${weapon_type}%')`).join(` OR `));
+    }
+    if (stickers_patterns.length > 0) {
+      filters.push(stickers_patterns.map(stickers_patern => `skins.stickers_patern = '${stickers_patern}'`).join(` OR `));
     }
 
-    filters.push(
-      market_types
-        .map((market_type: ShopType) => `skins.market = '${market_keys[market_type as keyof typeof market_keys]}'`)
-        .join(' OR ')
-    );
+    if (sticker_types.length > 0) {
+      filters.push(`skins.stickers_distinct_variants <@ ARRAY[${sticker_types.map(value => `'${value}'`).join(`,`)}]::csgo_stickers_variant[]`)
+    }
+
+    if (search.length > 0) {
+      filters.push(`LOWER(weapons_prices.name) LIKE LOWER($1)`)
+      args.push(`%${search}%`)
+    }
+    if (min_price !== undefined) {
+      filters.push(`skins.price >= ${min_price}`)
+    }
+    if (max_price !== undefined) {
+      filters.push(`skins.price <= ${max_price}`)
+    }
+
+    if (direct_item_id !== null) {
+      filters.push(`skins.id != $${args.length + 1}`)
+      args.push(direct_item_id)
+    }
+
+    if (market_types.length > 0) {
+      const market_keys = {
+        "bitskins.com": "bitskins",
+        "cs.money": "cs-money",
+        "csfloat.com": "csfloat",
+        "dmarket.com": "dmarket",
+        "haloskins.com": "haloskins",
+        "market.csgo.com": "market-csgo",
+        "skinbid.com": "skinbid",
+        "skinport.com": "skinport",
+        "white.market": "white-market",
+        "skinbaron.de": "skinbaron",
+        "gamerpay.gg": 'gamerpay',
+        "waxpeer.com": 'waxpeer'
+      }
+
+      filters.push(
+        market_types
+          .map((market_type: ShopType) => `skins.market = '${market_keys[market_type as keyof typeof market_keys]}'`)
+          .join(' OR ')
+      );
+    }
   }
 
   filters.push(`skins.is_sold = FALSE`);
@@ -147,10 +168,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       orderBy = 'ORDER BY created_at ASC';
       break;
     case 'profit_high_to_low':
-      orderBy = 'ORDER BY profit DESC';
+      orderBy = `ORDER BY ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`} DESC`;
       break;
     case 'profit_low_to_high':
-      orderBy = 'ORDER BY profit ASC';
+      orderBy = `ORDER BY ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`} ASC`;
       break;
     case 'price_high_to_low':
       orderBy = 'ORDER BY market_price DESC';
@@ -164,6 +185,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const query = `
     SELECT
+      skins.id,
       weapons_prices.name,
       skins.market,
       skins.stickers_distinct_variants,
@@ -182,7 +204,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       skins.stickers_price,
       skins.link,
       skins.stickers,
-      skins.profit
+      skins.stickers_overprice,
+      ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`}
     FROM skins
     INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
     ${filterCondition}
@@ -190,28 +213,62 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
   `;
 
+  console.log(query)
+
+  const directQuery = `
+    SELECT
+      skins.id,
+      weapons_prices.name,
+      skins.market,
+      skins.stickers_distinct_variants,
+      skins.stickers_wears,
+      skins.order_type,
+      skins.item_float,
+      skins.pattern_template,
+      skins.in_game_link,
+      weapons_prices.is_stattrak,
+      weapons_prices.quality,
+      skins.price AS market_price,
+      weapons_prices.price AS steam_price,
+      weapons_prices.icon_url,
+      skins.stickers_patern,
+      skins.created_at,
+      skins.stickers_price,
+      skins.link,
+      skins.stickers,
+      skins.stickers_overprice,
+      ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`}
+    FROM skins
+    INNER JOIN weapons_prices ON skins.skin_id = weapons_prices.id
+    WHERE skins.id = $1
+    LIMIT 1
+  `
+
   let promises = {
     items: (new RDSClient()).query(query, args),
-    stickers: (new RDSClient()).query('SELECT * FROM stickers')
+    stickers: (new RDSClient()).query('SELECT * FROM stickers'),
+    directItem: direct_item_id ? (new RDSClient()).query(directQuery, [direct_item_id]) : Promise.resolve(null)
   }
 
   let filtered_items: Promise<SkinItem[]> = Promise.all(Object.values(promises))
     .then(async (responses: any[]) => {
 
-      const [items, stickersMap] = responses
+      const [items, stickersMap, directItem] = responses
 
       const filteredItems = items
-        ? items.map((row: any) => ({
+        ? (directItem && page === 0 ? [...directItem, ...items] : items).map((row: any) => ({
+          id: row["id"],
           name: `${row["is_stattrak"] ? "StatTrak™ " : ""}${row["name"]}`,
           market: row["market"],
           type: `${row["name"].split(" ")[0]}`,
           is_stattrak: row["is_stattrak"],
           quality: `${row["quality"]}`,
           market_price: row["market_price"],
-          steam_price: row["steam_price"],
+          steam_price: row["steam_price"] * (profit_based === 'buff' ? 0.65 : 1),
           stickers_patern: row["stickers_patern"],
+          stickers_overprice: row["stickers_overprice"],
           image: row["icon_url"].startsWith("https://steamcommunity-a.akamaihd.net/economy/image/-") ? row["icon_url"] : `https://community.akamai.steamstatic.com/economy/image/${row["icon_url"]}`,
-          profit: row["profit"],
+          profit: row[profit_based === 'buff' ? `profit_buff` : "profit"],
           link: `${row["link"]}`,
           stickers_instances: stickersMap.filter((x: any) => row["stickers"].includes(x["id"])),
           stickers_icons: row["stickers"].map((stc: string) => {
@@ -226,7 +283,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           order_type: row["order_type"],
           item_float: row["item_float"],
           pattern_template: row["pattern_template"],
-          in_game_link: row["in_game_link"]
+          in_game_link: row["in_game_link"],
+          profit_based_on: profit_based
         }))
         : []
 
@@ -245,7 +303,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     sticker_types: sticker_types,
     market_types: market_types,
     wears: wears,
-    page: page
+    profit_based: profit_based,
+    page: page,
+    direct_item_id: direct_item_id,
+    only_liked_items: only_liked_items
   });
 }
 
@@ -254,7 +315,8 @@ export default function Index() {
   const {
     items, weapon_types, sort_by, search, categories,
     min_price, max_price, stickers_patterns, sticker_types,
-    market_types, wears, page
+    market_types, wears, profit_based, page, direct_item_id,
+    only_liked_items
   } = useLoaderData<typeof loader>();
   const [skins, setSkins] = useState<SkinItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -265,7 +327,6 @@ export default function Index() {
   const preloadImages = (newItems: SkinItem[]) => {
     let imageLinks = new Set<string>();
 
-    console.log(newItems);
     newItems.forEach((item: SkinItem) => {
       if (item.image) {
         imageLinks.add(item.image);
@@ -328,6 +389,7 @@ export default function Index() {
               setSkins([]);
               setIsLoading(true);
             }}
+            only_liked_items={only_liked_items}
             wears={wears as WearType[]}
             weapons={weapon_types as WeaponType[]}
             shops={market_types as ShopType[]}
@@ -338,6 +400,7 @@ export default function Index() {
             min_price={min_price}
             max_price={max_price}
             sort_by={sort_by}
+            profit_based={profit_based}
           />
           <InfiniteScroller
             loadNext={() => {
@@ -355,7 +418,7 @@ export default function Index() {
           >
             <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
               {skins.map((item: SkinItem) => (
-                <ItemCard item={item} key={item.link} />
+                <ItemCard item={item} key={item.link} defaultOpen={direct_item_id === item.id}/>
               ))}
               {isLoading &&
                 [...Array(MAX_PAGE_ITEMS).keys()].map((i) => <div className="w-full" key={i}><SkeletonItemCard/></div>)

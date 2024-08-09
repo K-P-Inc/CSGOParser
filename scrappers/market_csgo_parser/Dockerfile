@@ -10,6 +10,9 @@ COPY utils/ /app/utils/
 COPY scripts/wait-for-it.sh /app/wait-for-it.sh
 COPY requirements.txt /app/
 
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc
+
 # Install dependencies
 RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt

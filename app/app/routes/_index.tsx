@@ -34,6 +34,8 @@ const previewExamples = [
     "stickers_patern": "5-equal",
     "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV0966m4-PhOf7Ia_ummJW4NE_2LyV89Wt0QewqBE6Z2-lcY6UJlRrMF7SqQTvyO7shsK5v5idn3Rn6D5iuyjFoprsug/512fx384f",
     "profit": 21.703147872794126,
+    "stickers_overprice": 3.34,
+    "profit_based_on": "steam",
     "link": "https://csfloat.com/item/726821609914108725",
     "stickers_instances": [
         {
@@ -69,8 +71,10 @@ const previewExamples = [
     "type": "AWP",
     "is_stattrak": false,
     "quality": "Field-Tested",
+    "profit_based_on": "steam",
     "market_price": 54.74,
     "steam_price": 47.900000000000006,
+    "stickers_overprice": 13.34,
     "stickers_patern": "4-equal",
     "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJB496klb-GkvP9Jrafxj0Iu5wh3r6V8I2i2QK3-0JlNW_0IYbAcQ5qN1-Dr1i-we27hJW_7oOJlyW4ZaUDog/512fx384f",
     "profit": 6.7143830947512,
@@ -113,6 +117,7 @@ const previewExamples = [
     stickers_price: 224.04,
     stickers_patern: '4-equal',
     profit: 30.406351639052538,
+    stickers_overprice: 40.34,
     link: "",
     stickers_instances:[
       {
@@ -132,6 +137,7 @@ const previewExamples = [
     order_type: 'fixed',
     item_float: 0.1337322,
     pattern_template: null,
+    profit_based_on: "steam",
     in_game_link: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561199258580944A36459592498D4768995785271760750"
   }
 ]

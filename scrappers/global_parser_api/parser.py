@@ -9,13 +9,13 @@ from omegaconf import DictConfig
 from dotenv import load_dotenv
 # from prometheus_client import start_http_server
 from classes import DBClient, RedisClient
-from utils import repo_path, get_stickers_dict, get_weapons_array_by_type
+from utils import repo_path, get_stickers_dict, get_weapons_array_by_type, calculate_weapon_real_price
 from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper, SkinportHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, WhiteMarketHelper, SkinbaronHelper, GamerPayHelper, WaxPeerHelper
 
 
 def parse_item(
     market_class,
-    db_client,
+    db_client: DBClient,
     items_list, display_name,
     weapon_config, weapons_prices, stickers_dict
 ):
@@ -41,33 +41,14 @@ def parse_item(
         if item_price == 0 or len(stickers_keys) == 0 or len(matched_stickers) == 0:
             continue
 
-        sticker_count = {}
-        for sticker in matched_stickers:
-            key = sticker["name"]
-            if key in sticker_count:
-                sticker_count[key] += 1
-            else:
-                sticker_count[key] = 1
+        num_stickers = len(set([sticker["name"] for sticker in matched_stickers]))
 
-        num_stickers = len(sticker_count)
-        sticker_patern = 'other'
-        if num_stickers == 1 and max(sticker_count.values()) == 5:
-            sticker_patern = '5-equal'
-        elif num_stickers in [1, 2] and max(sticker_count.values()) == 4:
-            sticker_patern = '4-equal'
-        elif max(sticker_count.values()) == 3:
-            sticker_patern = '3-equal'
-        elif sorted(sticker_count.values()) == [2, 2] or sorted(sticker_count.values()) == 2:
-            sticker_patern = '2-equal'
-        elif max(sticker_count.values()) == 2:
-            sticker_patern = '2-equal'
-        else:
-            sticker_patern = 'other'
+        stickers_pattern, stickers_overprice, future_profit_percentages_steam, future_profit_percentages_buff = calculate_weapon_real_price(
+            item_price, key_price, matched_stickers, stickers_wears, stickers_dict, weapons_prices
+        )
 
         sticker_sum = sum([sticker["price"] for sticker in matched_stickers])
-        sticker_overprice = sticker_sum * 0.1
         stickers_names_string = ', '.join([sticker["name"] for sticker in matched_stickers])
-        future_profit_percentages = (sticker_overprice + actually_price - item_price) / (sticker_overprice + actually_price) * 100
 
         stickers_variants = ['Glitter', 'Holo', 'Foil', 'Gold']
         stickers_distinct_variants = list(set(
@@ -80,20 +61,23 @@ def parse_item(
                 market_class.DB_ENUM_NAME,
                 item_link,
                 sticker_sum, item_price,
-                future_profit_percentages,
-                weapon_uuid, sticker_patern, num_stickers, len(matched_stickers), False,
+                future_profit_percentages_steam,
+                future_profit_percentages_buff,
+                stickers_overprice,
+                weapon_uuid, stickers_pattern, num_stickers, len(matched_stickers), False,
                 [sticker["id"] for sticker in matched_stickers],
                 stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants
             ))
-            logging.debug(
+            logging.info(
                 f'Found new item:\n\n'
                 f'Link: {item_link}\n'
                 f'Name - price: {key_price} - {item_price:.2f} $\n'
                 f'Steam item price: {actually_price} $\n'
                 f'Found stickers: {stickers_names_string}\n'
-                f'Total stickers price: {sticker_sum:.2f} $, parsed stickers: {len(matched_stickers)}/{len(stickers_keys)}, stickers pattern: {sticker_patern}\n'
-                f'Stickers overprice: {sticker_overprice} $\n'
-                f'Profit: {future_profit_percentages:.2f} %\n\n'
+                f'Total stickers price: {sticker_sum:.2f} $, parsed stickers: {len(matched_stickers)}/{len(stickers_keys)}, stickers pattern: {stickers_pattern}\n'
+                f'Stickers overprice: {stickers_overprice} $\n'
+                f'Profit: {future_profit_percentages_steam:.2f} %\n'
+                f'Buff profit: {future_profit_percentages_buff:.2f} %\n\n'
             )
 
     if found_items:

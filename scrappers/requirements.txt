@@ -4,7 +4,7 @@ selenium_stealth
 2captcha-python
 omegaconf
 python-dotenv
-pg8000
+psycopg2
 selenium-wire==5.1.0
 blinker==1.7.0
 Brotli==1.1.0 

@@ -1,32 +1,72 @@
 import os
-import pg8000
+import psycopg2, psycopg2.extensions
 import logging
+import threading
+import time
+from functools import wraps
+
+def retry(fn):
+    @wraps(fn)
+    def wrapper(*args, **kw):
+        cls: DBClient = args[0]
+        for x in range(cls._reconnectTries):
+            try:
+                return fn(*args, **kw)
+            except (psycopg2.InterfaceError, psycopg2.OperationalError) as e:
+                logging.info("\nDatabase Connection [InterfaceError or OperationalError]")
+                logging.info("Idle for %s seconds" % (cls._reconnectIdle))
+                time.sleep(cls._reconnectIdle)
+                cls._connect()
+    return wrapper
+
 
 class DBClient:
+    _reconnectTries = 50
+    _reconnectIdle = 2  # wait seconds before retying
+    _instance = None
+    _instance_lock = threading.Lock()
+
+    def __new__(cls):
+        with cls._instance_lock:
+            if not cls._instance:
+                cls._instance = super(DBClient, cls).__new__(cls)
+                cls._instance.__init__()
+
+        return cls._instance
+
     def __init__(self) -> None:
-        database = os.environ.get("POSTGRES_DB")
-        user = os.environ.get("POSTGRES_USER")
-        password = os.environ.get("POSTGRES_PASSWORD")
-        host = os.environ.get("POSTGRES_HOST")
-        port = os.environ.get("POSTGRES_PORT")
+        self.database = os.environ.get("POSTGRES_DB")
+        self.user = os.environ.get("POSTGRES_USER")
+        self.password = os.environ.get("POSTGRES_PASSWORD")
+        self.host = os.environ.get("POSTGRES_HOST")
+        self.port = os.environ.get("POSTGRES_PORT")
+        logging.debug(f"\nDatabase: {self.database}\nUser: {self.user}\nPassword: {self.password}\nHost: {self.host}\nPort: {self.port}\n")
 
-        # logging.debug(f"\nDatabase: {database}\nUser: {user}\nPassword: {password}\nHost: {host}\nPort: {port}\n")
+        self._connect()
 
+    def _connect(self) -> None:
         logging.debug("Connecting to database")
-        self.db = pg8000.connect(
-            host=host,
-            database=database,
-            user=user,
-            password=password,
-            port=port
+        self.db = psycopg2.connect(
+            host=self.host,
+            database=self.database,
+            user=self.user,
+            password=self.password,
+            port=self.port
         )
         logging.debug("Connected to database")
 
-    def execute(self, query, params) -> None:
+    @retry
+    def execute(self, query, params=[]) -> None:
         with self.db.cursor() as cursor:
-            cursor.execute(query, params)
-            self.db.commit()
+            try:
+                cursor.execute(query, params)
+                self.db.commit()
+            except BaseException as e:
+                logging.error(f'Failed to run query ({query=}, {params=}): {e}')
+                if cursor is not None:
+                    self.db.rollback()
 
+    @retry
     def update_weapon_prices(self, values):
         placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
         query = f'''
@@ -50,6 +90,7 @@ class DBClient:
         self.execute(query, flat_values)
         logging.debug("Updated weapon prices in db")
 
+    @retry
     def update_skins_profit_by_weapon(self, value):
         query = f'''
             WITH locked_skins AS (
@@ -60,12 +101,13 @@ class DBClient:
                 FOR UPDATE SKIP LOCKED
             )
             UPDATE skins
-            SET profit = (skins.stickers_price * 0.1 + wp.price - skins.price) / (skins.stickers_price * 0.1 + wp.price) * 100.0
+            SET profit = (skins.stickers_overprice + wp.price - skins.price) / (skins.stickers_overprice + wp.price) * 100.0, profit_buff = (skins.stickers_overprice + wp.price * 0.65 - skins.price) / (skins.stickers_overprice + wp.price * 0.65) * 100.0
             FROM weapons_prices wp, locked_skins as ls
             WHERE skins.skin_id = wp.id AND ls.item_id = skins.id
         '''
-        self.execute(query, ())
+        self.execute(query)
 
+    @retry
     def update_skins_profit_by_stickers(self):
         query = f'''
             UPDATE skins
@@ -94,13 +136,14 @@ class DBClient:
             ) AS ss
             WHERE skins.id = ss.skin_id;
         '''
-        self.execute(query, ())
+        self.execute(query)
 
+    @retry
     def insert_skins(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,CAST(%s AS uuid[]),CAST(%s AS double precision[]),%s,%s,%s,%s,CAST(%s AS csgo_stickers_variant[]))" for _ in values])
         query = f'''
             INSERT INTO skins(
-                market, link, stickers_price, price, profit, skin_id,
+                market, link, stickers_price, price, profit, profit_buff, stickers_overprice, skin_id,
                 stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers,
                 stickers_wears, item_float, in_game_link, pattern_template, order_type, stickers_distinct_variants
             ) VALUES {placeholders}
@@ -108,6 +151,8 @@ class DBClient:
                 stickers_price = EXCLUDED.stickers_price,
                 price = EXCLUDED.price,
                 profit = EXCLUDED.profit,
+                profit_buff = EXCLUDED.profit_buff,
+                stickers_overprice = EXCLUDED.stickers_overprice,
                 skin_id = EXCLUDED.skin_id,
                 stickers_patern = EXCLUDED.stickers_patern,
                 amount_of_stickers_distinct = EXCLUDED.amount_of_stickers_distinct,
@@ -124,6 +169,7 @@ class DBClient:
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)
 
+    @retry
     def update_stickers_prices(self, values, parser=None):
         if parser == 'csgoskins':
             query = f'''
@@ -155,24 +201,27 @@ class DBClient:
         self.execute(query, flat_values)
         logging.debug("Updated sticker prices in db")
 
+    @retry
     def get_all_stickers(self):
         with self.db.cursor() as cursor:
             cursor.execute('SELECT price, name, key, id FROM stickers')
             stickers = cursor.fetchall()
             return stickers
 
+    @retry
     def get_all_weapons(self, type, min_price=0, max_price=1000000000):
         with self.db.cursor() as cursor:
             cursor.execute(f'''
                 SELECT name, price, quality, is_stattrak, id
                 FROM weapons_prices
-                WHERE price >= %s and price <= %s and name LIKE '{type}%'
+                WHERE price >= %s and price <= %s and name LIKE %s
                 ORDER BY name
-            ''', (min_price, max_price))
+            ''', (min_price, max_price, f'{type}%'))
 
             weapons = cursor.fetchall()
             return weapons
 
+    @retry
     def delete_old_skins(self, market, weapon_uuids):
         with self.db.cursor() as cursor:
             cursor.execute(f'''
@@ -180,6 +229,7 @@ class DBClient:
                 WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])})
             ''', [market, *weapon_uuids])
 
+    @retry
     def update_skins_as_sold(self, market, parsed_urls, weapon_uuids):
         if len(parsed_urls) > 0:
             self.execute(f'''
@@ -192,6 +242,7 @@ class DBClient:
                 WHERE market = %s AND skin_id IN ({",".join(len(weapon_uuids) * ["%s"])}) AND is_sold = False
             ''', [market, *weapon_uuids])
 
+    @retry
     def parse_items_without_link(self):
         items_id, item_links, csgo_links = [], [], []
 
@@ -215,3 +266,4 @@ class DBClient:
         if self.db:
             self.db.close()
             logging.debug("Database connection closed")
+            self.db = None
