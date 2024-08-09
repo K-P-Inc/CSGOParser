@@ -58,7 +58,7 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
   };
 
   const [isLiked, setIsLiked] = useState<boolean>(isLikedItem());
-  
+
   const openSteamLink = () => {
     const itemname = `${item.name} (${item.quality})`
     window.open(`https://steamcommunity.com/market/listings/730/${encodeURIComponent(itemname)}`, "_blank")
@@ -144,9 +144,11 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
                     return (
                       <HoverCard openDelay={200} key={stickerIndex}>
                           <div className="w-[110px] items-center flex flex-col" style={{ position: 'relative' }}>
+                          {item.stickers_wears[stickerIndex] !== null && item.stickers_wears[stickerIndex] !== undefined && (
                             <p className="small-regular text-grey bg-dark-4 p-[3px] rounded-md" style={{ position: 'absolute', left: 0 }}>
-                              {`${(((item.stickers_wears[stickerIndex] ?? 0)) * 100).toFixed(0)}%`}
+                              {`${(item.stickers_wears[stickerIndex] * 100).toFixed(0)}%`}
                             </p>
+                          )}
                             <HoverCardTrigger>
                               <img
                                 key={stickerIndex}
@@ -173,12 +175,16 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
                             </p>
                           </div>
                           <div className="flex justify-between w-full">
-                            <p className="small-regular text-grey">
-                              Wear
-                            </p>
-                            <p className="small-regular text-light-1">
-                              {`${(((item.stickers_wears[stickerIndex] ?? 0)) * 100).toFixed(0)}%`}
-                            </p>
+                          {item.stickers_wears[stickerIndex] !== null && item.stickers_wears[stickerIndex] !== undefined && (
+                            <>
+                              <p className="small-regular text-grey">
+                                Wear
+                              </p>
+                              <p className="small-regular text-light-1">
+                                {`${(item.stickers_wears[stickerIndex] * 100).toFixed(0)}%`}
+                              </p>
+                            </>
+                          )}
                           </div>
                         </HoverCardContent>
                       </HoverCard>
