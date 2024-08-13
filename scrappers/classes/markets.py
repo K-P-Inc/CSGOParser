@@ -282,11 +282,9 @@ class SkinportHelper(BaseHelper):
                 for i in parser_items:
                     if i in item['marketHashName']:
                         if item_listed_marker in main_message:
-                            # TODO: Maybe need to return type of message sold/listed
                             return self.parse_item(item)
                         elif item_sold_marker in main_message:
-                            # Delete from database
-                            print(f"Delete: {item['marketHashName']}")
+                            return self.DB_ENUM_NAME, f'https://skinport.com/item/{item["url"]}/{item["saleId"]}', 'weapon_uuid'
 
 
 class CSFloatHelper(BaseHelper):
