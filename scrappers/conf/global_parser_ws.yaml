@@ -1,0 +1,94 @@
+logging_level: INFO
+
+# parser settings
+weapons:
+  - type: 'AWP'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'M4A4'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'M4A1-S'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'AK-47'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'Desert Eagle'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'USP-S'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'Glock-18'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'P250'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'SSG 08'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'AUG'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'FAMAS'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'Galil AR'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+  - type: 'SG 553'
+    min_steam_item_price: 0.05
+    max_steam_item_price: 1500
+    profit_threshold: 0
+    sticker_sum: 0.03
+
+hydra:
+  job_logging:
+    root:
+      level: INFO
+    formatters:
+      simple:
+        format: '[%(asctime)s] [%(threadName)-12s] [%(levelname)-7s] %(message)-100s # [%(module)s(%(funcName)s):%(lineno)d]'
+    handlers:
+      file:
+        encoding: 'utf-8'
+  run:
+    dir: global_parser_ws_logs
