@@ -4,6 +4,7 @@ import logging
 
 from pathlib import Path
 from utils import repo_path
+from omegaconf import DictConfig
 
 from classes import WSClient, DBClient, RedisClient
 
@@ -35,7 +36,7 @@ def run_action(market, message, weapon_type):
 
 
 @hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name=f'global_parser_ws')
-def main():
+def main(cfg: DictConfig):
     market_types = os.environ.get("WS_MARKET_TYPES").split(",")
     weapon_type = os.environ.get("WEAPON_TYPE")
 

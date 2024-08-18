@@ -3,7 +3,7 @@ FROM python:3.10-slim-buster
 # Set the working directory
 WORKDIR /app
 
-COPY global_parser_api/ /app/global_parser_api/
+COPY global_parser_websocket/ /app/global_parser_websocket/
 COPY conf/ /app/conf/
 COPY classes/ /app/classes/
 COPY utils/ /app/utils/

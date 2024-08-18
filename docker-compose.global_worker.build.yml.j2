@@ -62,7 +62,7 @@ services:
       REDIS_HOST: ${REDIS_HOST}
       REDIS_PORT: ${REDIS_PORT}
       WEAPON_TYPE: {{ weapon_type }}
-      MARKET_TYPES: {{ ws_market_types | join(',') }}
+      WS_MARKET_TYPES: {{ ws_market_types | join(',') }}
 
 {% for market_type_one_network_only in market_types_one_network_only %}
   {{ weapon_short_name }}_global_parser_{{ market_type_one_network_only }}:
