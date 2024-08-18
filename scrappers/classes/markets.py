@@ -180,6 +180,7 @@ class SkinportHelper(BaseHelper):
     MAX_PAGE_NUMBER = 10
     REQUEST_TIMEOUT = 6
     PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
+    WS_LINK = "wss://skinport.com/socket.io/?EIO=4&transport=websocket"
 
     def __init__(self) -> None:
         response = requests.request("GET", "https://skinport.com/api/data")
@@ -202,7 +203,8 @@ class SkinportHelper(BaseHelper):
         pattern_template = item.get('pattern')
 
         is_buy_type_fixed = 'fixed'
-        print(key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed)
+
+        logging.debug(key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed)
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def get_cookies(self, type):
@@ -268,10 +270,10 @@ class SkinportHelper(BaseHelper):
             return None
 
 
-    def parse_item_wss(self, main_message):
+    def parse_item_wss(self, main_message, parser_items):
         item_listed_marker = '"saleFeed",{"eventType":"listed"'
         item_sold_marker = '"saleFeed",{"eventType":"sold"'
-        parser_items = ['AK-47', 'M4A4', 'AWP', 'M4A1-S']
+        # parser_items = ['AK-47', 'M4A4', 'AWP', 'M4A1-S']
 
         if item_listed_marker in main_message or item_sold_marker in main_message:
             message = main_message.replace("42", "", 1)
@@ -282,9 +284,16 @@ class SkinportHelper(BaseHelper):
                 for i in parser_items:
                     if i in item['marketHashName']:
                         if item_listed_marker in main_message:
-                            return self.parse_item(item)
+                            return {
+                                'listed': (self.parse_item(item)),
+                            }
                         elif item_sold_marker in main_message:
-                            return self.DB_ENUM_NAME, f'https://skinport.com/item/{item["url"]}/{item["saleId"]}', 'weapon_uuid'
+                            return {
+                                'sold': {
+                                    'market': self.DB_ENUM_NAME,
+                                    'item_link': f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
+                                }
+                            }
 
 
 class CSFloatHelper(BaseHelper):
