@@ -53,7 +53,7 @@ services:
 {% set weapon_short_name = weapon_type.lower().replace('-', '_').replace(' ', '_') %}
   {{ weapon_short_name }}_wss_parser:
     <<: *global_wss_parser_service
-    image: global_worker
+    image: global_worker_wss
     container_name: {{ weapon_short_name }}_wss_parser
     restart: always
     environment:
