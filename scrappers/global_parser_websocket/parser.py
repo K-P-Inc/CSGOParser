@@ -1,5 +1,10 @@
 
+import hydra
 import logging
+
+from pathlib import Path
+from utils import repo_path
+
 from classes import WSClient, DBClient, RedisClient
 
 from classes.markets import SkinportHelper, BitskinsHelper, CSFloatHelper
@@ -32,6 +37,7 @@ def run_action(market, message):
             # db_client.update_skins_as_sold(parsed_item)
 
 
+@hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name=f'global_parser_ws')
 def main():
     market, wss_route = market_factory('skinport')
 
