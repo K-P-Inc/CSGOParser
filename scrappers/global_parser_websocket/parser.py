@@ -27,8 +27,10 @@ def run_action(market, message, weapon_type):
 
     if parsed_item != None:
         if 'listed' in parsed_item:
+            logging.info(f'Found item {parsed_item["listed"]}')
             db_client.insert_skins(parsed_item['listed'])
         elif 'sold' in parsed_item:
+            logging.info(f'Item was sold {parsed_item["sold"]}')
             db_client.update_skins_as_sold_using_wss(parsed_item['sold'])
 
 
