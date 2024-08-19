@@ -78,7 +78,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const direct_item_id: string | null = url.searchParams.get("direct_item_id");
   const only_liked_items: boolean = url.searchParams.get("only_liked_items") ? true : false;
   const page = parseInt(url.searchParams.get("page") || "0");
-  const cookieHeader = request.headers.get("Cookie");
+  const cookieHeader = request.headers?.get("Cookie");
   const cookies = new Cookies(cookieHeader);
   const likedItemsArray = cookies.get("liked_items") ? cookies.get("liked_items").split(",") : [];
 
@@ -212,8 +212,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     ${orderBy}
     LIMIT ${MAX_PAGE_ITEMS} OFFSET ${page * MAX_PAGE_ITEMS};
   `;
-
-  console.log(query)
 
   const directQuery = `
     SELECT

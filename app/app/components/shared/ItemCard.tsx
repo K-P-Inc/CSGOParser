@@ -146,7 +146,7 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
                           <div className="w-[110px] items-center flex flex-col" style={{ position: 'relative' }}>
                           {item.stickers_wears[stickerIndex] !== null && item.stickers_wears[stickerIndex] !== undefined && (
                             <p className="small-regular text-grey bg-dark-4 p-[3px] rounded-md" style={{ position: 'absolute', left: 0 }}>
-                              {`${(item.stickers_wears[stickerIndex] * 100).toFixed(0)}%`}
+                              {`${((item.stickers_wears[stickerIndex] ?? 0) * 100).toFixed(0)}%`}
                             </p>
                           )}
                             <HoverCardTrigger>
@@ -300,14 +300,16 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
                     )}
                   </div>
                 </div>
-                <Toggle
-                  pressed={isLiked}
-                  className={`h-8 px-2 post-card_liked ${isLiked ? 'visible' : 'invisible'}`}
-                  onClick={(e: any) => e.stopPropagation()}
-                  onPressedChange={(value: boolean) => changeLikedItemsCookie(value)}
-                >
-                  <HeartFilled style={{ fontSize: '20px' }}/>
-                </Toggle>
+                {!onlyPreview &&
+                  <Toggle
+                    pressed={isLiked}
+                    className={`h-8 px-2 post-card_liked ${isLiked ? 'visible' : 'invisible'}`}
+                    onClick={(e: any) => e.stopPropagation()}
+                    onPressedChange={(value: boolean) => changeLikedItemsCookie(value)}
+                  >
+                    <HeartFilled style={{ fontSize: '20px' }}/>
+                  </Toggle>
+                }
               </div>
               <div className="w-full h-[30px]">
                 {onlyPreview ? (

@@ -232,25 +232,25 @@ export default function Index() {
               <div className="w-full sm:w-1/2 lg:w-1/4 p-4 h-full">
                 <div className="px-6 py-10 bg-dark-2 rounded-lg">
                   <h3 className="text-2xl font-bold mb-2 text-primary-500">{(totalItems / 1000).toFixed(1)}K</h3>
-                  <p>Avaliable items</p>
+                  <div>Avaliable items</div>
                 </div>
               </div>
               <div className="w-full sm:w-1/2 lg:w-1/4 p-4 h-full">
                 <div className="px-6 py-10 bg-dark-2 rounded-lg">
                   <h3 className="text-2xl font-bold mb-2 text-primary-500">2.3M</h3>
-                  <p>Items found</p>
+                  <div>Items found</div>
                 </div>
               </div>
               <div className="w-full sm:w-1/2 lg:w-1/4 p-4 h-full">
                 <div className="px-6 py-10 bg-dark-2 rounded-lg">
                   <h3 className="text-2xl font-bold mb-2 text-primary-500">99.9%</h3>
-                  <p>Uptime guarantee</p>
+                  <div>Uptime guarantee</div>
                 </div>
               </div>
               <div className="w-full sm:w-1/2 lg:w-1/4 p-4 h-full">
                 <div className="px-6 py-10 bg-dark-2 rounded-lg">
                   <h3 className="text-2xl font-bold mb-2 text-primary-500">12</h3>
-                  <p>Unique markets</p>
+                  <div>Unique markets</div>
                 </div>
               </div>
             </div>
