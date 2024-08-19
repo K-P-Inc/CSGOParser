@@ -9,7 +9,8 @@ import { Label } from "~/components/ui/label";
 import { Button } from "~/components/ui/button";
 import SkeletonItemCard from '~/components/shared/SkeletonItemCard';
 import { MarketFilter } from '~/components/shared/MarketFilter';
-import { WearType, StickersPattern, StickersType, WeaponType, ShopType, SortType, CategoryType } from "~/types"
+import { WearType, StickersPattern, StickersType, WeaponType, ShopType, SortType, CategoryType } from "~/types";
+import { FrownOutlined } from '@ant-design/icons';
 import Cookies from 'universal-cookie';
 
 const MAX_PAGE_ITEMS = 100;
@@ -379,7 +380,7 @@ export default function Index() {
   return (
     <div className="flex flex-1">
       <div className="home-container">
-        <div className="home-posts">
+        <div className="home-posts h-full">
           <h1 className="h3-bold md:h2-bold text-left w-full">Markets items</h1>
           <MarketFilter
             submit={(target: any) => {
@@ -414,13 +415,34 @@ export default function Index() {
             }}
             loading={isLoading}
           >
-            <div className="gap-2 w-full justify-items-center inline-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
+            <div className="gap-2 w-full justify-items-center inline-grid" style={(!isLoading && skins.length === 0) ? { height: "100%"} : { gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", display: "grid" }}>
               {skins.map((item: SkinItem) => (
                 <ItemCard item={item} key={item.link} defaultOpen={direct_item_id === item.id}/>
               ))}
               {isLoading &&
                 [...Array(MAX_PAGE_ITEMS).keys()].map((i) => <div className="w-full" key={i}><SkeletonItemCard/></div>)
               }
+              {!isLoading && skins.length === 0 && (
+                <div className="flex h-full w-full items-center justify-center text-center">
+                  <div className='space-y-6'>
+                    <FrownOutlined className='text-primary-500 text-4xl' />
+                    <div>
+                      <h3 className="text-2xl font-bold text-light-1 mb-2">Nothing was found</h3>
+                      <p className='text-light-3'>Try to reset filters or change search request</p>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        submit({}, { replace: true });
+                        setSkins([]);
+                        setIsLoading(true);
+                      }}
+                      variant={"primary"}
+                    >
+                      Clear all filters
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </InfiniteScroller>
         </div>

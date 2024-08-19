@@ -87,7 +87,7 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
     if (value && !likedItemsArray.find((id: string) => id === item.id)) {
       likedItemsArray.push(item.id)
     } else {
-      likedItemsArray.filter((id: string) => id !== item.id)
+      likedItemsArray = likedItemsArray.filter((id: string) => id !== item.id)
     }
 
     setIsLiked(value);

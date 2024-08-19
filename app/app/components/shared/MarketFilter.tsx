@@ -51,6 +51,10 @@ export function GenericSelector<T extends string>({
   const [isOpen, setIsOpen] = useState(false);
   const [newSelectedItems, setNewSelectedItems] = useState<T[]>(selectedItems);
 
+  useEffect(() => {
+    setNewSelectedItems(selectedItems);
+  }, [selectedItems]);
+
   return (
     <div className="flex">
       <DropdownMenu open={isOpen} onOpenChange={(open) => {
@@ -262,6 +266,11 @@ export function StickersCategorySelector({
   const stickersTypes: StickersType[] = ["Gold", "Foil", "Holo", "Glitter"]
   const label = "Stickers";
 
+  useEffect(() => {
+    setNewSelectedStickersTypes(selectedStickersTypes);
+    setNewSelectedStickersPatterns(selectedStickersPatterns);
+  }, [selectedStickersPatterns, selectedStickersTypes]);
+
   return (
     <div className="flex">
       <DropdownMenu open={isOpen} onOpenChange={(open) => {
@@ -380,6 +389,11 @@ export function PriceSelector({
   const [newSelectedMaxPrice, setNewSelectedMaxPrice] = useState<number | undefined>(selectedMaxPrice);
   const label = "Price";
 
+  useEffect(() => {
+    setNewSelectedMinPrice(selectedMinPrice);
+    setNewSelectedMaxPrice(selectedMaxPrice);
+  }, [selectedMinPrice, selectedMaxPrice]);
+
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setNewSelectedMinPrice(value);
@@ -473,6 +487,10 @@ export function PriceSelector({
 export function SearchNameInput({ searchName, setSearchName } : { searchName: string, setSearchName: React.Dispatch<React.SetStateAction<string>> } ) {
   const [proxyValue, setProxyValue] = useState<string>(searchName);
 
+  useEffect(() => {
+    setProxyValue(searchName);
+  }, [searchName]);
+
   const handleChange = (e: any) => {
     setProxyValue(e.target.value);
   };
@@ -555,6 +573,10 @@ export function ProfitBasedSwitcher(
 ) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedNewProfitBased, setNewSelectedProfitBased] = useState<string>(profitBased);
+
+  useEffect(() => {
+    setNewSelectedProfitBased(profitBased);
+  }, [profitBased]);
 
   return (
     <div className="flex">
@@ -701,6 +723,34 @@ export function MarketFilter(
     searchName, selectedCategories, sortType, selectedMinPrice, selectedMaxPrice, selectedProfitBased,
     toggleOn
   ])
+
+  useEffect(() => {
+    setSelectedWears(wears);
+    setSelectedWeapons(weapons);
+    setSelectedShops(shops);
+    setSelectedStickersPatterns(stickersPatterns);
+    setSelectedStickersTypes(stickersTypes);
+    setSelectedCategories(categories);
+    setSelectedProfitBased(profit_based);
+    setSelectedMinPrice(min_price);
+    setSelectedMaxPrice(max_price);
+    setSearchName(search);
+    setToggleOn(only_liked_items);
+    setSortType(sort_by);
+  }, [
+    wears, 
+    weapons, 
+    shops, 
+    stickersPatterns, 
+    stickersTypes, 
+    categories, 
+    profit_based, 
+    min_price, 
+    max_price, 
+    search, 
+    only_liked_items, 
+    sort_by
+  ]);
 
   return (
     <div className="w-full space-y-3">
