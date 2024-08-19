@@ -5,7 +5,7 @@ cd /home/deploy/{{item}}
 git pull
 
 docker-compose down
-docker system prune --all
+docker image prune -a -f
 
 BUILD_TYPE={{item}} ansible-playbook prepare-build-config.yml
 
