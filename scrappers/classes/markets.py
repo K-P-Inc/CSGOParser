@@ -292,7 +292,7 @@ class CSFloatHelper(BaseHelper):
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
         url = f"https://csfloat.com/api/v1/listings?limit=50&sort_by=lowest_price&market_hash_name={quote(fullname)}&max_price={max_price * 100}&page={page_number}"
-        response = requests.request("GET", url, headers={ "Authorization" : "JTSCrKaHqwuXwb-C7KqBqRqB9orbERVz" })
+        response = requests.request("GET", url)
 
         try:
             if json.loads(response.text) and json.loads(response.text) == json.loads('{"code":20,"message":"too many requests, try again later"}'):

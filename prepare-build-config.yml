@@ -8,7 +8,6 @@
     market_types:
       - dmarket
       - cs-money
-      - csfloat
       - haloskins
       - market-csgo
       - bitskins
