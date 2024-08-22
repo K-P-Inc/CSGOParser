@@ -19,6 +19,7 @@
 
     ws_market_types:
       - skinport
+      - bitskins
 
     market_types_one_network_only:
       - white-market
