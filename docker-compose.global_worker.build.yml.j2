@@ -51,10 +51,10 @@ services:
         ipv4_address: 182.{{ loop.index0 }}.0.4
 
 {% set weapon_short_name = weapon_type.lower().replace('-', '_').replace(' ', '_') %}
-  {{ weapon_short_name }}_wss_parser:
+  wss_parser:
     <<: *global_wss_parser_service
     image: global_worker_wss
-    container_name: {{ weapon_short_name }}_wss_parser
+    container_name: wss_parser
     restart: always
     environment:
       <<: *db_credentials

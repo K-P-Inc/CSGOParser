@@ -2,6 +2,7 @@ import os
 import hydra
 import logging
 import json
+import threading
 
 from pathlib import Path
 from utils import repo_path, get_weapons_array_by_type, get_stickers_dict, calculate_weapon_real_price
@@ -94,7 +95,7 @@ def main(cfg: DictConfig):
     market_types = os.environ.get("WS_MARKET_TYPES").split(",")
     weapon_types = os.environ.get("WEAPON_TYPE")
 
-    for market_type in market_types:
+    def run_thread(market_type):
         market, wss_route = market_factory(market_type)
         weapon = next((w for w in cfg.weapons if w.type == weapon_types), None)
 
@@ -105,6 +106,9 @@ def main(cfg: DictConfig):
         )
         client.run()
 
+    for market_type in market_types:
+        thread = threading.Thread(target=run_thread, args=(market_type,), name=market_type)
+        thread.start()
 
 if __name__ == "__main__":
     load_dotenv()
