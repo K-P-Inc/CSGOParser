@@ -1,6 +1,7 @@
 import os
 import hydra
 import logging
+import json
 
 from pathlib import Path
 from utils import repo_path, get_weapons_array_by_type, get_stickers_dict, calculate_weapon_real_price
@@ -23,8 +24,6 @@ def market_factory(market_type):
         raise Exception('Unknown market type: {0}'.format(market_type))
 
 def run_action(market, db_client, redis_client,  message, weapons_type):
-    # print(message)
-    # return
     parsed_item = market.parse_item_wss(message)
 
     if parsed_item != None:
@@ -87,8 +86,6 @@ def run_action(market, db_client, redis_client,  message, weapons_type):
             db_client.update_skins_as_sold_using_wss(parsed_item["sold"])
 
 
-
-
 @hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name=f'global_parser_ws')
 def main(cfg: DictConfig):
     db_client = DBClient()
@@ -98,13 +95,13 @@ def main(cfg: DictConfig):
     weapon_types = os.environ.get("WEAPON_TYPE")
 
     for market_type in market_types:
-
         market, wss_route = market_factory(market_type)
         weapon = next((w for w in cfg.weapons if w.type == weapon_types), None)
 
         client = WSClient(
             on_message=lambda ws, message: run_action(market, db_client, redis_client, message, weapon),
-            wss_route=wss_route
+            wss_route=wss_route,
+            market=market_type
         )
         client.run()
 

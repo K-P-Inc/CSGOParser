@@ -248,7 +248,7 @@ class DBClient:
             UPDATE skins SET is_sold = True
             WHERE link = %s AND market = %s AND is_sold = False
         '''
-        params = (skin_data["item_link"], skin_data["market"])
+        params = [skin_data["item_link"], skin_data["market"]]
         self.execute(query, params)
 
 

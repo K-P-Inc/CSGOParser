@@ -336,6 +336,7 @@ class BitskinsHelper(BaseHelper):
     MAX_ITEMS_PER_PAGE = 501
     REQUEST_TIMEOUT = 3
     PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
+    WS_LINK = 'wss://ws.bitskins.com'
 
     def parse_item(self, item):
         key_price = item["name"]
@@ -368,6 +369,23 @@ class BitskinsHelper(BaseHelper):
 
         except:
             return None
+
+    def parse_item_wss(self, main_message):
+        item_was_lised = 'listed'
+        price_changed = 'price_changed'
+        item_was_sold = 'delisted_or_sold'
+        action, data = json.loads(main_message)
+        if action == item_was_lised or action == price_changed:
+            return {
+                'listed': self.parse_item(data),
+            }
+        elif action == item_was_sold:
+            return {
+                'sold': {
+                    'market': self.DB_ENUM_NAME,
+                    'item_link': f'https://bitskins.com/item/cs2/{data["id"]}'
+                }
+            }
 
 class HaloskinsHelper(BaseHelper):
     DB_ENUM_NAME = 'haloskins'
