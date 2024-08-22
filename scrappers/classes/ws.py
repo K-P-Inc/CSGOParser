@@ -23,10 +23,12 @@ class WSClient:
         self.reconnect()
 
     def on_open(self, ws):
-        logging.info("Connection opened")
+        logging.info(f"Connection opened to market: {self.market}")
         # Sending initial handshake and authentication
         if self.market == 'bitskins':
             self.socket_send(ws, "WS_AUTH_APIKEY", '0cf7612993146e47996a14cbd4e439d877af46360625b23798e6757f5c3765dc')
+        elif self.market == 'skinport':
+            ws.send("40")
         timer = threading.Timer(1, self.send_initial_message, [ws])
         timer.start()
 
