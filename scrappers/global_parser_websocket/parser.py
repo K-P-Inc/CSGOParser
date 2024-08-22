@@ -16,15 +16,15 @@ def market_factory(market_type):
     if market_type == "skinport":
         return SkinportHelper(), SkinportHelper().WS_LINK
     elif market_type == "bitskins":
-        return BitskinsHelper(), ''
+        return BitskinsHelper(), BitskinsHelper().WS_LINK
     elif market_type == "csfloat":
         return CSFloatHelper(), ''
     else:
         raise Exception('Unknown market type: {0}'.format(market_type))
 
-def run_action(market, message, weapons_type):
-    db_client = DBClient()
-    redis_client = RedisClient()
+def run_action(market, db_client, redis_client,  message, weapons_type):
+    print(message)
+    return
     parsed_item = market.parse_item_wss(message)
 
     if parsed_item != None:
@@ -91,6 +91,9 @@ def run_action(market, message, weapons_type):
 
 @hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name=f'global_parser_ws')
 def main(cfg: DictConfig):
+    db_client = DBClient()
+    redis_client = RedisClient()
+
     market_types = os.environ.get("WS_MARKET_TYPES").split(",")
     weapon_types = os.environ.get("WEAPON_TYPE")
 
@@ -100,7 +103,7 @@ def main(cfg: DictConfig):
         weapon = next((w for w in cfg.weapons if w.type == weapon_types), None)
 
         client = WSClient(
-            on_message=lambda ws, message: run_action(market, message, weapon),
+            on_message=lambda ws, message: run_action(market, db_client, redis_client, message, weapon),
             wss_route=wss_route
         )
         client.run()
