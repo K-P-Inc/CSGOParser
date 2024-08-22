@@ -23,8 +23,8 @@ def market_factory(market_type):
         raise Exception('Unknown market type: {0}'.format(market_type))
 
 def run_action(market, db_client, redis_client,  message, weapons_type):
-    print(message)
-    return
+    # print(message)
+    # return
     parsed_item = market.parse_item_wss(message)
 
     if parsed_item != None:
