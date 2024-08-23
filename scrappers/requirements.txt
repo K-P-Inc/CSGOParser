@@ -7,10 +7,15 @@ python-dotenv
 psycopg2
 selenium-wire==5.1.0
 blinker==1.7.0
-Brotli==1.1.0 
+Brotli==1.1.0
 selenium==4.9.1
 requests
 redis
 fake_useragent
 lxml
 prometheus_client
+simple-websocket==1.0.0
+trio-websocket==0.11.1
+websocket-client==1.7.0
+websockets==12.0
+python-socketio

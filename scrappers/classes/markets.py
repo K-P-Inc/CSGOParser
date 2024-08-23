@@ -180,6 +180,7 @@ class SkinportHelper(BaseHelper):
     MAX_PAGE_NUMBER = 10
     REQUEST_TIMEOUT = 6
     PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
+    WS_LINK = "https://skinport.com"
 
     def __init__(self) -> None:
         response = requests.request("GET", "https://skinport.com/api/data")
@@ -203,6 +204,7 @@ class SkinportHelper(BaseHelper):
 
         is_buy_type_fixed = 'fixed'
 
+        # logging.debug(key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed)
         return key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed
 
     def get_cookies(self, type):
@@ -267,6 +269,24 @@ class SkinportHelper(BaseHelper):
             self.force_update = False
             return None
 
+
+    def parse_item_wss(self, main_message):
+        sales = main_message["sales"]
+
+        for item in sales:
+            if main_message["eventType"] == "listed":
+                return {
+                    'listed': self.parse_item(item),
+                }
+            elif main_message["eventType"] == "sold":
+                return {
+                    'sold': {
+                        'market': self.DB_ENUM_NAME,
+                        'item_link': f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
+                    }
+                }
+
+
 class CSFloatHelper(BaseHelper):
     DB_ENUM_NAME = 'csfloat'
     MAX_ITEMS_PER_PAGE = 50
@@ -310,6 +330,7 @@ class BitskinsHelper(BaseHelper):
     MAX_ITEMS_PER_PAGE = 501
     REQUEST_TIMEOUT = 3
     PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
+    WS_LINK = 'wss://ws.bitskins.com'
 
     def parse_item(self, item):
         key_price = item["name"]
@@ -321,7 +342,10 @@ class BitskinsHelper(BaseHelper):
         item_float = item.get('float_value')
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
-        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['bot_steam_id']}A{item['asset_id']}D{item['float_id']}"
+        if item.get('bot_steam_id') and item.get('asset_id') and item.get('float_id'):
+            item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item.get('bot_steam_id')}A{item.get('asset_id')}D{item.get('float_id')}"
+        else:
+            item_in_game_link = None
         pattern_template = item.get('paint_seed')
 
         is_buy_type_fixed = 'fixed'
@@ -342,6 +366,23 @@ class BitskinsHelper(BaseHelper):
 
         except:
             return None
+
+    def parse_item_wss(self, main_message):
+        item_was_lised = 'listed'
+        price_changed = 'price_changed'
+        item_was_sold = 'delisted_or_sold'
+        action, data = json.loads(main_message)
+        if action == item_was_lised or action == price_changed:
+            return {
+                'listed': self.parse_item(data),
+            }
+        elif action == item_was_sold:
+            return {
+                'sold': {
+                    'market': self.DB_ENUM_NAME,
+                    'item_link': f'https://bitskins.com/item/cs2/{data["id"]}'
+                }
+            }
 
 class HaloskinsHelper(BaseHelper):
     DB_ENUM_NAME = 'haloskins'

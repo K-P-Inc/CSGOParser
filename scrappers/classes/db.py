@@ -243,6 +243,16 @@ class DBClient:
             ''', [market, *weapon_uuids])
 
     @retry
+    def update_skins_as_sold_using_wss(self, skin_data):
+        query = '''
+            UPDATE skins SET is_sold = True
+            WHERE link = %s AND market = %s AND is_sold = False
+        '''
+        params = [skin_data["item_link"], skin_data["market"]]
+        self.execute(query, params)
+
+
+    @retry
     def parse_items_without_link(self):
         items_id, item_links, csgo_links = [], [], []
 
