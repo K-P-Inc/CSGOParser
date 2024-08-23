@@ -41,19 +41,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: ["global_worker", "worker", "dashboard", "infrastructure"]
-        service: ["global_worker", "worker", "dashboard", "items_prices_parser", "global_worker_wss"]
         include:
-        - build_type: global_worker
-          service: global_worker
-        - build_type: global_worker
-          service: global_worker_wss
-        - build_type: worker
-          service: worker
-        - build_type: dashboard
-          service: dashboard
-        - build_type: infrastructure
-          service: items_prices_parser
+          - build_type: global_worker
+            service: global_worker
+          - build_type: global_worker
+            service: global_worker_wss
+          - build_type: worker
+            service: worker
+          - build_type: dashboard
+            service: dashboard
+          - build_type: infrastructure
+            service: items_prices_parser
 
     name: Build, test and publish app Docker images (${{ matrix.build_type }})
     steps:
