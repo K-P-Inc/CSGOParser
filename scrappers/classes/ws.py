@@ -52,10 +52,17 @@ class SocketMarketClient:
     def reconnect(self):
         threading.current_thread().name = self.market_type
         logging.info("Reconnecting...")
+        if self.sio.connected:
+            logging.info("Client is still connected, disconnecting first...")
+            self.sio.disconnect()
         self.connect()
 
     def connect(self):
-        self.sio.connect(self.wss_route, transports=['websocket'])
+        threading.current_thread().name = self.market_type
+        try:
+            self.sio.connect(self.wss_route, transports=['websocket'])
+        except socketio.exceptions.ConnectionError as e:
+            logging.error(f"Connection error: {e}")
 
     def run(self):
         self.connect()
