@@ -190,9 +190,11 @@ class SkinportHelper(BaseHelper):
         self.redis_client = RedisClient()
         self.force_update = True
 
-    def parse_item(self, item):
+    def parse_item(self, item, currency='EUR'):
         key_price = item["marketHashName"]
-        item_price = float(item["salePrice"]) / 100.0 * self.rates["USD"]
+
+        item_price = float(item["salePrice"]) if currency == 'USD' else float(item["salePrice"]) / 100.0 * self.rates["USD"]
+
         item_link = f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
         stickers_keys = [sticker["name"] for sticker in item["stickers"]]
 
@@ -276,7 +278,7 @@ class SkinportHelper(BaseHelper):
         for item in sales:
             if main_message["eventType"] == "listed":
                 return {
-                    'listed': self.parse_item(item),
+                    'listed': self.parse_item(item, 'USD'),
                 }
             elif main_message["eventType"] == "sold":
                 return {
