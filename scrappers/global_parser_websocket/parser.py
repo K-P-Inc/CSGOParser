@@ -57,7 +57,7 @@ def run_action(market, db_client: DBClient, redis_client: RedisClient, message, 
                 for sticker in matched_stickers
             ))
 
-            if sticker_sum > weapons_type.sticker_sum:
+            if sticker_sum > 5:
                 db_client.insert_skins([(
                     market.DB_ENUM_NAME,
                     item_link,
