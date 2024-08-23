@@ -180,7 +180,7 @@ class SkinportHelper(BaseHelper):
     MAX_PAGE_NUMBER = 10
     REQUEST_TIMEOUT = 6
     PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
-    WS_LINK = "wss://skinport.com/socket.io/?EIO=4&transport=websocket"
+    WS_LINK = "https://skinport.com"
 
     def __init__(self) -> None:
         response = requests.request("GET", "https://skinport.com/api/data")
@@ -271,26 +271,20 @@ class SkinportHelper(BaseHelper):
 
 
     def parse_item_wss(self, main_message):
-        item_listed_marker = '"saleFeed",{"eventType":"listed"'
-        item_sold_marker = '"saleFeed",{"eventType":"sold"'
+        sales = main_message["sales"]
 
-        if item_listed_marker in main_message or item_sold_marker in main_message:
-            message = main_message.replace("42", "", 1)
-            message = json.loads(message)
-            sales = message[1]["sales"]
-
-            for item in sales:
-                if item_listed_marker in main_message:
-                    return {
-                        'listed': self.parse_item(item),
+        for item in sales:
+            if main_message["eventType"] == "listed":
+                return {
+                    'listed': self.parse_item(item),
+                }
+            elif main_message["eventType"] == "sold":
+                return {
+                    'sold': {
+                        'market': self.DB_ENUM_NAME,
+                        'item_link': f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
                     }
-                elif item_sold_marker in main_message:
-                    return {
-                        'sold': {
-                            'market': self.DB_ENUM_NAME,
-                            'item_link': f'https://skinport.com/item/{item["url"]}/{item["saleId"]}'
-                        }
-                    }
+                }
 
 
 class CSFloatHelper(BaseHelper):
@@ -348,7 +342,10 @@ class BitskinsHelper(BaseHelper):
         item_float = item.get('float_value')
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
-        item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item['bot_steam_id']}A{item['asset_id']}D{item['float_id']}"
+        if item.get('bot_steam_id') and item.get('asset_id') and item.get('float_id'):
+            item_in_game_link = f"steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S{item.get('bot_steam_id')}A{item.get('asset_id')}D{item.get('float_id')}"
+        else:
+            item_in_game_link = None
         pattern_template = item.get('paint_seed')
 
         is_buy_type_fixed = 'fixed'

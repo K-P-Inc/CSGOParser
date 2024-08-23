@@ -20,3 +20,7 @@ services:
       driver: journald
 
 {% endfor %}
+  wss_parser:
+    image: sprili/global_worker_wss:${COMMIT}
+    logging:
+      driver: journald

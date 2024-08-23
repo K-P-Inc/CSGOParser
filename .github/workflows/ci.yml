@@ -45,6 +45,8 @@ jobs:
         include:
         - build_type: global_worker
           service: global_worker
+        - build_type: global_worker
+          service: global_worker_wss
         - build_type: worker
           service: worker
         - build_type: dashboard

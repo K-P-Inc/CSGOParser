@@ -4,7 +4,7 @@ import json
 from classes.db import DBClient
 from classes.redis import RedisClient
 
-def get_weapons_array_by_type(db_client, redis_client, weapon_config, parsed_items, with_quality=False):
+def get_weapons_array_by_type(db_client: DBClient, redis_client: RedisClient, weapon_config, parsed_items, with_quality=False):
     weapons = []
     weapons_prices = {}
 
@@ -47,7 +47,58 @@ def get_weapons_array_by_type(db_client, redis_client, weapon_config, parsed_ite
 
     return weapons, weapons_prices
 
-def get_stickers_dict(db_client, redis_client):
+def get_weapons_array_by_types(db_client: DBClient, redis_client: RedisClient, weapon_configs, parsed_items, with_quality=False):
+    weapons = []
+    weapons_prices = {}
+
+    while len(weapons) == 0:
+        logging.debug(f'Getting skins from database, already parsed {parsed_items}')
+        redis_key = f"{' '.join([weapon_config.type for weapon_config in weapon_configs])}_weapons_prices{'_with_quality' if with_quality else ''}"
+
+        if redis_client.exists(redis_key):
+            weapons_prices_str_json = redis_client.get(redis_key)
+            weapons_prices = json.loads(weapons_prices_str_json)
+
+        else:
+            weapons_db_list = []
+            for weapon_config in weapon_configs:
+                lst = db_client.get_all_weapons(weapon_config.type, weapon_config.min_steam_item_price, weapon_config.max_steam_item_price)
+                weapons_db_list.extend(lst)
+
+            logging.info(f"Pulled {len(weapons_db_list)}")
+
+            weapons_prices = {}
+            for weapon in weapons_db_list:
+                key = f'{"StatTrak™ " if weapon[3] == True else ""}{weapon[0]} ({weapon[2]})'
+                weapon_config = next((w for w in weapon_configs if weapon[0].startswith(w.type)), None)
+                weapons_prices[key] = {
+                    "uuid": str(weapon[4]),
+                    "price": weapon[1],
+                    "is_stattrak": weapon[3],
+                    "type": weapon_config.type,
+                    "name": f"{weapon[0].split(' | ')[1]} ({weapon[2]})" if with_quality else weapon[0].split(' | ')[1]
+                }
+
+            if weapons_db_list:
+                redis_client.set(redis_key, json.dumps(weapons_prices), ex=900)
+
+        weapons = sorted(list(set([
+            (value["type"], value["name"], value["is_stattrak"])
+            for _, value in weapons_prices.items()
+        ])))
+
+        if len(weapons) > parsed_items:
+            weapons = weapons[parsed_items:]
+        else:
+            logging.debug(f'All items parsed, reseting parsed items counter')
+            parsed_items = 0
+
+        logging.debug(f'Fetched {len(weapons)} skins from database')
+        time.sleep(1)
+
+    return weapons, weapons_prices
+
+def get_stickers_dict(db_client: DBClient, redis_client: RedisClient):
     redis_key = "stickers_dict"
 
     stickers_dict = {}

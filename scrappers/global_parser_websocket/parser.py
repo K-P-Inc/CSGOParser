@@ -1,3 +1,4 @@
+import asyncio
 import os
 import hydra
 import logging
@@ -5,12 +6,10 @@ import json
 import threading
 
 from pathlib import Path
-from utils import repo_path, get_weapons_array_by_type, get_stickers_dict, calculate_weapon_real_price
+from utils import repo_path, get_weapons_array_by_type, get_stickers_dict, calculate_weapon_real_price, get_weapons_array_by_types
 from dotenv import load_dotenv
 from omegaconf import DictConfig
-
-from classes import WSClient, DBClient, RedisClient
-
+from classes import DBClient, RedisClient, create_market_client
 from classes.markets import SkinportHelper, BitskinsHelper, CSFloatHelper
 
 
@@ -24,15 +23,14 @@ def market_factory(market_type):
     else:
         raise Exception('Unknown market type: {0}'.format(market_type))
 
-def run_action(market, db_client, redis_client,  message, weapons_type):
+def run_action(market, db_client: DBClient, redis_client: RedisClient, message, weapons_type):
     parsed_item = market.parse_item_wss(message)
-
     if parsed_item != None:
         if 'listed' in parsed_item:
             key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed = parsed_item['listed']
 
             stickers_dict = get_stickers_dict(db_client, redis_client)
-            weapons, weapons_prices = get_weapons_array_by_type(db_client, redis_client, weapons_type, parsed_items=0, with_quality=True)
+            weapons, weapons_prices = get_weapons_array_by_types(db_client, redis_client, weapons_type, parsed_items=0, with_quality=True)
 
             if len(stickers_keys) == 0 or key_price not in weapons_prices:
                 return
@@ -93,16 +91,14 @@ def main(cfg: DictConfig):
     redis_client = RedisClient()
 
     market_types = os.environ.get("WS_MARKET_TYPES").split(",")
-    weapon_types = os.environ.get("WEAPON_TYPE")
 
     def run_thread(market_type):
         market, wss_route = market_factory(market_type)
-        weapon = next((w for w in cfg.weapons if w.type == weapon_types), None)
 
-        client = WSClient(
-            on_message=lambda ws, message: run_action(market, db_client, redis_client, message, weapon),
-            wss_route=wss_route,
-            market=market_type
+        client = create_market_client(
+            market_type=market_type,
+            on_message=lambda message: run_action(market, db_client, redis_client, message, cfg.weapons),
+            wss_route=wss_route
         )
         client.run()
 
