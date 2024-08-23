@@ -42,6 +42,7 @@ jobs:
     strategy:
       matrix:
         build_type: ["global_worker", "worker", "dashboard", "infrastructure"]
+        service: ["global_worker", "worker", "dashboard", "items_prices_parser", "global_worker_wss"]
         include:
         - build_type: global_worker
           service: global_worker
