@@ -25,9 +25,11 @@ def market_factory(market_type):
 
 def run_action(market, db_client: DBClient, redis_client: RedisClient, message, weapons_type):
     parser_type = 'wss_parser'
+    logging.info(message)
     parsed_item = market.parse_item_wss(message)
     if parsed_item != None:
         if 'listed' in parsed_item:
+            logging.info(parsed_item['listed'])
             key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed = parsed_item['listed']
 
             stickers_dict = get_stickers_dict(db_client, redis_client)
@@ -84,10 +86,21 @@ def run_action(market, db_client: DBClient, redis_client: RedisClient, message, 
         elif 'sold' in parsed_item:
             logging.info(f'Item was sold {parsed_item["sold"]}')
             db_client.update_skins_as_sold_using_wss(parsed_item["sold"])
+        elif 'price_change' in parsed_item:
+            _, weapons_prices = get_weapons_array_by_types(db_client, redis_client, weapons_type, parsed_items=0, with_quality=True)
+
+            if parsed_item['price_change']['item_name'] in weapons_prices:
+                logging.info(f'Price was changed {parsed_item["price_change"]}')
+                db_client.update_item_price_using_wss(parsed_item["price_change"])
+            else:
+                logging.info('Item not in parsing list')
 
 
 @hydra.main(config_path=str((Path(repo_path()) / 'conf').resolve()), config_name=f'global_parser_ws')
 def main(cfg: DictConfig):
+    global items_price_change
+    items_price_change = []
+
     db_client = DBClient()
     redis_client = RedisClient()
 

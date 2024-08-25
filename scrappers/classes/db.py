@@ -4,6 +4,7 @@ import logging
 import threading
 import time
 from functools import wraps
+from psycopg2 import sql
 
 def retry(fn):
     @wraps(fn)
@@ -252,6 +253,15 @@ class DBClient:
         params = [skin_data["item_link"], skin_data["market"]]
         self.execute(query, params)
 
+    @retry
+    def update_item_price_using_wss(self, skin_data):
+        query = '''
+            UPDATE skins SET price = %s
+            WHERE link = %s
+        '''
+
+        params = [skin_data["new_price"], skin_data["item_link"]]
+        self.execute(query, params)
 
     @retry
     def parse_items_without_link(self):

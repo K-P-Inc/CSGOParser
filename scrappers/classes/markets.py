@@ -369,14 +369,35 @@ class BitskinsHelper(BaseHelper):
         except:
             return None
 
+    def do_request_after_wss(self, item_id):
+        url = f'https://api.bitskins.com/market/search/get'
+        headers = {'x-apikey': "0cf7612993146e47996a14cbd4e439d877af46360625b23798e6757f5c3765dc"}
+        data = {
+            "app_id": 730,
+            "id": f"{item_id}"
+        }
+
+        response = requests.request("POST", url=url, json=data, headers=headers)
+
+        return json.loads(response.text)
+
     def parse_item_wss(self, main_message):
         item_was_lised = 'listed'
         price_changed = 'price_changed'
         item_was_sold = 'delisted_or_sold'
         action, data = json.loads(main_message)
-        if action == item_was_lised or action == price_changed:
+        if action == item_was_lised:
+            item_data = self.do_request_after_wss(data['id'])
             return {
-                'listed': self.parse_item(data),
+                'listed': self.parse_item(item_data),
+            }
+        elif action == price_changed:
+            return{
+                'price_change': {
+                    'item_name': data["name"],
+                    'new_price': float(data["price"]) / 1000.0,
+                    'item_link': f'https://bitskins.com/item/cs2/{data["id"]}'
+                },
             }
         elif action == item_was_sold:
             return {

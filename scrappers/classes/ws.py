@@ -107,6 +107,7 @@ class WebSocketMarketClient:
         self.socket_send("WS_SUB", "listed")
         self.socket_send("WS_SUB", "price_changed")
         self.socket_send("WS_SUB", "delisted_or_sold")
+        # self.socket_send("WS_SUB", "extra_info")
 
     def reconnect(self):
         logging.info("Reconnecting...")
