@@ -24,6 +24,7 @@ def market_factory(market_type):
         raise Exception('Unknown market type: {0}'.format(market_type))
 
 def run_action(market, db_client: DBClient, redis_client: RedisClient, message, weapons_type):
+    parser_type = 'wss_parser'
     parsed_item = market.parse_item_wss(message)
     if parsed_item != None:
         if 'listed' in parsed_item:
@@ -67,7 +68,7 @@ def run_action(market, db_client: DBClient, redis_client: RedisClient, message, 
                     stickers_overprice,
                     weapon_uuid, stickers_pattern, num_stickers, len(matched_stickers), False,
                     [sticker["id"] for sticker in matched_stickers],
-                    stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants
+                    stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants, parser_type
                 )])
                 logging.info(
                     f'Found new item:\n\n'

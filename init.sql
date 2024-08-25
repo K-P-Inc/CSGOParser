@@ -92,6 +92,7 @@ CREATE TYPE market_type AS ENUM (
 CREATE TABLE IF NOT EXISTS skins (
   id uuid DEFAULT uuid_generate_v4 (),
   link text null,
+  parser_type text null,
   stickers_price double precision null,
   price double precision null,
   profit double precision null,

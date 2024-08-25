@@ -140,12 +140,12 @@ class DBClient:
 
     @retry
     def insert_skins(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,CAST(%s AS uuid[]),CAST(%s AS double precision[]),%s,%s,%s,%s,CAST(%s AS csgo_stickers_variant[]))" for _ in values])
+        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,CAST(%s AS uuid[]),CAST(%s AS double precision[]),%s,%s,%s,%s,CAST(%s AS csgo_stickers_variant[]), %s)" for _ in values])
         query = f'''
             INSERT INTO skins(
                 market, link, stickers_price, price, profit, profit_buff, stickers_overprice, skin_id,
                 stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers,
-                stickers_wears, item_float, in_game_link, pattern_template, order_type, stickers_distinct_variants
+                stickers_wears, item_float, in_game_link, pattern_template, order_type, stickers_distinct_variants, parser_type
             ) VALUES {placeholders}
             ON CONFLICT (link) DO UPDATE SET
                 stickers_price = EXCLUDED.stickers_price,
@@ -164,7 +164,8 @@ class DBClient:
                 in_game_link = EXCLUDED.in_game_link,
                 pattern_template = EXCLUDED.pattern_template,
                 order_type = EXCLUDED.order_type,
-                stickers_distinct_variants = EXCLUDED.stickers_distinct_variants
+                stickers_distinct_variants = EXCLUDED.stickers_distinct_variants,
+                parser_type = EXCLUDED.parser_type
         '''
         flat_values = [val for row in values for val in row]
         self.execute(query, flat_values)

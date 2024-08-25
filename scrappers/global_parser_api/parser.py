@@ -25,6 +25,7 @@ def parse_item(
 
     found_items = []
     parsed_urls = []
+    parser_type = 'api_parser'
 
     logging.info(f'Parsing weapon {display_name} (found {len(items_list)})')
     for i in items_list:
@@ -66,7 +67,7 @@ def parse_item(
                 stickers_overprice,
                 weapon_uuid, stickers_pattern, num_stickers, len(matched_stickers), False,
                 [sticker["id"] for sticker in matched_stickers],
-                stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants
+                stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants, parser_type
             ))
             logging.info(
                 f'Found new item:\n\n'
