@@ -8,6 +8,7 @@ from fake_useragent import UserAgent
 from selenium.webdriver.common.by import By
 from .redis import RedisClient
 from .driver import SeleniumDriver
+from datetime import datetime, timedelta
 
 
 # stickers_wears = 0 (not scratched)
@@ -183,14 +184,22 @@ class SkinportHelper(BaseHelper):
     WS_LINK = "https://skinport.com"
 
     def __init__(self) -> None:
-        response = requests.request("GET", "https://skinport.com/api/data")
-        json_data = json.loads(response.text)
-
-        self.rates = json_data["rates"]
+        self.rates = None
+        self.last_update_time = None
         self.redis_client = RedisClient()
         self.force_update = True
+        self.update_rates()
+
+    def update_rates(self):
+        response = requests.request("GET", "https://skinport.com/api/data")
+        json_data = json.loads(response.text)
+        self.rates = json_data["rates"]
+        self.last_update_time = datetime.now()
 
     def parse_item(self, item, currency='EUR'):
+        if self.last_update_time is None or datetime.now() - self.last_update_time > timedelta(minutes=1):
+            self.update_rates()
+
         key_price = item["marketHashName"]
 
         item_price = float(item["salePrice"]) / 100.0 if currency == 'USD' else float(item["salePrice"]) / 100.0 * self.rates["USD"]
