@@ -6,6 +6,13 @@
     # Most of the initial tasks follow the instructions here: https://docs.docker.com/engine/install/ubuntu/
     # for install Docker Engine on Ubuntu.
 
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+
     # Packages needs to use HTTPS apt repos
     - name: Prepare to add Docker apt repo
       apt:

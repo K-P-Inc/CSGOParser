@@ -375,6 +375,15 @@ def parse_with_price_and_update_profits(items):
         ('/m4a1-s-', 'M4A1-S'),
         ('/m4a4-', 'M4A4'),
         ('/awp-', 'AWP'),
+        ('/p250-', 'P250'),
+        ('/glock-18-', 'Glock-18'),
+        ('/usp-s-', 'USP-S'),
+        ('/desert-eagle-', 'Desert Eagle'),
+        ('/famas-', 'FAMAS'),
+        ('/aug-', 'AUG'),
+        ('/galil-ar-', 'Galil AR'),
+        ('/ssg-08-', 'SSG 08'),
+        ('/sg-553-', 'SG 553'),
         ('/sticker-', 'Sticker')
     ]
     try:

@@ -18,12 +18,16 @@ x-global_wss_parser_service: &global_wss_parser_service
     dockerfile: global_parser_websocket/Dockerfile
 
 {% set weapon_types = lookup('env', 'WEAPON_TYPES') | split(',') %}
+{% set proxy_list = lookup('env', 'PROXY_LIST') | split(',') %}
 networks:
+  parser_chrome_node:
+    driver: bridge
+
 {% for weapon_type in weapon_types %}
   parser_net_{{ loop.index0 }}:
     driver: bridge
     driver_opts:
-      com.docker.network.bridge.enable_ip_masquerade: "false"
+      com.docker.network.bridge.enable_ip_masquerade: "true"
     ipam:
       config:
         - subnet: 182.{{ loop.index0 }}.0.0/16
@@ -45,40 +49,25 @@ services:
       REDIS_PORT: ${REDIS_PORT}
       WEAPON_TYPE: {{ weapon_type }}
       MARKET_TYPES: {{ market_types | join(',') }}
-      CUSTOM_ALONE_NODE: {{ weapon_short_name }}-chrome-node
+      CUSTOM_ALONE_NODE: chrome-node
+      PROXY_URL: {{ proxy_list[loop.index0] }}
     networks:
-      parser_net_{{ loop.index0 }}:
-        ipv4_address: 182.{{ loop.index0 }}.0.4
+      - parser_chrome_node
 
 {% set weapon_short_name = weapon_type.lower().replace('-', '_').replace(' ', '_') %}
 
-{% for market_type_one_network_only in market_types_one_network_only %}
-  {{ weapon_short_name }}_global_parser_{{ market_type_one_network_only }}:
-    <<: *global_api_parser_service
-    image: global_worker
-    container_name: {{ weapon_short_name }}_global_parser_{{ market_type_one_network_only }}
-    restart: always
-    environment:
-      <<: *db_credentials
-      REDIS_PWD: ${REDIS_PWD}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      WEAPON_TYPE: {{ weapon_type }}
-      MARKET_TYPES: {{ market_type_one_network_only }}
 {% endfor %}
 
-  {{ weapon_short_name }}-chrome-node:
+  chrome-node:
     image: {{ "seleniarm/standalone-chromium:latest" if ansible_architecture == 'arm64' else "selenium/standalone-chrome:latest" }}
-    container_name: {{ weapon_short_name }}-chrome-node
-    hostname: {{ weapon_short_name }}-chrome-node
+    container_name: chrome-node
+    hostname: chrome-node
     restart: always
     volumes:
       - /dev/shm:/dev/shm
     networks:
-      parser_net_{{ loop.index0 }}:
-        ipv4_address: 182.{{ loop.index0 }}.0.5
+      - parser_chrome_node
 
-{% endfor %}
   wss_parser:
     <<: *global_wss_parser_service
     image: global_worker_wss
@@ -89,4 +78,5 @@ services:
       REDIS_PWD: ${REDIS_PWD}
       REDIS_HOST: ${REDIS_HOST}
       REDIS_PORT: ${REDIS_PORT}
+      CUSTOM_ALONE_NODE: chrome-node
       WS_MARKET_TYPES: {{ ws_market_types | join(',') }}

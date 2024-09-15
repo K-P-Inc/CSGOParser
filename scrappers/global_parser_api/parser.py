@@ -69,7 +69,7 @@ def parse_item(
                 [sticker["id"] for sticker in matched_stickers],
                 stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants, parser_type
             ))
-            logging.info(
+            logging.debug(
                 f'Found new item:\n\n'
                 f'Link: {item_link}\n'
                 f'Name - price: {key_price} - {item_price:.2f} $\n'

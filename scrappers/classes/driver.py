@@ -1,16 +1,19 @@
 import logging
 import os
 from selenium.webdriver import ChromeOptions, Remote, DesiredCapabilities, Chrome
+from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 class SeleniumDriver:
     def __init__(self):
         self.driver = None
 
-
         options = ChromeOptions()
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument("--enable-javascript")
+
+        if os.getenv("PROXY_URL"):
+            options.proxy = Proxy({ 'proxyType': ProxyType.MANUAL, 'httpProxy': os.getenv("PROXY_URL").replace("http://", "") })
 
         if not os.getenv("DOCKER_RUN"):
             self.driver = Chrome(options=options)
@@ -21,6 +24,7 @@ class SeleniumDriver:
                     "enableVNC": True
                 }
             }
+
             capabilities.update(options.to_capabilities())
 
             weapon_parser_type = os.getenv("WEAPON_TYPE")

@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import os
 import logging
 from urllib.parse import quote, urlencode
 from utils.data import load_data_json
@@ -18,6 +19,15 @@ from datetime import datetime, timedelta
 # is_buy_type_fixed = 'fixed' (not auctions)
 # is_buy_type_fixed = False (auctions)
 
+
+def get_proxy_config():
+    if os.getenv('PROXY_URL'):
+        return {
+            "http": os.getenv('PROXY_URL'),
+            "https": os.getenv('PROXY_URL')
+        }
+    else:
+        return {}
 
 class BaseHelper:
     PARSE_WITH_QUALITY = False
@@ -267,7 +277,7 @@ class SkinportHelper(BaseHelper):
         }
 
         try:
-            response = requests.request("GET", url, headers=headers, cookies=self.get_cookies(type))
+            response = requests.request("GET", url, headers=headers, cookies=self.get_cookies(type), proxies=get_proxy_config())
             json_response = json.loads(response.text)
             if json_response and "items" in json_response and len(json_response["items"]) >= 0:
                 return json_response["items"]
@@ -371,7 +381,7 @@ class BitskinsHelper(BaseHelper):
                 "where": {"skin_name": f"%{type}%{name}%", "category_id": [3 if is_stattrak else 1], "sticker_counter_from": 1, "price_to": max_price * 1000},
                 "limit": 500
             })
-            response = requests.request("POST", url, data=payload)
+            response = requests.request("POST", url, data=payload, proxies=get_proxy_config())
 
             return json.loads(response.text)["list"]
 
@@ -386,7 +396,7 @@ class BitskinsHelper(BaseHelper):
             "id": f"{item_id}"
         }
 
-        response = requests.request("POST", url=url, json=data, headers=headers)
+        response = requests.request("POST", url=url, json=data, headers=headers, proxies=get_proxy_config())
 
         return json.loads(response.text)
 
@@ -451,7 +461,7 @@ class HaloskinsHelper(BaseHelper):
                 "sort": 0,
                 "quality": "strange" if is_stattrak else "normal"
             })
-            response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload)
+            response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload, proxies=get_proxy_config())
             logging.debug(response.text)
             mapping = {}
 
@@ -503,7 +513,7 @@ class HaloskinsHelper(BaseHelper):
                 "sort": 0,
                 "containSticker": 1
             })
-            response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload)
+            response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload, proxies=get_proxy_config())
 
             return json.loads(response.text)["data"]["list"]
 
@@ -537,7 +547,7 @@ class DmarketHelper(BaseHelper):
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
         url = f"https://api.dmarket.com/exchange/v1/market/items?side=market&orderBy=personal&orderDir=desc&title={quote(fullname)}&priceFrom=0&priceTo={max_price * 100}&treeFilters=StickersCombo_CountFrom[]=1,category_0[]={'stattrak_tm' if is_stattrak else 'not_stattrak_tm'}&gameId=a8db&types=dmarket&limit=100&currency=USD&platform=browser&isLoggedIn=false{f'&cursor={self.cursor}' if self.cursor else ''}"
-        response = requests.request("GET", url)
+        response = requests.request("GET", url, proxies=get_proxy_config())
 
         try:
             response_json = json.loads(response.text)
@@ -678,7 +688,7 @@ class WhiteMarketHelper(BaseHelper):
         }
 
         try:
-            response = requests.request("GET", url, headers=headers, data=payload)
+            response = requests.request("GET", url, headers=headers, data=payload, proxies=get_proxy_config())
             respone_json = json.loads(response.text)
             if respone_json and len(respone_json["data"]["market_list"]["edges"]) >= 0:
                 logging.debug(f'Current cursor {self.get_cursor(type, name, is_stattrak)}, new {respone_json["data"]["market_list"]["pageInfo"]["endCursor"]}')
@@ -713,7 +723,7 @@ class SkinbaronHelper(BaseHelper):
         try:
             name = f'{type} | {name}'
             url = f"https://skinbaron.de/api/v2/Browsing/QuickSearch?variantName={quote(name)}&appId=730&language=en"
-            response = requests.request("GET", url)
+            response = requests.request("GET", url, proxies=get_proxy_config())
 
             return json.loads(response.text)["variants"][0]["id"]
         except:
@@ -728,7 +738,7 @@ class SkinbaronHelper(BaseHelper):
 
         url = f"https://skinbaron.de/api/v2/Browsing/FilterOffers?appId=730&variantId={variant_id}&sort=CF&wf=0&wf=1&wf=2&wf=3&wf=4&language=en&otherCurrency=USD&itemsPerPage=60&page={page_number + 1}&pub={max_price}{'&statTrak=true' if is_stattrak else ''}"
 
-        response = requests.request("GET", url)
+        response = requests.request("GET", url, proxies=get_proxy_config())
 
         try:
             respone_json = json.loads(response.text)
@@ -762,7 +772,7 @@ class GamerPayHelper(BaseHelper):
             'User-Agent': user_agent
         }
 
-        response = requests.request("GET", "https://api.gamerpay.gg/currencies", headers=headers)
+        response = requests.request("GET", "https://api.gamerpay.gg/currencies", headers=headers, proxies=get_proxy_config())
 
         return json.loads(response.text)
 
@@ -807,7 +817,7 @@ class GamerPayHelper(BaseHelper):
         }
 
         url = f"https://api.gamerpay.gg/feed?page={page_number + 1}&query={quote(f'{type} | {name}')}&souvenir=0&statTrak={1 if is_stattrak else 0}&priceMax={max_price * 100}"
-        response = requests.request("GET", url, headers=headers, data={})
+        response = requests.request("GET", url, headers=headers, data={}, proxies=get_proxy_config())
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
                 return json.loads(response.text)["items"]
@@ -850,7 +860,7 @@ class WaxPeerHelper(BaseHelper):
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * self.MAX_ITEMS_PER_PAGE}"
-        response = requests.request("GET", url, data={})
+        response = requests.request("GET", url, data={}, proxies=get_proxy_config())
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
                 return json.loads(response.text)["items"]

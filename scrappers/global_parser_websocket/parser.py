@@ -25,11 +25,10 @@ def market_factory(market_type):
 
 def run_action(market, db_client: DBClient, redis_client: RedisClient, message, weapons_type):
     parser_type = 'wss_parser'
-    logging.info(message)
     parsed_item = market.parse_item_wss(message)
     if parsed_item != None:
         if 'listed' in parsed_item:
-            logging.info(parsed_item['listed'])
+            logging.debug(parsed_item['listed'])
             key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed = parsed_item['listed']
 
             stickers_dict = get_stickers_dict(db_client, redis_client)
@@ -72,7 +71,7 @@ def run_action(market, db_client: DBClient, redis_client: RedisClient, message, 
                     [sticker["id"] for sticker in matched_stickers],
                     stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants, parser_type
                 )])
-                logging.info(
+                logging.debug(
                     f'Found new item:\n\n'
                     f'Link: {item_link}\n'
                     f'Name - price: {key_price} - {item_price:.2f} $\n'

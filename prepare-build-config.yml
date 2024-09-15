@@ -12,7 +12,7 @@
       - market-csgo
       - bitskins
       - skinbid
-      - skinport
+      - white-market
       - skinbaron
       - gamerpay
       - waxpeer
@@ -20,9 +20,6 @@
     ws_market_types:
       - skinport
       - bitskins
-
-    market_types_one_network_only:
-      - white-market
 
   tasks:
     - name: Create Docker Compose file

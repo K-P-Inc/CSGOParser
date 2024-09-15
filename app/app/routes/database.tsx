@@ -84,7 +84,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const likedItemsArray = cookies.get("liked_items") ? cookies.get("liked_items").split(",") : [];
 
   let stickers_filters = [];
-  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`, `is_sold = False`];
+  let filters = [`skins.stickers_price > 5`, `skins.order_type = 'fixed'`, `weapons_prices.price > 1`];
   let args = [];
 
   if (only_liked_items) {
@@ -106,7 +106,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       filters.push(wears.map(quality => `weapons_prices.quality = '${quality}'`).join(` OR `));
     }
     if (weapon_types.length > 0) {
-      filters.push(weapon_types.map(weapon_type => `LOWER(weapons_prices.name) LIKE LOWER('%${weapon_type}%')`).join(` OR `));
+      filters.push(weapon_types.map(weapon_type => `LOWER(weapons_prices.name) LIKE LOWER('${weapon_type}%')`).join(` OR `));
     }
     if (stickers_patterns.length > 0) {
       filters.push(stickers_patterns.map(stickers_patern => `skins.stickers_patern = '${stickers_patern}'`).join(` OR `));
@@ -169,10 +169,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       orderBy = 'ORDER BY created_at ASC';
       break;
     case 'profit_high_to_low':
-      orderBy = `ORDER BY ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`} DESC`;
+      orderBy = `ORDER BY ${profit_based === 'buff' ? `profit_buff` : `profit`} DESC`;
       break;
     case 'profit_low_to_high':
-      orderBy = `ORDER BY ${profit_based === 'buff' ? `skins.profit_buff` : `skins.profit`} ASC`;
+      orderBy = `ORDER BY ${profit_based === 'buff' ? `profit_buff` : `profit`} ASC`;
       break;
     case 'price_high_to_low':
       orderBy = 'ORDER BY market_price DESC';
