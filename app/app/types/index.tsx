@@ -100,7 +100,7 @@ export type OutletContext = {
 };
 
 export type WearType = "Factory New" | "Minimal Wear" | "Field-Tested" | "Well-Worn" | "Battle-Scarred";
-export type WeaponType = "AK-47" | "M4A4" | "M4A1-S" | "AWP";
+export type WeaponType = "AK-47" | "M4A4" | "M4A1-S" | "AWP" |  "SSG 08" | "SG 553" | "AUG" | "FAMAS" |  "Galil AR" | "USP-S" | "Glock-18" | "Desert Eagle" | "P250";
 export type ShopType = "bitskins.com" | "cs.money" | "csfloat.com" | "dmarket.com" | "haloskins.com" | "market.csgo.com" | "skinbid.com" | "skinport.com" | "white.market" | "skinbaron.de" | "gamerpay.gg" | "waxpeer.com";
 export type StickersPattern = "5-equal" | "4-equal" | "3-equal" | "2-equal" | "other";
 export type StickersType = "Gold" | "Foil" | "Holo" | "Glitter";

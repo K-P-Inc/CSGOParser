@@ -201,7 +201,7 @@ export function WeaponSelector({
   setSelectedWeapons: React.Dispatch<React.SetStateAction<WeaponType[]>>;
 }) {
   const { items: weapons, itemShortNames: weaponsShort } = createItemsAndShortNames([
-    "AK-47", "M4A4", "M4A1-S", "AWP"
+    "AK-47", "M4A4", "M4A1-S", "AWP",  "SSG 08", "SG 553", "AUG", "FAMAS",  "Galil AR", "USP-S", "Glock-18", "Desert Eagle", "P250"
   ] as WeaponType[]);
 
   return (

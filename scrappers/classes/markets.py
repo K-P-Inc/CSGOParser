@@ -114,7 +114,7 @@ class CSMoneyHelper(BaseHelper):
         if json_response and "error" in json_response and len(json_response["errors"]) >= 0:
             return []
         else:
-            raise Exception(f"Couldn't parse response for skin {type} {name}")
+            return None
 
 class MarketCSGOHelper(BaseHelper):
     DB_ENUM_NAME = 'market-csgo'
