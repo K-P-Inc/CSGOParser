@@ -148,7 +148,7 @@ class DBClient:
                 stickers_patern, amount_of_stickers_distinct, amount_of_stickers, is_sold, stickers,
                 stickers_wears, item_float, in_game_link, pattern_template, order_type, stickers_distinct_variants, parser_type
             ) VALUES {placeholders}
-            ON CONFLICT (link, is_sold, market) DO UPDATE SET
+            ON CONFLICT (link, market) DO UPDATE SET
                 stickers_price = EXCLUDED.stickers_price,
                 price = EXCLUDED.price,
                 profit = EXCLUDED.profit,

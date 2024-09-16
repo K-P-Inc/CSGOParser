@@ -185,6 +185,14 @@ CREATE INDEX IF NOT EXISTS skins_idx_profit ON skins(profit);
 CREATE INDEX IF NOT EXISTS skins_idx_profit_buff ON skins(profit_buff);
 CREATE INDEX IF NOT EXISTS skins_idx_stickers_patern ON skins(stickers_patern);
 
+CREATE UNIQUE INDEX IF NOT EXISTS skins_link_market_unsold_index
+ON skins_available(link, market)
+WHERE is_sold = FALSE;
+
+CREATE UNIQUE INDEX IF NOT EXISTS skins_link_market_sold_index
+ON skins_sold(link, market)
+WHERE is_sold = TRUE;
+
 -- For 'market-csgo' partition
 CREATE UNIQUE INDEX IF NOT EXISTS skins_link_index_market_csgo ON skins_market_csgo_unsold(link);
 CREATE INDEX IF NOT EXISTS skins_idx_market_market_csgo ON skins_market_csgo_unsold(market);
