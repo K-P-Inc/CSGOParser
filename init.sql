@@ -322,3 +322,16 @@ CREATE INDEX IF NOT EXISTS skins_idx_stickers_distinct_variants_waxpeer ON skins
 CREATE INDEX IF NOT EXISTS skins_idx_profit_waxpeer ON skins_waxpeer_unsold(profit);
 CREATE INDEX IF NOT EXISTS skins_idx_profit_buff_waxpeer ON skins_waxpeer_unsold(profit_buff);
 CREATE INDEX IF NOT EXISTS skins_idx_stickers_patern_waxpeer ON skins_waxpeer_unsold(stickers_patern);
+
+CREATE OR REPLACE FUNCTION check_unique_link_market() RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM skins WHERE link = NEW.link AND market = NEW.market) THEN
+        DELETE FROM skins WHERE link = NEW.link AND market = NEW.market;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER enforce_unique_link_market
+BEFORE INSERT ON skins
+FOR EACH ROW EXECUTE FUNCTION check_unique_link_market();
