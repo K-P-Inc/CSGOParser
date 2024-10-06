@@ -359,7 +359,7 @@ class BitskinsHelper(BaseHelper):
         item_link = f'https://bitskins.com/item/cs2/{item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"]] if "stickers" in item else []
 
-        stickers_wears = [round(float(sticker["wear"]), 2) for sticker in item["stickers"]] if "stickers" in item else []
+        stickers_wears = [round(float(sticker["wear"]), 2) for sticker in item["stickers"] if "wear" in sticker] if "stickers" in item else []
         item_float = item.get('float_value')
 
         # steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S[Put_your_steam_id_here]A[Put_Item_ID_here]D[Last_step_D_thing_here_pls]
