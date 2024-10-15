@@ -311,7 +311,7 @@ class SkinportHelper(BaseHelper):
 class CSFloatHelper(BaseHelper):
     DB_ENUM_NAME = 'csfloat'
     MAX_ITEMS_PER_PAGE = 50
-    REQUEST_TIMEOUT = 5
+    REQUEST_TIMEOUT = 20
     PARSE_WITH_QUALITY = True # Vulcan (Field-Tested)
 
     def parse_item(self, item):
@@ -333,7 +333,7 @@ class CSFloatHelper(BaseHelper):
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         fullname = self._get_fullname(type, name, is_stattrak)
         url = f"https://csfloat.com/api/v1/listings?limit=50&sort_by=lowest_price&market_hash_name={quote(fullname)}&max_price={max_price * 100}&page={page_number}"
-        response = requests.request("GET", url)
+        response = requests.request("GET", url, headers={ "Authorization" : "aazWV9Z4qzHpFFSJzT53h5C3KM2fk5mI" })
 
         try:
             if json.loads(response.text) and json.loads(response.text) == json.loads('{"code":20,"message":"too many requests, try again later"}'):
@@ -830,12 +830,48 @@ class WaxPeerHelper(BaseHelper):
     DB_ENUM_NAME = 'waxpeer'
     MAX_ITEMS_PER_PAGE = 50
     REQUEST_TIMEOUT = 2
+    PARSE_WITH_QUALITY = True
 
+    def __init__(self) -> None:
+        self.redis_client = RedisClient()
+        self.force_update = True
 
     def get_paint_seed(self, item_link):
         response = requests.get(item_link)
 
         return response.text.split('<span class="light">Paint index</span>', 1)[1][:20].replace('<span>','').replace('</span>', '').split('<')[0]
+
+    def get_cookies(self, type):
+        redis_key = f"{type}_waxpeer_cookies"
+        if self.redis_client.exists(redis_key) and not self.force_update:
+            logging.debug(f"Found cookies in redis for {type}")
+            cookies_json = self.redis_client.get(redis_key)
+            return json.loads(cookies_json)
+        else:
+            cookies_json = {
+                'i18n': 'eu'
+            }
+            driver_class = SeleniumDriver()
+            driver = driver_class.driver
+            driver.delete_all_cookies()
+            driver.get("https://waxpeer.com/api/data/index/?game=csgo&search=AK-47%20%7C%20Aquamarine%20Revenge%20%28Battle-Scarred%29&lang=en&stat_trak=0&max_price=1500000&min_price=0&skip=0")
+
+            time.sleep(10)
+
+            # Get all cookies
+            logging.debug("Getting cookies from waxpeer")
+            cookies = driver.get_cookies()
+
+            # Print the cookies
+            for cookie in cookies:
+                if cookie["name"] not in cookies_json:
+                    cookies_json[cookie["name"]] = cookie["value"]
+
+            logging.debug("Cookies from waxpeer: {}".format(cookies_json))
+            self.redis_client.set(redis_key, json.dumps(cookies_json), ex=3600)
+            self.force_update = False
+
+            return cookies_json
 
     def parse_item(self, item):
         key_price = item.get('name')
@@ -860,7 +896,7 @@ class WaxPeerHelper(BaseHelper):
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * self.MAX_ITEMS_PER_PAGE}"
-        response = requests.request("GET", url, data={}, proxies=get_proxy_config())
+        response = requests.request("GET", url, data={}, cookies=self.get_cookies(type))
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
                 return json.loads(response.text)["items"]
