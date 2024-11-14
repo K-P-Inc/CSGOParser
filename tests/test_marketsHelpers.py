@@ -55,18 +55,18 @@ class TestData:
 
 
 markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_class in [
-    # CSMoneyHelper(),
-    # MarketCSGOHelper(),
-    # SkinbidHelper(),
+    CSMoneyHelper(),
+    MarketCSGOHelper(),
+    SkinbidHelper(),
     CSFloatHelper(),
-    # BitskinsHelper(),
-    # HaloskinsHelper(),
-    # DmarketHelper(),
-    # # SkinportHelper(),
-    # SkinbaronHelper(),
-    # WhiteMarketHelper(),
-    # GamerPayHelper(),
-    # WaxPeerHelper()
+    BitskinsHelper(),
+    HaloskinsHelper(),
+    DmarketHelper(),
+    # SkinportHelper(),
+    SkinbaronHelper(),
+    WhiteMarketHelper(),
+    GamerPayHelper(),
+    WaxPeerHelper()
 ]]
 
 validators_asserts = [pytest.param(func, id=id) for (func, id) in [
