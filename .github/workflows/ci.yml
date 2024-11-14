@@ -19,7 +19,7 @@ jobs:
     services:
       selenium:
         image: selenium/standalone-chrome
-        options: --hostname chrome-node container --name chrome-node
+        options: --hostname chrome-node container --name chrome-node --shm-size 2g
 
     steps:
       - uses: actions/checkout@v3
