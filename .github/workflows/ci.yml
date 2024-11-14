@@ -7,12 +7,11 @@ env:
   REDIS_PWD: ${{ secrets.REDIS_PWD }}
   REDIS_PORT: ${{ secrets.REDIS_PORT }}
   REDIS_HOST: ${{ secrets.REDIS_HOST }}
-  PROXY_URL: ${{ secrets.PROXY_URL }}
 
 jobs:
   tests:
     name: Run tests
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     services:
       selenium:
@@ -46,6 +45,7 @@ jobs:
         run: PYTHONPATH=scrappers pytest tests/test_marketsHelpers.py
         env:
           CUSTOM_ALONE_NODE: localhost
+          PROXY_URL: ${{ secrets.PROXY_URL }}
 
   build:
     needs: tests
