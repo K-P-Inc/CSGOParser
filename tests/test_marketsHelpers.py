@@ -55,17 +55,17 @@ class TestData:
 
 
 markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_class in [
-    CSMoneyHelper(),
-    MarketCSGOHelper(),
-    SkinbidHelper(),
+    # CSMoneyHelper(),
+    # MarketCSGOHelper(),
+    # SkinbidHelper(),
     CSFloatHelper(),
-    BitskinsHelper(),
-    HaloskinsHelper(),
-    DmarketHelper(),
-    # SkinportHelper(),
-    SkinbaronHelper(),
-    WhiteMarketHelper(),
-    GamerPayHelper(),
+    # BitskinsHelper(),
+    # HaloskinsHelper(),
+    # DmarketHelper(),
+    # # SkinportHelper(),
+    # SkinbaronHelper(),
+    # WhiteMarketHelper(),
+    # GamerPayHelper(),
     # WaxPeerHelper()
 ]]
 

@@ -341,7 +341,7 @@ class CSFloatHelper(BaseHelper):
                 time.sleep(300)
                 return None
             elif json.loads(response.text) and len(json.loads(response.text)) >= 0:
-                return json.loads(response.text)
+                return json.loads(response.text)["data"]
             return None
         except:
             return None
@@ -454,7 +454,7 @@ class HaloskinsHelper(BaseHelper):
             url = "https://api.haloskins.com/steam-trade-center/search/product/list?appId=730"
             payload = json.dumps({
                 "appId": 730,
-                "limit": 500,
+                "limit": 50,
                 "page": 1,
                 "maxPrice": max_price,
                 "keyword": type,
@@ -462,7 +462,6 @@ class HaloskinsHelper(BaseHelper):
                 "quality": "strange" if is_stattrak else "normal"
             })
             response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload, proxies=get_proxy_config())
-            logging.debug(response.text)
             mapping = {}
 
             for value in json.loads(response.text)["data"]["list"]:
@@ -508,7 +507,7 @@ class HaloskinsHelper(BaseHelper):
             payload = json.dumps({
                 "appId": 730,
                 "itemId": item_id,
-                "limit": 500,
+                "limit": 50,
                 "page": page_number + 1,
                 "sort": 0,
                 "containSticker": 1
@@ -516,7 +515,6 @@ class HaloskinsHelper(BaseHelper):
             response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload, proxies=get_proxy_config())
 
             return json.loads(response.text)["data"]["list"]
-
         except:
             return None
 
@@ -829,7 +827,7 @@ class GamerPayHelper(BaseHelper):
 class WaxPeerHelper(BaseHelper):
     DB_ENUM_NAME = 'waxpeer'
     MAX_ITEMS_PER_PAGE = 50
-    REQUEST_TIMEOUT = 2
+    REQUEST_TIMEOUT = 5
     PARSE_WITH_QUALITY = True
 
     def __init__(self) -> None:
@@ -896,7 +894,7 @@ class WaxPeerHelper(BaseHelper):
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * self.MAX_ITEMS_PER_PAGE}"
-        response = requests.request("GET", url, data={}, cookies=self.get_cookies(type))
+        response = requests.request("GET", url, data={})
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
                 return json.loads(response.text)["items"]
