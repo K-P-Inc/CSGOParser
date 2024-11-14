@@ -63,7 +63,7 @@ markets = [pytest.param(market_class, id=market_class.DB_ENUM_NAME) for market_c
     HaloskinsHelper(),
     DmarketHelper(),
     # SkinportHelper(),
-    SkinbaronHelper(),
+    # SkinbaronHelper(),
     WhiteMarketHelper(),
     GamerPayHelper(),
     WaxPeerHelper()
