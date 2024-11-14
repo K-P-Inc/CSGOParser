@@ -15,7 +15,7 @@ jobs:
 
     services:
       chrome-node:
-        image: selenium/standalone-chrome:latest
+        image: selenium/standalone-chrome
         options: --hostname chrome-node container --name chrome-node
 
     steps:
