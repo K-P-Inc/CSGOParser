@@ -18,8 +18,10 @@ jobs:
 
     services:
       selenium:
-        image: selenium/standalone-chrome
-        options: --hostname chrome-node container --name chrome-node --shm-size 2g
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: --shm-size="2g"
 
     steps:
       - uses: actions/checkout@v3
@@ -45,7 +47,7 @@ jobs:
       - name: Run tests
         run: PYTHONPATH=scrappers pytest tests/test_marketsHelpers.py
         env:
-          CUSTOM_ALONE_NODE: chrome-node
+          CUSTOM_ALONE_NODE: localhost
 
   build:
     needs: tests
