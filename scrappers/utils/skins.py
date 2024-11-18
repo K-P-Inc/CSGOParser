@@ -154,7 +154,7 @@ def calculate_weapon_real_price(item_price, weapon_key_price, matched_stickers, 
         else:
             sticker_count[key] = 1
 
-        if index in wears_stickers and (wears_stickers[index] == 0 or not wears_stickers[index]):
+        if index >= len(wears_stickers) or (wears_stickers[index] == 0 or not wears_stickers[index]):
             if key in valid_sticker_count:
                 valid_sticker_count[key] += 1
             else:
