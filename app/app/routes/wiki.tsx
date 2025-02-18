@@ -121,7 +121,7 @@ const sticker_collection = [
     title: "Paris 2023 Contenders Sticker Capsule",
     image: "https://pub-5f12f7508ff04ae5925853dee0438460.r2.dev/data/csgo/resource/flash/econ/weapon_cases/crate_sticker_pack_paris2023_contenders.png",
     date: "May 21, 2023",
-    redirect: "/capsules/paris-2023-contenders-sticker-capsule",
+    redirect: "",
   },
   {
     id: 6,
