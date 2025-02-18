@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 
 const sidebarNavigation = [
     { label: 'Database', route: '/database', icon: InventoryIcon },
+    { label: 'Wiki', route: '/wiki', icon: WatchlistIcon},
     // { label: 'Watchlist', route: '/watchlist', icon: WatchlistIcon },
     // { label: 'Settings', route: '/settings', icon: SettingsIcon },
 ];

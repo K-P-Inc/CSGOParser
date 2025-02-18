@@ -243,6 +243,9 @@
   .post-card {
     @apply hover:bg-gradient-to-b rounded-[8px] border bg-dark-2 border-dark-4 hover:border-primary-500 py-2 min-w-[210px] min-h-[325px] hover:from-primary-500 hover:to-dark-3;
   }
+  .collection-card {
+    @apply hover:bg-gradient-to-b rounded-[8px];
+  }
 
   .post-card_liked {
     @apply transition-all duration-100
@@ -263,7 +266,9 @@
   .post-card_market_img {
     @apply w-auto rounded-[24px] object-cover mt-[-10px] hover:mt-[-5px] hover:mb-[-5px] hover:mx-[-5px] transition-all duration-100 ease-in opacity-50;
   }
-
+  .collection-card_market_img {
+    @apply w-auto rounded-[24px] object-cover mt-[-10px] hover:mt-[-5px] hover:mb-[-5px] hover:mx-[-5px] transition-all duration-100 ease-in;
+  }
   .post-card:hover .post-card_market_img {
     @apply mt-[-15px] mb-[-5px] mx-[-5px] opacity-100;
   }
