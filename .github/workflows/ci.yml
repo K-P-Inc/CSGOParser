@@ -35,7 +35,7 @@ jobs:
 
       - name: Update setuptools
         run: |
-          pip install --upgrade setuptools
+          pip install --upgrade setuptools psycopg2-binary
 
       - name: Install dependencies
         run: |
