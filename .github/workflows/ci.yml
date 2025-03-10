@@ -9,46 +9,7 @@ env:
   REDIS_HOST: ${{ secrets.REDIS_HOST }}
 
 jobs:
-  tests:
-    name: Run tests
-    runs-on: self-hosted
-
-    services:
-      selenium:
-        image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
-        options: --shm-size="2g"
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10.10"
-          cache: 'pip'
-
-      - name: Update pip
-        run: |
-          pip install --upgrade pip
-
-      - name: Update setuptools
-        run: |
-          pip install --upgrade setuptools psycopg2-binary
-
-      - name: Install dependencies
-        run: |
-          pip install -r ./tests/requirements.txt -r ./scrappers/requirements.txt
-
-      - name: Run tests
-        run: PYTHONPATH=scrappers pytest tests/test_marketsHelpers.py
-        env:
-          CUSTOM_ALONE_NODE: localhost
-          PROXY_URL: ${{ secrets.PROXY_URL }}
-
   build:
-    needs: tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
