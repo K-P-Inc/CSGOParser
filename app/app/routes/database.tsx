@@ -283,7 +283,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
           item_float: row["item_float"],
           pattern_template: row["pattern_template"],
           in_game_link: row["in_game_link"],
-          profit_based_on: profit_based
+          profit_based_on: profit_based,
+          created_at: row["created_at"]
         }))
         : []
 

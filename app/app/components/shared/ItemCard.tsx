@@ -17,7 +17,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card"
-import { MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon, GamerPayIcon, WaxPeerIcon } from "~/assets/images";
+import { LabelIcon, MarketCsgoIcon, CsmoneyIcon, SkinbidIcon, SkinportIcon, CsfloatIcon, DmarketIcon, BitskinsIcon, HaloSkinsIcon, SkinBaronIcon, WhiteMarketIcon, GamerPayIcon, WaxPeerIcon } from "~/assets/images";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { Toggle } from "../ui/toggle";
@@ -93,6 +93,8 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
     setIsLiked(value);
     cookies.set('liked_items', likedItemsArray.filter((id: string) => id.length > 0).join(','));
   };
+
+  const newItemTimeFrame = 900000 /* 900.000 ms = 15 min */
 
   return (
     <AlertDialog defaultOpen={defaultOpen}>
@@ -225,13 +227,23 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
         </div>
       </AlertDialogContent>
       <AlertDialogTrigger className="w-full">
-      <div className="post-card space-y-2 p-3 h-full">
+      <div className="post-card space-y-2 p-3 h-full relative">
+        {(Date.now() - new Date(item.created_at).getTime()) < newItemTimeFrame && (
+          <div className="absolute top-0 left-0 z-10">
+            <img
+              src={LabelIcon}
+              alt="Label"
+              width={50}
+              height={50}
+            />
+          </div>
+        )}
         <div className="flex w-full justify-center">
-          {item.stickers_icons.map((icon: string, stickerIndex: number) => (
-              <img key={stickerIndex} src={icon} alt={`Sticker ${stickerIndex + 1}`} width={33}/>
+          {item.stickers_icons.map((icon, stickerIndex) => (
+            <img key={stickerIndex} src={icon} alt={`Sticker ${stickerIndex + 1}`} width={33} />
           ))}
         </div>
-        <div className="flex items-center justify-center w-full" style={{ position: "relative" }}>
+        <div className="flex items-center justify-center w-full relative">
           <img
             style={{ zIndex: 2 }}
             src={item.image}
@@ -240,24 +252,24 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
             loading="lazy"
           />
           <img
-            style={{ zIndex: 1, position: 'absolute' }}
+            style={{ zIndex: 1, position: "absolute" }}
             loading="lazy"
             src={
               item.market === "skinbid" ? SkinbidIcon
                 : item.market === "cs-money" ? CsmoneyIcon
-                 : item.market === "market-csgo" ? MarketCsgoIcon
-                  : item.market === "skinport" ? SkinportIcon
-                    : item.market === "bitskins" ? BitskinsIcon
-                      : item.market === "csfloat" ? CsfloatIcon
-                        : item.market === "dmarket" ? DmarketIcon
-                          : item.market === "haloskins" ? HaloSkinsIcon
-                            : item.market === "skinbaron" ? SkinBaronIcon
-                              : item.market === "white-market" ? WhiteMarketIcon
-                                : item.market === "gamerpay" ? GamerPayIcon
-                                  : item.market === 'waxpeer' ? WaxPeerIcon
-                                    : ""
+                  : item.market === "market-csgo" ? MarketCsgoIcon
+                    : item.market === "skinport" ? SkinportIcon
+                      : item.market === "bitskins" ? BitskinsIcon
+                        : item.market === "csfloat" ? CsfloatIcon
+                          : item.market === "dmarket" ? DmarketIcon
+                            : item.market === "haloskins" ? HaloSkinsIcon
+                              : item.market === "skinbaron" ? SkinBaronIcon
+                                : item.market === "white-market" ? WhiteMarketIcon
+                                  : item.market === "gamerpay" ? GamerPayIcon
+                                    : item.market === 'waxpeer' ? WaxPeerIcon
+                                      : ""
             }
-            alt="post image"
+            alt="market icon"
             className="post-card_market_img"
           />
         </div>
@@ -337,7 +349,6 @@ export default function ItemCard({ item, onlyPreview = false, defaultOpen = fals
             </div>
           </div>
         </div>
-
       </div>
       </AlertDialogTrigger>
     </AlertDialog>

@@ -102,7 +102,10 @@ import collection_militia_collection from './png/collection-militia.png';
 import collection_vertigo_collection from './png/collection-vertigo.png';
 import collection_esports_2013_collection from './png/collection-esports-2013.png';
 
+import label_icon from "./svg/new_label.svg";
+
 export {
+    label_icon as LabelIcon,
     logo as LogoIcon,
     account as AccountIcon,
     settings as SettingsIcon,
