@@ -23,4 +23,5 @@ RUN chmod +x /app/wait-for-it.sh
 RUN pip install -r requirements.txt
 
 ENV DOCKER_RUN "a"
-CMD ["sh", "-c", "while :; do python -m items_prices_parser.steamwebapi; sleep 3600; done"]
+
+CMD ["sh", "-c", "while :; do python -m items_prices_parser.steamwebapi; sleep 10800; done"]

@@ -184,10 +184,7 @@ if __name__ == "__main__":
     # TODO: Add more logging
     # BUILD_TYPE=infrastructure ansible-playbook  prepare-build-config.yml
     # docker-compose up -d --build
-    while True:
-        logging.info("Start parsing")
-        parser = PriceParser()
-        result = parser.parser()
-        logging.info("Finish parsing")
-        # TODO: Change time.sleep
-        time.sleep(10800) # 3 hours
+    logging.info("Start parsing")
+    parser = PriceParser()
+    result = parser.parser()
+    logging.info("Finish parsing")
