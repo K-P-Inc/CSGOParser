@@ -1,5 +1,6 @@
 import os
 import psycopg2, psycopg2.extensions
+from psycopg2 import OperationalError
 import logging
 import threading
 import time
@@ -69,27 +70,27 @@ class DBClient:
 
     @retry
     def update_weapon_prices(self, values):
-        placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" for _ in values])
-        query = f'''
-            INSERT INTO weapons_prices(
-                name, quality, is_stattrak, price, market_prices,
-                price_week_low, price_week_high, price_month_low, price_month_high, price_all_time_low,
-                price_all_time_high, parsing_time, icon_url, rare
-            ) VALUES {placeholders}
-            ON CONFLICT (name, quality, is_stattrak) DO UPDATE SET
-                price = EXCLUDED.price,
-                market_prices = EXCLUDED.market_prices,
-                price_week_low = EXCLUDED.price_week_low,
-                price_week_high = EXCLUDED.price_week_high,
-                price_month_low = EXCLUDED.price_month_low,
-                price_month_high = EXCLUDED.price_month_high,
-                price_all_time_low = EXCLUDED.price_all_time_low,
-                price_all_time_high = EXCLUDED.price_all_time_high,
-                parsing_time = EXCLUDED.parsing_time
-        '''
-        flat_values = [val for row in values for val in row]
-        self.execute(query, flat_values)
-        logging.debug("Updated weapon prices in db")
+        try:
+            # Подготавливаем placeholders для вставки
+            placeholders = ','.join(["(%s,%s,%s,%s,%s,%s,%s)" for _ in values])
+            query = f'''
+                INSERT INTO weapons_prices(
+                    name, quality, is_stattrak, price, parsing_time, icon_url, rare
+                ) VALUES {placeholders}
+                ON CONFLICT (name, quality, is_stattrak) DO UPDATE SET
+                    price = EXCLUDED.price,
+                    parsing_time = EXCLUDED.parsing_time
+            '''
+
+            flat_values = [val for row in values for val in row]
+            self.execute(query, flat_values)
+            logging.debug(f"Updated {len(values)} weapon prices in the database.")
+        except OperationalError as e:
+            logging.error(f"Database error during price update: {e}")
+            raise  # Re-raise the error to allow retry
+        except Exception as e:
+            logging.error(f"Unexpected error during price update: {e}")
+            raise  # Re-raise the error to allow retry
 
     @retry
     def update_skins_profit_by_weapon(self, value):
@@ -172,36 +173,29 @@ class DBClient:
         self.execute(query, flat_values)
 
     @retry
-    def update_stickers_prices(self, values, parser=None):
-        if parser == 'csgoskins':
+    def update_stickers_prices(self, values):
+        try:
+            # Формируем запрос для вставки и обновления
             query = f'''
-                INSERT INTO stickers(name, price, icon_url, market_prices, price_week_low, price_week_high, price_month_low,
-                price_month_high, price_all_time_low, price_all_time_high, parsing_time, rare, type, collection)
-                VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
+                INSERT INTO stickers(name, price, icon_url, parsing_time, rare, type)
+                VALUES {','.join(["(%s,%s,%s,%s,%s,%s)"] * len(values))}
                 ON CONFLICT (name)
                 DO UPDATE SET price = EXCLUDED.price,
-                market_prices = EXCLUDED.market_prices,
-                price_week_low = EXCLUDED.price_week_low,
-                price_week_high = EXCLUDED.price_week_high,
-                price_month_low = EXCLUDED.price_month_low,
-                price_month_high = EXCLUDED.price_month_high,
-                price_all_time_low = EXCLUDED.price_all_time_low,
-                price_all_time_high = EXCLUDED.price_all_time_high,
-                parsing_time = EXCLUDED.parsing_time,
-                rare = EXCLUDED.rare,
-                type = EXCLUDED.type,
-                collection = EXCLUDED.collection
+                parsing_time = EXCLUDED.parsing_time
             '''
-        else:
-            query = f'''
-                INSERT INTO stickers(classid, name, key, price, type, rare, collection, icon_url, market_prices)
-                VALUES {','.join(["(%s,%s,%s,%s,%s,%s,%s,%s,%s)"] * len(values))}
-                ON CONFLICT (name)
-                DO UPDATE SET price = EXCLUDED.price, classid = EXCLUDED.classid, market_prices = EXCLUDED.market_prices
-            '''
-        flat_values = [val for row in values for val in row]
-        self.execute(query, flat_values)
-        logging.debug("Updated sticker prices in db")
+
+            # Подготовка значений для SQL-запроса
+            flat_values = [val for row in values for val in row]
+
+            # Выполнение запроса
+            self.execute(query, flat_values)
+
+        except OperationalError as e:
+            logging.error(f"Database error during sticker price update: {e}")
+            raise  # Повторить попытку в случае ошибки подключения
+        except Exception as e:
+            logging.error(f"Unexpected error during sticker price update: {e}")
+            raise  # Повторить попытку в случае непредвиденной ошибки
 
     @retry
     def get_all_stickers(self):
