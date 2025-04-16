@@ -112,8 +112,8 @@ class PriceParser:
 
         weapon_items_groups = ['rifle', 'pistol', 'smg', 'shotgun', 'machinegun', "sniper rifle"]
 
-        # data = self.get_data()
-        data = self.read_saved_data()  # Uncomment this line to read from saved data
+        data = self.get_data()
+        # data = self.read_saved_data()  # Uncomment this line to read from saved data
 
         for item in data:
             name = item.get('marketname', '')
@@ -184,8 +184,10 @@ if __name__ == "__main__":
     # TODO: Add more logging
     # BUILD_TYPE=infrastructure ansible-playbook  prepare-build-config.yml
     # docker-compose up -d --build
-    logging.info("Start parsing")
-    parser = PriceParser()
-    result = parser.parser()
-    logging.info("Finish parsing")
-    time.sleep(86400) # 24 hours
+    while True:
+        logging.info("Start parsing")
+        parser = PriceParser()
+        result = parser.parser()
+        logging.info("Finish parsing")
+        # TODO: Change time.sleep
+        time.sleep(10800) # 3 hours
