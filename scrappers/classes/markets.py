@@ -79,12 +79,20 @@ class CSMoneyHelper(BaseHelper):
         key_price = item_json["names"]["full"]
         item_price = float(item["pricing"]["computed"])
 
-        if round(item_json["float"], 8) - item_json["float"] > 0:
-            start_float = round(round(item_json["float"], 8) - 10 ** -8, 8)
-            end_float = round(item_json["float"], 8)
+        float_value = item_json.get("float")
+
+        if float_value is not None:
+            logging.info(f"Float value: {float_value}")
+            if round(float_value, 8) - float_value > 0:
+                start_float = round(round(item_json["float"], 8) - 10 ** -8, 8)
+                end_float = round(item_json["float"], 8)
+            else:
+                start_float = round(item_json["float"], 8)
+                end_float = round(round(item_json["float"], 8) + 10 ** -8, 8)
         else:
-            start_float = round(item_json["float"], 8)
-            end_float = round(round(item_json["float"], 8) + 10 ** -8, 8)
+            # можно либо пропустить, либо логировать, либо поставить дефолт
+            logging.warning(f"Item has no float value: {item_json}")
+            return None, None, None, None, None, None, None, None, None
 
         item_link = f'https://cs.money/market/buy/?search={quote(key_price)}&sort=price&order=asc&minFloat={start_float:.8f}&maxFloat={end_float:.8f}&unique_id={item["id"]}'
         stickers_keys = [sticker["name"].replace("Sticker | ", "") for sticker in item["stickers"] if sticker] if "stickers" in item else []

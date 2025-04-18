@@ -30,6 +30,15 @@ def parse_item(
     logging.info(f'Parsing weapon {display_name} (found {len(items_list)})')
     for i in items_list:
         key_price, item_price, item_link, stickers_keys, stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed = market_class.parse_item(i)
+
+        if (
+            key_price is None or
+            stickers_keys is None or
+            len(stickers_keys) == 0 or
+            key_price not in weapons_prices
+        ):
+            continue
+
         parsed_urls.append(item_link)
 
         if len(stickers_keys) == 0 or key_price not in weapons_prices:
