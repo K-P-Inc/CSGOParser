@@ -9,7 +9,7 @@ from pathlib import Path
 from utils import repo_path, get_weapons_array_by_type, get_stickers_dict, calculate_weapon_real_price, get_weapons_array_by_types
 from dotenv import load_dotenv
 from omegaconf import DictConfig
-from classes import DBClient, RedisClient, create_market_client
+from classes import DBClient, RedisClient, create_market_client, NotifyClient
 from classes.markets import SkinportHelper, BitskinsHelper, CSFloatHelper
 
 
@@ -25,6 +25,7 @@ def market_factory(market_type):
 
 def run_action(market, db_client: DBClient, redis_client: RedisClient, message, weapons_type):
     parser_type = 'wss_parser'
+    notify_client = NotifyClient()
     parsed_item = market.parse_item_wss(message)
     if parsed_item != None:
         if 'listed' in parsed_item:
@@ -39,6 +40,7 @@ def run_action(market, db_client: DBClient, redis_client: RedisClient, message, 
 
             actually_price = weapons_prices[key_price]["price"]
             weapon_uuid = weapons_prices[key_price]["uuid"]
+            icon_url = weapons_prices[key_price]["icon_url"]
             matched_stickers = [stickers_dict[key] for key in stickers_keys if key in stickers_dict]
 
             if item_price == 0 or len(stickers_keys) == 0 or len(matched_stickers) == 0:
@@ -71,6 +73,37 @@ def run_action(market, db_client: DBClient, redis_client: RedisClient, message, 
                     [sticker["id"] for sticker in matched_stickers],
                     stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants, parser_type
                 )])
+
+                # Check if item meets notification criteria
+                if (
+                    future_profit_percentages_steam > 20 and
+                    item_price < 200 and
+                    sticker_sum > 3 and
+                    stickers_pattern in ['4-equal', '5-equal'] and
+                    len(stickers_wears) == len(stickers_keys) and
+                    all(wear == 0 for wear in stickers_wears)
+                ):
+                    # Extract weapon name and quality from key_price
+                    weapon_parts = key_price.split(" (")
+                    weapon_name = weapon_parts[0]
+                    weapon_quality = weapon_parts[1].rstrip(")") if len(weapon_parts) > 1 else "Unknown"
+
+                    # Use the synchronous version of send_profitable_sticker_notification
+                    notify_client.send_profitable_sticker_notification(
+                        market_name=market.DB_ENUM_NAME,
+                        item_link=item_link,
+                        profit_percentage=future_profit_percentages_buff,
+                        sticker_pattern=stickers_pattern,
+                        stickers_wears=stickers_wears,
+                        weapon_name=weapon_name,
+                        weapon_quality=weapon_quality,
+                        item_price=item_price,
+                        sticker_sum=sticker_sum,
+                        stickers_names=[sticker["name"] for sticker in matched_stickers],
+                        item_float=item_float if item_float is not None else -1,
+                        icon_url=icon_url
+                    )
+
                 logging.debug(
                     f'Found new item:\n\n'
                     f'Link: {item_link}\n'

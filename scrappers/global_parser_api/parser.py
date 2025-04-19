@@ -48,6 +48,8 @@ def parse_item(
 
         actually_price = weapons_prices[key_price]["price"]
         weapon_uuid = weapons_prices[key_price]["uuid"]
+        icon_url = weapons_prices[key_price]["icon_url"]
+
         matched_stickers = [stickers_dict[key] for key in stickers_keys if key in stickers_dict]
 
         if item_price == 0 or len(stickers_keys) == 0 or len(matched_stickers) == 0:
@@ -82,17 +84,21 @@ def parse_item(
             ))
 
             # Check if item meets notification criteria
-            if (future_profit_percentages_buff > 0 and
+            if (
+                future_profit_percentages_steam > 20 and
+                item_price < 200 and
+                sticker_sum > 3 and
                 stickers_pattern in ['4-equal', '5-equal'] and
                 len(stickers_wears) == len(stickers_keys) and
-                all(wear == 0 for wear in stickers_wears)):
+                all(wear == 0 for wear in stickers_wears)
+            ):
 
                 # Extract weapon name and quality from key_price
                 weapon_parts = key_price.split(" (")
                 weapon_name = weapon_parts[0]
                 weapon_quality = weapon_parts[1].rstrip(")") if len(weapon_parts) > 1 else "Unknown"
 
-                # Create event loop and run async notification
+                # Use the synchronous version of send_profitable_sticker_notification
                 notify_client.send_profitable_sticker_notification(
                     market_name=market_class.DB_ENUM_NAME,
                     item_link=item_link,
@@ -104,7 +110,8 @@ def parse_item(
                     item_price=item_price,
                     sticker_sum=sticker_sum,
                     stickers_names=[sticker["name"] for sticker in matched_stickers],
-                    item_float=item_float
+                    item_float=item_float if item_float is not None else -1,
+                    icon_url=icon_url
                 )
 
             logging.debug(
@@ -223,7 +230,6 @@ def market_factory(market_type):
 def main(cfg: DictConfig):
     market_types = os.environ.get("MARKET_TYPES").split(",")
     weapon_type = os.environ.get("WEAPON_TYPE")
-
     market_classes = {market_type: market_factory(market_type) for market_type in market_types}
     weapon = next((w for w in cfg.weapons if w.type == weapon_type), None)
     threads = {}

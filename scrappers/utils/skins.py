@@ -10,7 +10,7 @@ def get_weapons_array_by_type(db_client: DBClient, redis_client: RedisClient, we
 
     while len(weapons) == 0:
         logging.debug(f'Getting skins from database, already parsed {parsed_items}')
-        redis_key = f"{weapon_config.type}_weapons_prices{'_with_quality' if with_quality else ''}"
+        redis_key = f"{weapon_config.type}_weapons_prices{'_with_quality' if with_quality else ''}_v4"
 
         if redis_client.exists(redis_key):
             weapons_prices_str_json = redis_client.get(redis_key)
@@ -24,6 +24,7 @@ def get_weapons_array_by_type(db_client: DBClient, redis_client: RedisClient, we
                 weapons_prices[key] = {
                     "uuid": str(weapon[4]),
                     "price": weapon[1],
+                    "icon_url": f'{weapon[5]}',
                     "is_stattrak": weapon[3],
                     "type": weapon_config.type,
                     "name": f"{weapon[0].split(' | ')[1]} ({weapon[2]})" if with_quality else weapon[0].split(' | ')[1]
@@ -53,7 +54,7 @@ def get_weapons_array_by_types(db_client: DBClient, redis_client: RedisClient, w
 
     while len(weapons) == 0:
         logging.debug(f'Getting skins from database, already parsed {parsed_items}')
-        redis_key = f"{' '.join([weapon_config.type for weapon_config in weapon_configs])}_weapons_prices{'_with_quality' if with_quality else ''}"
+        redis_key = f"{' '.join([weapon_config.type for weapon_config in weapon_configs])}_weapons_prices{'_with_quality' if with_quality else ''}_v4"
 
         if redis_client.exists(redis_key):
             weapons_prices_str_json = redis_client.get(redis_key)
@@ -75,6 +76,7 @@ def get_weapons_array_by_types(db_client: DBClient, redis_client: RedisClient, w
                     "uuid": str(weapon[4]),
                     "price": weapon[1],
                     "is_stattrak": weapon[3],
+                    "icon_url": f'{weapon[5]}',
                     "type": weapon_config.type,
                     "name": f"{weapon[0].split(' | ')[1]} ({weapon[2]})" if with_quality else weapon[0].split(' | ')[1]
                 }

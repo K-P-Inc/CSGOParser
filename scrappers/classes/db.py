@@ -208,7 +208,7 @@ class DBClient:
     def get_all_weapons(self, type, min_price=0, max_price=1000000000):
         with self.db.cursor() as cursor:
             cursor.execute(f'''
-                SELECT name, price, quality, is_stattrak, id
+                SELECT name, price, quality, is_stattrak, id, icon_url
                 FROM weapons_prices
                 WHERE price >= %s and price <= %s and name LIKE %s
                 ORDER BY name

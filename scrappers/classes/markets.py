@@ -82,7 +82,7 @@ class CSMoneyHelper(BaseHelper):
         float_value = item_json.get("float")
 
         if float_value is not None:
-            logging.info(f"Float value: {float_value}")
+            logging.debug(f"Float value: {float_value}")
             if round(float_value, 8) - float_value > 0:
                 start_float = round(round(item_json["float"], 8) - 10 ** -8, 8)
                 end_float = round(item_json["float"], 8)
@@ -91,7 +91,7 @@ class CSMoneyHelper(BaseHelper):
                 end_float = round(round(item_json["float"], 8) + 10 ** -8, 8)
         else:
             # можно либо пропустить, либо логировать, либо поставить дефолт
-            logging.warning(f"Item has no float value: {item_json}")
+            logging.debug(f"Item has no float value: {item_json}")
             return None, None, None, None, None, None, None, None, None
 
         item_link = f'https://cs.money/market/buy/?search={quote(key_price)}&sort=price&order=asc&minFloat={start_float:.8f}&maxFloat={end_float:.8f}&unique_id={item["id"]}'
@@ -387,7 +387,7 @@ class BitskinsHelper(BaseHelper):
             payload = json.dumps({
                 "order": [{"field": "price", "order": "ASC"}],
                 "where": {"skin_name": f"%{type}%{name}%", "category_id": [3 if is_stattrak else 1], "sticker_counter_from": 1, "price_to": max_price * 1000},
-                "limit": 500
+                "limit": 100
             })
             response = requests.request("POST", url, data=payload, proxies=get_proxy_config())
 
@@ -442,30 +442,27 @@ class HaloskinsHelper(BaseHelper):
 
     def __init__(self) -> None:
         self.redis_client = RedisClient()
-        self.items_ids_json = {
-            'strange': {},
-            'normal': {}
-        }
+        self.items_ids_json = {}
 
-    def _check_if_dict_id_exists(self, type, is_stattrak, max_price):
+    def _check_if_dict_id_exists(self, type, name, is_stattrak, max_price):
         id = 'strange' if is_stattrak else 'normal'
 
-        if self.items_ids_json[id]:
-            return
+        keyword = name.split(" (")[0]
+        redis_key = f"{type}_{keyword}_{id}_haloskins_cookies"
 
-        redis_key = f"{type}_haloskins_cookies_{id}"
         if self.redis_client.exists(redis_key):
             logging.debug(f"Found cookies in redis for {redis_key}")
             cookies_json = self.redis_client.get(redis_key)
             self.items_ids_json[id] = json.loads(cookies_json)
         else:
+            logging.debug(f"Updating haloskins mapping for name: {name}")
             url = "https://api.haloskins.com/steam-trade-center/search/product/list?appId=730"
             payload = json.dumps({
                 "appId": 730,
                 "limit": 50,
                 "page": 1,
                 "maxPrice": max_price,
-                "keyword": type,
+                "keyword": keyword,
                 "sort": 0,
                 "quality": "strange" if is_stattrak else "normal"
             })
@@ -475,13 +472,12 @@ class HaloskinsHelper(BaseHelper):
             for value in json.loads(response.text)["data"]["list"]:
                 mapping[value["itemName"]] = value["itemId"]
 
-            logging.debug("Updaing haloskins mapping: {}".format(mapping))
             self.redis_client.set(redis_key, json.dumps(mapping), ex=3600)
-            self.items_ids_json[id] = mapping
+            self.items_ids_json = mapping
 
     def _get_item_id(self, name):
         id = 'strange' if 'StatTrak™' in name else 'normal'
-        return self.items_ids_json[id][name] if name in self.items_ids_json[id] else None
+        return self.items_ids_json[name] if name in self.items_ids_json else None
 
     def parse_item(self, item):
         key_price = item["itemName"]
@@ -492,7 +488,11 @@ class HaloskinsHelper(BaseHelper):
 
         stickers_keys = [sticker.get("name", sticker.get("enName", "")) for sticker in asset_info.get("stickers", [])]
         stickers_wears = [sticker.get("wear") for sticker in asset_info.get("stickers", [])]
-        item_float = asset_info.get("wear")
+
+        try:
+            item_float = float(asset_info.get("wear")) if asset_info.get("wear") is not None else None
+        except:
+            item_float = None
 
         item_in_game_link = None  # Default to None if key is missing
         pattern_template = asset_info.get("paintSeed")
@@ -503,7 +503,7 @@ class HaloskinsHelper(BaseHelper):
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         try:
-            self._check_if_dict_id_exists(type, is_stattrak, max_price)
+            self._check_if_dict_id_exists(type, name, is_stattrak, max_price)
             fullname = self._get_fullname(type, name, is_stattrak)
 
             item_id = self._get_item_id(fullname)
@@ -523,7 +523,8 @@ class HaloskinsHelper(BaseHelper):
             response = requests.request("POST", url, headers={ 'Content-Type': 'application/json' }, data=payload, proxies=get_proxy_config())
 
             return json.loads(response.text)["data"]["list"]
-        except:
+        except Exception as e:
+            logging.error(e)
             return None
 
 class DmarketHelper(BaseHelper):
@@ -860,7 +861,7 @@ class WaxPeerHelper(BaseHelper):
             driver_class = SeleniumDriver()
             driver = driver_class.driver
             driver.delete_all_cookies()
-            driver.get("https://waxpeer.com/api/data/index/?game=csgo&search=AK-47%20%7C%20Aquamarine%20Revenge%20%28Battle-Scarred%29&lang=en&stat_trak=0&max_price=1500000&min_price=0&skip=0")
+            driver.get("https://waxpeer.com/")
 
             time.sleep(10)
 
@@ -902,7 +903,8 @@ class WaxPeerHelper(BaseHelper):
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://waxpeer.com/api/data/index/?game=csgo&search={quote(f'{type} | {name}')}&lang=en&stat_trak={1 if is_stattrak else 0}&max_price={max_price * 1000}&min_price=0&skip={page_number * self.MAX_ITEMS_PER_PAGE}"
-        response = requests.request("GET", url, data={})
+        response = requests.request("GET", url, data={}, proxies=get_proxy_config())
+
         try:
             if json.loads(response.text) and len(json.loads(response.text)["items"]) >= 0:
                 return json.loads(response.text)["items"]
