@@ -78,7 +78,7 @@ def run_action(market, db_client: DBClient, redis_client: RedisClient, message, 
                 if (
                     future_profit_percentages_steam > 30 and
                     item_price < 200 and
-                    sticker_sum > 3 and
+                    sticker_sum > 5 and
                     stickers_pattern in ['4-equal', '5-equal'] and
                     len(stickers_wears) == len(stickers_keys) and
                     all(wear == 0 for wear in stickers_wears)
