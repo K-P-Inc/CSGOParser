@@ -114,7 +114,7 @@ class CSMoneyHelper(BaseHelper):
 
     def do_request(self, type, name, is_stattrak, max_price, page_number = 0):
         url = f"https://cs.money/1.0/market/sell-orders?isStatTrak={'true' if is_stattrak else 'false'}&order=asc&sort=price&isSouvenir=false&hasStickers=true&limit={self.MAX_ITEMS_PER_PAGE}&name={quote(type)}%20%7C%20{quote(name)}&offset={page_number * self.MAX_ITEMS_PER_PAGE}&maxPrice={max_price}"
-        response = requests.request("GET", url, headers={}, data={})
+        response = requests.request("GET", url, headers={}, data={}, proxies=get_proxy_config())
 
         json_response = json.loads(response.text)
         if json_response and "items" in json_response and len(json_response["items"]) >= 0:
@@ -183,7 +183,7 @@ class MarketCSGOHelper(BaseHelper):
             'Content-Type': 'application/json'
         }
 
-        response = requests.request("POST", url, headers=headers, data=payload)
+        response = requests.request("POST", url, headers=headers, data=payload, proxies=get_proxy_config())
 
         try:
             if json.loads(response.text) and len(json.loads(response.text)["data"]["items"]["data"]) >= 0:
