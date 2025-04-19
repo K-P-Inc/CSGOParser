@@ -4,12 +4,13 @@ import traceback
 import logging
 import hydra
 import threading
+import asyncio
 from pathlib import Path
 from omegaconf import DictConfig
 from dotenv import load_dotenv
 # from prometheus_client import start_http_server
-from classes import DBClient, RedisClient
 from utils import repo_path, get_stickers_dict, get_weapons_array_by_type, calculate_weapon_real_price
+from classes import DBClient, RedisClient, NotifyClient
 from classes.markets import SkinbidHelper, CSMoneyHelper, MarketCSGOHelper, SkinportHelper, CSFloatHelper, BitskinsHelper, HaloskinsHelper, DmarketHelper, WhiteMarketHelper, SkinbaronHelper, GamerPayHelper, WaxPeerHelper
 
 
@@ -26,6 +27,7 @@ def parse_item(
     found_items = []
     parsed_urls = []
     parser_type = 'api_parser'
+    notify_client = NotifyClient()
 
     logging.info(f'Parsing weapon {display_name} (found {len(items_list)})')
     for i in items_list:
@@ -78,6 +80,33 @@ def parse_item(
                 [sticker["id"] for sticker in matched_stickers],
                 stickers_wears, item_float, item_in_game_link, pattern_template, is_buy_type_fixed, stickers_distinct_variants, parser_type
             ))
+
+            # Check if item meets notification criteria
+            if (future_profit_percentages_buff > 0 and
+                stickers_pattern in ['4-equal', '5-equal'] and
+                len(stickers_wears) == len(stickers_keys) and
+                all(wear == 0 for wear in stickers_wears)):
+
+                # Extract weapon name and quality from key_price
+                weapon_parts = key_price.split(" (")
+                weapon_name = weapon_parts[0]
+                weapon_quality = weapon_parts[1].rstrip(")") if len(weapon_parts) > 1 else "Unknown"
+
+                # Create event loop and run async notification
+                notify_client.send_profitable_sticker_notification(
+                    market_name=market_class.DB_ENUM_NAME,
+                    item_link=item_link,
+                    profit_percentage=future_profit_percentages_buff,
+                    sticker_pattern=stickers_pattern,
+                    stickers_wears=stickers_wears,
+                    weapon_name=weapon_name,
+                    weapon_quality=weapon_quality,
+                    item_price=item_price,
+                    sticker_sum=sticker_sum,
+                    stickers_names=[sticker["name"] for sticker in matched_stickers],
+                    item_float=item_float
+                )
+
             logging.debug(
                 f'Found new item:\n\n'
                 f'Link: {item_link}\n'
