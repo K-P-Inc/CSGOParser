@@ -102,7 +102,7 @@ def parse_item(
                 notify_client.send_profitable_sticker_notification(
                     market_name=market_class.DB_ENUM_NAME,
                     item_link=item_link,
-                    profit_percentage=future_profit_percentages_buff,
+                    profit_percentage=future_profit_percentages_steam,
                     sticker_pattern=stickers_pattern,
                     stickers_wears=stickers_wears,
                     weapon_name=weapon_name,
