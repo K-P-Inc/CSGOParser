@@ -19,3 +19,4 @@ trio-websocket==0.11.1
 websocket-client==1.7.0
 websockets==12.0
 python-socketio
+telegram
