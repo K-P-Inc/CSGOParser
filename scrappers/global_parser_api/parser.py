@@ -91,26 +91,28 @@ def parse_item(
                 stickers_pattern in ['4-equal', '5-equal']
             ):
 
-                # Extract weapon name and quality from key_price
-                weapon_parts = key_price.split(" (")
-                weapon_name = weapon_parts[0]
-                weapon_quality = weapon_parts[1].rstrip(")") if len(weapon_parts) > 1 else "Unknown"
+                # Check if skin already exists in database
+                if not db_client.check_skin_exists(market_class.DB_ENUM_NAME, item_link):
+                    # Extract weapon name and quality from key_price
+                    weapon_parts = key_price.split(" (")
+                    weapon_name = weapon_parts[0]
+                    weapon_quality = weapon_parts[1].rstrip(")") if len(weapon_parts) > 1 else "Unknown"
 
-                # Use the synchronous version of send_profitable_sticker_notification
-                notify_client.send_profitable_sticker_notification(
-                    market_name=market_class.DB_ENUM_NAME,
-                    item_link=item_link,
-                    profit_percentage=future_profit_percentages_steam,
-                    sticker_pattern=stickers_pattern,
-                    stickers_wears=stickers_wears,
-                    weapon_name=weapon_name,
-                    weapon_quality=weapon_quality,
-                    item_price=item_price,
-                    sticker_sum=sticker_sum,
-                    stickers_names=[sticker["name"] for sticker in matched_stickers],
-                    item_float=item_float if item_float is not None else -1,
-                    icon_url=icon_url
-                )
+                    # Use the synchronous version of send_profitable_sticker_notification
+                    notify_client.send_profitable_sticker_notification(
+                        market_name=market_class.DB_ENUM_NAME,
+                        item_link=item_link,
+                        profit_percentage=future_profit_percentages_steam,
+                        sticker_pattern=stickers_pattern,
+                        stickers_wears=stickers_wears,
+                        weapon_name=weapon_name,
+                        weapon_quality=weapon_quality,
+                        item_price=item_price,
+                        sticker_sum=sticker_sum,
+                        stickers_names=[sticker["name"] for sticker in matched_stickers],
+                        item_float=item_float if item_float is not None else -1,
+                        icon_url=icon_url
+                    )
 
             logging.debug(
                 f'Found new item:\n\n'

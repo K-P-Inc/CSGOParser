@@ -276,6 +276,16 @@ class DBClient:
 
         return item_links, items_id, csgo_links
 
+    @retry
+    def check_skin_exists(self, market: str, item_link: str) -> bool:
+        with self.db.cursor() as cursor:
+            try:
+                query = "SELECT EXISTS(SELECT 1 FROM skins WHERE market = %s AND link = %s)"
+                cursor.execute(query, (market, item_link))
+                return cursor.fetchone()[0]
+            except Exception as e:
+                logging.error(f'Error while checking if skin exists: {e}')
+                return False
 
     def __del__(self) -> None:
         if self.db:
