@@ -1,10 +1,5 @@
 FROM python:3.10-slim-buster
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        netcat && \
-    rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
 COPY items_prices_parser/ /app/items_prices_parser/
