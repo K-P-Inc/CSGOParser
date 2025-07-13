@@ -85,9 +85,9 @@ def parse_item(
 
             # Check if item meets notification criteria
             if (
-                future_profit_percentages_steam > 30 and
-                item_price < 200 and
-                sticker_sum > 5 and
+                future_profit_percentages_steam > 20 and
+                item_price < 300 and
+                sticker_sum > 30 and
                 stickers_pattern in ['4-equal', '5-equal']
             ):
 
